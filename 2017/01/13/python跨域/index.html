@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="要做挑战杯，从0开始用python写后台，串口通讯本来想用python的GUI来写的，但是觉得太丑了，于是乎，就用老办法python做后台，然后写前端迎面而来的，就是跨域问题。从网上找了好长时间也没有什么办法解决看到一个还算合适的，感谢他我的参考 可是写上之后并没有解决问题，但是问题已经换掉了，变成了Credentials flag is ‘true’, but the ‘Access-Contr">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python跨域">
+<meta property="og:url" content="zhangfuli.github.io/2017/01/13/python跨域/index.html">
+<meta property="og:site_name" content="I&#39;m 404 NotFound">
+<meta property="og:description" content="要做挑战杯，从0开始用python写后台，串口通讯本来想用python的GUI来写的，但是觉得太丑了，于是乎，就用老办法python做后台，然后写前端迎面而来的，就是跨域问题。从网上找了好长时间也没有什么办法解决看到一个还算合适的，感谢他我的参考 可是写上之后并没有解决问题，但是问题已经换掉了，变成了Credentials flag is ‘true’, but the ‘Access-Contr">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-01-13T02:38:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python跨域">
+<meta name="twitter:description" content="要做挑战杯，从0开始用python写后台，串口通讯本来想用python的GUI来写的，但是觉得太丑了，于是乎，就用老办法python做后台，然后写前端迎面而来的，就是跨域问题。从网上找了好长时间也没有什么办法解决看到一个还算合适的，感谢他我的参考 可是写上之后并没有解决问题，但是问题已经换掉了，变成了Credentials flag is ‘true’, but the ‘Access-Contr">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="zhangfuli.github.io/2017/01/13/python跨域/"/>
+
+
+
+
+
+  <title>python跨域 | I'm 404 NotFound</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">I'm 404 NotFound</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2017/01/13/python跨域/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张富利">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm 404 NotFound">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python跨域</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-13T10:25:34+08:00">
+                2017-01-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="要做挑战杯，从0开始用python写后台，串口通讯"><a href="#要做挑战杯，从0开始用python写后台，串口通讯" class="headerlink" title="要做挑战杯，从0开始用python写后台，串口通讯"></a>要做挑战杯，从0开始用python写后台，串口通讯</h3><h3 id="本来想用python的GUI来写的，但是觉得太丑了，于是乎，就用老办法python做后台，然后写前端"><a href="#本来想用python的GUI来写的，但是觉得太丑了，于是乎，就用老办法python做后台，然后写前端" class="headerlink" title="本来想用python的GUI来写的，但是觉得太丑了，于是乎，就用老办法python做后台，然后写前端"></a>本来想用python的GUI来写的，但是觉得太丑了，于是乎，就用老办法python做后台，然后写前端</h3><h3 id="迎面而来的，就是跨域问题。从网上找了好长时间也没有什么办法解决"><a href="#迎面而来的，就是跨域问题。从网上找了好长时间也没有什么办法解决" class="headerlink" title="迎面而来的，就是跨域问题。从网上找了好长时间也没有什么办法解决"></a>迎面而来的，就是跨域问题。从网上找了好长时间也没有什么办法解决</h3><h3 id="看到一个还算合适的，感谢他"><a href="#看到一个还算合适的，感谢他" class="headerlink" title="看到一个还算合适的，感谢他"></a>看到一个还算合适的，感谢他</h3><p><a href="https://segmentfault.com/a/1190000000753690" target="_blank" rel="external">我的参考</a></p>
+<h3 id="可是写上之后并没有解决问题，但是问题已经换掉了，变成了"><a href="#可是写上之后并没有解决问题，但是问题已经换掉了，变成了" class="headerlink" title="可是写上之后并没有解决问题，但是问题已经换掉了，变成了"></a>可是写上之后并没有解决问题，但是问题已经换掉了，变成了</h3><h3 id="Credentials-flag-is-‘true’-but-the-‘Access-Control-Allow-Credentials’-header-is-‘’-It-must-be-‘true’-to-allow-credentials"><a href="#Credentials-flag-is-‘true’-but-the-‘Access-Control-Allow-Credentials’-header-is-‘’-It-must-be-‘true’-to-allow-credentials" class="headerlink" title="Credentials flag is ‘true’, but the ‘Access-Control-Allow-Credentials’ header is ‘’. It must be ‘true’ to allow credentials"></a>Credentials flag is ‘true’, but the ‘Access-Control-Allow-Credentials’ header is ‘’. It must be ‘true’ to allow credentials</h3><h3 id="原先没写过python，加上这两天写numpy头要炸了，自己试着摸索一下吧。"><a href="#原先没写过python，加上这两天写numpy头要炸了，自己试着摸索一下吧。" class="headerlink" title="原先没写过python，加上这两天写numpy头要炸了，自己试着摸索一下吧。"></a>原先没写过python，加上这两天写numpy头要炸了，自己试着摸索一下吧。</h3><pre><code>rst.headers[&apos;Access-Control-Allow-Credentials&apos;] = &apos;true&apos;
+</code></pre><h3 id="加上了这一句，没想到，成了！接着就是angularjs请求了。嘿嘿"><a href="#加上了这一句，没想到，成了！接着就是angularjs请求了。嘿嘿" class="headerlink" title="加上了这一句，没想到，成了！接着就是angularjs请求了。嘿嘿"></a>加上了这一句，没想到，成了！接着就是angularjs请求了。嘿嘿</h3><h3 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h3><pre><code>from functools import wraps
+from flask import make_response
+
+
+def allow_cross_domain(fun):
+    @wraps(fun)
+    def wrapper_fun(*args, **kwargs):
+        rst = make_response(fun(*args, **kwargs))
+        rst.headers[&apos;Access-Control-Allow-Origin&apos;] = &apos;*&apos;
+        rst.headers[&apos;Access-Control-Allow-Methods&apos;] = &apos;PUT,GET,POST,DELETE&apos;
+        allow_headers = &quot;Referer,Accept,Origin,User-Agent&quot;
+        rst.headers[&apos;Access-Control-Allow-Headers&apos;] = allow_headers
+        return rst
+    return wrapper_fun
+
+
+@app.route(&apos;/hosts/&apos;)
+@allow_cross_domain
+def domains():
+    pass
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/05/interval和-timeout服务实现定时器/" rel="next" title="$interval和$timeout服务实现定时器">
+                <i class="fa fa-chevron-left"></i> $interval和$timeout服务实现定时器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/01/编码与乱码/" rel="prev" title="编码与乱码">
+                编码与乱码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">张富利</p>
+              <p class="site-description motion-element" itemprop="description">Do myself,Believe myself,Try my best</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#要做挑战杯，从0开始用python写后台，串口通讯"><span class="nav-number">1.</span> <span class="nav-text">要做挑战杯，从0开始用python写后台，串口通讯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本来想用python的GUI来写的，但是觉得太丑了，于是乎，就用老办法python做后台，然后写前端"><span class="nav-number">2.</span> <span class="nav-text">本来想用python的GUI来写的，但是觉得太丑了，于是乎，就用老办法python做后台，然后写前端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迎面而来的，就是跨域问题。从网上找了好长时间也没有什么办法解决"><span class="nav-number">3.</span> <span class="nav-text">迎面而来的，就是跨域问题。从网上找了好长时间也没有什么办法解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#看到一个还算合适的，感谢他"><span class="nav-number">4.</span> <span class="nav-text">看到一个还算合适的，感谢他</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可是写上之后并没有解决问题，但是问题已经换掉了，变成了"><span class="nav-number">5.</span> <span class="nav-text">可是写上之后并没有解决问题，但是问题已经换掉了，变成了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Credentials-flag-is-‘true’-but-the-‘Access-Control-Allow-Credentials’-header-is-‘’-It-must-be-‘true’-to-allow-credentials"><span class="nav-number">6.</span> <span class="nav-text">Credentials flag is ‘true’, but the ‘Access-Control-Allow-Credentials’ header is ‘’. It must be ‘true’ to allow credentials</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原先没写过python，加上这两天写numpy头要炸了，自己试着摸索一下吧。"><span class="nav-number">7.</span> <span class="nav-text">原先没写过python，加上这两天写numpy头要炸了，自己试着摸索一下吧。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加上了这一句，没想到，成了！接着就是angularjs请求了。嘿嘿"><span class="nav-number">8.</span> <span class="nav-text">加上了这一句，没想到，成了！接着就是angularjs请求了。嘿嘿</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码如下"><span class="nav-number">9.</span> <span class="nav-text">代码如下</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张富利</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

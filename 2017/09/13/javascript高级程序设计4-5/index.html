@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="javascript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="传递参数基本数据类型，直接在内存中存放，引用数据类型，变量名是指针function setName(obj){     obj.name = &amp;quot;zfl&amp;quot;     obj = new Object()    //obj指针又指向了另外一块内存     obj.name = &amp;quot;123&amp;quot; } let person = new Object() setName(pe">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript高级程序设计4-5">
+<meta property="og:url" content="zhangfuli.github.io/2017/09/13/javascript高级程序设计4-5/index.html">
+<meta property="og:site_name" content="I&#39;m 404 NotFound">
+<meta property="og:description" content="传递参数基本数据类型，直接在内存中存放，引用数据类型，变量名是指针function setName(obj){     obj.name = &amp;quot;zfl&amp;quot;     obj = new Object()    //obj指针又指向了另外一块内存     obj.name = &amp;quot;123&amp;quot; } let person = new Object() setName(pe">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-27T14:48:46.429Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript高级程序设计4-5">
+<meta name="twitter:description" content="传递参数基本数据类型，直接在内存中存放，引用数据类型，变量名是指针function setName(obj){     obj.name = &amp;quot;zfl&amp;quot;     obj = new Object()    //obj指针又指向了另外一块内存     obj.name = &amp;quot;123&amp;quot; } let person = new Object() setName(pe">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="zhangfuli.github.io/2017/09/13/javascript高级程序设计4-5/"/>
+
+
+
+
+
+  <title>javascript高级程序设计4-5 | I'm 404 NotFound</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">I'm 404 NotFound</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2017/09/13/javascript高级程序设计4-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张富利">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm 404 NotFound">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">javascript高级程序设计4-5</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-13T21:33:51+08:00">
+                2017-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="传递参数"><a href="#传递参数" class="headerlink" title="传递参数"></a>传递参数</h2><h3 id="基本数据类型，直接在内存中存放，引用数据类型，变量名是指针"><a href="#基本数据类型，直接在内存中存放，引用数据类型，变量名是指针" class="headerlink" title="基本数据类型，直接在内存中存放，引用数据类型，变量名是指针"></a>基本数据类型，直接在内存中存放，引用数据类型，变量名是指针</h3><pre><code>function setName(obj){
+    obj.name = &quot;zfl&quot;
+    obj = new Object()    //obj指针又指向了另外一块内存
+    obj.name = &quot;123&quot;
+}
+let person = new Object()
+setName(person)
+console.log(person.name)
+</code></pre><h2 id="检测类型"><a href="#检测类型" class="headerlink" title="检测类型"></a>检测类型</h2><h3 id="null是object类型-typeof-null-–-gt-object"><a href="#null是object类型-typeof-null-–-gt-object" class="headerlink" title="null是object类型     typeof null   –&gt;object"></a>null是object类型     typeof null   –&gt;object</h3><h3 id="检测类跟对象时用-instanceof"><a href="#检测类跟对象时用-instanceof" class="headerlink" title="检测类跟对象时用 instanceof"></a>检测类跟对象时用 instanceof</h3><h4 id="person-instanceof-Object-–-gt-person是object吗？"><a href="#person-instanceof-Object-–-gt-person是object吗？" class="headerlink" title="person instanceof Object   –&gt;person是object吗？"></a>person instanceof Object   –&gt;person是object吗？</h4><h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><pre><code>let color = &quot;blue&quot;
+function change(){
+    if(color == &quot;blue&quot;){
+        color = &quot;red&quot;
+    }
+}
+change()
+console.log(color)
+</code></pre><h3 id="函数内可以访问函数外的作用域，函数外的不能访问函数内的，var跟let一样"><a href="#函数内可以访问函数外的作用域，函数外的不能访问函数内的，var跟let一样" class="headerlink" title="函数内可以访问函数外的作用域，函数外的不能访问函数内的，var跟let一样"></a>函数内可以访问函数外的作用域，函数外的不能访问函数内的，var跟let一样</h3><h3 id="with作用域块跟with平级"><a href="#with作用域块跟with平级" class="headerlink" title="with作用域块跟with平级"></a>with作用域块跟with平级</h3><h3 id="var没有块级作用域"><a href="#var没有块级作用域" class="headerlink" title="var没有块级作用域"></a>var没有块级作用域</h3><pre><code>if(true){
+    var color=&quot;blue&quot;
+}
+console.log(color)    //---&gt;blue
+</code></pre><h3 id="let存在块级作用域"><a href="#let存在块级作用域" class="headerlink" title="let存在块级作用域"></a>let存在块级作用域</h3><pre><code>if(true){
+    let color=&quot;blue&quot;
+}
+console.log(color)    //---&gt;undefined
+</code></pre><h2 id="垃圾收集"><a href="#垃圾收集" class="headerlink" title="垃圾收集"></a>垃圾收集</h2><h3 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h3><h4 id="当变量进入环境时，就将这个变量标记为进入环境。从逻辑上讲，永远不能释放进入幻境的变量所占的内存，因为只要执行流进入相应的环境，就可能会用到它们。而当变量离开环境时，则将其标记为离开环境"><a href="#当变量进入环境时，就将这个变量标记为进入环境。从逻辑上讲，永远不能释放进入幻境的变量所占的内存，因为只要执行流进入相应的环境，就可能会用到它们。而当变量离开环境时，则将其标记为离开环境" class="headerlink" title="当变量进入环境时，就将这个变量标记为进入环境。从逻辑上讲，永远不能释放进入幻境的变量所占的内存，因为只要执行流进入相应的环境，就可能会用到它们。而当变量离开环境时，则将其标记为离开环境"></a>当变量进入环境时，就将这个变量标记为进入环境。从逻辑上讲，永远不能释放进入幻境的变量所占的内存，因为只要执行流进入相应的环境，就可能会用到它们。而当变量离开环境时，则将其标记为离开环境</h4><h3 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h3><h4 id="跟踪记录每个值被引用的次数。当引用次数为0时，可将内存收回。"><a href="#跟踪记录每个值被引用的次数。当引用次数为0时，可将内存收回。" class="headerlink" title="跟踪记录每个值被引用的次数。当引用次数为0时，可将内存收回。"></a>跟踪记录每个值被引用的次数。当引用次数为0时，可将内存收回。</h4><h4 id="循环引用时，引用计数会崩溃，一般不用"><a href="#循环引用时，引用计数会崩溃，一般不用" class="headerlink" title="循环引用时，引用计数会崩溃，一般不用"></a>循环引用时，引用计数会崩溃，一般不用</h4><h2 id="基本变量类型在内存中占据固定大小的空间，被保存在栈内存中"><a href="#基本变量类型在内存中占据固定大小的空间，被保存在栈内存中" class="headerlink" title="基本变量类型在内存中占据固定大小的空间，被保存在栈内存中"></a>基本变量类型在内存中占据固定大小的空间，被保存在栈内存中</h2><h2 id="引用类型的值是对象，保存在堆内存中"><a href="#引用类型的值是对象，保存在堆内存中" class="headerlink" title="引用类型的值是对象，保存在堆内存中"></a>引用类型的值是对象，保存在堆内存中</h2><h2 id="函数的局部变量可以访问其父作用域的变量"><a href="#函数的局部变量可以访问其父作用域的变量" class="headerlink" title="函数的局部变量可以访问其父作用域的变量"></a>函数的局部变量可以访问其父作用域的变量</h2><h2 id="访问对象属性的方法"><a href="#访问对象属性的方法" class="headerlink" title="访问对象属性的方法"></a>访问对象属性的方法</h2><h3 id="1-点表示法-person-name"><a href="#1-点表示法-person-name" class="headerlink" title="1.点表示法    person.name"></a>1.点表示法    person.name</h3><h3 id="2-方括号表示法-person-“name”-属性名有空格时可以这样访问-person-“first-name”"><a href="#2-方括号表示法-person-“name”-属性名有空格时可以这样访问-person-“first-name”" class="headerlink" title="2.方括号表示法 person[“name”],属性名有空格时可以这样访问  person[“first name”]"></a>2.方括号表示法 person[“name”],属性名有空格时可以这样访问  person[“first name”]</h3><h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><h4 id="let-colors-new-Array-3-创建length为3的数组"><a href="#let-colors-new-Array-3-创建length为3的数组" class="headerlink" title="let colors = new Array(3)   //创建length为3的数组"></a>let colors = new Array(3)   //创建length为3的数组</h4><h4 id="let-values-1-2-会创建一个包含3或4项的数组"><a href="#let-values-1-2-会创建一个包含3或4项的数组" class="headerlink" title="let values = [1,2,,]  //会创建一个包含3或4项的数组"></a>let values = [1,2,,]  //会创建一个包含3或4项的数组</h4><h4 id="let-values-会创建一个包含3或4项的数组"><a href="#let-values-会创建一个包含3或4项的数组" class="headerlink" title="let values = [,,,]  //会创建一个包含3或4项的数组"></a>let values = [,,,]  //会创建一个包含3或4项的数组</h4><h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><h4 id="Array-isArray"><a href="#Array-isArray" class="headerlink" title="Array.isArray()"></a>Array.isArray()</h4><h5 id="判断是不是数组"><a href="#判断是不是数组" class="headerlink" title="判断是不是数组"></a>判断是不是数组</h5><h4 id="valueOf-、toString"><a href="#valueOf-、toString" class="headerlink" title="valueOf()、toString()"></a>valueOf()、toString()</h4><h5 id="valueOf-返回的还是数组、toString-返回的是字符串"><a href="#valueOf-返回的还是数组、toString-返回的是字符串" class="headerlink" title="valueOf()返回的还是数组、toString()返回的是字符串"></a>valueOf()返回的还是数组、toString()返回的是字符串</h5><h4 id="join"><a href="#join" class="headerlink" title="join()"></a>join()</h4><h5 id="使用不同的分隔符来构建字符串"><a href="#使用不同的分隔符来构建字符串" class="headerlink" title="使用不同的分隔符来构建字符串"></a>使用不同的分隔符来构建字符串</h5><pre><code>var value = [&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]
+value.join(&quot;|&quot;)
+console.log(value.join(&quot;|&quot;))  //  1|2|3
+</code></pre><h4 id="栈方法"><a href="#栈方法" class="headerlink" title="栈方法"></a>栈方法</h4><h5 id="push-、pop-数组尾"><a href="#push-、pop-数组尾" class="headerlink" title="push()、pop() 数组尾"></a>push()、pop() 数组尾</h5><h5 id="shift-、unshift-数组头"><a href="#shift-、unshift-数组头" class="headerlink" title="shift()、unshift() 数组头"></a>shift()、unshift() 数组头</h5><h4 id="reverse"><a href="#reverse" class="headerlink" title="reverse()"></a>reverse()</h4><h5 id="反转排序"><a href="#反转排序" class="headerlink" title="反转排序"></a>反转排序</h5><h4 id="sort"><a href="#sort" class="headerlink" title="sort()"></a>sort()</h4><h5 id="按照升序排序，但是排的是字符串"><a href="#按照升序排序，但是排的是字符串" class="headerlink" title="按照升序排序，但是排的是字符串"></a>按照升序排序，但是排的是字符串</h5><pre><code>var values = [0,1,5,10,15]
+var aftersort = values.sort()
+console.log(aftersort)               //0 1 10 15 5     
+var aftercomp = values.sort(function (value1, value2){
+    if(value1 &gt; value2){
+        return 1
+    }else if(value1 &lt; value2){
+        return -1
+    }else{
+        return 0
+    }
+})
+or
+var aftercomp = values.sort(function (value1, value2){
+    return value2- value1
+})
+console.log(aftercomp)  // 0 1 5 10 15
+</code></pre><h5 id="本来想去找找js原生库函数的源代码，只在ecmascript-js里找到了定义-实际上在v8编辑器里，在https-developer-mozilla-org-en-US-search-q-sort里，给出了详细的用法，这里就不说了。有时间看看v8源码"><a href="#本来想去找找js原生库函数的源代码，只在ecmascript-js里找到了定义-实际上在v8编辑器里，在https-developer-mozilla-org-en-US-search-q-sort里，给出了详细的用法，这里就不说了。有时间看看v8源码" class="headerlink" title="本来想去找找js原生库函数的源代码，只在ecmascript.js里找到了定义,实际上在v8编辑器里，在https://developer.mozilla.org/en-US/search?q=sort里，给出了详细的用法，这里就不说了。有时间看看v8源码"></a>本来想去找找js原生库函数的源代码，只在ecmascript.js里找到了定义,实际上在v8编辑器里，在<a href="https://developer.mozilla.org/en-US/search?q=sort里，给出了详细的用法，这里就不说了。有时间看看v8源码" target="_blank" rel="external">https://developer.mozilla.org/en-US/search?q=sort里，给出了详细的用法，这里就不说了。有时间看看v8源码</a></h5><h4 id="concat"><a href="#concat" class="headerlink" title="concat()"></a>concat()</h4><h5 id="连接，返回连接后的数组，不影响原数组"><a href="#连接，返回连接后的数组，不影响原数组" class="headerlink" title="连接，返回连接后的数组，不影响原数组"></a>连接，返回连接后的数组，不影响原数组</h5><h4 id="slice"><a href="#slice" class="headerlink" title="slice()"></a>slice()</h4><h5 id="接受一个或者两个参数，即要返回项的起始位置和结束位置-不包括结束位"><a href="#接受一个或者两个参数，即要返回项的起始位置和结束位置-不包括结束位" class="headerlink" title="接受一个或者两个参数，即要返回项的起始位置和结束位置(不包括结束位)"></a>接受一个或者两个参数，即要返回项的起始位置和结束位置(不包括结束位)</h5><pre><code>var values = [0,1,2,3]
+var value1 = values.slice(1)
+var value2 = values.slice(1,3)
+console.log(value1)  // 1 2 3
+console.log(value2)  // 1 2
+</code></pre><h4 id="splice"><a href="#splice" class="headerlink" title="splice()"></a>splice()</h4><h4 id="两个参数-要删除的第一项和要删除的项数"><a href="#两个参数-要删除的第一项和要删除的项数" class="headerlink" title="两个参数:要删除的第一项和要删除的项数"></a>两个参数:要删除的第一项和要删除的项数</h4><h4 id="三个参数-起始位置、要删除的项数、要插入的项数"><a href="#三个参数-起始位置、要删除的项数、要插入的项数" class="headerlink" title="三个参数:起始位置、要删除的项数、要插入的项数"></a>三个参数:起始位置、要删除的项数、要插入的项数</h4><pre><code>var values = [0,1,2,3]
+values.splice(0,1)
+console.log(values)     // [1, 2, 3]
+values.splice(0,0,&quot;c1&quot;,&quot;c2&quot;)
+console.log(values)     // [&quot;c1&quot;, &quot;c2&quot;, 1, 2, 3]
+values.splice(0,1,&quot;s1&quot;,&quot;s2&quot;)
+console.log(values)     // [&quot;c1&quot;, &quot;c2&quot;, 1, 2, 3]
+</code></pre><h4 id="位置方法indexOf-lastIndexOf"><a href="#位置方法indexOf-lastIndexOf" class="headerlink" title="位置方法indexOf() lastIndexOf()"></a>位置方法indexOf() lastIndexOf()</h4><pre><code>var person = {name:&quot;zfl&quot;}
+var people = [{name:&quot;zfl&quot;}]
+var morepeople = [people]
+console.log(morepeople)
+console.log(people.indexOf(person))   //-1 //查找项必须严格相等  ===  没有返回-1
+console.log(morepeople.indexOf(people)) // 0
+</code></pre><h4 id="迭代方法"><a href="#迭代方法" class="headerlink" title="迭代方法"></a>迭代方法</h4><h5 id="every-对于每一项运行给定函数，若每一项都返回true，则返回true"><a href="#every-对于每一项运行给定函数，若每一项都返回true，则返回true" class="headerlink" title="every():对于每一项运行给定函数，若每一项都返回true，则返回true"></a>every():对于每一项运行给定函数，若每一项都返回true，则返回true</h5><h5 id="filter-返回true项给组成的数组"><a href="#filter-返回true项给组成的数组" class="headerlink" title="filter():返回true项给组成的数组"></a>filter():返回true项给组成的数组</h5><h5 id="forEach-每项运行给定函数-无返回值"><a href="#forEach-每项运行给定函数-无返回值" class="headerlink" title="forEach(): 每项运行给定函数,无返回值"></a>forEach(): 每项运行给定函数,无返回值</h5><h5 id="map-返回每次调用函数返回的结果组成的数组"><a href="#map-返回每次调用函数返回的结果组成的数组" class="headerlink" title="map(): 返回每次调用函数返回的结果组成的数组"></a>map(): 返回每次调用函数返回的结果组成的数组</h5><h5 id="some-若某项返回true，则返回true"><a href="#some-若某项返回true，则返回true" class="headerlink" title="some(): 若某项返回true，则返回true"></a>some(): 若某项返回true，则返回true</h5><pre><code>var value = [1,2,3,4,5,6]
+var everyResult = value.every(function (item, index, array){  //值 项数 数组
+    return item&gt;2
+}) 
+console.log(everyResult)   //false
+var filterResult = value.filter(function (item, index, array){  //值 项数 数组
+    return item&gt;2
+})
+console.log(filterResult)  //[3, 4, 5, 6]
+var mapResult = value.map(function (item, index, array){  //值 项数 数组
+    return item = item +2
+})
+console.log(mapResult)   //[3, 4, 5, 6]
+var forEachResult = value.forEach(function (item, index, array){  //值 项数 数组
+    return item = item + 2
+})
+console.log(forEachResult)  //undefined
+</code></pre><h2 id="Date"><a href="#Date" class="headerlink" title="Date()"></a>Date()</h2><h3 id="Date-parse"><a href="#Date-parse" class="headerlink" title="Date.parse()"></a>Date.parse()</h3><h4 id="接受一个表示日期的字符串参数，然后尝试根据这个字符串返回相应的日期毫秒数"><a href="#接受一个表示日期的字符串参数，然后尝试根据这个字符串返回相应的日期毫秒数" class="headerlink" title="接受一个表示日期的字符串参数，然后尝试根据这个字符串返回相应的日期毫秒数"></a>接受一个表示日期的字符串参数，然后尝试根据这个字符串返回相应的日期毫秒数</h4><h3 id="时间戳转日期"><a href="#时间戳转日期" class="headerlink" title="时间戳转日期"></a>时间戳转日期</h3><h4 id="详情可见如下链接，将此方法携程管道函数来执行"><a href="#详情可见如下链接，将此方法携程管道函数来执行" class="headerlink" title="详情可见如下链接，将此方法携程管道函数来执行"></a>详情可见如下链接，将此方法携程管道函数来执行</h4><p><a href="https://gitee.com/UPCmvc/front_student/blob/master/src/config/date.js" target="_blank" rel="external">链接</a></p>
+<h2 id="关于Function的几个要点"><a href="#关于Function的几个要点" class="headerlink" title="关于Function的几个要点"></a>关于Function的几个要点</h2><h3 id="函数实际上是个对象"><a href="#函数实际上是个对象" class="headerlink" title="函数实际上是个对象"></a>函数实际上是个对象</h3><h3 id="函数名仅仅是指向对象的指针"><a href="#函数名仅仅是指向对象的指针" class="headerlink" title="函数名仅仅是指向对象的指针"></a>函数名仅仅是指向对象的指针</h3><h3 id="用function-name-定义的会存在变量提升，而let-name-function-则不会"><a href="#用function-name-定义的会存在变量提升，而let-name-function-则不会" class="headerlink" title="用function name(){}定义的会存在变量提升，而let name = function(){}则不会"></a>用function name(){}定义的会存在变量提升，而let name = function(){}则不会</h3><h3 id="没有重载、没有重载、没有重载"><a href="#没有重载、没有重载、没有重载" class="headerlink" title="没有重载、没有重载、没有重载"></a>没有重载、没有重载、没有重载</h3><h3 id="函数名本身就是变量可以作为参数传递"><a href="#函数名本身就是变量可以作为参数传递" class="headerlink" title="函数名本身就是变量可以作为参数传递"></a>函数名本身就是变量可以作为参数传递</h3><h3 id="函数内部的固有属性arguments和this，arguments除了保存函数的参数，有一个callee的属性，这个属性是个指针指向拥有这个arguments对象的函数-还有一个caller保存调用这个函数的引用"><a href="#函数内部的固有属性arguments和this，arguments除了保存函数的参数，有一个callee的属性，这个属性是个指针指向拥有这个arguments对象的函数-还有一个caller保存调用这个函数的引用" class="headerlink" title="函数内部的固有属性arguments和this，arguments除了保存函数的参数，有一个callee的属性，这个属性是个指针指向拥有这个arguments对象的函数,还有一个caller保存调用这个函数的引用"></a>函数内部的固有属性arguments和this，arguments除了保存函数的参数，有一个callee的属性，这个属性是个指针指向拥有这个arguments对象的函数,还有一个caller保存调用这个函数的引用</h3><h4 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h4><pre><code>function f(){
+    if(num&lt;=1){
+        return 1
+    }else{
+        return num*arguments.callee(num-1)   //为了降低耦合性
+    }
+}
+</code></pre><h4 id="caller"><a href="#caller" class="headerlink" title="caller"></a>caller</h4><pre><code>function outer(){
+    inner()
+}
+function inner(){
+    console.log(arguments.callee.caller)
+}
+outer()   //ƒ outer(){inner()}
+</code></pre><h3 id="bind-用于绑定作用域，this值会被绑定到bind-函数的值"><a href="#bind-用于绑定作用域，this值会被绑定到bind-函数的值" class="headerlink" title="bind()用于绑定作用域，this值会被绑定到bind()函数的值"></a>bind()用于绑定作用域，this值会被绑定到bind()函数的值</h3><h2 id="基本包装类型"><a href="#基本包装类型" class="headerlink" title="基本包装类型"></a>基本包装类型</h2><h3 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h3><h4 id="toFixed-2-保留两位小数"><a href="#toFixed-2-保留两位小数" class="headerlink" title="toFixed(2) 保留两位小数"></a>toFixed(2) 保留两位小数</h4><h4 id="toExponential-1-10–-gt-1-0e1返回指数形式并保留1位小数"><a href="#toExponential-1-10–-gt-1-0e1返回指数形式并保留1位小数" class="headerlink" title="toExponential(1)   10–&gt;1.0e1返回指数形式并保留1位小数"></a>toExponential(1)   10–&gt;1.0e1返回指数形式并保留1位小数</h4><h4 id="toPrecision-返回某个数值最合适的格式"><a href="#toPrecision-返回某个数值最合适的格式" class="headerlink" title="toPrecision()   返回某个数值最合适的格式"></a>toPrecision()   返回某个数值最合适的格式</h4><h3 id="string"><a href="#string" class="headerlink" title="string"></a>string</h3><h4 id="trim-去掉前后空格"><a href="#trim-去掉前后空格" class="headerlink" title="trim() 去掉前后空格"></a>trim() 去掉前后空格</h4><h4 id="toUpperCase-toLocaleLowerCase-返回大小写"><a href="#toUpperCase-toLocaleLowerCase-返回大小写" class="headerlink" title="toUpperCase()  toLocaleLowerCase() 返回大小写"></a>toUpperCase()  toLocaleLowerCase() 返回大小写</h4><h4 id="replace-代替，可以匹配正则"><a href="#replace-代替，可以匹配正则" class="headerlink" title="replace()  代替，可以匹配正则"></a>replace()  代替，可以匹配正则</h4><h5 id="例一"><a href="#例一" class="headerlink" title="例一"></a>例一</h5><pre><code>var date = &quot;2017/09/27&quot;
+date = date.replace(/\//g,&quot;-&quot;)  
+console.log(date)   //2017-09-27
+</code></pre><h5 id="例二"><a href="#例二" class="headerlink" title="例二"></a>例二</h5><pre><code>    function rep(text){
+    return text.replace(/[&lt;&gt;&quot;]/g, function (match, pos, originalText){
+        switch(match){
+            case &quot;&lt;&quot;:
+                return &quot;小于&quot;
+            case &quot;&gt;&quot;:
+                return &quot;大于&quot;
+            case &quot;\&quot;&quot;:
+                return &quot;引号&quot;
+        }
+    })
+}
+var text = &quot;&lt;&gt;\&quot;&quot;
+text = rep(text)
+console.log(text)   //小于大于引号
+</code></pre><h4 id="match-返回数组"><a href="#match-返回数组" class="headerlink" title="match() 返回数组"></a>match() 返回数组</h4><pre><code>var date = &quot;2017/09/27&quot;
+var matches = date.match(/..\//g)  
+console.log(matches) //(2) [&quot;17/&quot;, &quot;09/&quot;]
+</code></pre><h5 id="如果要用RegExp对象的exec-要将字符串作为参数"><a href="#如果要用RegExp对象的exec-要将字符串作为参数" class="headerlink" title="如果要用RegExp对象的exec()要将字符串作为参数"></a>如果要用RegExp对象的exec()要将字符串作为参数</h5><h4 id="search-找到某元素的位置可以为正则"><a href="#search-找到某元素的位置可以为正则" class="headerlink" title="search()找到某元素的位置可以为正则"></a>search()找到某元素的位置可以为正则</h4><h4 id="split-分割字符串，一个参数就按参数分割，两个参数，第二个参数是个数字，返回第二个参数长度的数组"><a href="#split-分割字符串，一个参数就按参数分割，两个参数，第二个参数是个数字，返回第二个参数长度的数组" class="headerlink" title="split()分割字符串，一个参数就按参数分割，两个参数，第二个参数是个数字，返回第二个参数长度的数组"></a>split()分割字符串，一个参数就按参数分割，两个参数，第二个参数是个数字，返回第二个参数长度的数组</h4><h2 id="单体内置对象"><a href="#单体内置对象" class="headerlink" title="单体内置对象"></a>单体内置对象</h2><h3 id="encodeURI-用于整个URI，encodeURIComponent对部分URI"><a href="#encodeURI-用于整个URI，encodeURIComponent对部分URI" class="headerlink" title="encodeURI()用于整个URI，encodeURIComponent对部分URI"></a>encodeURI()用于整个URI，encodeURIComponent对部分URI</h3><h4 id="decodeURI-decodeURIComponent分别对上述两个进行解码"><a href="#decodeURI-decodeURIComponent分别对上述两个进行解码" class="headerlink" title="decodeURI(),decodeURIComponent分别对上述两个进行解码"></a>decodeURI(),decodeURIComponent分别对上述两个进行解码</h4><h3 id="eval-只知道会改变作用域链就ok"><a href="#eval-只知道会改变作用域链就ok" class="headerlink" title="eval()  只知道会改变作用域链就ok"></a>eval()  只知道会改变作用域链就ok</h3><h3 id="Math"><a href="#Math" class="headerlink" title="Math"></a>Math</h3><h4 id="Math-ceil-向上四舍五入"><a href="#Math-ceil-向上四舍五入" class="headerlink" title="Math.ceil() 向上四舍五入"></a>Math.ceil() 向上四舍五入</h4><h4 id="Math-floor-向下四舍五入"><a href="#Math-floor-向下四舍五入" class="headerlink" title="Math.floor() 向下四舍五入"></a>Math.floor() 向下四舍五入</h4><h4 id="Math-round-标准四舍五入"><a href="#Math-round-标准四舍五入" class="headerlink" title="Math.round() 标准四舍五入"></a>Math.round() 标准四舍五入</h4><h4 id="Math-random-产生一个0——1的随机数"><a href="#Math-random-产生一个0——1的随机数" class="headerlink" title="Math.random() 产生一个0——1的随机数"></a>Math.random() 产生一个0——1的随机数</h4>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/10/javascript高级程序设计1-3/" rel="next" title="javascript高级程序设计1-3">
+                <i class="fa fa-chevron-left"></i> javascript高级程序设计1-3
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/18/17建模国赛心得/" rel="prev" title="17建模国赛心得">
+                17建模国赛心得 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">张富利</p>
+              <p class="site-description motion-element" itemprop="description">Do myself,Believe myself,Try my best</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#传递参数"><span class="nav-number">1.</span> <span class="nav-text">传递参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本数据类型，直接在内存中存放，引用数据类型，变量名是指针"><span class="nav-number">1.1.</span> <span class="nav-text">基本数据类型，直接在内存中存放，引用数据类型，变量名是指针</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测类型"><span class="nav-number">2.</span> <span class="nav-text">检测类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#null是object类型-typeof-null-–-gt-object"><span class="nav-number">2.1.</span> <span class="nav-text">null是object类型     typeof null   –>object</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检测类跟对象时用-instanceof"><span class="nav-number">2.2.</span> <span class="nav-text">检测类跟对象时用 instanceof</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#person-instanceof-Object-–-gt-person是object吗？"><span class="nav-number">2.2.1.</span> <span class="nav-text">person instanceof Object   –>person是object吗？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域"><span class="nav-number">3.</span> <span class="nav-text">作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数内可以访问函数外的作用域，函数外的不能访问函数内的，var跟let一样"><span class="nav-number">3.1.</span> <span class="nav-text">函数内可以访问函数外的作用域，函数外的不能访问函数内的，var跟let一样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#with作用域块跟with平级"><span class="nav-number">3.2.</span> <span class="nav-text">with作用域块跟with平级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#var没有块级作用域"><span class="nav-number">3.3.</span> <span class="nav-text">var没有块级作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#let存在块级作用域"><span class="nav-number">3.4.</span> <span class="nav-text">let存在块级作用域</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾收集"><span class="nav-number">4.</span> <span class="nav-text">垃圾收集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标记清除"><span class="nav-number">4.1.</span> <span class="nav-text">标记清除</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#当变量进入环境时，就将这个变量标记为进入环境。从逻辑上讲，永远不能释放进入幻境的变量所占的内存，因为只要执行流进入相应的环境，就可能会用到它们。而当变量离开环境时，则将其标记为离开环境"><span class="nav-number">4.1.1.</span> <span class="nav-text">当变量进入环境时，就将这个变量标记为进入环境。从逻辑上讲，永远不能释放进入幻境的变量所占的内存，因为只要执行流进入相应的环境，就可能会用到它们。而当变量离开环境时，则将其标记为离开环境</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用计数"><span class="nav-number">4.2.</span> <span class="nav-text">引用计数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#跟踪记录每个值被引用的次数。当引用次数为0时，可将内存收回。"><span class="nav-number">4.2.1.</span> <span class="nav-text">跟踪记录每个值被引用的次数。当引用次数为0时，可将内存收回。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环引用时，引用计数会崩溃，一般不用"><span class="nav-number">4.2.2.</span> <span class="nav-text">循环引用时，引用计数会崩溃，一般不用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本变量类型在内存中占据固定大小的空间，被保存在栈内存中"><span class="nav-number">5.</span> <span class="nav-text">基本变量类型在内存中占据固定大小的空间，被保存在栈内存中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用类型的值是对象，保存在堆内存中"><span class="nav-number">6.</span> <span class="nav-text">引用类型的值是对象，保存在堆内存中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数的局部变量可以访问其父作用域的变量"><span class="nav-number">7.</span> <span class="nav-text">函数的局部变量可以访问其父作用域的变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问对象属性的方法"><span class="nav-number">8.</span> <span class="nav-text">访问对象属性的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-点表示法-person-name"><span class="nav-number">8.1.</span> <span class="nav-text">1.点表示法    person.name</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-方括号表示法-person-“name”-属性名有空格时可以这样访问-person-“first-name”"><span class="nav-number">8.2.</span> <span class="nav-text">2.方括号表示法 person[“name”],属性名有空格时可以这样访问  person[“first name”]</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">9.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建"><span class="nav-number">9.1.</span> <span class="nav-text">创建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#let-colors-new-Array-3-创建length为3的数组"><span class="nav-number">9.1.1.</span> <span class="nav-text">let colors = new Array(3)   //创建length为3的数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#let-values-1-2-会创建一个包含3或4项的数组"><span class="nav-number">9.1.2.</span> <span class="nav-text">let values = [1,2,,]  //会创建一个包含3或4项的数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#let-values-会创建一个包含3或4项的数组"><span class="nav-number">9.1.3.</span> <span class="nav-text">let values = [,,,]  //会创建一个包含3或4项的数组</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法"><span class="nav-number">9.2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Array-isArray"><span class="nav-number">9.2.1.</span> <span class="nav-text">Array.isArray()</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#判断是不是数组"><span class="nav-number">9.2.1.1.</span> <span class="nav-text">判断是不是数组</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#valueOf-、toString"><span class="nav-number">9.2.2.</span> <span class="nav-text">valueOf()、toString()</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#valueOf-返回的还是数组、toString-返回的是字符串"><span class="nav-number">9.2.2.1.</span> <span class="nav-text">valueOf()返回的还是数组、toString()返回的是字符串</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#join"><span class="nav-number">9.2.3.</span> <span class="nav-text">join()</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用不同的分隔符来构建字符串"><span class="nav-number">9.2.3.1.</span> <span class="nav-text">使用不同的分隔符来构建字符串</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈方法"><span class="nav-number">9.2.4.</span> <span class="nav-text">栈方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#push-、pop-数组尾"><span class="nav-number">9.2.4.1.</span> <span class="nav-text">push()、pop() 数组尾</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#shift-、unshift-数组头"><span class="nav-number">9.2.4.2.</span> <span class="nav-text">shift()、unshift() 数组头</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reverse"><span class="nav-number">9.2.5.</span> <span class="nav-text">reverse()</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#反转排序"><span class="nav-number">9.2.5.1.</span> <span class="nav-text">反转排序</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sort"><span class="nav-number">9.2.6.</span> <span class="nav-text">sort()</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#按照升序排序，但是排的是字符串"><span class="nav-number">9.2.6.1.</span> <span class="nav-text">按照升序排序，但是排的是字符串</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#本来想去找找js原生库函数的源代码，只在ecmascript-js里找到了定义-实际上在v8编辑器里，在https-developer-mozilla-org-en-US-search-q-sort里，给出了详细的用法，这里就不说了。有时间看看v8源码"><span class="nav-number">9.2.6.2.</span> <span class="nav-text">本来想去找找js原生库函数的源代码，只在ecmascript.js里找到了定义,实际上在v8编辑器里，在https://developer.mozilla.org/en-US/search?q=sort里，给出了详细的用法，这里就不说了。有时间看看v8源码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#concat"><span class="nav-number">9.2.7.</span> <span class="nav-text">concat()</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#连接，返回连接后的数组，不影响原数组"><span class="nav-number">9.2.7.1.</span> <span class="nav-text">连接，返回连接后的数组，不影响原数组</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slice"><span class="nav-number">9.2.8.</span> <span class="nav-text">slice()</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#接受一个或者两个参数，即要返回项的起始位置和结束位置-不包括结束位"><span class="nav-number">9.2.8.1.</span> <span class="nav-text">接受一个或者两个参数，即要返回项的起始位置和结束位置(不包括结束位)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#splice"><span class="nav-number">9.2.9.</span> <span class="nav-text">splice()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#两个参数-要删除的第一项和要删除的项数"><span class="nav-number">9.2.10.</span> <span class="nav-text">两个参数:要删除的第一项和要删除的项数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三个参数-起始位置、要删除的项数、要插入的项数"><span class="nav-number">9.2.11.</span> <span class="nav-text">三个参数:起始位置、要删除的项数、要插入的项数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#位置方法indexOf-lastIndexOf"><span class="nav-number">9.2.12.</span> <span class="nav-text">位置方法indexOf() lastIndexOf()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代方法"><span class="nav-number">9.2.13.</span> <span class="nav-text">迭代方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#every-对于每一项运行给定函数，若每一项都返回true，则返回true"><span class="nav-number">9.2.13.1.</span> <span class="nav-text">every():对于每一项运行给定函数，若每一项都返回true，则返回true</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#filter-返回true项给组成的数组"><span class="nav-number">9.2.13.2.</span> <span class="nav-text">filter():返回true项给组成的数组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#forEach-每项运行给定函数-无返回值"><span class="nav-number">9.2.13.3.</span> <span class="nav-text">forEach(): 每项运行给定函数,无返回值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#map-返回每次调用函数返回的结果组成的数组"><span class="nav-number">9.2.13.4.</span> <span class="nav-text">map(): 返回每次调用函数返回的结果组成的数组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#some-若某项返回true，则返回true"><span class="nav-number">9.2.13.5.</span> <span class="nav-text">some(): 若某项返回true，则返回true</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Date"><span class="nav-number">10.</span> <span class="nav-text">Date()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Date-parse"><span class="nav-number">10.1.</span> <span class="nav-text">Date.parse()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#接受一个表示日期的字符串参数，然后尝试根据这个字符串返回相应的日期毫秒数"><span class="nav-number">10.1.1.</span> <span class="nav-text">接受一个表示日期的字符串参数，然后尝试根据这个字符串返回相应的日期毫秒数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间戳转日期"><span class="nav-number">10.2.</span> <span class="nav-text">时间戳转日期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#详情可见如下链接，将此方法携程管道函数来执行"><span class="nav-number">10.2.1.</span> <span class="nav-text">详情可见如下链接，将此方法携程管道函数来执行</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于Function的几个要点"><span class="nav-number">11.</span> <span class="nav-text">关于Function的几个要点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数实际上是个对象"><span class="nav-number">11.1.</span> <span class="nav-text">函数实际上是个对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数名仅仅是指向对象的指针"><span class="nav-number">11.2.</span> <span class="nav-text">函数名仅仅是指向对象的指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用function-name-定义的会存在变量提升，而let-name-function-则不会"><span class="nav-number">11.3.</span> <span class="nav-text">用function name(){}定义的会存在变量提升，而let name = function(){}则不会</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#没有重载、没有重载、没有重载"><span class="nav-number">11.4.</span> <span class="nav-text">没有重载、没有重载、没有重载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数名本身就是变量可以作为参数传递"><span class="nav-number">11.5.</span> <span class="nav-text">函数名本身就是变量可以作为参数传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数内部的固有属性arguments和this，arguments除了保存函数的参数，有一个callee的属性，这个属性是个指针指向拥有这个arguments对象的函数-还有一个caller保存调用这个函数的引用"><span class="nav-number">11.6.</span> <span class="nav-text">函数内部的固有属性arguments和this，arguments除了保存函数的参数，有一个callee的属性，这个属性是个指针指向拥有这个arguments对象的函数,还有一个caller保存调用这个函数的引用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#递归"><span class="nav-number">11.6.1.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#caller"><span class="nav-number">11.6.2.</span> <span class="nav-text">caller</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bind-用于绑定作用域，this值会被绑定到bind-函数的值"><span class="nav-number">11.7.</span> <span class="nav-text">bind()用于绑定作用域，this值会被绑定到bind()函数的值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本包装类型"><span class="nav-number">12.</span> <span class="nav-text">基本包装类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Number"><span class="nav-number">12.1.</span> <span class="nav-text">Number</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#toFixed-2-保留两位小数"><span class="nav-number">12.1.1.</span> <span class="nav-text">toFixed(2) 保留两位小数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#toExponential-1-10–-gt-1-0e1返回指数形式并保留1位小数"><span class="nav-number">12.1.2.</span> <span class="nav-text">toExponential(1)   10–>1.0e1返回指数形式并保留1位小数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#toPrecision-返回某个数值最合适的格式"><span class="nav-number">12.1.3.</span> <span class="nav-text">toPrecision()   返回某个数值最合适的格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string"><span class="nav-number">12.2.</span> <span class="nav-text">string</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#trim-去掉前后空格"><span class="nav-number">12.2.1.</span> <span class="nav-text">trim() 去掉前后空格</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#toUpperCase-toLocaleLowerCase-返回大小写"><span class="nav-number">12.2.2.</span> <span class="nav-text">toUpperCase()  toLocaleLowerCase() 返回大小写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#replace-代替，可以匹配正则"><span class="nav-number">12.2.3.</span> <span class="nav-text">replace()  代替，可以匹配正则</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#例一"><span class="nav-number">12.2.3.1.</span> <span class="nav-text">例一</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#例二"><span class="nav-number">12.2.3.2.</span> <span class="nav-text">例二</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#match-返回数组"><span class="nav-number">12.2.4.</span> <span class="nav-text">match() 返回数组</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#如果要用RegExp对象的exec-要将字符串作为参数"><span class="nav-number">12.2.4.1.</span> <span class="nav-text">如果要用RegExp对象的exec()要将字符串作为参数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#search-找到某元素的位置可以为正则"><span class="nav-number">12.2.5.</span> <span class="nav-text">search()找到某元素的位置可以为正则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#split-分割字符串，一个参数就按参数分割，两个参数，第二个参数是个数字，返回第二个参数长度的数组"><span class="nav-number">12.2.6.</span> <span class="nav-text">split()分割字符串，一个参数就按参数分割，两个参数，第二个参数是个数字，返回第二个参数长度的数组</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单体内置对象"><span class="nav-number">13.</span> <span class="nav-text">单体内置对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#encodeURI-用于整个URI，encodeURIComponent对部分URI"><span class="nav-number">13.1.</span> <span class="nav-text">encodeURI()用于整个URI，encodeURIComponent对部分URI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#decodeURI-decodeURIComponent分别对上述两个进行解码"><span class="nav-number">13.1.1.</span> <span class="nav-text">decodeURI(),decodeURIComponent分别对上述两个进行解码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#eval-只知道会改变作用域链就ok"><span class="nav-number">13.2.</span> <span class="nav-text">eval()  只知道会改变作用域链就ok</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Math"><span class="nav-number">13.3.</span> <span class="nav-text">Math</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Math-ceil-向上四舍五入"><span class="nav-number">13.3.1.</span> <span class="nav-text">Math.ceil() 向上四舍五入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Math-floor-向下四舍五入"><span class="nav-number">13.3.2.</span> <span class="nav-text">Math.floor() 向下四舍五入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Math-round-标准四舍五入"><span class="nav-number">13.3.3.</span> <span class="nav-text">Math.round() 标准四舍五入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Math-random-产生一个0——1的随机数"><span class="nav-number">13.3.4.</span> <span class="nav-text">Math.random() 产生一个0——1的随机数</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张富利</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一直想写一个爬虫玩玩，试过python，这个语法太难搞，对于深谙C、JS的人来说一不小心就写错。还好JS的强大，nodejs可以操作各种文件流，而且nodejs可以操作DOM节点(cheerio)，这样做一个简单的爬虫就比较简单了这里我们需要配置一下环境(当然node是必须的)express这是nodejs的一个框架,安装的话执行npm install -g express 安装完成之后，执行ex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nodejs爬虫">
+<meta property="og:url" content="zhangfuli.github.io/2016/11/04/nodejs爬虫/index.html">
+<meta property="og:site_name" content="I&#39;m 404 NotFound">
+<meta property="og:description" content="一直想写一个爬虫玩玩，试过python，这个语法太难搞，对于深谙C、JS的人来说一不小心就写错。还好JS的强大，nodejs可以操作各种文件流，而且nodejs可以操作DOM节点(cheerio)，这样做一个简单的爬虫就比较简单了这里我们需要配置一下环境(当然node是必须的)express这是nodejs的一个框架,安装的话执行npm install -g express 安装完成之后，执行ex">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2016-11-06T04:36:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="nodejs爬虫">
+<meta name="twitter:description" content="一直想写一个爬虫玩玩，试过python，这个语法太难搞，对于深谙C、JS的人来说一不小心就写错。还好JS的强大，nodejs可以操作各种文件流，而且nodejs可以操作DOM节点(cheerio)，这样做一个简单的爬虫就比较简单了这里我们需要配置一下环境(当然node是必须的)express这是nodejs的一个框架,安装的话执行npm install -g express 安装完成之后，执行ex">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="zhangfuli.github.io/2016/11/04/nodejs爬虫/"/>
+
+
+
+
+
+  <title>nodejs爬虫 | I'm 404 NotFound</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">I'm 404 NotFound</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2016/11/04/nodejs爬虫/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张富利">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="I'm 404 NotFound">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">nodejs爬虫</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-04T14:29:14+08:00">
+                2016-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="一直想写一个爬虫玩玩，试过python，这个语法太难搞，对于深谙C、JS的人来说一不小心就写错。"><a href="#一直想写一个爬虫玩玩，试过python，这个语法太难搞，对于深谙C、JS的人来说一不小心就写错。" class="headerlink" title="一直想写一个爬虫玩玩，试过python，这个语法太难搞，对于深谙C、JS的人来说一不小心就写错。"></a>一直想写一个爬虫玩玩，试过python，这个语法太难搞，对于深谙C、JS的人来说一不小心就写错。</h4><h4 id="还好JS的强大，nodejs可以操作各种文件流，而且nodejs可以操作DOM节点-cheerio-，这样做一个简单的爬虫就比较简单了"><a href="#还好JS的强大，nodejs可以操作各种文件流，而且nodejs可以操作DOM节点-cheerio-，这样做一个简单的爬虫就比较简单了" class="headerlink" title="还好JS的强大，nodejs可以操作各种文件流，而且nodejs可以操作DOM节点(cheerio)，这样做一个简单的爬虫就比较简单了"></a>还好JS的强大，nodejs可以操作各种文件流，而且nodejs可以操作DOM节点(cheerio)，这样做一个简单的爬虫就比较简单了</h4><h4 id="这里我们需要配置一下环境-当然node是必须的"><a href="#这里我们需要配置一下环境-当然node是必须的" class="headerlink" title="这里我们需要配置一下环境(当然node是必须的)"></a>这里我们需要配置一下环境(当然node是必须的)</h4><h3 id="express"><a href="#express" class="headerlink" title="express"></a>express</h3><h4 id="这是nodejs的一个框架-安装的话执行"><a href="#这是nodejs的一个框架-安装的话执行" class="headerlink" title="这是nodejs的一个框架,安装的话执行"></a>这是nodejs的一个框架,安装的话执行</h4><pre><code>npm install -g express
+</code></pre><h4 id="安装完成之后，执行"><a href="#安装完成之后，执行" class="headerlink" title="安装完成之后，执行"></a>安装完成之后，执行</h4><pre><code>express spider(项目名)
+</code></pre><h4 id="它会自动给你写好配置文件-配置好了之后执行"><a href="#它会自动给你写好配置文件-配置好了之后执行" class="headerlink" title="它会自动给你写好配置文件,配置好了之后执行"></a>它会自动给你写好配置文件,配置好了之后执行</h4><pre><code>npm install
+</code></pre><h4 id="毕竟你会需要一些包-而这些包名都会在package-json里面写好"><a href="#毕竟你会需要一些包-而这些包名都会在package-json里面写好" class="headerlink" title="毕竟你会需要一些包,而这些包名都会在package.json里面写好"></a>毕竟你会需要一些包,而这些包名都会在package.json里面写好</h4><h3 id="cheerio"><a href="#cheerio" class="headerlink" title="cheerio"></a>cheerio</h3><h4 id="这是nodejs的一个包-快速、灵活和精益核心jQuery专门为服务器的实现。"><a href="#这是nodejs的一个包-快速、灵活和精益核心jQuery专门为服务器的实现。" class="headerlink" title="这是nodejs的一个包,快速、灵活和精益核心jQuery专门为服务器的实现。"></a>这是nodejs的一个包,快速、灵活和精益核心jQuery专门为服务器的实现。</h4><h4 id="其实就我的理解-nodejs是不会操作DOM的。JS才是操作DOM和浏览器的。"><a href="#其实就我的理解-nodejs是不会操作DOM的。JS才是操作DOM和浏览器的。" class="headerlink" title="其实就我的理解,nodejs是不会操作DOM的。JS才是操作DOM和浏览器的。"></a>其实就我的理解,nodejs是不会操作DOM的。JS才是操作DOM和浏览器的。</h4><h4 id="cheerio只是写方法-类似于jq而已"><a href="#cheerio只是写方法-类似于jq而已" class="headerlink" title="cheerio只是写方法$,类似于jq而已"></a>cheerio只是写方法$,类似于jq而已</h4><h4 id="在工程中执行"><a href="#在工程中执行" class="headerlink" title="在工程中执行"></a>在工程中执行</h4><pre><code>npm install cheerio --save-dev
+</code></pre><h4 id="那–save-dev是什么意思呢？就是把cheerio写入你的工程，通过这些命令，我们会得到一个新的package-json。而且这些包也会写入node-modules"><a href="#那–save-dev是什么意思呢？就是把cheerio写入你的工程，通过这些命令，我们会得到一个新的package-json。而且这些包也会写入node-modules" class="headerlink" title="那–save-dev是什么意思呢？就是把cheerio写入你的工程，通过这些命令，我们会得到一个新的package.json。而且这些包也会写入node_modules"></a>那–save-dev是什么意思呢？就是把cheerio写入你的工程，通过这些命令，我们会得到一个新的package.json。而且这些包也会写入node_modules</h4><h3 id="request"><a href="#request" class="headerlink" title="request"></a>request</h3><h4 id="这个就是nodejs很平常的一个包了-用于发送请求的-同样，执行"><a href="#这个就是nodejs很平常的一个包了-用于发送请求的-同样，执行" class="headerlink" title="这个就是nodejs很平常的一个包了,用于发送请求的,同样，执行"></a>这个就是nodejs很平常的一个包了,用于发送请求的,同样，执行</h4><pre><code>npm install request --save-dev
+</code></pre><h4 id="把request写入工程"><a href="#把request写入工程" class="headerlink" title="把request写入工程"></a>把request写入工程</h4><h3 id="开始写爬虫"><a href="#开始写爬虫" class="headerlink" title="开始写爬虫"></a>开始写爬虫</h3><h4 id="把express生成的工程的app-js里面的东西删掉-毕竟我们也不需要这么多的包。引入必要的request、cheerio-然后就可以写爬虫了"><a href="#把express生成的工程的app-js里面的东西删掉-毕竟我们也不需要这么多的包。引入必要的request、cheerio-然后就可以写爬虫了" class="headerlink" title="把express生成的工程的app.js里面的东西删掉,毕竟我们也不需要这么多的包。引入必要的request、cheerio,然后就可以写爬虫了"></a>把express生成的工程的app.js里面的东西删掉,毕竟我们也不需要这么多的包。引入必要的request、cheerio,然后就可以写爬虫了</h4><h4 id="大家如果不知道request、cheerio的用法可以去npmjs官网查看"><a href="#大家如果不知道request、cheerio的用法可以去npmjs官网查看" class="headerlink" title="大家如果不知道request、cheerio的用法可以去npmjs官网查看"></a>大家如果不知道request、cheerio的用法可以去npmjs官网查看</h4><h4 id="扒下来的网页用cheerio切割就可以-有些html代码用cheerio不好切-就要用到正则了"><a href="#扒下来的网页用cheerio切割就可以-有些html代码用cheerio不好切-就要用到正则了" class="headerlink" title="扒下来的网页用cheerio切割就可以,有些html代码用cheerio不好切,就要用到正则了"></a>扒下来的网页用cheerio切割就可以,有些html代码用cheerio不好切,就要用到正则了</h4><h3 id="robot协定"><a href="#robot协定" class="headerlink" title="robot协定"></a>robot协定</h3><h4 id="有些网页是不能随便乱扒的"><a href="#有些网页是不能随便乱扒的" class="headerlink" title="有些网页是不能随便乱扒的"></a>有些网页是不能随便乱扒的</h4><h4 id="在网址上输入你想扒的网页的网址的主页-robot-txt仔细看看什么不能扒-小心违反相关法律。"><a href="#在网址上输入你想扒的网页的网址的主页-robot-txt仔细看看什么不能扒-小心违反相关法律。" class="headerlink" title="在网址上输入你想扒的网页的网址的主页+robot.txt仔细看看什么不能扒,小心违反相关法律。"></a>在网址上输入你想扒的网页的网址的主页+robot.txt仔细看看什么不能扒,小心违反相关法律。</h4>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/27/css常用的定位方式/" rel="next" title="css常用的定位方式">
+                <i class="fa fa-chevron-left"></i> css常用的定位方式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/12/chocolatey/" rel="prev" title="windows下的包管理器chocolatey">
+                windows下的包管理器chocolatey <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">张富利</p>
+              <p class="site-description motion-element" itemprop="description">Do myself,Believe myself,Try my best</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一直想写一个爬虫玩玩，试过python，这个语法太难搞，对于深谙C、JS的人来说一不小心就写错。"><span class="nav-number">1.</span> <span class="nav-text">一直想写一个爬虫玩玩，试过python，这个语法太难搞，对于深谙C、JS的人来说一不小心就写错。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#还好JS的强大，nodejs可以操作各种文件流，而且nodejs可以操作DOM节点-cheerio-，这样做一个简单的爬虫就比较简单了"><span class="nav-number">2.</span> <span class="nav-text">还好JS的强大，nodejs可以操作各种文件流，而且nodejs可以操作DOM节点(cheerio)，这样做一个简单的爬虫就比较简单了</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#这里我们需要配置一下环境-当然node是必须的"><span class="nav-number">3.</span> <span class="nav-text">这里我们需要配置一下环境(当然node是必须的)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#express"><span class="nav-number"></span> <span class="nav-text">express</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#这是nodejs的一个框架-安装的话执行"><span class="nav-number">1.</span> <span class="nav-text">这是nodejs的一个框架,安装的话执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装完成之后，执行"><span class="nav-number">2.</span> <span class="nav-text">安装完成之后，执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#它会自动给你写好配置文件-配置好了之后执行"><span class="nav-number">3.</span> <span class="nav-text">它会自动给你写好配置文件,配置好了之后执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#毕竟你会需要一些包-而这些包名都会在package-json里面写好"><span class="nav-number">4.</span> <span class="nav-text">毕竟你会需要一些包,而这些包名都会在package.json里面写好</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cheerio"><span class="nav-number"></span> <span class="nav-text">cheerio</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#这是nodejs的一个包-快速、灵活和精益核心jQuery专门为服务器的实现。"><span class="nav-number">1.</span> <span class="nav-text">这是nodejs的一个包,快速、灵活和精益核心jQuery专门为服务器的实现。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其实就我的理解-nodejs是不会操作DOM的。JS才是操作DOM和浏览器的。"><span class="nav-number">2.</span> <span class="nav-text">其实就我的理解,nodejs是不会操作DOM的。JS才是操作DOM和浏览器的。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cheerio只是写方法-类似于jq而已"><span class="nav-number">3.</span> <span class="nav-text">cheerio只是写方法$,类似于jq而已</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在工程中执行"><span class="nav-number">4.</span> <span class="nav-text">在工程中执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#那–save-dev是什么意思呢？就是把cheerio写入你的工程，通过这些命令，我们会得到一个新的package-json。而且这些包也会写入node-modules"><span class="nav-number">5.</span> <span class="nav-text">那–save-dev是什么意思呢？就是把cheerio写入你的工程，通过这些命令，我们会得到一个新的package.json。而且这些包也会写入node_modules</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#request"><span class="nav-number"></span> <span class="nav-text">request</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#这个就是nodejs很平常的一个包了-用于发送请求的-同样，执行"><span class="nav-number">1.</span> <span class="nav-text">这个就是nodejs很平常的一个包了,用于发送请求的,同样，执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#把request写入工程"><span class="nav-number">2.</span> <span class="nav-text">把request写入工程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开始写爬虫"><span class="nav-number"></span> <span class="nav-text">开始写爬虫</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#把express生成的工程的app-js里面的东西删掉-毕竟我们也不需要这么多的包。引入必要的request、cheerio-然后就可以写爬虫了"><span class="nav-number">1.</span> <span class="nav-text">把express生成的工程的app.js里面的东西删掉,毕竟我们也不需要这么多的包。引入必要的request、cheerio,然后就可以写爬虫了</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#大家如果不知道request、cheerio的用法可以去npmjs官网查看"><span class="nav-number">2.</span> <span class="nav-text">大家如果不知道request、cheerio的用法可以去npmjs官网查看</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扒下来的网页用cheerio切割就可以-有些html代码用cheerio不好切-就要用到正则了"><span class="nav-number">3.</span> <span class="nav-text">扒下来的网页用cheerio切割就可以,有些html代码用cheerio不好切,就要用到正则了</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#robot协定"><span class="nav-number"></span> <span class="nav-text">robot协定</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#有些网页是不能随便乱扒的"><span class="nav-number">1.</span> <span class="nav-text">有些网页是不能随便乱扒的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在网址上输入你想扒的网页的网址的主页-robot-txt仔细看看什么不能扒-小心违反相关法律。"><span class="nav-number">2.</span> <span class="nav-text">在网址上输入你想扒的网页的网址的主页+robot.txt仔细看看什么不能扒,小心违反相关法律。</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张富利</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
