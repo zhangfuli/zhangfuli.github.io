@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="I&#39;m 404 NotFound">
 <meta property="og:description" content="属性类型数据属性[[Configurable]]:是否能通过delete删除属性，默认为true[[Enumberable]]:是否能通过for-in返回属性，默认为true[[Writable]]:能否修改属性的值，默认为true[[Value]]:数据改变上述属性Object.defineProperty()var person = {} Object.defineProperty(perso">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-09T12:08:25.833Z">
+<meta property="og:updated_time" content="2017-10-10T11:31:08.455Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面向对象的程序设计">
 <meta name="twitter:description" content="属性类型数据属性[[Configurable]]:是否能通过delete删除属性，默认为true[[Enumberable]]:是否能通过for-in返回属性，默认为true[[Writable]]:能否修改属性的值，默认为true[[Value]]:数据改变上述属性Object.defineProperty()var person = {} Object.defineProperty(perso">
@@ -380,7 +380,7 @@
       
 
       
-        <h2 id="属性类型"><a href="#属性类型" class="headerlink" title="属性类型"></a>属性类型</h2><h3 id="数据属性"><a href="#数据属性" class="headerlink" title="数据属性"></a>数据属性</h3><h4 id="Configurable-是否能通过delete删除属性，默认为true"><a href="#Configurable-是否能通过delete删除属性，默认为true" class="headerlink" title="[[Configurable]]:是否能通过delete删除属性，默认为true"></a>[[Configurable]]:是否能通过delete删除属性，默认为true</h4><h4 id="Enumberable-是否能通过for-in返回属性，默认为true"><a href="#Enumberable-是否能通过for-in返回属性，默认为true" class="headerlink" title="[[Enumberable]]:是否能通过for-in返回属性，默认为true"></a>[[Enumberable]]:是否能通过for-in返回属性，默认为true</h4><h4 id="Writable-能否修改属性的值，默认为true"><a href="#Writable-能否修改属性的值，默认为true" class="headerlink" title="[[Writable]]:能否修改属性的值，默认为true"></a>[[Writable]]:能否修改属性的值，默认为true</h4><h4 id="Value-数据"><a href="#Value-数据" class="headerlink" title="[[Value]]:数据"></a>[[Value]]:数据</h4><h3 id="改变上述属性"><a href="#改变上述属性" class="headerlink" title="改变上述属性"></a>改变上述属性</h3><h4 id="Object-defineProperty"><a href="#Object-defineProperty" class="headerlink" title="Object.defineProperty()"></a>Object.defineProperty()</h4><pre><code>var person = {}
+        <h2 id="属性类型"><a href="#属性类型" class="headerlink" title="属性类型"></a>属性类型</h2><h3 id="数据属性"><a href="#数据属性" class="headerlink" title="数据属性"></a>数据属性</h3><h5 id="Configurable-是否能通过delete删除属性，默认为true"><a href="#Configurable-是否能通过delete删除属性，默认为true" class="headerlink" title="[[Configurable]]:是否能通过delete删除属性，默认为true"></a>[[Configurable]]:是否能通过delete删除属性，默认为true</h5><h5 id="Enumberable-是否能通过for-in返回属性，默认为true"><a href="#Enumberable-是否能通过for-in返回属性，默认为true" class="headerlink" title="[[Enumberable]]:是否能通过for-in返回属性，默认为true"></a>[[Enumberable]]:是否能通过for-in返回属性，默认为true</h5><h5 id="Writable-能否修改属性的值，默认为true"><a href="#Writable-能否修改属性的值，默认为true" class="headerlink" title="[[Writable]]:能否修改属性的值，默认为true"></a>[[Writable]]:能否修改属性的值，默认为true</h5><h5 id="Value-数据"><a href="#Value-数据" class="headerlink" title="[[Value]]:数据"></a>[[Value]]:数据</h5><h3 id="改变上述属性"><a href="#改变上述属性" class="headerlink" title="改变上述属性"></a>改变上述属性</h3><h5 id="Object-defineProperty"><a href="#Object-defineProperty" class="headerlink" title="Object.defineProperty()"></a>Object.defineProperty()</h5><pre><code>var person = {}
 Object.defineProperty(person,&quot;name&quot;,{
     writable: false,   //不能重写
     value: &quot;123&quot;,
@@ -390,7 +390,7 @@ Object.defineProperty(person,&quot;name&quot;,{
 console.log(person.name)    //123
 person.name = &quot;456&quot;
 console.log(person.name)    //123
-</code></pre><h3 id="访问属性"><a href="#访问属性" class="headerlink" title="访问属性"></a>访问属性</h3><h4 id="Configurable-是否能通过delete删除属性，默认为true-1"><a href="#Configurable-是否能通过delete删除属性，默认为true-1" class="headerlink" title="[[Configurable]]:是否能通过delete删除属性，默认为true"></a>[[Configurable]]:是否能通过delete删除属性，默认为true</h4><h4 id="Enumberable-是否能通过for-in返回属性，默认为true-1"><a href="#Enumberable-是否能通过for-in返回属性，默认为true-1" class="headerlink" title="[[Enumberable]]:是否能通过for-in返回属性，默认为true"></a>[[Enumberable]]:是否能通过for-in返回属性，默认为true</h4><h4 id="Get-读取属性的时候调用的函数"><a href="#Get-读取属性的时候调用的函数" class="headerlink" title="[[Get]]:读取属性的时候调用的函数"></a>[[Get]]:读取属性的时候调用的函数</h4><h4 id="Set-写入属性的时候调用的函数"><a href="#Set-写入属性的时候调用的函数" class="headerlink" title="[[Set]]:写入属性的时候调用的函数"></a>[[Set]]:写入属性的时候调用的函数</h4><pre><code>var book = {
+</code></pre><h3 id="访问属性"><a href="#访问属性" class="headerlink" title="访问属性"></a>访问属性</h3><h5 id="Configurable-是否能通过delete删除属性，默认为true-1"><a href="#Configurable-是否能通过delete删除属性，默认为true-1" class="headerlink" title="[[Configurable]]:是否能通过delete删除属性，默认为true"></a>[[Configurable]]:是否能通过delete删除属性，默认为true</h5><h5 id="Enumberable-是否能通过for-in返回属性，默认为true-1"><a href="#Enumberable-是否能通过for-in返回属性，默认为true-1" class="headerlink" title="[[Enumberable]]:是否能通过for-in返回属性，默认为true"></a>[[Enumberable]]:是否能通过for-in返回属性，默认为true</h5><h5 id="Get-读取属性的时候调用的函数"><a href="#Get-读取属性的时候调用的函数" class="headerlink" title="[[Get]]:读取属性的时候调用的函数"></a>[[Get]]:读取属性的时候调用的函数</h5><h5 id="Set-写入属性的时候调用的函数"><a href="#Set-写入属性的时候调用的函数" class="headerlink" title="[[Set]]:写入属性的时候调用的函数"></a>[[Set]]:写入属性的时候调用的函数</h5><pre><code>var book = {
     year: 2017,
     edition: 1
 }
@@ -407,7 +407,7 @@ Object.defineProperty(book,&quot;month&quot;,{   //对month进行访问
 book.month = 2018     //调用set
 console.log(book.year)
 console.log(book.month)    //get方法返回123
-</code></pre><h4 id="访问多个属性"><a href="#访问多个属性" class="headerlink" title="访问多个属性"></a>访问多个属性</h4><pre><code>var book = {
+</code></pre><h3 id="访问多个属性"><a href="#访问多个属性" class="headerlink" title="访问多个属性"></a>访问多个属性</h3><pre><code>var book = {
     year: 2017,
     edition: 1
 }
@@ -431,9 +431,43 @@ book.month = 2018
 console.log(book.year)   //2018
 console.log(book.month)  // 123
 console.log(book.edition)  //2015
-</code></pre><h4 id="获得属性"><a href="#获得属性" class="headerlink" title="获得属性"></a>获得属性</h4><pre><code>var descriptor = Object.getOwnPropertyDescriptor(book,&quot;year&quot;)
+</code></pre><h3 id="获得属性-Object-getOwnPropertyDescriptor"><a href="#获得属性-Object-getOwnPropertyDescriptor" class="headerlink" title="获得属性 Object.getOwnPropertyDescriptor()"></a>获得属性 Object.getOwnPropertyDescriptor()</h3><pre><code>var descriptor = Object.getOwnPropertyDescriptor(book,&quot;year&quot;)
 console.log(descriptor) 
-</code></pre><h2 id="创建对象–最合适的模式"><a href="#创建对象–最合适的模式" class="headerlink" title="创建对象–最合适的模式"></a>创建对象–最合适的模式</h2>
+</code></pre><h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h2><h5 id="最合适的方法–构造函数模式和原型模式"><a href="#最合适的方法–构造函数模式和原型模式" class="headerlink" title="最合适的方法–构造函数模式和原型模式"></a>最合适的方法–构造函数模式和原型模式</h5><pre><code>function Person(name , age){
+    this.name = name
+    this.age = age
+}
+Person.prototype = {
+    constructor: Person,
+    sayName: function(){
+        console.log(this.name)
+    }
+} 
+var john = new Person(&quot;john&quot;)
+john.sayName()   //john   
+</code></pre><h6 id="此类方法属性不共享，方法共享"><a href="#此类方法属性不共享，方法共享" class="headerlink" title="此类方法属性不共享，方法共享"></a>此类方法属性不共享，方法共享</h6><h5 id="其他要点"><a href="#其他要点" class="headerlink" title="其他要点"></a>其他要点</h5><h6 id="1-可将构造函数当普通函数用-原型中不行，只能在构造函数模式中"><a href="#1-可将构造函数当普通函数用-原型中不行，只能在构造函数模式中" class="headerlink" title="1.可将构造函数当普通函数用,原型中不行，只能在构造函数模式中"></a>1.可将构造函数当普通函数用,原型中不行，只能在构造函数模式中</h6><pre><code>function Person(name , age){
+    this.name = name
+    this.age = age
+    sayName = function(){
+        console.log(this.name)
+    }
+}
+Person(&quot;john&quot;)
+window.sayName()   //john
+</code></pre><h6 id="2-内存区问题"><a href="#2-内存区问题" class="headerlink" title="2.内存区问题"></a>2.内存区问题</h6><pre><code>function Person(name , age){
+    this.name = name
+    this.age = age
+}
+Person.prototype = {
+    constructor: Person,
+    sayName: function(){
+        console.log(this.name)
+    }
+} 
+var person1 = new Person(&quot;john&quot;)
+var person2 = new Person(&quot;john2&quot;)
+console.log(person1.sayName == person2.sayName)
+</code></pre>
       
     </div>
     
@@ -601,7 +635,7 @@ console.log(descriptor)
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#属性类型"><span class="nav-number">1.</span> <span class="nav-text">属性类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据属性"><span class="nav-number">1.1.</span> <span class="nav-text">数据属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Configurable-是否能通过delete删除属性，默认为true"><span class="nav-number">1.1.1.</span> <span class="nav-text">[[Configurable]]:是否能通过delete删除属性，默认为true</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Enumberable-是否能通过for-in返回属性，默认为true"><span class="nav-number">1.1.2.</span> <span class="nav-text">[[Enumberable]]:是否能通过for-in返回属性，默认为true</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Writable-能否修改属性的值，默认为true"><span class="nav-number">1.1.3.</span> <span class="nav-text">[[Writable]]:能否修改属性的值，默认为true</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Value-数据"><span class="nav-number">1.1.4.</span> <span class="nav-text">[[Value]]:数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改变上述属性"><span class="nav-number">1.2.</span> <span class="nav-text">改变上述属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Object-defineProperty"><span class="nav-number">1.2.1.</span> <span class="nav-text">Object.defineProperty()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问属性"><span class="nav-number">1.3.</span> <span class="nav-text">访问属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Configurable-是否能通过delete删除属性，默认为true-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">[[Configurable]]:是否能通过delete删除属性，默认为true</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Enumberable-是否能通过for-in返回属性，默认为true-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">[[Enumberable]]:是否能通过for-in返回属性，默认为true</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Get-读取属性的时候调用的函数"><span class="nav-number">1.3.3.</span> <span class="nav-text">[[Get]]:读取属性的时候调用的函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Set-写入属性的时候调用的函数"><span class="nav-number">1.3.4.</span> <span class="nav-text">[[Set]]:写入属性的时候调用的函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#访问多个属性"><span class="nav-number">1.3.5.</span> <span class="nav-text">访问多个属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获得属性"><span class="nav-number">1.3.6.</span> <span class="nav-text">获得属性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建对象–最合适的模式"><span class="nav-number">2.</span> <span class="nav-text">创建对象–最合适的模式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#属性类型"><span class="nav-number">1.</span> <span class="nav-text">属性类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据属性"><span class="nav-number">1.1.</span> <span class="nav-text">数据属性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Configurable-是否能通过delete删除属性，默认为true"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">[[Configurable]]:是否能通过delete删除属性，默认为true</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Enumberable-是否能通过for-in返回属性，默认为true"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">[[Enumberable]]:是否能通过for-in返回属性，默认为true</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Writable-能否修改属性的值，默认为true"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">[[Writable]]:能否修改属性的值，默认为true</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Value-数据"><span class="nav-number">1.1.0.4.</span> <span class="nav-text">[[Value]]:数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改变上述属性"><span class="nav-number">1.2.</span> <span class="nav-text">改变上述属性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Object-defineProperty"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">Object.defineProperty()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问属性"><span class="nav-number">1.3.</span> <span class="nav-text">访问属性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Configurable-是否能通过delete删除属性，默认为true-1"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">[[Configurable]]:是否能通过delete删除属性，默认为true</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Enumberable-是否能通过for-in返回属性，默认为true-1"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">[[Enumberable]]:是否能通过for-in返回属性，默认为true</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Get-读取属性的时候调用的函数"><span class="nav-number">1.3.0.3.</span> <span class="nav-text">[[Get]]:读取属性的时候调用的函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Set-写入属性的时候调用的函数"><span class="nav-number">1.3.0.4.</span> <span class="nav-text">[[Set]]:写入属性的时候调用的函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问多个属性"><span class="nav-number">1.4.</span> <span class="nav-text">访问多个属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获得属性-Object-getOwnPropertyDescriptor"><span class="nav-number">1.5.</span> <span class="nav-text">获得属性 Object.getOwnPropertyDescriptor()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建对象"><span class="nav-number">2.</span> <span class="nav-text">创建对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#最合适的方法–构造函数模式和原型模式"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">最合适的方法–构造函数模式和原型模式</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#此类方法属性不共享，方法共享"><span class="nav-number">2.0.0.1.1.</span> <span class="nav-text">此类方法属性不共享，方法共享</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他要点"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">其他要点</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-可将构造函数当普通函数用-原型中不行，只能在构造函数模式中"><span class="nav-number">2.0.0.2.1.</span> <span class="nav-text">1.可将构造函数当普通函数用,原型中不行，只能在构造函数模式中</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-内存区问题"><span class="nav-number">2.0.0.2.2.</span> <span class="nav-text">2.内存区问题</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
