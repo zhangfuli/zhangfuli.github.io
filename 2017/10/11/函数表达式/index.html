@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="angularjs," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -81,18 +81,17 @@
 
 
 
-<meta name="description" content="AngularJS的$interval()和$timeout()服务，是你能把代码执行过程延迟一定的时间。这些服务与js中的setInterval和setTimeout的功能互交。但在angular的框架内进行语法$interval(callback ,delay , [count] , [invokeApply]); $timeout(callback ,delay , [invokeApply">
-<meta name="keywords" content="angularjs">
+<meta name="description" content="Do myself,Believe myself,Try my best">
 <meta property="og:type" content="article">
-<meta property="og:title" content="$interval和$timeout服务实现定时器">
-<meta property="og:url" content="zhangfuli.github.io/2017/01/05/interval和-timeout服务实现定时器/index.html">
+<meta property="og:title" content="函数表达式">
+<meta property="og:url" content="zhangfuli.github.io/2017/10/11/函数表达式/index.html">
 <meta property="og:site_name" content="I&#39;m 404 NotFound">
-<meta property="og:description" content="AngularJS的$interval()和$timeout()服务，是你能把代码执行过程延迟一定的时间。这些服务与js中的setInterval和setTimeout的功能互交。但在angular的框架内进行语法$interval(callback ,delay , [count] , [invokeApply]); $timeout(callback ,delay , [invokeApply">
+<meta property="og:description" content="Do myself,Believe myself,Try my best">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-01-05T14:44:12.000Z">
+<meta property="og:updated_time" content="2017-10-11T14:03:31.267Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="$interval和$timeout服务实现定时器">
-<meta name="twitter:description" content="AngularJS的$interval()和$timeout()服务，是你能把代码执行过程延迟一定的时间。这些服务与js中的setInterval和setTimeout的功能互交。但在angular的框架内进行语法$interval(callback ,delay , [count] , [invokeApply]); $timeout(callback ,delay , [invokeApply">
+<meta name="twitter:title" content="函数表达式">
+<meta name="twitter:description" content="Do myself,Believe myself,Try my best">
 
 
 
@@ -122,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="zhangfuli.github.io/2017/01/05/interval和-timeout服务实现定时器/"/>
+  <link rel="canonical" href="zhangfuli.github.io/2017/10/11/函数表达式/"/>
 
 
 
 
 
-  <title>$interval和$timeout服务实现定时器 | I'm 404 NotFound</title>
+  <title>函数表达式 | I'm 404 NotFound</title>
   
 
 
@@ -309,7 +308,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2017/01/05/interval和-timeout服务实现定时器/">
+    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2017/10/11/函数表达式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="张富利">
@@ -326,7 +325,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">$interval和$timeout服务实现定时器</h1>
+          <h1 class="post-title" itemprop="name headline">函数表达式</h1>
         
 
         <div class="post-meta">
@@ -338,8 +337,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-05T22:31:10+08:00">
-                2017-01-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-11T22:03:31+08:00">
+                2017-10-11
               </time>
             
 
@@ -376,15 +375,7 @@
       
 
       
-        <h3 id="AngularJS的-interval-和-timeout-服务，是你能把代码执行过程延迟一定的时间。这些服务与js中的setInterval和setTimeout的功能互交。但在angular的框架内进行"><a href="#AngularJS的-interval-和-timeout-服务，是你能把代码执行过程延迟一定的时间。这些服务与js中的setInterval和setTimeout的功能互交。但在angular的框架内进行" class="headerlink" title="AngularJS的$interval()和$timeout()服务，是你能把代码执行过程延迟一定的时间。这些服务与js中的setInterval和setTimeout的功能互交。但在angular的框架内进行"></a>AngularJS的$interval()和$timeout()服务，是你能把代码执行过程延迟一定的时间。这些服务与js中的setInterval和setTimeout的功能互交。但在angular的框架内进行</h3><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><pre><code>$interval(callback ,delay , [count] , [invokeApply]);
-$timeout(callback ,delay , [invokeApply]);
-</code></pre><h4 id="callback-回调函数"><a href="#callback-回调函数" class="headerlink" title="callback:回调函数"></a>callback:回调函数</h4><h4 id="delay-毫秒数"><a href="#delay-毫秒数" class="headerlink" title="delay: 毫秒数"></a>delay: 毫秒数</h4><h4 id="count-时间间隔的重复次数"><a href="#count-时间间隔的重复次数" class="headerlink" title="count: 时间间隔的重复次数"></a>count: 时间间隔的重复次数</h4><h4 id="invokeApply-boolean-默认为true"><a href="#invokeApply-boolean-默认为true" class="headerlink" title="invokeApply:boolean 默认为true"></a>invokeApply:boolean 默认为true</h4><h4 id="true导致函数只在angular事件循环的-apply-块中执行"><a href="#true导致函数只在angular事件循环的-apply-块中执行" class="headerlink" title="true导致函数只在angular事件循环的$apply()块中执行"></a>true导致函数只在angular事件循环的$apply()块中执行</h4><pre><code>var myInterval = $interval(function(){$scope.seconds++;} , 1000, 10, true);
-...
-$interval.cancel(myInterval);
-</code></pre><h3 id="如果使用-interval或-timeout建立超时时间或时间间隔，则必须在scope或element指令被销毁时显式的使用cancel-销毁它们。"><a href="#如果使用-interval或-timeout建立超时时间或时间间隔，则必须在scope或element指令被销毁时显式的使用cancel-销毁它们。" class="headerlink" title="如果使用$interval或$timeout建立超时时间或时间间隔，则必须在scope或element指令被销毁时显式的使用cancel()销毁它们。"></a>如果使用$interval或$timeout建立超时时间或时间间隔，则必须在scope或element指令被销毁时显式的使用cancel()销毁它们。</h3><pre><code>$scope.$on(&apos;$detory&apos; ,function (){
-    $scope.cancel(myInterval);
-})
-</code></pre>
+        
       
     </div>
     
@@ -428,12 +419,6 @@ $interval.cancel(myInterval);
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/angularjs/" rel="tag"># angularjs</a>
-          
-        </div>
-      
 
       
       
@@ -443,8 +428,8 @@ $interval.cancel(myInterval);
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/12/25/digest/" rel="next" title="digest">
-                <i class="fa fa-chevron-left"></i> digest
+              <a href="/2017/10/11/Linux常用命令/" rel="next" title="Linux常用命令">
+                <i class="fa fa-chevron-left"></i> Linux常用命令
               </a>
             
           </div>
@@ -453,8 +438,8 @@ $interval.cancel(myInterval);
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/01/13/python跨域/" rel="prev" title="python跨域">
-                python跨域 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/10/16/国赛被整蛊/" rel="prev" title="国赛被整蛊">
+                国赛被整蛊 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -512,17 +497,8 @@ $interval.cancel(myInterval);
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -575,22 +551,6 @@ $interval.cancel(myInterval);
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#AngularJS的-interval-和-timeout-服务，是你能把代码执行过程延迟一定的时间。这些服务与js中的setInterval和setTimeout的功能互交。但在angular的框架内进行"><span class="nav-number">1.</span> <span class="nav-text">AngularJS的$interval()和$timeout()服务，是你能把代码执行过程延迟一定的时间。这些服务与js中的setInterval和setTimeout的功能互交。但在angular的框架内进行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法"><span class="nav-number">2.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#callback-回调函数"><span class="nav-number">2.1.</span> <span class="nav-text">callback:回调函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#delay-毫秒数"><span class="nav-number">2.2.</span> <span class="nav-text">delay: 毫秒数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#count-时间间隔的重复次数"><span class="nav-number">2.3.</span> <span class="nav-text">count: 时间间隔的重复次数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#invokeApply-boolean-默认为true"><span class="nav-number">2.4.</span> <span class="nav-text">invokeApply:boolean 默认为true</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#true导致函数只在angular事件循环的-apply-块中执行"><span class="nav-number">2.5.</span> <span class="nav-text">true导致函数只在angular事件循环的$apply()块中执行</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果使用-interval或-timeout建立超时时间或时间间隔，则必须在scope或element指令被销毁时显式的使用cancel-销毁它们。"><span class="nav-number">3.</span> <span class="nav-text">如果使用$interval或$timeout建立超时时间或时间间隔，则必须在scope或element指令被销毁时显式的使用cancel()销毁它们。</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
