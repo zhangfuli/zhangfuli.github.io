@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[常用命令]]></title>
+    <url>%2F2017%2F10%2F16%2F%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[netsh winsock reset —–重置winsock目录,宿舍分配不到ipshutdown –help —–shutdown的参数查git clone ….. —— 克隆到当前文件夹git add . —– 暂存git commit —– 提交写提交备注 —– vi用法 :wqgit push —– 推送]]></content>
+      <tags>
+        <tag>生活</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[国赛被整蛊]]></title>
     <url>%2F2017%2F10%2F16%2F%E5%9B%BD%E8%B5%9B%E8%A2%AB%E6%95%B4%E8%9B%8A%2F</url>
     <content type="text"><![CDATA[国赛已经过去好长时间了，今天翻文件无意中看见”国赛A题论文.vbs”,想想在那三天的紧张的时间，看见这个是个什么心情？当然是，理性的分析一下啊。看到.vbs我就心里暗想着个东西不是啥好东西，结果用sublimetext打开一看,发现了好玩的东西dim Obj set Obj = createobject(&quot;wscript.shell&quot;) Obj.exec &quot;shutdown -s -t 0&quot; 一个basic的关机脚本,这个脚本不知坑了多少小组。哈哈哈]]></content>
