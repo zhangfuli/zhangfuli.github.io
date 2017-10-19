@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="声明函数function name(){},这个存在变量提升,而var name = function(){}不存在变量提升递归function factorial(num){     if(num&amp;lt;=1){         return 1     }else{         return num*arguments.callee(num-1) //arguments.callee ==">
+<meta name="description" content="函数声明函数function name(){},这个存在变量提升,而var name = function(){}不存在变量提升递归function factorial(num){     if(num&amp;lt;=1){         return 1     }else{         return num*arguments.callee(num-1) //arguments.callee">
 <meta name="keywords" content="javascript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="javascript高级程序设计7-8">
 <meta property="og:url" content="zhangfuli.github.io/2017/10/16/javascript高级程序设计7-8/index.html">
 <meta property="og:site_name" content="I&#39;m 404 NotFound">
-<meta property="og:description" content="声明函数function name(){},这个存在变量提升,而var name = function(){}不存在变量提升递归function factorial(num){     if(num&amp;lt;=1){         return 1     }else{         return num*arguments.callee(num-1) //arguments.callee ==">
+<meta property="og:description" content="函数声明函数function name(){},这个存在变量提升,而var name = function(){}不存在变量提升递归function factorial(num){     if(num&amp;lt;=1){         return 1     }else{         return num*arguments.callee(num-1) //arguments.callee">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-17T15:02:13.939Z">
+<meta property="og:updated_time" content="2017-10-19T14:49:54.697Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javascript高级程序设计7-8">
-<meta name="twitter:description" content="声明函数function name(){},这个存在变量提升,而var name = function(){}不存在变量提升递归function factorial(num){     if(num&amp;lt;=1){         return 1     }else{         return num*arguments.callee(num-1) //arguments.callee ==">
+<meta name="twitter:description" content="函数声明函数function name(){},这个存在变量提升,而var name = function(){}不存在变量提升递归function factorial(num){     if(num&amp;lt;=1){         return 1     }else{         return num*arguments.callee(num-1) //arguments.callee">
 
 
 
@@ -376,65 +376,39 @@
       
 
       
-        <h4 id="声明函数"><a href="#声明函数" class="headerlink" title="声明函数"></a>声明函数</h4><h5 id="function-name-这个存在变量提升-而var-name-function-不存在变量提升"><a href="#function-name-这个存在变量提升-而var-name-function-不存在变量提升" class="headerlink" title="function name(){},这个存在变量提升,而var name = function(){}不存在变量提升"></a>function name(){},这个存在变量提升,而var name = function(){}不存在变量提升</h5><h4 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h4><pre><code>function factorial(num){
+        <h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><h4 id="声明函数"><a href="#声明函数" class="headerlink" title="声明函数"></a>声明函数</h4><h5 id="function-name-这个存在变量提升-而var-name-function-不存在变量提升"><a href="#function-name-这个存在变量提升-而var-name-function-不存在变量提升" class="headerlink" title="function name(){},这个存在变量提升,而var name = function(){}不存在变量提升"></a>function name(){},这个存在变量提升,而var name = function(){}不存在变量提升</h5><h4 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h4><pre><code>function factorial(num){
     if(num&lt;=1){
         return 1
     }else{
         return num*arguments.callee(num-1) //arguments.callee === factorical
     }
 }
-</code></pre><h4 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h4><h5 id="闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见的方式就是在函数内部创建另一个函数"><a href="#闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见的方式就是在函数内部创建另一个函数" class="headerlink" title="闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见的方式就是在函数内部创建另一个函数"></a>闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见的方式就是在函数内部创建另一个函数</h5><h5 id="例一"><a href="#例一" class="headerlink" title="例一"></a>例一</h5><pre><code>var name = &quot;The Window&quot;;
+</code></pre><h4 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h4><h5 id="闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见的方式就是在函数内部创建另一个函数"><a href="#闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见的方式就是在函数内部创建另一个函数" class="headerlink" title="闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见的方式就是在函数内部创建另一个函数"></a>闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见的方式就是在函数内部创建另一个函数</h5><h5 id="当函数返回了一个闭包时。这个函数的作用域将会一直在内存中保存到闭包不存在为止"><a href="#当函数返回了一个闭包时。这个函数的作用域将会一直在内存中保存到闭包不存在为止" class="headerlink" title="当函数返回了一个闭包时。这个函数的作用域将会一直在内存中保存到闭包不存在为止"></a>当函数返回了一个闭包时。这个函数的作用域将会一直在内存中保存到闭包不存在为止</h5><p><a href="https://github.com/mqyqingfeng/Blog/issues/3" target="_blank" rel="external">推荐</a></p>
+<h5 id="例一"><a href="#例一" class="headerlink" title="例一"></a>例一</h5><pre><code>var name = &quot;The Window&quot;;
 </code></pre><p>　　var object = {<br>　　　　name : “My Object”,<br>　　　　getNameFunc : function(){<br>　　　　　　return function(){<br>　　　　　　　　return this.name;<br>　　　　　　};<br>　　　　}<br>　　};<br>　　alert(object.getNameFunc()());  //The Window</p>
-<h5 id="例二"><a href="#例二" class="headerlink" title="例二"></a>例二</h5><p><script async src="//jsfiddle.net/ffd10c2h/embed/"></script></p>
-<h5 id="例三"><a href="#例三" class="headerlink" title="例三"></a>例三</h5><h6 id="下面的例子中"><a href="#下面的例子中" class="headerlink" title="下面的例子中"></a>下面的例子中</h6><pre><code>result[i] = function(){
-    return i
-}
-</code></pre><h6 id="每一个都是返回i-这个i的作用域在f-内-而自此时f-中的i-3-所以每个都返回3"><a href="#每一个都是返回i-这个i的作用域在f-内-而自此时f-中的i-3-所以每个都返回3" class="headerlink" title="每一个都是返回i,这个i的作用域在f()内,而自此时f()中的i=3,所以每个都返回3"></a>每一个都是返回i,这个i的作用域在f()内,而自此时f()中的i=3,所以每个都返回3</h6><h6 id="而当用for–in时返回的是0-1-2-这是为什么呢？继续探究"><a href="#而当用for–in时返回的是0-1-2-这是为什么呢？继续探究" class="headerlink" title="而当用for–in时返回的是0,1,2,这是为什么呢？继续探究"></a>而当用for–in时返回的是0,1,2,这是为什么呢？继续探究</h6><h6 id="修改代码如下"><a href="#修改代码如下" class="headerlink" title="修改代码如下"></a>修改代码如下</h6><pre><code>function f(){
-    var result = new Array()
-    for(var i = 0;i&lt;3;i++){
-        result[i] = function(){
-            console.log(&quot;内:&quot;+this)
-            return i;
-        }
+<h5 id="例二"><a href="#例二" class="headerlink" title="例二"></a>例二</h5><script async src="//jsfiddle.net/ffd10c2h/embed/"></script>
+##### 例三
+###### 下面的例子中
+    result[i] = function(){
+        return i
     }
-    return result
-}
-var result = f()
-console.log(result)  //Array(3) 3个f(),这里的f()不是上面的f函数 
-console.log(result[0]())
-/*
-* 内:function (){
-*            console.log(&quot;内:&quot;+this)
-*            return i;
-*        },function (){
-*            console.log(&quot;内:&quot;+this)
-*            return i;
-*        },function (){
-*            console.log(&quot;内:&quot;+this)
-*            return i;
-*        }
-*
- */
-console.log(result[0])
-/*ƒ (){
-*            console.log(&quot;内:&quot;+this)
-*            return i;
-*        }
-*/
-</code></pre><h6 id="结果如上-console-log-result0-与console-log-result-0-可以合理的解释为什么全是3"><a href="#结果如上-console-log-result0-与console-log-result-0-可以合理的解释为什么全是3" class="headerlink" title="结果如上,console.log(result0)与console.log(result[0])可以合理的解释为什么全是3"></a>结果如上,console.log(result<a href="">0</a>)与console.log(result[0])可以合理的解释为什么全是3</h6><h5 id="疑问："><a href="#疑问：" class="headerlink" title="疑问："></a>疑问：</h5><h6 id="为什么console-log-“内：”-this-会出来3个function"><a href="#为什么console-log-“内：”-this-会出来3个function" class="headerlink" title="为什么console.log(“内：”+this)会出来3个function(){}"></a>为什么console.log(“内：”+this)会出来3个function(){}</h6><h6 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h6><pre><code>function f(){
-    let result = new Array()
-    for(let i = 0;i&lt;3;i++){
-        result[i] = function(){
-            return i;
-        }
-    }
-    return result
-}
-let result = f()
-for(let i=0;i&lt;3;i++){
-    console.log(result[i]())
-}
-</code></pre><h6 id="结果是0-1-2"><a href="#结果是0-1-2" class="headerlink" title="结果是0,1,2"></a>结果是0,1,2</h6><h4 id="块级作用域"><a href="#块级作用域" class="headerlink" title="块级作用域"></a>块级作用域</h4>
+###### 每一个都是返回i,这个i的作用域在f()内,而自此时f()中的i=3,所以每个都返回3
+###### 而当用for--in时返回的是0,1,2,这是为什么呢？继续探究
+###### 修改代码如下
+    function f(){
+        var result = new Array()
+        for(var i = 0;i<3;i++){ result[i]="function(){" console.log("内:"+this)="" return="" i;="" }="" result="" var="" console.log(result)="" array(3)="" 3个f(),这里的f()不是上面的f函数="" console.log(result[0]())="" *="" 内:function="" (){="" },function="" console.log(result[0])="" *ƒ="" ######="" 结果如上,console.log(result[0]())与console.log(result[0])可以合理的解释为什么全是3="" 而且内this指向的是result数组所以会有三个function(){}="" #####="" 疑问：="" 为什么console.log("内："+this)会出来3个function(){}="" es6="" function="" f(){="" let="" array()="" for(let="" i="0;i<3;i++){" console.log(result[i]())="" 结果是0,1,2="" ####="" 块级作用域="" (function(){="" 这里是块级作用域="" })()="" 作用:块级作用域是一个独立的作用域，多人协作时每个人有每个人的块级作用域可以互不影响,防止命名冲突="" <script="" async src="//jsfiddle.net/j10nwnvt/1/embed/js,html,css,result/dark/">
+
+<h3 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h3><h4 id="window对象"><a href="#window对象" class="headerlink" title="window对象"></a>window对象</h4><h5 id="window对象是指浏览器打开的窗口"><a href="#window对象是指浏览器打开的窗口" class="headerlink" title="window对象是指浏览器打开的窗口"></a>window对象是指浏览器打开的窗口</h5><pre><code>window.名称   //全局对象
+window.frame[&apos;name&apos;]
+</code></pre><h5 id="窗口位置"><a href="#窗口位置" class="headerlink" title="窗口位置"></a>窗口位置</h5><h6 id="chrome-opera-safari—-screenTop-screenLeft"><a href="#chrome-opera-safari—-screenTop-screenLeft" class="headerlink" title="chrome\opera\safari—-screenTop|screenLeft"></a>chrome\opera\safari—-screenTop|screenLeft</h6><h6 id="firefox—-screenX-screenY"><a href="#firefox—-screenX-screenY" class="headerlink" title="firefox—-screenX|screenY"></a>firefox—-screenX|screenY</h6><pre><code>var leftPos = (typeof window.screenLeft == &apos;number&apos;)?window.screenLeft:window.screenX;
+var rightPos = (typeof window.screenTop == &apos;number&apos;)?window.screenRight:window.screenY;
+
+window.moveTo(0,0);    //移动到0，0
+window.moveBy(0,100);  //向下移动100像素
+</code></pre><h5 id="窗口大小"><a href="#窗口大小" class="headerlink" title="窗口大小"></a>窗口大小</h5><pre><code>outerWidth、outerHeight----返回浏览器窗口本身的大小
+innerWidth、innerHeight----返回容器中试图区的大小
+</code></pre></3;i++){>
       
     </div>
     
@@ -635,7 +609,7 @@ for(let i=0;i&lt;3;i++){
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#声明函数"><span class="nav-number">1.</span> <span class="nav-text">声明函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#function-name-这个存在变量提升-而var-name-function-不存在变量提升"><span class="nav-number">1.1.</span> <span class="nav-text">function name(){},这个存在变量提升,而var name = function(){}不存在变量提升</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#递归"><span class="nav-number">2.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#闭包"><span class="nav-number">3.</span> <span class="nav-text">闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见的方式就是在函数内部创建另一个函数"><span class="nav-number">3.1.</span> <span class="nav-text">闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见的方式就是在函数内部创建另一个函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#例一"><span class="nav-number">3.2.</span> <span class="nav-text">例一</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#例二"><span class="nav-number">3.3.</span> <span class="nav-text">例二</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#例三"><span class="nav-number">3.4.</span> <span class="nav-text">例三</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#下面的例子中"><span class="nav-number">3.4.1.</span> <span class="nav-text">下面的例子中</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#每一个都是返回i-这个i的作用域在f-内-而自此时f-中的i-3-所以每个都返回3"><span class="nav-number">3.4.2.</span> <span class="nav-text">每一个都是返回i,这个i的作用域在f()内,而自此时f()中的i=3,所以每个都返回3</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#而当用for–in时返回的是0-1-2-这是为什么呢？继续探究"><span class="nav-number">3.4.3.</span> <span class="nav-text">而当用for–in时返回的是0,1,2,这是为什么呢？继续探究</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#修改代码如下"><span class="nav-number">3.4.4.</span> <span class="nav-text">修改代码如下</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#结果如上-console-log-result0-与console-log-result-0-可以合理的解释为什么全是3"><span class="nav-number">3.4.5.</span> <span class="nav-text">结果如上,console.log(result0)与console.log(result[0])可以合理的解释为什么全是3</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#疑问："><span class="nav-number">3.5.</span> <span class="nav-text">疑问：</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#为什么console-log-“内：”-this-会出来3个function"><span class="nav-number">3.5.1.</span> <span class="nav-text">为什么console.log(“内：”+this)会出来3个function(){}</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#ES6"><span class="nav-number">3.5.2.</span> <span class="nav-text">ES6</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#结果是0-1-2"><span class="nav-number">3.5.3.</span> <span class="nav-text">结果是0,1,2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#块级作用域"><span class="nav-number">4.</span> <span class="nav-text">块级作用域</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数"><span class="nav-number">1.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#声明函数"><span class="nav-number">1.1.</span> <span class="nav-text">声明函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#function-name-这个存在变量提升-而var-name-function-不存在变量提升"><span class="nav-number">1.1.1.</span> <span class="nav-text">function name(){},这个存在变量提升,而var name = function(){}不存在变量提升</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#递归"><span class="nav-number">1.2.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#闭包"><span class="nav-number">1.3.</span> <span class="nav-text">闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见的方式就是在函数内部创建另一个函数"><span class="nav-number">1.3.1.</span> <span class="nav-text">闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见的方式就是在函数内部创建另一个函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#当函数返回了一个闭包时。这个函数的作用域将会一直在内存中保存到闭包不存在为止"><span class="nav-number">1.3.2.</span> <span class="nav-text">当函数返回了一个闭包时。这个函数的作用域将会一直在内存中保存到闭包不存在为止</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#例一"><span class="nav-number">1.3.3.</span> <span class="nav-text">例一</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#例二"><span class="nav-number">1.3.4.</span> <span class="nav-text">例二</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BOM"><span class="nav-number">2.</span> <span class="nav-text">BOM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#window对象"><span class="nav-number">2.1.</span> <span class="nav-text">window对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#window对象是指浏览器打开的窗口"><span class="nav-number">2.1.1.</span> <span class="nav-text">window对象是指浏览器打开的窗口</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#窗口位置"><span class="nav-number">2.1.2.</span> <span class="nav-text">窗口位置</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#chrome-opera-safari—-screenTop-screenLeft"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">chrome\opera\safari—-screenTop|screenLeft</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#firefox—-screenX-screenY"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">firefox—-screenX|screenY</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#窗口大小"><span class="nav-number">2.1.3.</span> <span class="nav-text">窗口大小</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
