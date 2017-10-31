@@ -1193,6 +1193,7 @@ pre .javascript .function {
   display: inline-block;
   margin: 0 10px;
   list-style: none;
+  background: url("https://cdn.safeandsound.cn/image/wave-ocean.jpg");
 }
 @media screen and (max-width: 767px) {
   .menu .menu-item {
@@ -1942,7 +1943,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #06838a;
+  background: #ffff83;
 }
 .links-of-blogroll {
   font-size: 13px;
