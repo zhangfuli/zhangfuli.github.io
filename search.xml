@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[javascript高级程序设计11-13]]></title>
+    <url>%2F2017%2F10%2F31%2Fjavascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A111-13%2F</url>
+    <content type="text"><![CDATA[SelectorsAPIquerySelector()var body = document.querySelector(&quot;body&quot;); var myDiv = document.querySelector(&quot;#myDiv&quot;); var img = document.querySelector(&quot;img.button&quot;); //img .button querySelectorAll()该方法返回的是NodeListclassList–用户CRUD某节点的css&lt;div class =&quot;bd user disabled&quot;&gt;&lt;/div&gt; div.classList.add(&quot;currect&quot;) div.classList.remove(&quot;currect&quot;) div.classList.toggle(&quot;currect&quot;) div.classList.contains(&quot;currect&quot;) //有就返回true 焦点管理元素获得焦点的方式有页面加载、用户输入、focus自定义数据属性]]></content>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[测试]]></title>
     <url>%2F2017%2F10%2F29%2F%E6%B5%8B%E8%AF%95%2F</url>
     <content type="text"><![CDATA[]]></content>
@@ -48,7 +56,7 @@
   <entry>
     <title><![CDATA[Linux常用命令]]></title>
     <url>%2F2017%2F10%2F11%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
-    <content type="text"><![CDATA[Everything is a file (inode 除外)whoami –我是谁pwd –我在哪ls –我能干什么ls -l 显示详细信息 -a 显示全部文件蓝色 –文件夹 –d黑色 –文件b c –驱动 /dev 设备文件夹l –软链接whereis +命令(ls)/bin /sbin–外部应用 shell自带的命令man +命令 –查手册mkdir +名字 –新建文件夹vi +名字 –新建vi文件命令属性:w –保存–:w! 强制保存:q –退出–:q! 强制退出:wq###### | i 和 esc###### 编辑属性gcc hello.c -o hello 执行时 ./hello若直接为hello系统视为是一个命令gcc -c hello.c -o hello.ogcc hello. -o hellolinux文件夹bin--普通命令 sbin--系统命令 root--超级用户 home--普通用户 proc--进程 dev--设备 usr--内部程序 opt--外部程序 boot--内核文件 mnt--挂载 etc--配置文件 ————————————————–cat 显示 + 文本文件 type(dos)尽可能不要打开非文本文件more/less 也是显示 + 文本是否分页显示touch 修改创建时间lnfind 查找文件grep 查找或不查找文本文件内容相关的信息sda1 –sd 串口 a 第一个硬盘的第一个分区fdisk -l 显示硬盘挂载 mount /dev/sdb1 /mnt/usbrm 删除文件 rm + 文件名 -frm + 删除文件夹 -r(递归)cp/mv a—-&gt;b 文件夹 -r在同级文件夹下mv就是改名ncurse—图形界面的引擎gcc menu.c -o menu -lcurses //引入lib库文件————————————————find [path] [attr] [key]find /mnt -name usb /mnt/usbgrep [key] [file] 查找文件内容ln (-s) source des硬链接增加节点索引号，不消耗资源修改权限chmod(修改权限) chown(修改属主) chgrp(修改属组)chmod +x ./jiaobenrwxrwxrwx read write execute-可执行u–g–ouser group(对用户所在的组的其他用户的权限) other(组外权限)chomd u+x ./jiaobenrwxr-xr-x111101101 //755 特殊1、3不能出现chomd 755 ./jiaoben—————————————————–环境命令：env、echo、export1.env –输出环境变量path –命令的链接路径2.echo –输出环境变量echo $PATH —查环境变量要给钱3.更改PATHexport PATH=路径:$PATH //放在前面优先级高归档命令：tar -xjvf -xzvfwhereis lsmakefilemake clean –只保留源代码make –执行第一个make cleanmake menuconfigmake dep –建立依赖关系make bzImage –编辑内核Makefile结构target:source (tab)commond 目标:源 命令 标号make A –执行A之后B之前A: B: sh脚本 –chmod +x addstu#!/bin/bash –用的什么shell&lt; -lt&lt;= -le&gt; -gt&gt;= -ge= -eq!= -ne$变量 while [ condition ] do done if [ condition ] then else fi case esac i=$(($i+1)) i++]]></content>
+    <content type="text"><![CDATA[Everything is a file (inode 除外)whoami –我是谁pwd –我在哪ls –我能干什么ls -l 显示详细信息 -a 显示全部文件蓝色 –文件夹 –d黑色 –文件b c –驱动 /dev 设备文件夹l –软链接whereis +命令(ls)/bin /sbin–外部应用 shell自带的命令man +命令 –查手册mkdir +名字 –新建文件夹vi +名字 –新建vi文件命令属性:w –保存–:w! 强制保存:q –退出–:q! 强制退出:wq###### | i 和 esc###### 编辑属性gcc hello.c -o hello 执行时 ./hello若直接为hello系统视为是一个命令gcc -c hello.c -o hello.ogcc hello. -o hellolinux文件夹bin--普通命令 sbin--系统命令 root--超级用户 home--普通用户 proc--进程 dev--设备 usr--内部程序 opt--外部程序 boot--内核文件 mnt--挂载 etc--配置文件 ————————————————–cat 显示 + 文本文件 type(dos)尽可能不要打开非文本文件more/less 也是显示 + 文本是否分页显示touch 修改创建时间lnfind 查找文件grep 查找或不查找文本文件内容相关的信息sda1 –sd 串口 a 第一个硬盘的第一个分区fdisk -l 显示硬盘挂载 mount /dev/sdb1 /mnt/usbrm 删除文件 rm + 文件名 -frm + 删除文件夹 -r(递归)cp/mv a—-&gt;b 文件夹 -r在同级文件夹下mv就是改名ncurse—图形界面的引擎gcc menu.c -o menu -lcurses //引入lib库文件————————————————find [path] [attr] [key]find /mnt -name usb /mnt/usbgrep [key] [file] 查找文件内容ln (-s) source des硬链接增加节点索引号，不消耗资源修改权限chmod(修改权限) chown(修改属主) chgrp(修改属组)chmod +x ./jiaobenrwxrwxrwx read write execute-可执行u–g–ouser group(对用户所在的组的其他用户的权限) other(组外权限)chomd u+x ./jiaobenrwxr-xr-x111101101 //755 特殊1、3不能出现chomd 755 ./jiaoben—————————————————–环境命令：env、echo、export1.env –输出环境变量path –命令的链接路径2.echo –输出环境变量echo $PATH —查环境变量要给钱3.更改PATHexport PATH=路径:$PATH //放在前面优先级高归档命令：tar -xjvf -xzvfwhereis lsmakefilemake clean –只保留源代码make –执行第一个make cleanmake menuconfigmake dep –建立依赖关系make bzImage –编辑内核Makefile结构target:source (tab)commond 目标:源 命令 标号make A –执行A之后B之前A: B: sh脚本 –chmod +x addstu#!/bin/bash –用的什么shell&lt; -lt&lt;= -le&gt; -gt&gt;= -ge= -eq!= -ne$变量 while [ condition ] do done if [ condition ] then else fi case esac i=$(($i+1)) i++ ——————————————————–/etc/shadow –密码/etc/passwd –用户/etc/group –分组/etc/inittabinit 0 关机init 3 多用户有网络 startxinit 6 重启进入单用户模式 改密码grub ekernal e + 1–单用户模式b –启动]]></content>
       <tags>
         <tag>Linux</tag>
       </tags>
@@ -453,17 +461,17 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello Blog]]></title>
-    <url>%2F2016%2F09%2F09%2Fhello-blog%2F</url>
-    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2016%2F09%2F09%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
       <tags>
         <tag>生活</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2016%2F09%2F09%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+    <title><![CDATA[Hello Blog]]></title>
+    <url>%2F2016%2F09%2F09%2Fhello-blog%2F</url>
+    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
       <tags>
         <tag>生活</tag>
       </tags>
