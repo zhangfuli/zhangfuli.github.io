@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[数组按行遍历按列速度问题]]></title>
+    <url>%2F2017%2F11%2F15%2F%E6%95%B0%E7%BB%84%E6%8C%89%E8%A1%8C%E9%81%8D%E5%8E%86%E6%8C%89%E5%88%97%E9%80%9F%E5%BA%A6%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[废话不对说直接上代码let length = 5000; let a = new Array(length); for (let i=0;i&lt;length;i++){ a[i] = new Array(length); } let start = new Date().getTime(); // 开始时间 for(let i=0;i&lt;length;i++){ for(let j=0;j&lt;length;j++){ a[i][j] = i+j; } } let end = new Date().getTime(); console.log(end - start); let start2 = new Date().getTime(); // 开始时间 for (let i=0;i&lt;length;i++){ for (let j = 0;j&lt;length;j++){ a[j][i] = i+j; } } let end2 = new Date().getTime(); console.log(end2 - start2); 结果：按行遍历–64; 按列遍历–720,很明显按行遍历的时间要短]]></content>
+      <tags>
+        <tag>探究</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[javascript高级程序设计11-13]]></title>
     <url>%2F2017%2F10%2F31%2Fjavascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A111-13%2F</url>
     <content type="text"><![CDATA[SelectorsAPIquerySelector()var body = document.querySelector(&quot;body&quot;); var myDiv = document.querySelector(&quot;#myDiv&quot;); var img = document.querySelector(&quot;img.button&quot;); //img .button querySelectorAll()该方法返回的是NodeListclassList–用户CRUD某节点的css&lt;div class =&quot;bd user disabled&quot;&gt;&lt;/div&gt; div.classList.add(&quot;currect&quot;) div.classList.remove(&quot;currect&quot;) div.classList.toggle(&quot;currect&quot;) div.classList.contains(&quot;currect&quot;) //有就返回true 焦点管理元素获得焦点的方式有页面加载、用户输入、focus自定义数据属性]]></content>
@@ -461,17 +469,17 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello Blog]]></title>
-    <url>%2F2016%2F09%2F09%2Fhello-blog%2F</url>
-    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2016%2F09%2F09%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
       <tags>
         <tag>生活</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2016%2F09%2F09%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+    <title><![CDATA[Hello Blog]]></title>
+    <url>%2F2016%2F09%2F09%2Fhello-blog%2F</url>
+    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
       <tags>
         <tag>生活</tag>
       </tags>
