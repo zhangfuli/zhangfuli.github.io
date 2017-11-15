@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[单反镜片]]></title>
+    <url>%2F2017%2F11%2F15%2F%E5%8D%95%E5%8F%8D%E9%95%9C%E7%89%87%2F</url>
+    <content type="text"><![CDATA[灰镜—-消除动态的人–长时间曝光黑白滤镜、UV镜滤光镜凤凰品牌的镜片]]></content>
+      <tags>
+        <tag>生活</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[拟态计算与蜜罐--石乐义]]></title>
+    <url>%2F2017%2F11%2F15%2F%E6%8B%9F%E6%80%81%E8%AE%A1%E7%AE%97%E4%B8%8E%E8%9C%9C%E7%BD%90-%E7%9F%B3%E4%B9%90%E4%B9%89%2F</url>
+    <content type="text"><![CDATA[应用决定结构，结构决定性能拟态计算与拟态安全锁相环–用于跳频通信(500次/s)作用是将电路输出的时钟与其外部的参考时钟保持同步。当参考时钟的频率或相位发生改变时，锁相环会检测到这种变化，并且通过其内部的反馈系统来调节输出频率，直到两者重新同步。A1—A2通信频率在变，B无法监听端信息跳变–ip变化，导致攻击者无法攻击模拟蜜罐–告诉攻击者，我是蜜罐，在真实ip与蜜罐之间来回切换]]></content>
+      <tags>
+        <tag>生活</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[网络安全-石乐义]]></title>
+    <url>%2F2017%2F11%2F15%2F%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8-%E7%9F%B3%E4%B9%90%E4%B9%89%2F</url>
+    <content type="text"><![CDATA[L-Dos：拥塞控制人为造成拥塞假象botnet：僵尸网络sniffer.c以太网广播的方式混杂模式–&gt;收到所有信息分析包 n&lt;=42 14(帧)+20(ip报头)+2+2(udp)+8nslookup + 域名，查询域名的ipARP攻击：冒充网关(网关ip+自己的mac)ping所有主机(事后要承担气网关的责任，不能让其他主机断网)ARPspoof(向网关ping)不停的换ip去屏网关，使网关的ARP表乱掉–&gt;刷新–&gt;启动广播–&gt;监听广播无解攻击–SYNFlood(泛洪)用多个假ip尝试与某服务器建立链接，使其忙于建立而瘫痪无解攻击–垃圾邮件工具wareshark、nmap]]></content>
+      <tags>
+        <tag>探究</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[数组按行遍历按列速度问题]]></title>
     <url>%2F2017%2F11%2F15%2F%E6%95%B0%E7%BB%84%E6%8C%89%E8%A1%8C%E9%81%8D%E5%8E%86%E6%8C%89%E5%88%97%E9%80%9F%E5%BA%A6%E9%97%AE%E9%A2%98%2F</url>
     <content type="text"><![CDATA[废话不对说直接上代码let length = 5000; let a = new Array(length); for (let i=0;i&lt;length;i++){ a[i] = new Array(length); } let start = new Date().getTime(); // 开始时间 for(let i=0;i&lt;length;i++){ for(let j=0;j&lt;length;j++){ a[i][j] = i+j; } } let end = new Date().getTime(); console.log(end - start); let start2 = new Date().getTime(); // 开始时间 for (let i=0;i&lt;length;i++){ for (let j = 0;j&lt;length;j++){ a[j][i] = i+j; } } let end2 = new Date().getTime(); console.log(end2 - start2); 结果：按行遍历–64; 按列遍历–720,很明显按行遍历的时间要短]]></content>
