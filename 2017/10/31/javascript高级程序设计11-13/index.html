@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="I&#39;m 404 NotFound">
 <meta property="og:description" content="SelectorsAPIquerySelector()var body = document.querySelector(&amp;quot;body&amp;quot;); var myDiv = document.querySelector(&amp;quot;#myDiv&amp;quot;); var img = document.querySelector(&amp;quot;img.button&amp;quot;);  //img">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-10T07:42:00.353Z">
+<meta property="og:updated_time" content="2017-12-10T09:10:01.951Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javascript高级程序设计11-13">
 <meta name="twitter:description" content="SelectorsAPIquerySelector()var body = document.querySelector(&amp;quot;body&amp;quot;); var myDiv = document.querySelector(&amp;quot;#myDiv&amp;quot;); var img = document.querySelector(&amp;quot;img.button&amp;quot;);  //img">
@@ -395,7 +395,13 @@ true--事件捕获   false--事件冒泡
 test[0].addEventListener(&apos;click&apos;, function(){
     console.log(arguments[0]);
 },false)
-</code></pre><h4 id="Event对象的常见应用"><a href="#Event对象的常见应用" class="headerlink" title="Event对象的常见应用"></a>Event对象的常见应用</h4><h5 id="event-preventDefault-阻止默认事件"><a href="#event-preventDefault-阻止默认事件" class="headerlink" title="event.preventDefault()   //阻止默认事件"></a>event.preventDefault()   //阻止默认事件</h5><h5 id="event-stopPropagation-阻止冒泡"><a href="#event-stopPropagation-阻止冒泡" class="headerlink" title="event.stopPropagation()  //阻止冒泡"></a>event.stopPropagation()  //阻止冒泡</h5><h4 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h4><pre><code>&lt;script async src=&quot;//jsfiddle.net/maLkhpzq/6/embed/js,html,css,result/dark/&quot;&gt;&lt;/script&gt;
+</code></pre><h4 id="Event对象的常见应用"><a href="#Event对象的常见应用" class="headerlink" title="Event对象的常见应用"></a>Event对象的常见应用</h4><h5 id="event-preventDefault-阻止默认事件"><a href="#event-preventDefault-阻止默认事件" class="headerlink" title="event.preventDefault()   //阻止默认事件"></a>event.preventDefault()   //阻止默认事件</h5><h5 id="event-stopPropagation-阻止冒泡"><a href="#event-stopPropagation-阻止冒泡" class="headerlink" title="event.stopPropagation()  //阻止冒泡"></a>event.stopPropagation()  //阻止冒泡</h5><pre><code>test[0].addEventListener(&apos;click&apos;, function(e){
+    alert(e.clientX);
+},false)
+test[1].addEventListener(&apos;keyup&apos;, function(e){
+    alert(e.keyCode);
+},false)
+</code></pre><h4 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h4><pre><code>&lt;script async src=&quot;//jsfiddle.net/maLkhpzq/6/embed/js,html,css,result/dark/&quot;&gt;&lt;/script&gt;
 </code></pre>
       
     </div>
@@ -549,7 +555,7 @@ test[0].addEventListener(&apos;click&apos;, function(){
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
