@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[javascript高级程序设计20、23]]></title>
+    <url>%2F2017%2F12%2F19%2Fjavascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A120%E3%80%8123%2F</url>
+    <content type="text"><![CDATA[JSON对象{ name: &quot;test&quot; } 数据结构{ &quot;name&quot;: &quot;test&quot; } JSON对象方法JSON.stringify() //将json对象转化为数据结构参数let obj = { name: &quot;test&quot;, sex: [&apos;male&apos;, &apos;female&apos;] } JSON.stringify(obj) JSON.stringify(obj, name) //只保留name JSON.stringify(obj,name,4) //字符缩进4个空格 数据存储cookiecookie构成：名称、值、域、路径、失效时间、安全标志Set-Cookie: name=value; domain=.wrox.com; expires= Mon, 22-Jan-07; secure document.cookie = &quot;name=value; .....&quot; cookie 确实非常小，它的大小限制为4KB左右，是网景公司的前雇员 Lou Montulli 在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在 Cookie 中存入一段辨别用户身份的数据来实现的localStoragelocalStorage.setItem() localStorage.getItem() sessionStorage用法同上 浏览器缓存浏览器缓存]]></content>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[javascript高级程序设计15-16]]></title>
     <url>%2F2017%2F12%2F10%2Fjavascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A115-16%2F</url>
     <content type="text"><![CDATA[使用canvas画图&lt;canvas id=&quot;canvas&quot; width=&quot;200&quot; height=&quot;200&quot;&gt;&lt;/canvas&gt; let canvas = document.querySelector(&quot;#canvas&quot;); let context = canvas.getContext(&quot;2d&quot;); let image = new Image(160,160); image.src = &quot;http://p0fuclq6b.bkt.clouddn.com/P2-1507020329.JPG&quot;; document.body.append(image); //绘制图形 context.fillStyle = &quot;#ff0000&quot; context.fillRect(10,10,500,50) //(起点x,起点y,宽度,高度) context.fillStyle = &quot;rgba(0,0,255,0.5)&quot; //半透明蓝色 context.fillRect(30,30,50,50) context.clearRect(40,40,10,10) //清除一块矩形区域 //绘制image context.drawImage(image,50,50,50,50) canvas压缩图片链接 这里有一个canvas.toDataURL(‘image/jpeg’, quality); //跨域未解决？？？压缩图片 拖放拖动某元素时，依次触发下列事件dragstartdragdragend当元素被拖动到一个有效的目标上时，依次触发dragenterdragoverdragleave 或 dropdataTransfer对象主要用于拖放前，设定参数，拖放后取得参数e.dataTransfer.setData(&quot;text&quot;,&quot;&quot;); //键值对 e.dataTransfer.getData(&quot;text&quot;); 设置元素可拖动&lt;div draggable=&quot;true&quot;&gt;&lt;/div&gt; 拖动img时不会有拖动的痕迹 媒体元素嵌入视频&lt;video&gt; &lt;source src=&quot;&quot; type=&quot;&quot;&gt;&lt;/source&gt; &lt;source src=&quot;&quot; type=&quot;&quot;&gt;&lt;/source&gt; &lt;/video&gt; 嵌入音频&lt;audio&gt; &lt;source src=&quot;&quot; type=&quot;&quot;&gt;&lt;/source&gt; &lt;source src=&quot;&quot; type=&quot;&quot;&gt;&lt;/source&gt; &lt;/audio&gt; MIME 类型MIME (Multipurpose Internet Mail Extensions) 是描述消息内容类型的因特网标准。MIME 消息能包含文本、图像、音频、视频以及其他应用程序专用的数据。]]></content>
@@ -501,17 +509,17 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2016%2F09%2F09%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+    <title><![CDATA[Hello Blog]]></title>
+    <url>%2F2016%2F09%2F09%2Fhello-blog%2F</url>
+    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
       <tags>
         <tag>生活</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello Blog]]></title>
-    <url>%2F2016%2F09%2F09%2Fhello-blog%2F</url>
-    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2016%2F09%2F09%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
       <tags>
         <tag>生活</tag>
       </tags>
