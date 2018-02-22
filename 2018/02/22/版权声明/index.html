@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="I&#39;m 404 NotFound">
 <meta property="og:description" content="复制时出现版权声明的代码代码如下document.body.addEventListener(&amp;apos;copy&amp;apos;, function (e) {     if (window.getSelection().toString() &amp;amp;&amp;amp; window.getSelection().toString().length &amp;gt; 42){         setClipboa">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-22T07:53:55.643Z">
+<meta property="og:updated_time" content="2018-02-22T07:58:33.577Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="版权声明">
 <meta name="twitter:description" content="复制时出现版权声明的代码代码如下document.body.addEventListener(&amp;apos;copy&amp;apos;, function (e) {     if (window.getSelection().toString() &amp;amp;&amp;amp; window.getSelection().toString().length &amp;gt; 42){         setClipboa">
@@ -380,8 +380,8 @@
     if (window.getSelection().toString() &amp;&amp; window.getSelection().toString().length &gt; 42){
         setClipboardText(e);
     }
-  });
-  function setClipboardText(event) {
+});
+function setClipboardText(event) {
     var clipboardData = event.clipboardData || window.clipboardData;
     if (clipboardData) {
         event.preventDefault();
@@ -1137,6 +1137,7 @@
   
 
 </body>
+<!-- 版权声明 -->
 <script>
   document.body.addEventListener('copy', function (e) {
     if (window.getSelection().toString() && window.getSelection().toString().length > 42){
