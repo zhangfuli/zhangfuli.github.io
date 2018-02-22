@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[版权声明]]></title>
+    <url>%2F2018%2F02%2F22%2F%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E%2F</url>
+    <content type="text"><![CDATA[复制时出现版权声明的代码代码如下document.body.addEventListener(&apos;copy&apos;, function (e) { if (window.getSelection().toString() &amp;&amp; window.getSelection().toString().length &gt; 42){ setClipboardText(e); } }); function setClipboardText(event) { var clipboardData = event.clipboardData || window.clipboardData; if (clipboardData) { event.preventDefault(); var htmlData = &apos;&apos;+&apos;著作权归作者所有。&lt;br&gt;&apos; +&apos;商业转载请联系作者获得授权,非商业转载请注明出处。&lt;br&gt;&apos; +&apos;作者:zfl&lt;br&gt;&apos; + &apos;链接:&apos; + window.location.href + &apos;&lt;br&gt;&apos; + &apos;&lt;br&gt;&lt;br&gt;&apos;+ window.getSelection().toString(); var textData = &apos;&apos;+ &apos;著作权归作者所有。\n&apos; + &apos;商业转载请联系作者获得授权,非商业转载请注明出处。\n&apos; + &apos;作者:zfl\n&apos; + &apos;链接:&apos; + window.location.href + &apos;\n&apos; + &apos;\n\n&apos;+ window.getSelection().toString(); clipboardData.setData(&apos;text/html&apos;, htmlData); clipboardData.setData(&apos;text/plain&apos;,textData); } }]]></content>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[transform]]></title>
     <url>%2F2018%2F02%2F22%2Ftransform%2F</url>
-    <content type="text"><![CDATA[在CSS3中transform主要包括以下几种：旋转rotate、扭曲skew、缩放scale和移动translate以及矩阵变形matrix,不改变原先的文档流商业转载请联系作者获得授权,非商业转载请注明出处。原文: https://www.w3cplus.com/content/css3-transform © w3cplus.com 1.改变元素基点transform-origintransform-origin:100% 50% 左右、上下transform-origin:right; transform-origin:0% 0% 左右、上下transform-origin:top left; transform-origin:25% 75% 左右、上下 2.旋转rotatetransform:rotate(30deg) 以中心点为基点顺时针旋转30° 3.平移transform: translate(100px, 100px); 以中心点为右移100px,下移100px 4.缩放transform: scale(0.5, 2); 缩放（x, y）左右、上下缩放倍数 5.扭曲transform: skew(30deg,10deg); 扭曲（x, y）扭曲的角度 正表示顺时针 6.matrix(, , , , , )以一个含六值的(a,b,c,d,e,f)变换矩阵的形式指定一个2D变换，相当于直接应用一个[a b c d e f]变换矩阵。]]></content>
+    <content type="text"><![CDATA[在CSS3中transform主要包括以下几种：旋转rotate、扭曲skew、缩放scale和移动translate以及矩阵变形matrix,不改变原先的文档流原文: https://www.w3cplus.com/content/css3-transform 1.改变元素基点transform-origintransform-origin:100% 50% 左右、上下transform-origin:right; transform-origin:0% 0% 左右、上下transform-origin:top left; transform-origin:25% 75% 左右、上下 2.旋转rotatetransform:rotate(30deg) 以中心点为基点顺时针旋转30° 3.平移transform: translate(100px, 100px); 以中心点为右移100px,下移100px 4.缩放transform: scale(0.5, 2); 缩放（x, y）左右、上下缩放倍数 5.扭曲transform: skew(30deg,10deg); 扭曲（x, y）扭曲的角度 正表示顺时针 6.matrix(, , , , , )以一个含六值的(a,b,c,d,e,f)变换矩阵的形式指定一个2D变换，相当于直接应用一个[a b c d e f]变换矩阵。]]></content>
       <tags>
         <tag>HTML CSS</tag>
       </tags>
