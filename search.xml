@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[transform]]></title>
+    <url>%2F2018%2F02%2F22%2Ftransform%2F</url>
+    <content type="text"><![CDATA[1.改变元素基点transform-origintransform-origin:100% 50% 左右、上下transform-origin:right; transform-origin:0% 0% 左右、上下transform-origin:top left; transform-origin:25% 75% 左右、上下 2.旋转rotatetransform:rotate(30deg) 以中心点为基点顺时针旋转30°]]></content>
+      <tags>
+        <tag>HTML CSS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[vue多json弹窗修改相同属性解决方案]]></title>
     <url>%2F2018%2F01%2F11%2Fvue%E5%A4%9Ajson%E5%BC%B9%E7%AA%97%E4%BF%AE%E6%94%B9%E7%9B%B8%E5%90%8C%E5%B1%9E%E6%80%A7%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%2F</url>
     <content type="text"><![CDATA[描述项目中有时候会遇到这样一种情况,v-for渲染出一个列表,想加入弹出框修改某属性解决下面的代码是一种解决方案点击 通过动态绑定属性进行点击的列表给弹出框传值,然后再返回,如上述代码中29行,获取到data-id然后传值给checkId(该值位于弹出框),然后再修改问题2万一要是不同的json数组,相同的属性要修改怎么办呢？html&lt;div class=&quot;hello&quot;&gt; &lt;div v-for=&quot;(list1,index) in lists1&quot;&gt; &lt;span&gt;{{list1.sex}}&lt;/span&gt; &lt;button type=&quot;button&quot; @click=&quot;change($event, list1.id, lists1, &apos;sex&apos;)&quot;&gt;点击&lt;/button&gt; &lt;/div&gt; &lt;br&gt; &lt;div v-for=&quot;list2 in lists2&quot;&gt; &lt;span&gt;{{list2.wrap.sex}}&lt;/span&gt; &lt;button type=&quot;button&quot; @click=&quot;change($event, list2.id, lists2, &apos;wrap.sex&apos;)&quot;&gt;点击&lt;/button&gt; &lt;/div&gt; &lt;br&gt; &lt;div v-for=&quot;list3 in lists3&quot;&gt; &lt;span&gt;{{list3.sex}}&lt;/span&gt; &lt;button type=&quot;button&quot; @click=&quot;change($event, list3.id, lists3, &apos;sex&apos;)&quot;&gt;点击&lt;/button&gt; &lt;/div&gt; &lt;input type=&quot;text&quot; v-model=&quot;text&quot;&gt; &lt;/div&gt; jsimport objectPath from &apos;object-path&apos; export default { name: &apos;HelloWorld&apos;, data () { return { msg: &apos;Welcome to Your Vue.js App&apos;, text:&apos;&apos;, path:&apos;&apos;, lists1:[{ &quot;id&quot;:1, &quot;sex&quot;:1 },{ &quot;id&quot;:2, &quot;sex&quot;:1 }], lists2:[{ &quot;id&quot;:1, &quot;wrap&quot;:{ &quot;sex&quot;:1 } },{ &quot;id&quot;:2, &quot;wrap&quot;:{ &quot;sex&quot;:1 } }], lists3:[{ &quot;id&quot;:1, &quot;sex&quot;:1 },{ &quot;id&quot;:2, &quot;sex&quot;:1 }], } }, methods:{ change: function(event, id, array, attr){ objectPath.set(array[id-1], attr, this.text) } } } 主要传入的参数有json数组和路径,然后用objectPath.set进行修改npm install object-path --save objectPath具体详见objectPath具体详见 其实vue提供了set方法跟这个效果也是一样的Vue.set()]]></content>
@@ -525,17 +533,17 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello Blog]]></title>
-    <url>%2F2016%2F09%2F09%2Fhello-blog%2F</url>
-    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2016%2F09%2F09%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
       <tags>
         <tag>生活</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2016%2F09%2F09%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+    <title><![CDATA[Hello Blog]]></title>
+    <url>%2F2016%2F09%2F09%2Fhello-blog%2F</url>
+    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
       <tags>
         <tag>生活</tag>
       </tags>
