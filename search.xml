@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[卡死电脑代码]]></title>
+    <url>%2F2018%2F02%2F22%2F%E5%8D%A1%E6%AD%BB%E7%94%B5%E8%84%91%E4%BB%A3%E7%A0%81%2F</url>
+    <content type="text"><![CDATA[下面两段代码吃内存，造成浏览器卡死代码1var total=&quot;&quot;; for (var i=0;i&lt;1000000;i++){ total= total+i.toString (); history.pushState (0,0,total); } 代码2while(true) { document.body.appendChild(document.createElement(&quot;div&quot;)); }]]></content>
+      <tags>
+        <tag>探究</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[版权声明]]></title>
     <url>%2F2018%2F02%2F22%2F%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E%2F</url>
     <content type="text"><![CDATA[复制时出现版权声明的代码代码如下document.body.addEventListener(&apos;copy&apos;, function (e) { if (window.getSelection().toString() &amp;&amp; window.getSelection().toString().length &gt; 42){ setClipboardText(e); } }); function setClipboardText(event) { var clipboardData = event.clipboardData || window.clipboardData; if (clipboardData) { event.preventDefault(); var htmlData = &apos;&apos;+&apos;著作权归作者所有。&lt;br&gt;&apos; +&apos;商业转载请联系作者获得授权,非商业转载请注明出处。&lt;br&gt;&apos; +&apos;作者:zfl&lt;br&gt;&apos; + &apos;链接:&apos; + window.location.href + &apos;&lt;br&gt;&apos; + &apos;&lt;br&gt;&lt;br&gt;&apos;+ window.getSelection().toString(); var textData = &apos;&apos;+ &apos;著作权归作者所有。\n&apos; + &apos;商业转载请联系作者获得授权,非商业转载请注明出处。\n&apos; + &apos;作者:zfl\n&apos; + &apos;链接:&apos; + window.location.href + &apos;\n&apos; + &apos;\n\n&apos;+ window.getSelection().toString(); clipboardData.setData(&apos;text/html&apos;, htmlData); clipboardData.setData(&apos;text/plain&apos;,textData); } }]]></content>
