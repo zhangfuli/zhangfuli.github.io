@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[++[[]][+[]]+[[]][+[]]+[+[]]==10]]></title>
+    <url>%2F2018%2F03%2F09%2F100%2F</url>
+    <content type="text"><![CDATA[问题出现最近在准备面试, 突然发现群里的老学长发来这么一句++[[]][+[]]+[[]][+[]]+[+[]] == 10 一开始心里想的是我这老学长从来不按套路出牌，大概这个东西返回的是true吧，到chorme控制台打印一下还真的是true这到底怎么回事呢？正好也累了，换换脑子，就开始了下面这一套…..探究Q1: 虽然表面上看起来天差地别，难道说是ascii码转化之后是相同的？？带着这个疑问我进行了下面的试验 不对啊,这明明都是返回的第一个字符的ascii码呀..方向错了Q2: 这里面能不能分块解释一下？看来还得仔细的分析分析，不能硬着头皮试了尝试着把上面的表达式变成++[[]][+[]] + [[]][+[]] + [+[]] 然后把他们在控制台上分别打印一下.. 2333,好像发现了点什么东西[+[]]是[0]啊,那就是+[] 变成了0, +运算符在+之前把[]变成了””空字符串然后+”” === 0接着下面的就好解释了, [[]][+[]]就变成了[[]][0],就是[]呗,但是如果你直接执行++[]还是会报错的,但是这样便于理解++0(会报错) == 1, 所以第一项++[[]][+[]]就变成了1(number)自然而然第二项 1 + [[]][+[]] 就变成了 1+”” === “1”然后再加上最后一项 “1” + 0 === “10”自然而然 “10” == 10后记转化来转化去还是考察的对运算符的理解,看来我理解还是不够深…一开始路线错误]]></content>
+      <tags>
+        <tag>探究</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[promise实现原理]]></title>
     <url>%2F2018%2F02%2F27%2Fpromise%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%2F</url>
     <content type="text"><![CDATA[若没有链式then,then函数就不用return new Promise递归function Promise(fn) { var state = &quot;pending&quot; var value = null, callbacks = []; //callbacks为数组，因为可能同时有很多个回调 this.then = function (onFulfilled, onRejected) { return new Promise(function(resolve, reject){ handle({ onFulfilled: onFulfilled || null, resolve: resolve, onRejected: onRejected || null, reject: reject, }) }) }; function handle(callback){ if(state === &quot;pending&quot;){ callbacks.push(callback); return; } let cb = state === &apos;fulfilled&apos;? callback.onFulfilled: callback.onRejected, ret; if(cb === null){ cb = state == &apos;fulfilled&apos;? callback.resolve: callback.reject; cb(value) return; } try{ ret = cb(value); callback.resolve(ret); }catch(e){ callback.reject(e) } } function resolve(newValue) { if(newValue &amp;&amp; (typeof newValue === &apos;object&apos; || typeof newValue === &apos;function&apos;)){ let then = newValue.then if(typeof then === &apos;function&apos;){ then.call(newValue, resolve, reject); return; } } value = newValue state = &quot;fulfilled&quot; execute() } function reject(reason){ state = &apos;rejected&apos; value = reason execute() } //用于操作resolve和reject function execute(){ setTimeout(function(){ callbacks.forEach(function (callback) { handle(callback) }); },0) } fn(resolve, reject); } function getUserId() { return new Promise(function (resolve) { resolve(&quot;success&quot;) console.log(&apos;success&apos;) // reject(&quot;reason&quot;) }) } function getUserJobById(id){ return new Promise(function (resolve){ resolve(&quot;UserJob&quot;) }) } getUserId().then(getUserJobById).then(function(id) { console.log(id) }) function testError(){ return new Promise(function(resolve, reject){ reject(&quot;reason&quot;) }) } testError().then(function(){ },function(error){ console.log(&quot;error:&quot; + error) })]]></content>
