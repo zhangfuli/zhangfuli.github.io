@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[配置https证书]]></title>
     <url>%2F2018%2F03%2F21%2F%E9%85%8D%E7%BD%AEhttps%E8%AF%81%E4%B9%A6%2F</url>
-    <content type="text"><![CDATA[前言买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置不过也挺简单的 开撸下载腾讯云证书 我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器/usr/local/nginx/下修改/usr/local/nginx/nginx.conf还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了改了几遍结果如下(只需修改server内容即可)server { listen 80 default_server; #listen [::]:80 default_server ipv6only=on; ######################外加###################### error_page 497 https://www.域名; #访问http时强制其访问https ssl on; listen 443 ssl; ssl_certificate 1_域名_bundle.crt; #两个复制的文件 ssl_certificate_key 2_域名.key; ssl_protocols TLSv1 TLSv1.1 TLSv1.2; #按照这个协议配置 ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;#按照这个套件配置 ssl_prefer_server_ciphers on; ssl_session_timeout 5m; server_name www.域名; #域名 ################################################# index index.html index.htm index.php; root /home/wwwroot/default; #error_page 404 /404.html; include enable-php.conf; location /nginx_status { stub_status on; access_log off; } location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$ { expires 30d; } location ~ .*\.(js|css)?$ { expires 12h; } location ~ /\. { deny all; } access_log /home/wwwlogs/access.log access; }]]></content>
+    <content type="text"><![CDATA[前言买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置不过也挺简单的 开撸下载腾讯云证书 我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器/usr/local/nginx/下修改/usr/local/nginx/nginx.conf还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了改了几遍结果如下(只需修改server内容即可)server { listen 80 default_server; #listen [::]:80 default_server ipv6only=on; ######################外加###################### error_page 497 https://www.域名; #访问http时强制其访问https ssl on; listen 443 ssl; ssl_certificate 1_域名_bundle.crt; #两个复制的文件 ssl_certificate_key 2_域名.key; ssl_protocols TLSv1 TLSv1.1 TLSv1.2; #按照这个协议配置 ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;#按照这个套件配置 ssl_prefer_server_ciphers on; ssl_session_timeout 5m; server_name www.域名; #域名 ################################################# index index.html index.htm index.php; root /home/wwwroot/default; #error_page 404 /404.html; include enable-php.conf; location /nginx_status { stub_status on; access_log off; } location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$ { expires 30d; } location ~ .*\.(js|css)?$ { expires 12h; } location ~ /\. { deny all; } access_log /home/wwwlogs/access.log access; } 重启检查是否成功/bin/nginx -t 重启nginx/etc/init.d/nginx restart]]></content>
       <tags>
         <tag>服务器</tag>
       </tags>
@@ -581,17 +581,17 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2016%2F09%2F09%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+    <title><![CDATA[Hello Blog]]></title>
+    <url>%2F2016%2F09%2F09%2Fhello-blog%2F</url>
+    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
       <tags>
         <tag>生活</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello Blog]]></title>
-    <url>%2F2016%2F09%2F09%2Fhello-blog%2F</url>
-    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2016%2F09%2F09%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
       <tags>
         <tag>生活</tag>
       </tags>

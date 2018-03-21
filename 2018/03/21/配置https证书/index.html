@@ -90,7 +90,7 @@
 <meta property="og:description" content="前言买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置不过也挺简单的 开撸下载腾讯云证书 我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器/usr/local/nginx/下修改/usr/local/nginx/nginx.conf还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了改了几遍结果如下(只">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p4j7qpj9e.bkt.clouddn.com/==10-1.png">
-<meta property="og:updated_time" content="2018-03-21T13:13:49.057Z">
+<meta property="og:updated_time" content="2018-03-21T13:19:53.471Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="配置https证书">
 <meta name="twitter:description" content="前言买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置不过也挺简单的 开撸下载腾讯云证书 我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器/usr/local/nginx/下修改/usr/local/nginx/nginx.conf还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了改了几遍结果如下(只">
@@ -427,6 +427,8 @@
 
     access_log  /home/wwwlogs/access.log  access;
 }
+</code></pre><h3 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h3><h5 id="检查是否成功"><a href="#检查是否成功" class="headerlink" title="检查是否成功"></a>检查是否成功</h5><pre><code>/bin/nginx -t
+</code></pre><h5 id="重启nginx"><a href="#重启nginx" class="headerlink" title="重启nginx"></a>重启nginx</h5><pre><code>/etc/init.d/nginx restart
 </code></pre>
       
     </div>
@@ -624,7 +626,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置"><span class="nav-number">1.0.1.</span> <span class="nav-text">买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开撸"><span class="nav-number">2.</span> <span class="nav-text">开撸</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#下载腾讯云证书"><span class="nav-number">2.0.1.</span> <span class="nav-text">下载腾讯云证书</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器-usr-local-nginx-下"><span class="nav-number">2.0.2.</span> <span class="nav-text">我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器/usr/local/nginx/下</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#修改-usr-local-nginx-nginx-conf"><span class="nav-number">2.0.3.</span> <span class="nav-text">修改/usr/local/nginx/nginx.conf</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了"><span class="nav-number">2.0.4.</span> <span class="nav-text">还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#改了几遍结果如下-只需修改server内容即可"><span class="nav-number">2.0.5.</span> <span class="nav-text">改了几遍结果如下(只需修改server内容即可)</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置"><span class="nav-number">1.0.1.</span> <span class="nav-text">买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开撸"><span class="nav-number">2.</span> <span class="nav-text">开撸</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#下载腾讯云证书"><span class="nav-number">2.0.1.</span> <span class="nav-text">下载腾讯云证书</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器-usr-local-nginx-下"><span class="nav-number">2.0.2.</span> <span class="nav-text">我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器/usr/local/nginx/下</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#修改-usr-local-nginx-nginx-conf"><span class="nav-number">2.0.3.</span> <span class="nav-text">修改/usr/local/nginx/nginx.conf</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了"><span class="nav-number">2.0.4.</span> <span class="nav-text">还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#改了几遍结果如下-只需修改server内容即可"><span class="nav-number">2.0.5.</span> <span class="nav-text">改了几遍结果如下(只需修改server内容即可)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重启"><span class="nav-number">3.</span> <span class="nav-text">重启</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#检查是否成功"><span class="nav-number">3.0.1.</span> <span class="nav-text">检查是否成功</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#重启nginx"><span class="nav-number">3.0.2.</span> <span class="nav-text">重启nginx</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
