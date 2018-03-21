@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[配置https证书]]></title>
+    <url>%2F2018%2F03%2F21%2F%E9%85%8D%E7%BD%AEhttps%E8%AF%81%E4%B9%A6%2F</url>
+    <content type="text"><![CDATA[前言买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置不过也挺简单的 开撸下载腾讯云证书 我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器/usr/local/nginx/下修改/usr/local/nginx/nginx.conf还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了改了几遍结果如下(只需修改server内容即可)server { listen 80 default_server; #listen [::]:80 default_server ipv6only=on; ######################外加###################### error_page 497 https://www.域名; #访问http时强制其访问https ssl on; listen 443 ssl; ssl_certificate 1_域名_bundle.crt; #两个复制的文件 ssl_certificate_key 2_域名.key; ssl_protocols TLSv1 TLSv1.1 TLSv1.2; #按照这个协议配置 ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;#按照这个套件配置 ssl_prefer_server_ciphers on; ssl_session_timeout 5m; server_name www.域名; #域名 ################################################# index index.html index.htm index.php; root /home/wwwroot/default; #error_page 404 /404.html; include enable-php.conf; location /nginx_status { stub_status on; access_log off; } location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$ { expires 30d; } location ~ .*\.(js|css)?$ { expires 12h; } location ~ /\. { deny all; } access_log /home/wwwlogs/access.log access; }]]></content>
+      <tags>
+        <tag>服务器</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[++[[]][+[]]+[[]][+[]]+[+[]]==10]]></title>
     <url>%2F2018%2F03%2F09%2F100%2F</url>
     <content type="text"><![CDATA[问题出现最近在准备面试, 突然发现群里的老学长发来这么一句++[[]][+[]]+[[]][+[]]+[+[]] == 10 一开始心里想的是我这老学长从来不按套路出牌，大概这个东西返回的是true吧，到chorme控制台打印一下还真的是true这到底怎么回事呢？正好也累了，换换脑子，就开始了下面这一套…..探究Q1: 虽然表面上看起来天差地别，难道说是ascii码转化之后是相同的？？带着这个疑问我进行了下面的试验 不对啊,这明明都是返回的第一个字符的ascii码呀..方向错了Q2: 这里面能不能分块解释一下？看来还得仔细的分析分析，不能硬着头皮试了尝试着把上面的表达式变成++[[]][+[]] + [[]][+[]] + [+[]] 然后把他们在控制台上分别打印一下.. 2333,好像发现了点什么东西[+[]]是[0]啊,那就是+[] 变成了0, +运算符在+之前把[]变成了””空字符串然后+”” === 0接着下面的就好解释了, [[]][+[]]就变成了[[]][0],就是[]呗,但是如果你直接执行++[]还是会报错的,但是这样便于理解++0(会报错) == 1, 所以第一项++[[]][+[]]就变成了1(number)自然而然第二项 1 + [[]][+[]] 就变成了 1+”” === “1”然后再加上最后一项 “1” + 0 === “10”自然而然 “10” == 10后记转化来转化去还是考察的对运算符的理解,看来我理解还是不够深…一开始路线错误]]></content>
@@ -573,17 +581,17 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello Blog]]></title>
-    <url>%2F2016%2F09%2F09%2Fhello-blog%2F</url>
-    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2016%2F09%2F09%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
       <tags>
         <tag>生活</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2016%2F09%2F09%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+    <title><![CDATA[Hello Blog]]></title>
+    <url>%2F2016%2F09%2F09%2Fhello-blog%2F</url>
+    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
       <tags>
         <tag>生活</tag>
       </tags>

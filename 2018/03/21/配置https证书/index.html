@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="javascript," />
+  <meta name="keywords" content="服务器," />
 
 
 
@@ -81,18 +81,20 @@
 
 
 
-<meta name="description" content="javascript对象js有很多内置的对象,比如Number、Array、String、Date、Math.调用他们的时候语法很简单var x = new Number(&amp;quot;5&amp;quot;); 创建js对象语法function User(first,last){     this.first = first;     this.last = last;     this.getName">
-<meta name="keywords" content="javascript">
+<meta name="description" content="前言买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置不过也挺简单的 开撸下载腾讯云证书 我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器/usr/local/nginx/下修改/usr/local/nginx/nginx.conf还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了改了几遍结果如下(只">
+<meta name="keywords" content="服务器">
 <meta property="og:type" content="article">
-<meta property="og:title" content="javascript对象">
-<meta property="og:url" content="zhangfuli.github.io/2016/11/17/javascript对象/index.html">
+<meta property="og:title" content="配置https证书">
+<meta property="og:url" content="zhangfuli.github.io/2018/03/21/配置https证书/index.html">
 <meta property="og:site_name" content="I&#39;m 404 NotFound">
-<meta property="og:description" content="javascript对象js有很多内置的对象,比如Number、Array、String、Date、Math.调用他们的时候语法很简单var x = new Number(&amp;quot;5&amp;quot;); 创建js对象语法function User(first,last){     this.first = first;     this.last = last;     this.getName">
+<meta property="og:description" content="前言买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置不过也挺简单的 开撸下载腾讯云证书 我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器/usr/local/nginx/下修改/usr/local/nginx/nginx.conf还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了改了几遍结果如下(只">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-10T14:04:09.543Z">
+<meta property="og:image" content="http://p4j7qpj9e.bkt.clouddn.com/==10-1.png">
+<meta property="og:updated_time" content="2018-03-21T13:13:49.057Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="javascript对象">
-<meta name="twitter:description" content="javascript对象js有很多内置的对象,比如Number、Array、String、Date、Math.调用他们的时候语法很简单var x = new Number(&amp;quot;5&amp;quot;); 创建js对象语法function User(first,last){     this.first = first;     this.last = last;     this.getName">
+<meta name="twitter:title" content="配置https证书">
+<meta name="twitter:description" content="前言买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置不过也挺简单的 开撸下载腾讯云证书 我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器/usr/local/nginx/下修改/usr/local/nginx/nginx.conf还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了改了几遍结果如下(只">
+<meta name="twitter:image" content="http://p4j7qpj9e.bkt.clouddn.com/==10-1.png">
 
 
 
@@ -122,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="zhangfuli.github.io/2016/11/17/javascript对象/"/>
+  <link rel="canonical" href="zhangfuli.github.io/2018/03/21/配置https证书/"/>
 
 
 
 
 
-  <title>javascript对象 | I'm 404 NotFound</title>
+  <title>配置https证书 | I'm 404 NotFound</title>
   
 
 
@@ -309,7 +311,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2016/11/17/javascript对象/">
+    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2018/03/21/配置https证书/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="张富利">
@@ -326,7 +328,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">javascript对象</h1>
+          <h1 class="post-title" itemprop="name headline">配置https证书</h1>
         
 
         <div class="post-meta">
@@ -338,8 +340,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-17T21:09:40+08:00">
-                2016-11-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-21T20:58:01+08:00">
+                2018-03-21
               </time>
             
 
@@ -376,29 +378,56 @@
       
 
       
-        <h3 id="javascript对象"><a href="#javascript对象" class="headerlink" title="javascript对象"></a>javascript对象</h3><h4 id="js有很多内置的对象-比如Number、Array、String、Date、Math-调用他们的时候语法很简单"><a href="#js有很多内置的对象-比如Number、Array、String、Date、Math-调用他们的时候语法很简单" class="headerlink" title="js有很多内置的对象,比如Number、Array、String、Date、Math.调用他们的时候语法很简单"></a>js有很多内置的对象,比如Number、Array、String、Date、Math.调用他们的时候语法很简单</h4><pre><code>var x = new Number(&quot;5&quot;);
-</code></pre><h3 id="创建js对象"><a href="#创建js对象" class="headerlink" title="创建js对象"></a>创建js对象</h3><h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><pre><code>function User(first,last){
-    this.first = first;
-    this.last = last;
-    this.getName = function(){
-        return this.first + &quot;,&quot; +this.last;
-    };
-}
-</code></pre><h4 id="调用跟上面一样"><a href="#调用跟上面一样" class="headerlink" title="调用跟上面一样"></a>调用跟上面一样</h4><pre><code>var myuser = new User(&quot;Brad&quot;,&quot;Dayley&quot;);
-console.log(myuser.getName());
-</code></pre><h3 id="使用原型对象模式"><a href="#使用原型对象模式" class="headerlink" title="使用原型对象模式"></a>使用原型对象模式</h3><h4 id="每一个对象中的方法并不一定在创建的时候就写全-可以写在函数的外面。这样还有一个优点-创建原型函数，只在js加载时创建一次，而不是每创建对象是被创建"><a href="#每一个对象中的方法并不一定在创建的时候就写全-可以写在函数的外面。这样还有一个优点-创建原型函数，只在js加载时创建一次，而不是每创建对象是被创建" class="headerlink" title="每一个对象中的方法并不一定在创建的时候就写全,可以写在函数的外面。这样还有一个优点,创建原型函数，只在js加载时创建一次，而不是每创建对象是被创建"></a>每一个对象中的方法并不一定在创建的时候就写全,可以写在函数的外面。这样还有一个优点,创建原型函数，只在js加载时创建一次，而不是每创建对象是被创建</h4><h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><pre><code>function User(first,last){
-    this.first = first;
-    this.last = last;
-}
-User.prototype._getName = function(){
-    return this.first + &quot;,&quot; +this.last;
-}
-</code></pre><h4 id="或者"><a href="#或者" class="headerlink" title="或者"></a>或者</h4><pre><code>User.prototype = {
-    _getName : function (){
-        return this.first + &quot;,&quot; +this.last;
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><h5 id="买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置"><a href="#买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置" class="headerlink" title="买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置"></a>买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置</h5><p>不过也挺简单的</p>
+<h3 id="开撸"><a href="#开撸" class="headerlink" title="开撸"></a>开撸</h3><h5 id="下载腾讯云证书"><a href="#下载腾讯云证书" class="headerlink" title="下载腾讯云证书"></a>下载腾讯云证书</h5><p><img src="http://p4j7qpj9e.bkt.clouddn.com/==10-1.png" alt=""></p>
+<h5 id="我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器-usr-local-nginx-下"><a href="#我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器-usr-local-nginx-下" class="headerlink" title="我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器/usr/local/nginx/下"></a>我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器/usr/local/nginx/下</h5><h5 id="修改-usr-local-nginx-nginx-conf"><a href="#修改-usr-local-nginx-nginx-conf" class="headerlink" title="修改/usr/local/nginx/nginx.conf"></a>修改/usr/local/nginx/nginx.conf</h5><h5 id="还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了"><a href="#还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了" class="headerlink" title="还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了"></a>还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了</h5><h5 id="改了几遍结果如下-只需修改server内容即可"><a href="#改了几遍结果如下-只需修改server内容即可" class="headerlink" title="改了几遍结果如下(只需修改server内容即可)"></a>改了几遍结果如下(只需修改server内容即可)</h5><pre><code>server
+{
+    listen 80 default_server;
+    #listen [::]:80 default_server ipv6only=on;
+
+    ######################外加######################
+    error_page 497  https://www.域名;             #访问http时强制其访问https
+    ssl on;
+    listen 443 ssl;
+    ssl_certificate 1_域名_bundle.crt;         #两个复制的文件
+    ssl_certificate_key 2_域名.key;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2; #按照这个协议配置
+    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;#按照这个套件配置
+    ssl_prefer_server_ciphers on;
+    ssl_session_timeout 5m;
+    server_name www.域名;                      #域名      
+    #################################################
+
+    index index.html index.htm index.php;
+    root  /home/wwwroot/default;
+
+    #error_page   404   /404.html;
+    include enable-php.conf;
+
+    location /nginx_status
+    {
+        stub_status on;
+        access_log   off;
     }
+
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
+    {
+        expires      30d;
+    }
+
+    location ~ .*\.(js|css)?$
+    {
+        expires      12h;
+    }
+
+    location ~ /\.
+    {
+        deny all;
+    }
+
+    access_log  /home/wwwlogs/access.log  access;
 }
-</code></pre><h4 id="调用的时候跟写在类内部一样调用"><a href="#调用的时候跟写在类内部一样调用" class="headerlink" title="调用的时候跟写在类内部一样调用"></a>调用的时候跟写在类内部一样调用</h4>
+</code></pre>
       
     </div>
     
@@ -444,7 +473,7 @@ User.prototype._getName = function(){
       
         <div class="post-tags">
           
-            <a href="/tags/javascript/" rel="tag"># javascript</a>
+            <a href="/tags/服务器/" rel="tag"># 服务器</a>
           
         </div>
       
@@ -457,8 +486,8 @@ User.prototype._getName = function(){
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/12/script标签位置/" rel="next" title="script标签位置">
-                <i class="fa fa-chevron-left"></i> script标签位置
+              <a href="/2018/03/09/100/" rel="next" title="++[[]][+[]]+[[]][+[]]+[+[]]==10">
+                <i class="fa fa-chevron-left"></i> ++[[]][+[]]+[[]][+[]]+[+[]]==10
               </a>
             
           </div>
@@ -466,10 +495,6 @@ User.prototype._getName = function(){
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/11/18/nodejs监听/" rel="prev" title="nodejs监听">
-                nodejs监听 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -599,7 +624,7 @@ User.prototype._getName = function(){
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#javascript对象"><span class="nav-number">1.</span> <span class="nav-text">javascript对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#js有很多内置的对象-比如Number、Array、String、Date、Math-调用他们的时候语法很简单"><span class="nav-number">1.1.</span> <span class="nav-text">js有很多内置的对象,比如Number、Array、String、Date、Math.调用他们的时候语法很简单</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建js对象"><span class="nav-number">2.</span> <span class="nav-text">创建js对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#语法"><span class="nav-number">2.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调用跟上面一样"><span class="nav-number">2.2.</span> <span class="nav-text">调用跟上面一样</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用原型对象模式"><span class="nav-number">3.</span> <span class="nav-text">使用原型对象模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#每一个对象中的方法并不一定在创建的时候就写全-可以写在函数的外面。这样还有一个优点-创建原型函数，只在js加载时创建一次，而不是每创建对象是被创建"><span class="nav-number">3.1.</span> <span class="nav-text">每一个对象中的方法并不一定在创建的时候就写全,可以写在函数的外面。这样还有一个优点,创建原型函数，只在js加载时创建一次，而不是每创建对象是被创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例子"><span class="nav-number">3.2.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#或者"><span class="nav-number">3.3.</span> <span class="nav-text">或者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调用的时候跟写在类内部一样调用"><span class="nav-number">3.4.</span> <span class="nav-text">调用的时候跟写在类内部一样调用</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置"><span class="nav-number">1.0.1.</span> <span class="nav-text">买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开撸"><span class="nav-number">2.</span> <span class="nav-text">开撸</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#下载腾讯云证书"><span class="nav-number">2.0.1.</span> <span class="nav-text">下载腾讯云证书</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器-usr-local-nginx-下"><span class="nav-number">2.0.2.</span> <span class="nav-text">我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器/usr/local/nginx/下</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#修改-usr-local-nginx-nginx-conf"><span class="nav-number">2.0.3.</span> <span class="nav-text">修改/usr/local/nginx/nginx.conf</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了"><span class="nav-number">2.0.4.</span> <span class="nav-text">还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#改了几遍结果如下-只需修改server内容即可"><span class="nav-number">2.0.5.</span> <span class="nav-text">改了几遍结果如下(只需修改server内容即可)</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
