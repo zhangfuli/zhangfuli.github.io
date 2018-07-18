@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="javascript," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hello, ZhangFuli" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="函数声明函数function name(){},这个存在变量提升,而var name = function(){}不存在变量提升递归function factorial(num){     if(num&amp;lt;=1){         return 1     }else{         return num*arguments.callee(num-1) //arguments.callee">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript高级程序设计7-8">
+<meta property="og:url" content="zhangfuli.github.io/2017/10/18/javascript高级程序设计7-8/index.html">
+<meta property="og:site_name" content="Hello, ZhangFuli">
+<meta property="og:description" content="函数声明函数function name(){},这个存在变量提升,而var name = function(){}不存在变量提升递归function factorial(num){     if(num&amp;lt;=1){         return 1     }else{         return num*arguments.callee(num-1) //arguments.callee">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-12T03:21:24.079Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript高级程序设计7-8">
+<meta name="twitter:description" content="函数声明函数function name(){},这个存在变量提升,而var name = function(){}不存在变量提升递归function factorial(num){     if(num&amp;lt;=1){         return 1     }else{         return num*arguments.callee(num-1) //arguments.callee">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="zhangfuli.github.io/2017/10/18/javascript高级程序设计7-8/"/>
+
+
+
+
+
+  <title>javascript高级程序设计7-8 | Hello, ZhangFuli</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?aab3d4e9187a78f10123d63e6f46fae7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hello, ZhangFuli</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2017/10/18/javascript高级程序设计7-8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhangfuli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://p4j7qpj9e.bkt.clouddn.com/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hello, ZhangFuli">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">javascript高级程序设计7-8</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-18T10:42:30+08:00">
+                2017-10-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><h6 id="声明函数"><a href="#声明函数" class="headerlink" title="声明函数"></a>声明函数</h6><h6 id="function-name-这个存在变量提升-而var-name-function-不存在变量提升"><a href="#function-name-这个存在变量提升-而var-name-function-不存在变量提升" class="headerlink" title="function name(){},这个存在变量提升,而var name = function(){}不存在变量提升"></a>function name(){},这个存在变量提升,而var name = function(){}不存在变量提升</h6><h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><pre><code>function factorial(num){
+    if(num&lt;=1){
+        return 1
+    }else{
+        return num*arguments.callee(num-1) //arguments.callee === factorical
+    }
+}
+</code></pre><h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><h6 id="闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见的方式就是在函数内部创建另一个函数"><a href="#闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见的方式就是在函数内部创建另一个函数" class="headerlink" title="闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见的方式就是在函数内部创建另一个函数"></a>闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见的方式就是在函数内部创建另一个函数</h6><p>######当函数返回了一个闭包时。这个函数的作用域将会一直在内存中保存到闭包不存在为止</p>
+<h4 id="推荐"><a href="#推荐" class="headerlink" title="推荐"></a>推荐</h4><h6 id="例一"><a href="#例一" class="headerlink" title="例一"></a>例一</h6><pre><code>var name = &quot;The Window&quot;;
+var object = {
+　　name : “My Object”,
+　　getNameFunc : function(){
+　　　　return function(){
+　　　　　　return this.name;
+　　　　};
+　　}
+};
+alert(object.getNameFunc()()); //The Window
+</code></pre><h6 id="例二"><a href="#例二" class="headerlink" title="例二"></a>例二</h6><p><script async src="//jsfiddle.net/ffd10c2h/embed/"></script></p>
+<h6 id="例三"><a href="#例三" class="headerlink" title="例三"></a>例三</h6><h6 id="下面的例子中"><a href="#下面的例子中" class="headerlink" title="下面的例子中"></a>下面的例子中</h6><pre><code>result[i] = function(){
+    return i
+}
+</code></pre><h6 id="每一个都是返回i-这个i的作用域在f-内-而自此时f-中的i-3-所以每个都返回3"><a href="#每一个都是返回i-这个i的作用域在f-内-而自此时f-中的i-3-所以每个都返回3" class="headerlink" title="每一个都是返回i,这个i的作用域在f()内,而自此时f()中的i=3,所以每个都返回3"></a>每一个都是返回i,这个i的作用域在f()内,而自此时f()中的i=3,所以每个都返回3</h6><h6 id="而当用for–in时返回的是0-1-2-这是为什么呢？继续探究"><a href="#而当用for–in时返回的是0-1-2-这是为什么呢？继续探究" class="headerlink" title="而当用for–in时返回的是0,1,2,这是为什么呢？继续探究"></a>而当用for–in时返回的是0,1,2,这是为什么呢？继续探究</h6><h6 id="修改代码如下"><a href="#修改代码如下" class="headerlink" title="修改代码如下"></a>修改代码如下</h6><pre><code>function f(){
+    var result = new Array()
+    for(var i = 0;i&lt;3;i++){
+        result[i] = function(){
+            console.log(&quot;内:&quot;+this)
+            return i;
+        }
+    }
+    return result
+}
+var result = f()
+console.log(result)  //Array(3)
+</code></pre><h6 id="3个f-这里的f-不是上面的f函数"><a href="#3个f-这里的f-不是上面的f函数" class="headerlink" title="3个f(),这里的f()不是上面的f函数"></a>3个f(),这里的f()不是上面的f函数</h6><pre><code>console.log(result[0]())
+/*
+* 内:function (){
+*            console.log(&quot;内:&quot;+this)
+*            return i;
+*        },function (){
+*            console.log(&quot;内:&quot;+this)
+*            return i;
+*        },function (){
+*            console.log(&quot;内:&quot;+this)
+*            return i;
+*        }
+*
+ */
+console.log(result[0])
+/*ƒ (){
+*            console.log(&quot;内:&quot;+this)
+*            return i;
+*        }
+*/
+</code></pre><h6 id="结果如上-console-log-result0-与console-log-result-0-可以合理的解释为什么全是3"><a href="#结果如上-console-log-result0-与console-log-result-0-可以合理的解释为什么全是3" class="headerlink" title="结果如上,console.log(result0)与console.log(result[0])可以合理的解释为什么全是3"></a>结果如上,console.log(result0)与console.log(result[0])可以合理的解释为什么全是3</h6><h6 id="而且内this指向的是result数组所以会有三个function"><a href="#而且内this指向的是result数组所以会有三个function" class="headerlink" title="而且内this指向的是result数组所以会有三个function(){}"></a>而且内this指向的是result数组所以会有三个function(){}</h6><h6 id="疑问："><a href="#疑问：" class="headerlink" title="疑问："></a>疑问：</h6><h6 id="为什么console-log-“内：”-this-会出来3个function"><a href="#为什么console-log-“内：”-this-会出来3个function" class="headerlink" title="为什么console.log(“内：”+this)会出来3个function(){}"></a>为什么console.log(“内：”+this)会出来3个function(){}</h6><h5 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h5><pre><code>function f(){
+    let result = new Array()
+    for(let i = 0;i&lt;3;i++){
+        result[i] = function(){
+            return i;
+        }
+    }
+    return result
+}
+let result = f()
+for(let i=0;i&lt;3;i++){
+    console.log(result[i]())
+}
+</code></pre><h6 id="结果是0-1-2"><a href="#结果是0-1-2" class="headerlink" title="结果是0,1,2"></a>结果是0,1,2</h6><h6 id="块级作用域"><a href="#块级作用域" class="headerlink" title="块级作用域"></a>块级作用域</h6><pre><code>(function(){
+    //这里是块级作用域
+})()
+</code></pre><h5 id="作用-块级作用域是一个独立的作用域，多人协作时每个人有每个人的块级作用域可以互不影响-防止命名冲突"><a href="#作用-块级作用域是一个独立的作用域，多人协作时每个人有每个人的块级作用域可以互不影响-防止命名冲突" class="headerlink" title="作用:块级作用域是一个独立的作用域，多人协作时每个人有每个人的块级作用域可以互不影响,防止命名冲突"></a>作用:块级作用域是一个独立的作用域，多人协作时每个人有每个人的块级作用域可以互不影响,防止命名冲突</h5><p><script async src="//jsfiddle.net/j10nwnvt/1/embed/js,html,css,result/dark/"></script></p>
+<h3 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h3><h6 id="window对象"><a href="#window对象" class="headerlink" title="window对象"></a>window对象</h6><h6 id="window对象是指浏览器打开的窗口"><a href="#window对象是指浏览器打开的窗口" class="headerlink" title="window对象是指浏览器打开的窗口"></a>window对象是指浏览器打开的窗口</h6><h6 id="window-名称-全局对象"><a href="#window-名称-全局对象" class="headerlink" title="window.名称   //全局对象"></a>window.名称   //全局对象</h6><h6 id="window-frame-‘name’"><a href="#window-frame-‘name’" class="headerlink" title="window.frame[‘name’]"></a>window.frame[‘name’]</h6><h6 id="窗口位置"><a href="#窗口位置" class="headerlink" title="窗口位置"></a>窗口位置</h6><h6 id="chrome-opera-safari—-screenTop-screenLeft"><a href="#chrome-opera-safari—-screenTop-screenLeft" class="headerlink" title="chrome\opera\safari—-screenTop|screenLeft"></a>chrome\opera\safari—-screenTop|screenLeft</h6><h6 id="firefox—-screenX-screenY"><a href="#firefox—-screenX-screenY" class="headerlink" title="firefox—-screenX|screenY"></a>firefox—-screenX|screenY</h6><pre><code>var leftPos = (typeof window.screenLeft == &apos;number&apos;)?window.screenLeft:window.screenX;
+var rightPos = (typeof window.screenTop == &apos;number&apos;)?window.screenRight:window.screenY;
+
+window.moveTo(0,0);    //移动到0，0
+window.moveBy(0,100);  //向下移动100像素
+</code></pre><h6 id="窗口大小"><a href="#窗口大小" class="headerlink" title="窗口大小"></a>窗口大小</h6><pre><code>outerWidth、outerHeight----返回浏览器窗口本身的大小
+innerWidth、innerHeight----返回容器中试图区的大小
+resizeTo()、resizeBy()----可以调整浏览器窗口的大小
+</code></pre><h6 id="导航和打开窗口"><a href="#导航和打开窗口" class="headerlink" title="导航和打开窗口"></a>导航和打开窗口</h6><pre><code>window.open()----打开新的浏览器窗口
+参数:URL、窗口目标、特性字符串、boolean(新页面是否取代浏览器历史纪录中当前加载页面)
+</code></pre><h6 id="第二参数可以是-self、-parent、-top、-blank"><a href="#第二参数可以是-self、-parent、-top、-blank" class="headerlink" title="第二参数可以是:_self、_parent、_top、_blank"></a>第二参数可以是:_self、_parent、_top、_blank</h6><pre><code>opener属性:保存着打开他的原始窗口对象
+</code></pre><h6 id="延时间歇延时"><a href="#延时间歇延时" class="headerlink" title="延时间歇延时"></a>延时间歇延时</h6><pre><code>setTimeout()、setTnterval()、clearTimeout()
+</code></pre><h6 id="系统对话框"><a href="#系统对话框" class="headerlink" title="系统对话框"></a>系统对话框</h6><pre><code>alert()、confirm()、prompt()
+</code></pre><h6 id="location对象"><a href="#location对象" class="headerlink" title="location对象"></a>location对象</h6><h6 id="即是window的对象属性，也是document的对象属性"><a href="#即是window的对象属性，也是document的对象属性" class="headerlink" title="即是window的对象属性，也是document的对象属性"></a>即是window的对象属性，也是document的对象属性</h6><h6 id="console-log-window-location-查看属性"><a href="#console-log-window-location-查看属性" class="headerlink" title="console.log(window.location)   //查看属性"></a>console.log(window.location)   //查看属性</h6><h6 id="查询字符串参数"><a href="#查询字符串参数" class="headerlink" title="查询字符串参数"></a>查询字符串参数</h6><pre><code>/* 解析查询字符串 返回包含所有参数的一个对象 */  
+function getQueryStringArgs(){  
+
+   //取得查询字符串并去掉开头的问号  
+   var qs = (location.search.length &gt; 0 ?       location.search.substring(1) : &apos;&apos;);  
+
+   //保存数据的对象  
+   args = {};  
+
+   //取得每一项  
+   var items = qs.length ? qs.split(&apos;&amp;&apos;) : [],  
+  item = null,  
+  name = null,  
+  //在for循环中使用  
+  i = 0, len = items.length;  
+
+   //逐个将每一项添加到args对象中  
+   for(i = 0 ; i &lt; len; i++){  
+      item = items[i].split(&apos;=&apos;);  
+      name = decodeURIComponent(item[0]);  
+      value = decodeURIComponent(item[1]);  
+
+      if(name.length){  
+         args[name] = value;  
+      }  
+   }  
+
+   return args;  
+}  
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://p4j7qpj9e.bkt.clouddn.com/wechatpay.jpg" alt="Zhangfuli 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://p4j7qpj9e.bkt.clouddn.com/alipay.jpg" alt="Zhangfuli 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/16/数学建模国赛被整蛊/" rel="next" title="数学建模国赛被整蛊">
+                <i class="fa fa-chevron-left"></i> 数学建模国赛被整蛊
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/18/jsfiddle使用/" rel="prev" title="jsfiddle使用">
+                jsfiddle使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTI3MS83ODIw"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://p4j7qpj9e.bkt.clouddn.com/avatar.jpg"
+                alt="Zhangfuli" />
+            
+              <p class="site-author-name" itemprop="name">Zhangfuli</p>
+              <p class="site-description motion-element" itemprop="description">Do myself,Believe myself,Try my best</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">84</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zhangfuli" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zflxsr@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数"><span class="nav-number">1.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#声明函数"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">声明函数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#function-name-这个存在变量提升-而var-name-function-不存在变量提升"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">function name(){},这个存在变量提升,而var name = function(){}不存在变量提升</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归"><span class="nav-number">2.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包"><span class="nav-number">3.</span> <span class="nav-text">闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见的方式就是在函数内部创建另一个函数"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见的方式就是在函数内部创建另一个函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#推荐"><span class="nav-number">3.1.</span> <span class="nav-text">推荐</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#例一"><span class="nav-number">3.1.0.1.</span> <span class="nav-text">例一</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#例二"><span class="nav-number">3.1.0.2.</span> <span class="nav-text">例二</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#例三"><span class="nav-number">3.1.0.3.</span> <span class="nav-text">例三</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#下面的例子中"><span class="nav-number">3.1.0.4.</span> <span class="nav-text">下面的例子中</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#每一个都是返回i-这个i的作用域在f-内-而自此时f-中的i-3-所以每个都返回3"><span class="nav-number">3.1.0.5.</span> <span class="nav-text">每一个都是返回i,这个i的作用域在f()内,而自此时f()中的i=3,所以每个都返回3</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#而当用for–in时返回的是0-1-2-这是为什么呢？继续探究"><span class="nav-number">3.1.0.6.</span> <span class="nav-text">而当用for–in时返回的是0,1,2,这是为什么呢？继续探究</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#修改代码如下"><span class="nav-number">3.1.0.7.</span> <span class="nav-text">修改代码如下</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3个f-这里的f-不是上面的f函数"><span class="nav-number">3.1.0.8.</span> <span class="nav-text">3个f(),这里的f()不是上面的f函数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#结果如上-console-log-result0-与console-log-result-0-可以合理的解释为什么全是3"><span class="nav-number">3.1.0.9.</span> <span class="nav-text">结果如上,console.log(result0)与console.log(result[0])可以合理的解释为什么全是3</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#而且内this指向的是result数组所以会有三个function"><span class="nav-number">3.1.0.10.</span> <span class="nav-text">而且内this指向的是result数组所以会有三个function(){}</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#疑问："><span class="nav-number">3.1.0.11.</span> <span class="nav-text">疑问：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#为什么console-log-“内：”-this-会出来3个function"><span class="nav-number">3.1.0.12.</span> <span class="nav-text">为什么console.log(“内：”+this)会出来3个function(){}</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ES6"><span class="nav-number">3.1.1.</span> <span class="nav-text">ES6</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#结果是0-1-2"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">结果是0,1,2</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#块级作用域"><span class="nav-number">3.1.1.2.</span> <span class="nav-text">块级作用域</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#作用-块级作用域是一个独立的作用域，多人协作时每个人有每个人的块级作用域可以互不影响-防止命名冲突"><span class="nav-number">3.1.2.</span> <span class="nav-text">作用:块级作用域是一个独立的作用域，多人协作时每个人有每个人的块级作用域可以互不影响,防止命名冲突</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BOM"><span class="nav-number">4.</span> <span class="nav-text">BOM</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#window对象"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">window对象</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#window对象是指浏览器打开的窗口"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">window对象是指浏览器打开的窗口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#window-名称-全局对象"><span class="nav-number">4.0.0.3.</span> <span class="nav-text">window.名称   //全局对象</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#window-frame-‘name’"><span class="nav-number">4.0.0.4.</span> <span class="nav-text">window.frame[‘name’]</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#窗口位置"><span class="nav-number">4.0.0.5.</span> <span class="nav-text">窗口位置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#chrome-opera-safari—-screenTop-screenLeft"><span class="nav-number">4.0.0.6.</span> <span class="nav-text">chrome\opera\safari—-screenTop|screenLeft</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#firefox—-screenX-screenY"><span class="nav-number">4.0.0.7.</span> <span class="nav-text">firefox—-screenX|screenY</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#窗口大小"><span class="nav-number">4.0.0.8.</span> <span class="nav-text">窗口大小</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#导航和打开窗口"><span class="nav-number">4.0.0.9.</span> <span class="nav-text">导航和打开窗口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#第二参数可以是-self、-parent、-top、-blank"><span class="nav-number">4.0.0.10.</span> <span class="nav-text">第二参数可以是:_self、_parent、_top、_blank</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#延时间歇延时"><span class="nav-number">4.0.0.11.</span> <span class="nav-text">延时间歇延时</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#系统对话框"><span class="nav-number">4.0.0.12.</span> <span class="nav-text">系统对话框</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#location对象"><span class="nav-number">4.0.0.13.</span> <span class="nav-text">location对象</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#即是window的对象属性，也是document的对象属性"><span class="nav-number">4.0.0.14.</span> <span class="nav-text">即是window的对象属性，也是document的对象属性</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#console-log-window-location-查看属性"><span class="nav-number">4.0.0.15.</span> <span class="nav-text">console.log(window.location)   //查看属性</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#查询字符串参数"><span class="nav-number">4.0.0.16.</span> <span class="nav-text">查询字符串参数</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhangfuli</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+
+<script type='text/javascript'>
+function addLink() {
+    var body_element = document.getElementsByTagName('body')[0];
+    var selection;
+    if(window.getSelection){//DOM,FF,Webkit,Chrome,IE10
+      selection = window.getSelection();
+    }else if(document.getSelection){//IE10
+      selection= document.getSelection();
+    }else if(document.selection){//IE6+10-
+      selection= document.selection.createRange().text;
+    }else{
+      selection= "";
+    }
+    var pagelink = "<br /><br/ ><br />" +
+      "著作权归作者所有<br />" +
+      "商业转载请联系作者获得授权,非商业转载请注明出处 <br />" +
+      "作者:zfl <br />" +
+      "链接:https://zhangfuli.github.io/<br /><br /><br />"; 
+    var copy_text = selection + pagelink;
+    var new_div = document.createElement('div');
+    new_div.style.left='-99999px';
+    new_div.style.position='absolute';
+    body_element.appendChild(new_div);
+    new_div.innerHTML = copy_text ;
+    selection.selectAllChildren(new_div);
+    window.setTimeout(function() {
+        body_element.removeChild(new_div);
+    },0);
+}
+document.body.oncopy = addLink;
+</script>
+
+</html>
