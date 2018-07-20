@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, ZhangFuli" />
+  <meta name="keywords" content="Linux," />
 
 
 
@@ -81,17 +81,18 @@
 
 
 
-<meta name="description" content="Do myself,Believe myself,Try my best">
+<meta name="description" content="前言本次主要介绍如何推送本地image到dockerhub步骤首先从公共仓库中pull一个镜像docker pull centos 进入镜像进行修改docker run -itd centos /bin/bash docerk attach containerID 修改 ctrl+P+Q 退出 保存镜像docker commit containerID test docerk tag test z">
+<meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker push">
 <meta property="og:url" content="zhangfuli.github.io/2018/07/18/docker-push/index.html">
 <meta property="og:site_name" content="Hello, ZhangFuli">
-<meta property="og:description" content="Do myself,Believe myself,Try my best">
+<meta property="og:description" content="前言本次主要介绍如何推送本地image到dockerhub步骤首先从公共仓库中pull一个镜像docker pull centos 进入镜像进行修改docker run -itd centos /bin/bash docerk attach containerID 修改 ctrl+P+Q 退出 保存镜像docker commit containerID test docerk tag test z">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-18T11:06:45.845Z">
+<meta property="og:updated_time" content="2018-07-19T02:26:40.752Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker push">
-<meta name="twitter:description" content="Do myself,Believe myself,Try my best">
+<meta name="twitter:description" content="前言本次主要介绍如何推送本地image到dockerhub步骤首先从公共仓库中pull一个镜像docker pull centos 进入镜像进行修改docker run -itd centos /bin/bash docerk attach containerID 修改 ctrl+P+Q 退出 保存镜像docker commit containerID test docerk tag test z">
 
 
 
@@ -348,6 +349,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -375,7 +398,15 @@
       
 
       
-        
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><h6 id="本次主要介绍如何推送本地image到dockerhub"><a href="#本次主要介绍如何推送本地image到dockerhub" class="headerlink" title="本次主要介绍如何推送本地image到dockerhub"></a>本次主要介绍如何推送本地image到dockerhub</h6><h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><h6 id="首先从公共仓库中pull一个镜像"><a href="#首先从公共仓库中pull一个镜像" class="headerlink" title="首先从公共仓库中pull一个镜像"></a>首先从公共仓库中pull一个镜像</h6><pre><code>docker pull centos
+</code></pre><h6 id="进入镜像进行修改"><a href="#进入镜像进行修改" class="headerlink" title="进入镜像进行修改"></a>进入镜像进行修改</h6><pre><code>docker run -itd centos /bin/bash
+docerk attach containerID
+修改
+ctrl+P+Q 退出
+</code></pre><h6 id="保存镜像"><a href="#保存镜像" class="headerlink" title="保存镜像"></a>保存镜像</h6><pre><code>docker commit containerID test
+docerk tag test zhangfuli/test:latest   //修改名称, 上一步可以直接命为这个  
+</code></pre><h6 id="推送"><a href="#推送" class="headerlink" title="推送"></a>推送</h6><pre><code>docker push zhangfuli/test:latest //一定为docker name/仓库 name
+</code></pre>
       
     </div>
     
@@ -418,6 +449,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
       
 
       
@@ -493,8 +530,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -581,6 +627,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#本次主要介绍如何推送本地image到dockerhub"><span class="nav-number">1.0.1.</span> <span class="nav-text">本次主要介绍如何推送本地image到dockerhub</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤"><span class="nav-number">2.</span> <span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#首先从公共仓库中pull一个镜像"><span class="nav-number">2.0.1.</span> <span class="nav-text">首先从公共仓库中pull一个镜像</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#进入镜像进行修改"><span class="nav-number">2.0.2.</span> <span class="nav-text">进入镜像进行修改</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#保存镜像"><span class="nav-number">2.0.3.</span> <span class="nav-text">保存镜像</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#推送"><span class="nav-number">2.0.4.</span> <span class="nav-text">推送</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
