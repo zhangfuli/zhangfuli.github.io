@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[2018小学期--hadoop]]></title>
+    <url>%2F2018%2F08%2F13%2F2018%E5%B0%8F%E5%AD%A6%E6%9C%9F-hadoop%2F</url>
+    <content type="text"><![CDATA[spark 由scala完成1、scala 三种方式编写(1) 交互式 cmd scala-&gt; :paste(2) 脚本式 hello.scala scala hello.scala(3) ide scalac hello.scala(含有main函数)-&gt; scala hello2、定义变量val a:Int = 3 //常量 变量名:数据类型 可以不加 val a = 3var a:Int = 12 //变量 var a = 123、其他数据类型######Unit、Null、AnyRef、Any def hello():Unit = { //无返回值 } spark1、创建RDD 内存中分布式数据集2、集群模式启动 spark-shell –master spark://192.168.1990.137:7077var rdd = sc.textFile(&quot;路径&quot;) rdd.collecct.foreach(println) rdd.map(line =&gt; line.split(&quot; &quot;)) //转换 3、从内存中构造集合var rdd = sc.parallelize(List(1,2,3,4,5,6,7,8,9,10)) 4、判断是否含有某单词的行数rdd2 = rdd.fliter(line =&gt; line.contains(&quot;hello&quot;)) rdd2.count //遇到count才真正计算 5、val conf = new SparkConf().setAppName(“Word Count”)]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>大数据</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[docker push]]></title>
     <url>%2F2018%2F07%2F18%2Fdocker-push%2F</url>
     <content type="text"><![CDATA[前言本次主要介绍如何推送本地image到dockerhub步骤首先从公共仓库中pull一个镜像docker pull centos 进入镜像进行修改docker run -itd centos /bin/bash docerk attach containerID 修改 ctrl+P+Q 退出 保存镜像docker commit containerID test docerk tag test zhangfuli/test:latest //修改名称, 上一步可以直接命为这个 推送docker push zhangfuli/test:latest //一定为docker name/仓库 name]]></content>
@@ -155,17 +166,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[生成npm包--vue]]></title>
-    <url>%2F2017%2F12%2F19%2F%E7%94%9F%E6%88%90npm%E5%8C%85--vue%2F</url>
-    <content type="text"><![CDATA[介绍用vue-cli打包生成vue组件并且上传到npm上前期准备vue-cli npm账号 webpack 首先，用vue-cli生成vue项目，并修改如下所示{ &quot;name&quot;: &quot;picture-upload&quot;, &quot;version&quot;: &quot;1.0.9&quot;, &quot;description&quot;: &quot;This is a component for picture uploaded by base64&quot;, &quot;author&quot;: &quot;zfl &lt;1171067930@qq.com&gt;&quot;, &quot;main&quot;: &quot;dist/picture-upload.min.js&quot;, &quot;license&quot;: &quot;MIT&quot;, &quot;private&quot;: false, &quot;scripts&quot;: { &quot;dev&quot;: &quot;node build/dev-server.js&quot;, &quot;start&quot;: &quot;node build/dev-server.js&quot;, &quot;build&quot;: &quot;node build/build.js&quot; }, &quot;dependencies&quot;: { &quot;vue&quot;: &quot;^2.3.3&quot;, &quot;vue-router&quot;: &quot;^2.6.0&quot; } ... } “private”: false 把这个包改成公用的“main”: “dist/picture-upload.min.js”, 这里的配置意思是，别人用这个包 import PictureUpload from ‘picture-upload’; 时，引入的文件。可以看出，这个picture-upload最终需要打包出一个js文件，所以我们需要修改webpack.prod.config.js文件var webpackConfig = merge(baseWebpackConfig, { module: { rules: utils.styleLoaders({ sourceMap: config.build.productionSourceMap, extract: true }) }, devtool: config.build.productionSourceMap ? &apos;#source-map&apos; : false, // output: { // path: config.build.assetsRoot, // filename: utils.assetsPath(&apos;js/[name].[chunkhash].js&apos;), // chunkFilename: utils.assetsPath(&apos;js/[id].[chunkhash].js&apos;) // }, output: { path: config.bundle.assetsRoot, publicPath: config.bundle.assetsPublicPath, filename: &apos;picture-upload.min.js&apos;, library: &apos;PictureUpload&apos;, libraryTarget: &apos;umd&apos; }, plugins: [ new webpack.DefinePlugin({ &apos;process.env&apos;: env }), new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false }, sourceMap: true }), // extract css into its own file new ExtractTextPlugin({ // filename: utils.assetsPath(&apos;css/[name].[contenthash].css&apos;) filename: &apos;picture-upload.min.css&apos; }), new OptimizeCSSPlugin() ] }) module.exports = webpackConfig 主要是修改两个地方output里面的filename,就是打包生成的js文件的名字;library是引入时的模块名;extracttextpligin里的filename改成picture-upload.min.css;然后很多不需要的模块都注解掉了下面是config/index.jsbundle: { env: require(&apos;./prod.env&apos;), assetsRoot: path.resolve(__dirname, &apos;../dist&apos;), assetsPublicPath: &apos;/&apos;, assetsSubDirectory: &apos;/&apos;, productionSourceMap: true, productionGzip: false, productionGzipExtensions: [&apos;js&apos;, &apos;css&apos;], bundleAnalyzerReport: process.env.npm_config_report } 在build的下面加上这段代码,上面webpack.prod.config.js里面output里面配置的都是bundle编写组件,组件编写完成后,在main.js里面加上,其他的注释掉与不注释掉都可以import PictureUpload from &apos;./components/PictureUpload.vue&apos; export default PictureUpload 最后执行npm run build发布到npm上npm login npm adduser npm publish 使用在下面项目链接的readme里面有点击这里 注意:由于webpack最近的升级webpack组件用2.0写的在最新vue-cli生成的webpack3.0的项目中貌似不能用]]></content>
-      <categories>
-        <category>vue</category>
-      </categories>
-      <tags>
-        <tag>vue</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[javascript高级程序设计20-23]]></title>
     <url>%2F2017%2F12%2F19%2Fjavascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A120-23%2F</url>
     <content type="text"><![CDATA[JSON对象{ name: &quot;test&quot; } 数据结构{ &quot;name&quot;: &quot;test&quot; } JSON对象方法JSON.stringify() //将json对象转化为数据结构参数let obj = { name: &quot;test&quot;, sex: [&apos;male&apos;, &apos;female&apos;] } JSON.stringify(obj) JSON.stringify(obj, name) //只保留name JSON.stringify(obj,name,4) //字符缩进4个空格 数据存储cookiecookie构成：名称、值、域、路径、失效时间、安全标志Set-Cookie: name=value; domain=.wrox.com; expires= Mon, 22-Jan-07; secure document.cookie = &quot;name=value; .....&quot; cookie 确实非常小，它的大小限制为4KB左右，是网景公司的前雇员 Lou Montulli 在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在 Cookie 中存入一段辨别用户身份的数据来实现的localStoragelocalStorage.setItem() localStorage.getItem() sessionStorage用法同上浏览器缓存浏览器缓存]]></content>
@@ -174,6 +174,17 @@
       </categories>
       <tags>
         <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[生成npm包--vue]]></title>
+    <url>%2F2017%2F12%2F19%2F%E7%94%9F%E6%88%90npm%E5%8C%85--vue%2F</url>
+    <content type="text"><![CDATA[介绍用vue-cli打包生成vue组件并且上传到npm上前期准备vue-cli npm账号 webpack 首先，用vue-cli生成vue项目，并修改如下所示{ &quot;name&quot;: &quot;picture-upload&quot;, &quot;version&quot;: &quot;1.0.9&quot;, &quot;description&quot;: &quot;This is a component for picture uploaded by base64&quot;, &quot;author&quot;: &quot;zfl &lt;1171067930@qq.com&gt;&quot;, &quot;main&quot;: &quot;dist/picture-upload.min.js&quot;, &quot;license&quot;: &quot;MIT&quot;, &quot;private&quot;: false, &quot;scripts&quot;: { &quot;dev&quot;: &quot;node build/dev-server.js&quot;, &quot;start&quot;: &quot;node build/dev-server.js&quot;, &quot;build&quot;: &quot;node build/build.js&quot; }, &quot;dependencies&quot;: { &quot;vue&quot;: &quot;^2.3.3&quot;, &quot;vue-router&quot;: &quot;^2.6.0&quot; } ... } “private”: false 把这个包改成公用的“main”: “dist/picture-upload.min.js”, 这里的配置意思是，别人用这个包 import PictureUpload from ‘picture-upload’; 时，引入的文件。可以看出，这个picture-upload最终需要打包出一个js文件，所以我们需要修改webpack.prod.config.js文件var webpackConfig = merge(baseWebpackConfig, { module: { rules: utils.styleLoaders({ sourceMap: config.build.productionSourceMap, extract: true }) }, devtool: config.build.productionSourceMap ? &apos;#source-map&apos; : false, // output: { // path: config.build.assetsRoot, // filename: utils.assetsPath(&apos;js/[name].[chunkhash].js&apos;), // chunkFilename: utils.assetsPath(&apos;js/[id].[chunkhash].js&apos;) // }, output: { path: config.bundle.assetsRoot, publicPath: config.bundle.assetsPublicPath, filename: &apos;picture-upload.min.js&apos;, library: &apos;PictureUpload&apos;, libraryTarget: &apos;umd&apos; }, plugins: [ new webpack.DefinePlugin({ &apos;process.env&apos;: env }), new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false }, sourceMap: true }), // extract css into its own file new ExtractTextPlugin({ // filename: utils.assetsPath(&apos;css/[name].[contenthash].css&apos;) filename: &apos;picture-upload.min.css&apos; }), new OptimizeCSSPlugin() ] }) module.exports = webpackConfig 主要是修改两个地方output里面的filename,就是打包生成的js文件的名字;library是引入时的模块名;extracttextpligin里的filename改成picture-upload.min.css;然后很多不需要的模块都注解掉了下面是config/index.jsbundle: { env: require(&apos;./prod.env&apos;), assetsRoot: path.resolve(__dirname, &apos;../dist&apos;), assetsPublicPath: &apos;/&apos;, assetsSubDirectory: &apos;/&apos;, productionSourceMap: true, productionGzip: false, productionGzipExtensions: [&apos;js&apos;, &apos;css&apos;], bundleAnalyzerReport: process.env.npm_config_report } 在build的下面加上这段代码,上面webpack.prod.config.js里面output里面配置的都是bundle编写组件,组件编写完成后,在main.js里面加上,其他的注释掉与不注释掉都可以import PictureUpload from &apos;./components/PictureUpload.vue&apos; export default PictureUpload 最后执行npm run build发布到npm上npm login npm adduser npm publish 使用在下面项目链接的readme里面有点击这里 注意:由于webpack最近的升级webpack组件用2.0写的在最新vue-cli生成的webpack3.0的项目中貌似不能用]]></content>
+      <categories>
+        <category>vue</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -270,9 +281,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[数学建模国赛被整蛊]]></title>
-    <url>%2F2017%2F10%2F16%2F%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%9B%BD%E8%B5%9B%E8%A2%AB%E6%95%B4%E8%9B%8A%2F</url>
-    <content type="text"><![CDATA[国赛已经过去好长时间了，今天翻文件无意中看见”国赛A题论文.vbs”,想想在那三天的紧张的时间，看见这个是个什么心情？当然是，理性的分析一下啊。看到.vbs我就心里暗想着个东西不是啥好东西，结果用sublimetext打开一看,发现了好玩的东西dim Obj set Obj = createobject(&quot;wscript.shell&quot;) Obj.exec &quot;shutdown -s -t 0&quot; 一个basic的关机脚本,这个脚本不知坑了多少小组。哈哈哈但是这个要是一个病毒那就GG了]]></content>
+    <title><![CDATA[突然上不去网？]]></title>
+    <url>%2F2017%2F10%2F16%2F%E7%AA%81%E7%84%B6%E4%B8%8A%E4%B8%8D%E5%8E%BB%E7%BD%91%EF%BC%9F%2F</url>
+    <content type="text"><![CDATA[前言宿舍里经常会有分配不到IP的情况, 下面的命令应该能解决netsh winsock reset 重置winsock目录,宿舍分配不到ip其他常用命令shutdown –help —–shutdown的参数查 git clone ….. —— 克隆到当前文件夹 git add . —– 暂存 git commit —– 提交 写提交备注 —– vi用法 :wq git push —– 推送]]></content>
       <categories>
         <category>生活</category>
       </categories>
@@ -281,9 +292,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[突然上不去网？]]></title>
-    <url>%2F2017%2F10%2F16%2F%E7%AA%81%E7%84%B6%E4%B8%8A%E4%B8%8D%E5%8E%BB%E7%BD%91%EF%BC%9F%2F</url>
-    <content type="text"><![CDATA[前言宿舍里经常会有分配不到IP的情况, 下面的命令应该能解决netsh winsock reset 重置winsock目录,宿舍分配不到ip其他常用命令shutdown –help —–shutdown的参数查 git clone ….. —— 克隆到当前文件夹 git add . —– 暂存 git commit —– 提交 写提交备注 —– vi用法 :wq git push —– 推送]]></content>
+    <title><![CDATA[数学建模国赛被整蛊]]></title>
+    <url>%2F2017%2F10%2F16%2F%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%9B%BD%E8%B5%9B%E8%A2%AB%E6%95%B4%E8%9B%8A%2F</url>
+    <content type="text"><![CDATA[国赛已经过去好长时间了，今天翻文件无意中看见”国赛A题论文.vbs”,想想在那三天的紧张的时间，看见这个是个什么心情？当然是，理性的分析一下啊。看到.vbs我就心里暗想着个东西不是啥好东西，结果用sublimetext打开一看,发现了好玩的东西dim Obj set Obj = createobject(&quot;wscript.shell&quot;) Obj.exec &quot;shutdown -s -t 0&quot; 一个basic的关机脚本,这个脚本不知坑了多少小组。哈哈哈但是这个要是一个病毒那就GG了]]></content>
       <categories>
         <category>生活</category>
       </categories>
@@ -303,17 +314,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Linux常用命令]]></title>
-    <url>%2F2017%2F09%2F25%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
-    <content type="text"><![CDATA[Everything is a file (inode 除外)whoami –我是谁 pwd –我在哪 ls –我能干什么 ls -l 显示详细信息 -a 显示全部文件 蓝色 –文件夹 –d 黑色 –文件 b c –驱动 /dev 设备文件夹 l –软链接 whereis +命令(ls) /bin /sbin–外部应用 shell自带的命令 man +命令 –查手册 mkdir +名字 –新建文件夹 vi +名字 –新建vi文件 命令属性:w –保存–:w! 强制保存 :q –退出–:q! 强制退出 :wq 编辑属性gcc hello.c -o hello 执行时 ./hello若直接为hello系统视为是一个命令 gcc -c hello.c -o hello.o gcc hello. -o hello linux文件夹bin--普通命令 sbin--系统命令 root--超级用户 home--普通用户 proc--进程 dev--设备 usr--内部程序 opt--外部程序 boot--内核文件 mnt--挂载 etc--配置文件 ————————————————–cat 显示 + 文本文件 type(dos) 尽可能不要打开非文本文件more/less 也是显示 + 文本是否分页显示 touch 修改创建时间 ln find 查找文件 grep 查找或不查找文本文件内容相关的信息 sda1 –sd 串口 a 第一个硬盘的第一个分区 fdisk -l 显示硬盘 挂载 mount /dev/sdb1 /mnt/usb rm 删除文件 rm + 文件名 -f rm + 删除文件夹 -r(递归) cp/mv a—-&gt;b 文件夹 -r 在同级文件夹下mv就是改名 ncurse—图形界面的引擎 gcc menu.c -o menu -lcurses //引入lib库文件 ————————————————find [path] [attr] [key] find /mnt -name usb /mnt/usb grep [key] [file] 查找文件内容 ln (-s) source des 硬链接增加节点索引号，不消耗资源修改权限chmod(修改权限) chown(修改属主) chgrp(修改属组) chmod +x ./jiaoben rwxrwxrwx read write execute-可执行 u–g–o user group(对用户所在的组的其他用户的权限) other(组外权限) chomd u+x ./jiaoben rwxr-xr-x 111101101 //755 特殊1、3不能出现 chomd 755 ./jiaoben 环境命令：env、echo、export1.env –输出环境变量 path –命令的链接路径 2.echo –输出环境变量 echo $PATH —查环境变量要给钱 3.更改PATH export PATH=路径:$PATH //放在前面优先级高 归档命令：tar -xjvf -xzvf whereis ls makefile make clean –只保留源代码 make –执行第一个 make clean make menuconfig make dep –建立依赖关系 make bzImage –编辑内核 Makefile结构 target:source (tab)commond 目标:源 命令 标号 make A –执行A之后B之前 A: B: sh脚本 –chmod +x addstu #!/bin/bash –用的什么shell&lt; -lt &lt;= -le &gt; -gt &gt;= -ge = -eq != -ne $变量 while [ condition ] do done if [ condition ] then else fi case esac i=$(($i+1)) i++ ——————————————————–/etc/shadow –密码 /etc/passwd –用户 /etc/group –分组 /etc/inittab init 0 关机 init 3 多用户有网络 startx init 6 重启 进入单用户模式 改密码grub e kernal e + 1–单用户模式 b –启动 os：bootloader 16位 作用：1.把16位的环境调成32位2.准备加载kernek内核kernel 32/64 rootfs 软盘1.44M service ssh start/status update-rc.d ssh enable 进程ps process status ps -aux 当前所有的进程 top 动态进程 jobs 后台执行的进程 ctrl + c 把当前进程中断 kill -9 + pid ctrl + z 把当前进程搬到后台暂停 fg 1 //1为序号 ps process status ps -aux 当前所有的进程 top 动态进程 jobs 后台执行的进程 ctrl + c 把当前进程中断 kill -9 + pid ctrl + z 把当前进程搬到后台暂停 fg 1 //1为序号 pthread.h gcc -lpthread 哲学家进餐：mutex lock wait left wait right eat signal left signal right unloack]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[面向对象的程序设计]]></title>
     <url>%2F2017%2F09%2F25%2F%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%2F</url>
     <content type="text"><![CDATA[属性类型数据属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Writable]]:能否修改属性的值，默认为true [[Value]]:数据 改变上述属性Object.defineProperty() var person = {} Object.defineProperty(person,&quot;name&quot;,{ writable: false, //不能重写 value: &quot;123&quot;, configurable: false, //以后再也不可配置 enumerable: true }) console.log(person.name) //123 person.name = &quot;456&quot; console.log(person.name) //123 访问属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Get]]:读取属性的时候调用的函数 [[Set]]:写入属性的时候调用的函数 var book = { year: 2017, edition: 1 } Object.defineProperty(book,&quot;month&quot;,{ //对month进行访问 get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } }) book.month = 2018 //调用set console.log(book.year) console.log(book.month) //get方法返回123 访问多个属性var book = { year: 2017, edition: 1 } Object.defineProperties(book,{ edition:{ writeable:true, value: 2015 }, month:{ get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } } }) book.month = 2018 console.log(book.year) //2018 console.log(book.month) // 123 console.log(book.edition) //2015 获得属性 Object.getOwnPropertyDescriptor()var descriptor = Object.getOwnPropertyDescriptor(book,&quot;year&quot;) console.log(descriptor) 创建对象最合适的方法–构造函数模式和原型模式function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var john = new Person(&quot;john&quot;) john.sayName() //john 此类方法属性不共享，方法共享其他要点1.可将构造函数当普通函数用,原型中不行，只能在构造函数模式中function Person(name , age){ this.name = name this.age = age sayName = function(){ console.log(this.name) } } Person(&quot;john&quot;) window.sayName() //john 2.内存区问题 sayName()在同一内存区function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) 另一种情况 sayName在不同内存区(没有this是true)function Person(name , age){ this.name = name this.age = age this.sayName = function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) //false 原型–&gt;我的理解是一个实例，所有其他实例的父类isPrototypeOf()验证是否为某原型的实例Person.prototype.isPrototypeOf(person1) //true hasOwnProperty()检测属性是否存在于实例中person1.hasOwnProperty(“name”) function Person(){} Person.prototype = { name : &quot;name&quot;, age : &quot;age&quot;, sayName: function(){ console.log(this.name) } } var person1 = new Person() console.log(person1.hasOwnProperty(&quot;name&quot;)) //false person1.name = &quot;123&quot; console.log(person1.hasOwnProperty(&quot;name&quot;)) //true 原型与继承每个构造函数都有原型，每个原型都有指针指向构造函数，每个实例都有指向原型的指针function Animal(){} Animal.prototype = { constructor: Animal //__proto__ } function Dog(){} Dog.prototype ={ constructor: Dog //__proto__ } Dog.prototype = new Animal() //继承 let dog1 = new Dog() console.log(dog1) //Dog.__proto__ = Animal //Animal.__proto__ = Object 每个实例中都有proto指向new的类，若没有则指向本身原型与实例的关系instance intanceof Object Object.prototype.isPrototypeOf(intance) 最常用的继承模式–组合继承function Super(){ this.property = true } Super.prototype.getSuperProperty = function(){ return this.property } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = new Super() Sub.prototype.getSubProperty = function(){ return this.subProperty } let inte = new Sub() console.log(inte.getSuperProperty()) console.log(inte.getSubProperty()) 注意子类不能使用字面量的方法如下所示，它会重写了原型链，父类可以用字面量写法Sub.prototype = {} 我最常用的方法–野路子function Super(){ this.property = true } Super.prototype = { constructor: Super, getSuperProperty: function(){ return this.property } } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = { constructor: Sub, getSubProperty: function(){ return this.subProperty }, __proto__: Super.prototype } let inte = new Sub() console.log(inte.getSuperProperty()) /true console.log(inte.getSubProperty()) /false]]></content>
@@ -322,6 +322,17 @@
       </categories>
       <tags>
         <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Linux常用命令]]></title>
+    <url>%2F2017%2F09%2F25%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[Everything is a file (inode 除外)whoami –我是谁 pwd –我在哪 ls –我能干什么 ls -l 显示详细信息 -a 显示全部文件 蓝色 –文件夹 –d 黑色 –文件 b c –驱动 /dev 设备文件夹 l –软链接 whereis +命令(ls) /bin /sbin–外部应用 shell自带的命令 man +命令 –查手册 mkdir +名字 –新建文件夹 vi +名字 –新建vi文件 命令属性:w –保存–:w! 强制保存 :q –退出–:q! 强制退出 :wq 编辑属性gcc hello.c -o hello 执行时 ./hello若直接为hello系统视为是一个命令 gcc -c hello.c -o hello.o gcc hello. -o hello linux文件夹bin--普通命令 sbin--系统命令 root--超级用户 home--普通用户 proc--进程 dev--设备 usr--内部程序 opt--外部程序 boot--内核文件 mnt--挂载 etc--配置文件 ————————————————–cat 显示 + 文本文件 type(dos) 尽可能不要打开非文本文件more/less 也是显示 + 文本是否分页显示 touch 修改创建时间 ln find 查找文件 grep 查找或不查找文本文件内容相关的信息 sda1 –sd 串口 a 第一个硬盘的第一个分区 fdisk -l 显示硬盘 挂载 mount /dev/sdb1 /mnt/usb rm 删除文件 rm + 文件名 -f rm + 删除文件夹 -r(递归) cp/mv a—-&gt;b 文件夹 -r 在同级文件夹下mv就是改名 ncurse—图形界面的引擎 gcc menu.c -o menu -lcurses //引入lib库文件 ————————————————find [path] [attr] [key] find /mnt -name usb /mnt/usb grep [key] [file] 查找文件内容 ln (-s) source des 硬链接增加节点索引号，不消耗资源修改权限chmod(修改权限) chown(修改属主) chgrp(修改属组) chmod +x ./jiaoben rwxrwxrwx read write execute-可执行 u–g–o user group(对用户所在的组的其他用户的权限) other(组外权限) chomd u+x ./jiaoben rwxr-xr-x 111101101 //755 特殊1、3不能出现 chomd 755 ./jiaoben 环境命令：env、echo、export1.env –输出环境变量 path –命令的链接路径 2.echo –输出环境变量 echo $PATH —查环境变量要给钱 3.更改PATH export PATH=路径:$PATH //放在前面优先级高 归档命令：tar -xjvf -xzvf whereis ls makefile make clean –只保留源代码 make –执行第一个 make clean make menuconfig make dep –建立依赖关系 make bzImage –编辑内核 Makefile结构 target:source (tab)commond 目标:源 命令 标号 make A –执行A之后B之前 A: B: sh脚本 –chmod +x addstu #!/bin/bash –用的什么shell&lt; -lt &lt;= -le &gt; -gt &gt;= -ge = -eq != -ne $变量 while [ condition ] do done if [ condition ] then else fi case esac i=$(($i+1)) i++ ——————————————————–/etc/shadow –密码 /etc/passwd –用户 /etc/group –分组 /etc/inittab init 0 关机 init 3 多用户有网络 startx init 6 重启 进入单用户模式 改密码grub e kernal e + 1–单用户模式 b –启动 os：bootloader 16位 作用：1.把16位的环境调成32位2.准备加载kernek内核kernel 32/64 rootfs 软盘1.44M service ssh start/status update-rc.d ssh enable 进程ps process status ps -aux 当前所有的进程 top 动态进程 jobs 后台执行的进程 ctrl + c 把当前进程中断 kill -9 + pid ctrl + z 把当前进程搬到后台暂停 fg 1 //1为序号 ps process status ps -aux 当前所有的进程 top 动态进程 jobs 后台执行的进程 ctrl + c 把当前进程中断 kill -9 + pid ctrl + z 把当前进程搬到后台暂停 fg 1 //1为序号 pthread.h gcc -lpthread 哲学家进餐：mutex lock wait left wait right eat signal left signal right unloack]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -886,9 +897,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello Blog]]></title>
-    <url>%2F2015%2F06%2F01%2Fhello-blog%2F</url>
-    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
+    <title><![CDATA[利用github和hexo搭建自己的博客]]></title>
+    <url>%2F2015%2F06%2F01%2Fbuildblog%2F</url>
+    <content type="text"><![CDATA[步骤首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。搭建环境(必须的) —Node和git利用choco在cmd(管理员模式)下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。安装开始执行如下命令npm install -g hexo 进行安装hexo init 进行初始化在Github里新建一个仓库，名字叫XXX(你Github的昵称).github.io下载安装Souretree(我用的是Souretree，你也可以选在别的软件)把XXX.github.io克隆到生成hexo的文件的public文件下(注：如果里面有文件的话先copy出来，让public为空文件夹)。OK，在网址上输入XXX.github.io，你的专属blog完成了。查看PS:需要运行在cmd下找到你的blog所在的文件夹运行hexo g即可，如果想在本地看看你的页面hexo s]]></content>
       <categories>
         <category>hexo</category>
       </categories>
@@ -897,9 +908,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[利用github和hexo搭建自己的博客]]></title>
-    <url>%2F2015%2F06%2F01%2Fbuildblog%2F</url>
-    <content type="text"><![CDATA[步骤首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。搭建环境(必须的) —Node和git利用choco在cmd(管理员模式)下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。安装开始执行如下命令npm install -g hexo 进行安装hexo init 进行初始化在Github里新建一个仓库，名字叫XXX(你Github的昵称).github.io下载安装Souretree(我用的是Souretree，你也可以选在别的软件)把XXX.github.io克隆到生成hexo的文件的public文件下(注：如果里面有文件的话先copy出来，让public为空文件夹)。OK，在网址上输入XXX.github.io，你的专属blog完成了。查看PS:需要运行在cmd下找到你的blog所在的文件夹运行hexo g即可，如果想在本地看看你的页面hexo s]]></content>
+    <title><![CDATA[Hello Blog]]></title>
+    <url>%2F2015%2F06%2F01%2Fhello-blog%2F</url>
+    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
       <categories>
         <category>hexo</category>
       </categories>
