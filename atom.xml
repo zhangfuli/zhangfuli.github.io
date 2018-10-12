@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="zhangfuli.github.io/"/>
-  <updated>2018-08-13T01:39:28.397Z</updated>
+  <updated>2018-10-12T07:45:36.455Z</updated>
   <id>zhangfuli.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>小程序自动登录问题</title>
+    <link href="zhangfuli.github.io/2018/10/12/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%95%E9%97%AE%E9%A2%98/"/>
+    <id>zhangfuli.github.io/2018/10/12/小程序自动登录问题/</id>
+    <published>2018-10-12T07:19:48.000Z</published>
+    <updated>2018-10-12T07:45:36.455Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="问题出现"><a href="#问题出现" class="headerlink" title="问题出现"></a>问题出现</h3><h6 id="小程序登录改了又改-改了又改-感觉有的对于前端人员很不友好。-比如当用户进入小程序时-想要自动获取用户信息-不点击获取用户信息的按钮"><a href="#小程序登录改了又改-改了又改-感觉有的对于前端人员很不友好。-比如当用户进入小程序时-想要自动获取用户信息-不点击获取用户信息的按钮" class="headerlink" title="小程序登录改了又改, 改了又改, 感觉有的对于前端人员很不友好。 比如当用户进入小程序时, 想要自动获取用户信息, 不点击获取用户信息的按钮"></a>小程序登录改了又改, 改了又改, 感觉有的对于前端人员很不友好。 比如当用户进入小程序时, 想要自动获取用户信息, 不点击获取用户信息的按钮</h6><h6 id="然而不能像h5一样-当页面加载采用模拟点击隐形按钮的方法-看一下文档-呵呵了"><a href="#然而不能像h5一样-当页面加载采用模拟点击隐形按钮的方法-看一下文档-呵呵了" class="headerlink" title="然而不能像h5一样, 当页面加载采用模拟点击隐形按钮的方法, 看一下文档, 呵呵了"></a>然而不能像h5一样, 当页面加载采用模拟点击隐形按钮的方法, 看一下文档, 呵呵了</h6><h3 id="折中方法"><a href="#折中方法" class="headerlink" title="折中方法"></a>折中方法</h3><h6 id="wxml"><a href="#wxml" class="headerlink" title="wxml"></a>wxml</h6><pre><code>&lt;button class=&quot;login&quot;  wx:if=&quot;{{!hasUserInfo && canIUse}}&quot; open-type=&quot;getUserInfo&quot;         bindgetuserinfo=&quot;getUserInfo&quot;&gt;  &lt;/button&gt; </code></pre><h6 id="wxss"><a href="#wxss" class="headerlink" title="wxss"></a>wxss</h6><pre><code>page{  height: 100%;  position: relative;}.login{  display: flex;  width: 100%;  height: 100%;  position: absolute;  left: 0;  top: 0;  z-index: 100 !important;  background: blue;  opacity:0;}</code></pre><h6 id="将button置于顶层透明度为0-用户点击时会跳出"><a href="#将button置于顶层透明度为0-用户点击时会跳出" class="headerlink" title="将button置于顶层透明度为0, 用户点击时会跳出"></a>将button置于顶层透明度为0, 用户点击时会跳出</h6>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;问题出现&quot;&gt;&lt;a href=&quot;#问题出现&quot; class=&quot;headerlink&quot; title=&quot;问题出现&quot;&gt;&lt;/a&gt;问题出现&lt;/h3&gt;&lt;h6 id=&quot;小程序登录改了又改-改了又改-感觉有的对于前端人员很不友好。-比如当用户进入小程序时-想要自动获取用户信息-不点击
+      
+    
+    </summary>
+    
+    
+      <category term="小程序" scheme="zhangfuli.github.io/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>2018小学期--hadoop</title>
@@ -292,31 +315,6 @@
   </entry>
   
   <entry>
-    <title>卡死电脑代码</title>
-    <link href="zhangfuli.github.io/2018/02/22/%E5%8D%A1%E6%AD%BB%E7%94%B5%E8%84%91%E4%BB%A3%E7%A0%81/"/>
-    <id>zhangfuli.github.io/2018/02/22/卡死电脑代码/</id>
-    <published>2018-02-22T02:42:30.000Z</published>
-    <updated>2018-07-18T08:56:24.073Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><h6 id="下面两段代码吃内存，造成浏览器卡死"><a href="#下面两段代码吃内存，造成浏览器卡死" class="headerlink" title="下面两段代码吃内存，造成浏览器卡死"></a>下面两段代码吃内存，造成浏览器卡死</h6><h4 id="代码1"><a href="#代码1" class="headerlink" title="代码1"></a>代码1</h4><pre><code>var total=&quot;&quot;;for (var i=0;i&lt;1000000;i++){    total= total+i.toString ();    history.pushState (0,0,total);}</code></pre><h4 id="代码2"><a href="#代码2" class="headerlink" title="代码2"></a>代码2</h4><pre><code>while(true) {     document.body.appendChild(document.createElement(&quot;div&quot;)); }</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h4 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h4&gt;&lt;h6 id=&quot;下面两段代码吃内存，造成浏览器卡死&quot;&gt;&lt;a href=&quot;#下面两段代码吃内存，造成浏览器卡死&quot; class=&quot;headerlink
-      
-    
-    </summary>
-    
-      <category term="探究" scheme="zhangfuli.github.io/categories/%E6%8E%A2%E7%A9%B6/"/>
-    
-    
-      <category term="探究" scheme="zhangfuli.github.io/tags/%E6%8E%A2%E7%A9%B6/"/>
-    
-  </entry>
-  
-  <entry>
     <title>图片懒加载</title>
     <link href="zhangfuli.github.io/2018/02/22/%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BD/"/>
     <id>zhangfuli.github.io/2018/02/22/图片懒加载/</id>
@@ -338,6 +336,31 @@
     
     
       <category term="javascript" scheme="zhangfuli.github.io/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>卡死电脑代码</title>
+    <link href="zhangfuli.github.io/2018/02/22/%E5%8D%A1%E6%AD%BB%E7%94%B5%E8%84%91%E4%BB%A3%E7%A0%81/"/>
+    <id>zhangfuli.github.io/2018/02/22/卡死电脑代码/</id>
+    <published>2018-02-22T02:42:30.000Z</published>
+    <updated>2018-07-18T08:56:24.073Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><h6 id="下面两段代码吃内存，造成浏览器卡死"><a href="#下面两段代码吃内存，造成浏览器卡死" class="headerlink" title="下面两段代码吃内存，造成浏览器卡死"></a>下面两段代码吃内存，造成浏览器卡死</h6><h4 id="代码1"><a href="#代码1" class="headerlink" title="代码1"></a>代码1</h4><pre><code>var total=&quot;&quot;;for (var i=0;i&lt;1000000;i++){    total= total+i.toString ();    history.pushState (0,0,total);}</code></pre><h4 id="代码2"><a href="#代码2" class="headerlink" title="代码2"></a>代码2</h4><pre><code>while(true) {     document.body.appendChild(document.createElement(&quot;div&quot;)); }</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h4&gt;&lt;h6 id=&quot;下面两段代码吃内存，造成浏览器卡死&quot;&gt;&lt;a href=&quot;#下面两段代码吃内存，造成浏览器卡死&quot; class=&quot;headerlink
+      
+    
+    </summary>
+    
+      <category term="探究" scheme="zhangfuli.github.io/categories/%E6%8E%A2%E7%A9%B6/"/>
+    
+    
+      <category term="探究" scheme="zhangfuli.github.io/tags/%E6%8E%A2%E7%A9%B6/"/>
     
   </entry>
   
@@ -392,31 +415,6 @@
   </entry>
   
   <entry>
-    <title>javascript高级程序设计20-23</title>
-    <link href="zhangfuli.github.io/2017/12/19/javascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A120-23/"/>
-    <id>zhangfuli.github.io/2017/12/19/javascript高级程序设计20-23/</id>
-    <published>2017-12-19T02:42:30.000Z</published>
-    <updated>2018-07-18T08:38:14.003Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><h6 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h6><pre><code>{    name: &quot;test&quot;}</code></pre><h6 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h6><pre><code>{    &quot;name&quot;: &quot;test&quot;}</code></pre><h5 id="JSON对象方法"><a href="#JSON对象方法" class="headerlink" title="JSON对象方法"></a>JSON对象方法</h5><h6 id="JSON-stringify-将json对象转化为数据结构"><a href="#JSON-stringify-将json对象转化为数据结构" class="headerlink" title="JSON.stringify() //将json对象转化为数据结构"></a>JSON.stringify() //将json对象转化为数据结构</h6><h6 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h6><pre><code>let obj = {    name: &quot;test&quot;,    sex: [&apos;male&apos;, &apos;female&apos;]}JSON.stringify(obj)  JSON.stringify(obj, name)  //只保留nameJSON.stringify(obj,name,4) //字符缩进4个空格</code></pre><h4 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h4><h5 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h5><h6 id="cookie构成：名称、值、域、路径、失效时间、安全标志"><a href="#cookie构成：名称、值、域、路径、失效时间、安全标志" class="headerlink" title="cookie构成：名称、值、域、路径、失效时间、安全标志"></a>cookie构成：名称、值、域、路径、失效时间、安全标志</h6><pre><code>Set-Cookie: name=value; domain=.wrox.com; expires= Mon, 22-Jan-07; securedocument.cookie = &quot;name=value; .....&quot;</code></pre><h6 id="cookie-确实非常小，它的大小限制为4KB左右，是网景公司的前雇员-Lou-Montulli-在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在-Cookie-中存入一段辨别用户身份的数据来实现的"><a href="#cookie-确实非常小，它的大小限制为4KB左右，是网景公司的前雇员-Lou-Montulli-在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在-Cookie-中存入一段辨别用户身份的数据来实现的" class="headerlink" title="cookie 确实非常小，它的大小限制为4KB左右，是网景公司的前雇员 Lou Montulli 在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在 Cookie 中存入一段辨别用户身份的数据来实现的"></a>cookie 确实非常小，它的大小限制为4KB左右，是网景公司的前雇员 Lou Montulli 在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在 Cookie 中存入一段辨别用户身份的数据来实现的</h6><h4 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h4><pre><code>localStorage.setItem()localStorage.getItem()</code></pre><h4 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h4><h6 id="用法同上"><a href="#用法同上" class="headerlink" title="用法同上"></a>用法同上</h6><h4 id="浏览器缓存"><a href="#浏览器缓存" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h4><p><a href="https://segmentfault.com/a/1190000006741200" target="_blank" rel="noopener">浏览器缓存</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;JSON&quot;&gt;&lt;a href=&quot;#JSON&quot; class=&quot;headerlink&quot; title=&quot;JSON&quot;&gt;&lt;/a&gt;JSON&lt;/h3&gt;&lt;h6 id=&quot;对象&quot;&gt;&lt;a href=&quot;#对象&quot; class=&quot;headerlink&quot; title=&quot;对象&quot;&gt;&lt;/a&gt;对象&lt;/h
-      
-    
-    </summary>
-    
-      <category term="javascript" scheme="zhangfuli.github.io/categories/javascript/"/>
-    
-    
-      <category term="javascript" scheme="zhangfuli.github.io/tags/javascript/"/>
-    
-  </entry>
-  
-  <entry>
     <title>生成npm包--vue</title>
     <link href="zhangfuli.github.io/2017/12/19/%E7%94%9F%E6%88%90npm%E5%8C%85--vue/"/>
     <id>zhangfuli.github.io/2017/12/19/生成npm包--vue/</id>
@@ -438,6 +436,31 @@
     
     
       <category term="vue" scheme="zhangfuli.github.io/tags/vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>javascript高级程序设计20-23</title>
+    <link href="zhangfuli.github.io/2017/12/19/javascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A120-23/"/>
+    <id>zhangfuli.github.io/2017/12/19/javascript高级程序设计20-23/</id>
+    <published>2017-12-19T02:42:30.000Z</published>
+    <updated>2018-07-18T08:38:14.003Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><h6 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h6><pre><code>{    name: &quot;test&quot;}</code></pre><h6 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h6><pre><code>{    &quot;name&quot;: &quot;test&quot;}</code></pre><h5 id="JSON对象方法"><a href="#JSON对象方法" class="headerlink" title="JSON对象方法"></a>JSON对象方法</h5><h6 id="JSON-stringify-将json对象转化为数据结构"><a href="#JSON-stringify-将json对象转化为数据结构" class="headerlink" title="JSON.stringify() //将json对象转化为数据结构"></a>JSON.stringify() //将json对象转化为数据结构</h6><h6 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h6><pre><code>let obj = {    name: &quot;test&quot;,    sex: [&apos;male&apos;, &apos;female&apos;]}JSON.stringify(obj)  JSON.stringify(obj, name)  //只保留nameJSON.stringify(obj,name,4) //字符缩进4个空格</code></pre><h4 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h4><h5 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h5><h6 id="cookie构成：名称、值、域、路径、失效时间、安全标志"><a href="#cookie构成：名称、值、域、路径、失效时间、安全标志" class="headerlink" title="cookie构成：名称、值、域、路径、失效时间、安全标志"></a>cookie构成：名称、值、域、路径、失效时间、安全标志</h6><pre><code>Set-Cookie: name=value; domain=.wrox.com; expires= Mon, 22-Jan-07; securedocument.cookie = &quot;name=value; .....&quot;</code></pre><h6 id="cookie-确实非常小，它的大小限制为4KB左右，是网景公司的前雇员-Lou-Montulli-在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在-Cookie-中存入一段辨别用户身份的数据来实现的"><a href="#cookie-确实非常小，它的大小限制为4KB左右，是网景公司的前雇员-Lou-Montulli-在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在-Cookie-中存入一段辨别用户身份的数据来实现的" class="headerlink" title="cookie 确实非常小，它的大小限制为4KB左右，是网景公司的前雇员 Lou Montulli 在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在 Cookie 中存入一段辨别用户身份的数据来实现的"></a>cookie 确实非常小，它的大小限制为4KB左右，是网景公司的前雇员 Lou Montulli 在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在 Cookie 中存入一段辨别用户身份的数据来实现的</h6><h4 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h4><pre><code>localStorage.setItem()localStorage.getItem()</code></pre><h4 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h4><h6 id="用法同上"><a href="#用法同上" class="headerlink" title="用法同上"></a>用法同上</h6><h4 id="浏览器缓存"><a href="#浏览器缓存" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h4><p><a href="https://segmentfault.com/a/1190000006741200" target="_blank" rel="noopener">浏览器缓存</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;JSON&quot;&gt;&lt;a href=&quot;#JSON&quot; class=&quot;headerlink&quot; title=&quot;JSON&quot;&gt;&lt;/a&gt;JSON&lt;/h3&gt;&lt;h6 id=&quot;对象&quot;&gt;&lt;a href=&quot;#对象&quot; class=&quot;headerlink&quot; title=&quot;对象&quot;&gt;&lt;/a&gt;对象&lt;/h
+      
+    
+    </summary>
+    
+      <category term="javascript" scheme="zhangfuli.github.io/categories/javascript/"/>
+    
+    
+      <category term="javascript" scheme="zhangfuli.github.io/tags/javascript/"/>
     
   </entry>
   
@@ -488,29 +511,6 @@
     
     
       <category term="生活" scheme="zhangfuli.github.io/tags/%E7%94%9F%E6%B4%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>拟态计算与蜜罐-石乐义</title>
-    <link href="zhangfuli.github.io/2017/11/17/%E6%8B%9F%E6%80%81%E8%AE%A1%E7%AE%97%E4%B8%8E%E8%9C%9C%E7%BD%90-%E7%9F%B3%E4%B9%90%E4%B9%89/"/>
-    <id>zhangfuli.github.io/2017/11/17/拟态计算与蜜罐-石乐义/</id>
-    <published>2017-11-17T08:18:05.000Z</published>
-    <updated>2018-07-18T08:23:24.051Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="应用决定结构，结构决定性能"><a href="#应用决定结构，结构决定性能" class="headerlink" title="应用决定结构，结构决定性能"></a>应用决定结构，结构决定性能</h4><h4 id="拟态计算与拟态安全"><a href="#拟态计算与拟态安全" class="headerlink" title="拟态计算与拟态安全"></a>拟态计算与拟态安全</h4><h4 id="锁相环–用于跳频通信-500次-s"><a href="#锁相环–用于跳频通信-500次-s" class="headerlink" title="锁相环–用于跳频通信(500次/s)"></a>锁相环–用于跳频通信(500次/s)</h4><h6 id="作用是将电路输出的时钟与其外部的参考时钟保持同步。当参考时钟的频率或相位发生改变时，锁相环会检测到这种变化，并且通过其内部的反馈系统来调节输出频率，直到两者重新同步。"><a href="#作用是将电路输出的时钟与其外部的参考时钟保持同步。当参考时钟的频率或相位发生改变时，锁相环会检测到这种变化，并且通过其内部的反馈系统来调节输出频率，直到两者重新同步。" class="headerlink" title="作用是将电路输出的时钟与其外部的参考时钟保持同步。当参考时钟的频率或相位发生改变时，锁相环会检测到这种变化，并且通过其内部的反馈系统来调节输出频率，直到两者重新同步。"></a>作用是将电路输出的时钟与其外部的参考时钟保持同步。当参考时钟的频率或相位发生改变时，锁相环会检测到这种变化，并且通过其内部的反馈系统来调节输出频率，直到两者重新同步。</h6><h4 id="A1—A2通信频率在变，B无法监听"><a href="#A1—A2通信频率在变，B无法监听" class="headerlink" title="A1—A2通信频率在变，B无法监听"></a>A1—A2通信频率在变，B无法监听</h4><h4 id="端信息跳变–ip变化，导致攻击者无法攻击"><a href="#端信息跳变–ip变化，导致攻击者无法攻击" class="headerlink" title="端信息跳变–ip变化，导致攻击者无法攻击"></a>端信息跳变–ip变化，导致攻击者无法攻击</h4><h4 id="模拟蜜罐–告诉攻击者，我是蜜罐，在真实ip与蜜罐之间来回切换"><a href="#模拟蜜罐–告诉攻击者，我是蜜罐，在真实ip与蜜罐之间来回切换" class="headerlink" title="模拟蜜罐–告诉攻击者，我是蜜罐，在真实ip与蜜罐之间来回切换"></a>模拟蜜罐–告诉攻击者，我是蜜罐，在真实ip与蜜罐之间来回切换</h4>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h4 id=&quot;应用决定结构，结构决定性能&quot;&gt;&lt;a href=&quot;#应用决定结构，结构决定性能&quot; class=&quot;headerlink&quot; title=&quot;应用决定结构，结构决定性能&quot;&gt;&lt;/a&gt;应用决定结构，结构决定性能&lt;/h4&gt;&lt;h4 id=&quot;拟态计算与拟态安全&quot;&gt;&lt;a href=&quot;#
-      
-    
-    </summary>
-    
-    
-      <category term="探究" scheme="zhangfuli.github.io/tags/%E6%8E%A2%E7%A9%B6/"/>
     
   </entry>
   
