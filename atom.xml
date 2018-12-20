@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="zhangfuli.github.io/"/>
-  <updated>2018-10-12T07:45:36.455Z</updated>
+  <updated>2018-12-20T02:20:40.326Z</updated>
   <id>zhangfuli.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>react-router-dom使用@withRouter</title>
+    <link href="zhangfuli.github.io/2018/12/20/react-router-dom%E4%BD%BF%E7%94%A8-withRouter/"/>
+    <id>zhangfuli.github.io/2018/12/20/react-router-dom使用-withRouter/</id>
+    <published>2018-12-20T02:08:30.000Z</published>
+    <updated>2018-12-20T02:20:40.326Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><h6 id="在React路由中-有这样一种写法-withReact-效果就是把路由相关的方法通过props传给它包裹的组件的props上"><a href="#在React路由中-有这样一种写法-withReact-效果就是把路由相关的方法通过props传给它包裹的组件的props上" class="headerlink" title="在React路由中, 有这样一种写法, @withReact, 效果就是把路由相关的方法通过props传给它包裹的组件的props上;"></a>在React路由中, 有这样一种写法, @withReact, 效果就是把路由相关的方法通过props传给它包裹的组件的props上;</h6><h6 id="跟withRouter-component-是一个效果"><a href="#跟withRouter-component-是一个效果" class="headerlink" title="跟withRouter(component)是一个效果;"></a>跟withRouter(component)是一个效果;</h6><h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><h6 id="安装-babel-plugin-transform-decorators-legacy"><a href="#安装-babel-plugin-transform-decorators-legacy" class="headerlink" title="安装 babel-plugin-transform-decorators-legacy"></a>安装 babel-plugin-transform-decorators-legacy</h6><pre><code>npm install babel-plugin-transform-decorators-legacy --save-dev</code></pre><h6 id="在-node-modules-babel-preset-react-app-create-js中加入装饰器支持"><a href="#在-node-modules-babel-preset-react-app-create-js中加入装饰器支持" class="headerlink" title="在\node_modules\babel-preset-react-app\create.js中加入装饰器支持"></a>在<code>\node_modules\babel-preset-react-app\create.js</code>中加入装饰器支持</h6><pre><code>require.resolve(&apos;babel-plugin-transform-decorators-legacy&apos;)</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;h6 id=&quot;在React路由中-有这样一种写法-withReact-效果就是把路由相关的方法通过props传给它包裹的组件的props上&quot;&gt;&lt;
+      
+    
+    </summary>
+    
+    
+      <category term="react" scheme="zhangfuli.github.io/tags/react/"/>
+    
+  </entry>
   
   <entry>
     <title>小程序自动登录问题</title>
@@ -315,31 +338,6 @@
   </entry>
   
   <entry>
-    <title>图片懒加载</title>
-    <link href="zhangfuli.github.io/2018/02/22/%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BD/"/>
-    <id>zhangfuli.github.io/2018/02/22/图片懒加载/</id>
-    <published>2018-02-22T02:42:30.000Z</published>
-    <updated>2018-07-18T08:58:10.770Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><h6 id="实现图片懒加载的代码"><a href="#实现图片懒加载的代码" class="headerlink" title="实现图片懒加载的代码"></a>实现图片懒加载的代码</h6><h6 id="思路：每一个image都有一个data-src用于存放将要加载的图片的地址，当这个图片的区域显示到屏幕上时，再将src-data-src"><a href="#思路：每一个image都有一个data-src用于存放将要加载的图片的地址，当这个图片的区域显示到屏幕上时，再将src-data-src" class="headerlink" title="思路：每一个image都有一个data-src用于存放将要加载的图片的地址，当这个图片的区域显示到屏幕上时，再将src = data-src"></a>思路：每一个image都有一个data-src用于存放将要加载的图片的地址，当这个图片的区域显示到屏幕上时，再将src = data-src</h6><h6 id="图片的offsetTop-lt-可见高度-scrollTop"><a href="#图片的offsetTop-lt-可见高度-scrollTop" class="headerlink" title="图片的offsetTop &lt; 可见高度 + scrollTop"></a>图片的offsetTop &lt; 可见高度 + scrollTop</h6><script async src="//jsfiddle.net/zfl0813/sk36v9c9/1/embed/js,html,css,result/dark/"></script>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h4 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h4&gt;&lt;h6 id=&quot;实现图片懒加载的代码&quot;&gt;&lt;a href=&quot;#实现图片懒加载的代码&quot; class=&quot;headerlink&quot; title=&quot;实现图片懒
-      
-    
-    </summary>
-    
-      <category term="javascript" scheme="zhangfuli.github.io/categories/javascript/"/>
-    
-    
-      <category term="javascript" scheme="zhangfuli.github.io/tags/javascript/"/>
-    
-  </entry>
-  
-  <entry>
     <title>卡死电脑代码</title>
     <link href="zhangfuli.github.io/2018/02/22/%E5%8D%A1%E6%AD%BB%E7%94%B5%E8%84%91%E4%BB%A3%E7%A0%81/"/>
     <id>zhangfuli.github.io/2018/02/22/卡死电脑代码/</id>
@@ -361,6 +359,31 @@
     
     
       <category term="探究" scheme="zhangfuli.github.io/tags/%E6%8E%A2%E7%A9%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>图片懒加载</title>
+    <link href="zhangfuli.github.io/2018/02/22/%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BD/"/>
+    <id>zhangfuli.github.io/2018/02/22/图片懒加载/</id>
+    <published>2018-02-22T02:42:30.000Z</published>
+    <updated>2018-07-18T08:58:10.770Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><h6 id="实现图片懒加载的代码"><a href="#实现图片懒加载的代码" class="headerlink" title="实现图片懒加载的代码"></a>实现图片懒加载的代码</h6><h6 id="思路：每一个image都有一个data-src用于存放将要加载的图片的地址，当这个图片的区域显示到屏幕上时，再将src-data-src"><a href="#思路：每一个image都有一个data-src用于存放将要加载的图片的地址，当这个图片的区域显示到屏幕上时，再将src-data-src" class="headerlink" title="思路：每一个image都有一个data-src用于存放将要加载的图片的地址，当这个图片的区域显示到屏幕上时，再将src = data-src"></a>思路：每一个image都有一个data-src用于存放将要加载的图片的地址，当这个图片的区域显示到屏幕上时，再将src = data-src</h6><h6 id="图片的offsetTop-lt-可见高度-scrollTop"><a href="#图片的offsetTop-lt-可见高度-scrollTop" class="headerlink" title="图片的offsetTop &lt; 可见高度 + scrollTop"></a>图片的offsetTop &lt; 可见高度 + scrollTop</h6><script async src="//jsfiddle.net/zfl0813/sk36v9c9/1/embed/js,html,css,result/dark/"></script>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h4&gt;&lt;h6 id=&quot;实现图片懒加载的代码&quot;&gt;&lt;a href=&quot;#实现图片懒加载的代码&quot; class=&quot;headerlink&quot; title=&quot;实现图片懒
+      
+    
+    </summary>
+    
+      <category term="javascript" scheme="zhangfuli.github.io/categories/javascript/"/>
+    
+    
+      <category term="javascript" scheme="zhangfuli.github.io/tags/javascript/"/>
     
   </entry>
   
@@ -415,31 +438,6 @@
   </entry>
   
   <entry>
-    <title>生成npm包--vue</title>
-    <link href="zhangfuli.github.io/2017/12/19/%E7%94%9F%E6%88%90npm%E5%8C%85--vue/"/>
-    <id>zhangfuli.github.io/2017/12/19/生成npm包--vue/</id>
-    <published>2017-12-19T02:42:30.000Z</published>
-    <updated>2018-07-18T08:41:56.765Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><h6 id="用vue-cli打包生成vue组件并且上传到npm上"><a href="#用vue-cli打包生成vue组件并且上传到npm上" class="headerlink" title="用vue-cli打包生成vue组件并且上传到npm上"></a>用vue-cli打包生成vue组件并且上传到npm上</h6><h4 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h4><pre><code>vue-clinpm账号webpack</code></pre><h6 id="首先，用vue-cli生成vue项目，并修改如下所示"><a href="#首先，用vue-cli生成vue项目，并修改如下所示" class="headerlink" title="首先，用vue-cli生成vue项目，并修改如下所示"></a>首先，用vue-cli生成vue项目，并修改如下所示</h6><pre><code>{  &quot;name&quot;: &quot;picture-upload&quot;,  &quot;version&quot;: &quot;1.0.9&quot;,  &quot;description&quot;: &quot;This is a component for picture uploaded by base64&quot;,  &quot;author&quot;: &quot;zfl &lt;1171067930@qq.com&gt;&quot;,  &quot;main&quot;: &quot;dist/picture-upload.min.js&quot;,  &quot;license&quot;: &quot;MIT&quot;,  &quot;private&quot;: false,  &quot;scripts&quot;: {    &quot;dev&quot;: &quot;node build/dev-server.js&quot;,    &quot;start&quot;: &quot;node build/dev-server.js&quot;,    &quot;build&quot;: &quot;node build/build.js&quot;  },  &quot;dependencies&quot;: {    &quot;vue&quot;: &quot;^2.3.3&quot;,    &quot;vue-router&quot;: &quot;^2.6.0&quot;  }  ...}</code></pre><h6 id="“private”-false-把这个包改成公用的"><a href="#“private”-false-把这个包改成公用的" class="headerlink" title="“private”: false 把这个包改成公用的"></a>“private”: false 把这个包改成公用的</h6><h6 id="“main”-“dist-picture-upload-min-js”-这里的配置意思是，别人用这个包-import-PictureUpload-from-‘picture-upload’-时，引入的文件。可以看出，这个picture-upload最终需要打包出一个js文件，所以我们需要修改webpack-prod-config-js文件"><a href="#“main”-“dist-picture-upload-min-js”-这里的配置意思是，别人用这个包-import-PictureUpload-from-‘picture-upload’-时，引入的文件。可以看出，这个picture-upload最终需要打包出一个js文件，所以我们需要修改webpack-prod-config-js文件" class="headerlink" title="“main”: “dist/picture-upload.min.js”, 这里的配置意思是，别人用这个包 import PictureUpload from ‘picture-upload’; 时，引入的文件。可以看出，这个picture-upload最终需要打包出一个js文件，所以我们需要修改webpack.prod.config.js文件"></a>“main”: “dist/picture-upload.min.js”, 这里的配置意思是，别人用这个包 import PictureUpload from ‘picture-upload’; 时，引入的文件。可以看出，这个picture-upload最终需要打包出一个js文件，所以我们需要修改webpack.prod.config.js文件</h6><pre><code>var webpackConfig = merge(baseWebpackConfig, {  module: {    rules: utils.styleLoaders({      sourceMap: config.build.productionSourceMap,      extract: true    })  },  devtool: config.build.productionSourceMap ? &apos;#source-map&apos; : false,  // output: {  //   path: config.build.assetsRoot,  //   filename: utils.assetsPath(&apos;js/[name].[chunkhash].js&apos;),  //   chunkFilename: utils.assetsPath(&apos;js/[id].[chunkhash].js&apos;)  // },   output: {    path: config.bundle.assetsRoot,    publicPath: config.bundle.assetsPublicPath,    filename: &apos;picture-upload.min.js&apos;,    library: &apos;PictureUpload&apos;,    libraryTarget: &apos;umd&apos;  },  plugins: [    new webpack.DefinePlugin({      &apos;process.env&apos;: env    }),    new webpack.optimize.UglifyJsPlugin({      compress: {        warnings: false      },      sourceMap: true    }),    // extract css into its own file    new ExtractTextPlugin({      // filename: utils.assetsPath(&apos;css/[name].[contenthash].css&apos;)       filename: &apos;picture-upload.min.css&apos;    }),    new OptimizeCSSPlugin()  ]})module.exports = webpackConfig</code></pre><h6 id="主要是修改两个地方output里面的filename-就是打包生成的js文件的名字-library是引入时的模块名-extracttextpligin里的filename改成picture-upload-min-css-然后很多不需要的模块都注解掉了"><a href="#主要是修改两个地方output里面的filename-就是打包生成的js文件的名字-library是引入时的模块名-extracttextpligin里的filename改成picture-upload-min-css-然后很多不需要的模块都注解掉了" class="headerlink" title="主要是修改两个地方output里面的filename,就是打包生成的js文件的名字;library是引入时的模块名;extracttextpligin里的filename改成picture-upload.min.css;然后很多不需要的模块都注解掉了"></a>主要是修改两个地方output里面的filename,就是打包生成的js文件的名字;library是引入时的模块名;extracttextpligin里的filename改成picture-upload.min.css;然后很多不需要的模块都注解掉了</h6><h6 id="下面是config-index-js"><a href="#下面是config-index-js" class="headerlink" title="下面是config/index.js"></a>下面是config/index.js</h6><pre><code>bundle: {    env: require(&apos;./prod.env&apos;),    assetsRoot: path.resolve(__dirname, &apos;../dist&apos;),    assetsPublicPath: &apos;/&apos;,    assetsSubDirectory: &apos;/&apos;,    productionSourceMap: true,    productionGzip: false,    productionGzipExtensions: [&apos;js&apos;, &apos;css&apos;],    bundleAnalyzerReport: process.env.npm_config_report}</code></pre><h6 id="在build的下面加上这段代码-上面webpack-prod-config-js里面output里面配置的都是bundle"><a href="#在build的下面加上这段代码-上面webpack-prod-config-js里面output里面配置的都是bundle" class="headerlink" title="在build的下面加上这段代码,上面webpack.prod.config.js里面output里面配置的都是bundle"></a>在build的下面加上这段代码,上面webpack.prod.config.js里面output里面配置的都是bundle</h6><h6 id="编写组件-组件编写完成后-在main-js里面加上-其他的注释掉与不注释掉都可以"><a href="#编写组件-组件编写完成后-在main-js里面加上-其他的注释掉与不注释掉都可以" class="headerlink" title="编写组件,组件编写完成后,在main.js里面加上,其他的注释掉与不注释掉都可以"></a>编写组件,组件编写完成后,在main.js里面加上,其他的注释掉与不注释掉都可以</h6><pre><code>import PictureUpload from &apos;./components/PictureUpload.vue&apos;export default PictureUpload</code></pre><h6 id="最后执行npm-run-build"><a href="#最后执行npm-run-build" class="headerlink" title="最后执行npm run build"></a>最后执行npm run build</h6><h6 id="发布到npm上"><a href="#发布到npm上" class="headerlink" title="发布到npm上"></a>发布到npm上</h6><pre><code>npm loginnpm addusernpm publish</code></pre><h6 id="使用在下面项目链接的readme里面有"><a href="#使用在下面项目链接的readme里面有" class="headerlink" title="使用在下面项目链接的readme里面有"></a>使用在下面项目链接的readme里面有</h6><p><a href="https://github.com/zhangfuli/picture-upload" target="_blank" rel="noopener">点击这里</a></p><h6 id="注意-由于webpack最近的升级webpack组件用2-0写的在最新vue-cli生成的webpack3-0的项目中貌似不能用"><a href="#注意-由于webpack最近的升级webpack组件用2-0写的在最新vue-cli生成的webpack3-0的项目中貌似不能用" class="headerlink" title="注意:由于webpack最近的升级webpack组件用2.0写的在最新vue-cli生成的webpack3.0的项目中貌似不能用"></a>注意:由于webpack最近的升级webpack组件用2.0写的在最新vue-cli生成的webpack3.0的项目中貌似不能用</h6>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h4 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot; title=&quot;介绍&quot;&gt;&lt;/a&gt;介绍&lt;/h4&gt;&lt;h6 id=&quot;用vue-cli打包生成vue组件并且上传到npm上&quot;&gt;&lt;a href=&quot;#用vue-cli打包生成vue组件并且上传到npm上&quot;
-      
-    
-    </summary>
-    
-      <category term="vue" scheme="zhangfuli.github.io/categories/vue/"/>
-    
-    
-      <category term="vue" scheme="zhangfuli.github.io/tags/vue/"/>
-    
-  </entry>
-  
-  <entry>
     <title>javascript高级程序设计20-23</title>
     <link href="zhangfuli.github.io/2017/12/19/javascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A120-23/"/>
     <id>zhangfuli.github.io/2017/12/19/javascript高级程序设计20-23/</id>
@@ -465,6 +463,31 @@
   </entry>
   
   <entry>
+    <title>生成npm包--vue</title>
+    <link href="zhangfuli.github.io/2017/12/19/%E7%94%9F%E6%88%90npm%E5%8C%85--vue/"/>
+    <id>zhangfuli.github.io/2017/12/19/生成npm包--vue/</id>
+    <published>2017-12-19T02:42:30.000Z</published>
+    <updated>2018-07-18T08:41:56.765Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><h6 id="用vue-cli打包生成vue组件并且上传到npm上"><a href="#用vue-cli打包生成vue组件并且上传到npm上" class="headerlink" title="用vue-cli打包生成vue组件并且上传到npm上"></a>用vue-cli打包生成vue组件并且上传到npm上</h6><h4 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h4><pre><code>vue-clinpm账号webpack</code></pre><h6 id="首先，用vue-cli生成vue项目，并修改如下所示"><a href="#首先，用vue-cli生成vue项目，并修改如下所示" class="headerlink" title="首先，用vue-cli生成vue项目，并修改如下所示"></a>首先，用vue-cli生成vue项目，并修改如下所示</h6><pre><code>{  &quot;name&quot;: &quot;picture-upload&quot;,  &quot;version&quot;: &quot;1.0.9&quot;,  &quot;description&quot;: &quot;This is a component for picture uploaded by base64&quot;,  &quot;author&quot;: &quot;zfl &lt;1171067930@qq.com&gt;&quot;,  &quot;main&quot;: &quot;dist/picture-upload.min.js&quot;,  &quot;license&quot;: &quot;MIT&quot;,  &quot;private&quot;: false,  &quot;scripts&quot;: {    &quot;dev&quot;: &quot;node build/dev-server.js&quot;,    &quot;start&quot;: &quot;node build/dev-server.js&quot;,    &quot;build&quot;: &quot;node build/build.js&quot;  },  &quot;dependencies&quot;: {    &quot;vue&quot;: &quot;^2.3.3&quot;,    &quot;vue-router&quot;: &quot;^2.6.0&quot;  }  ...}</code></pre><h6 id="“private”-false-把这个包改成公用的"><a href="#“private”-false-把这个包改成公用的" class="headerlink" title="“private”: false 把这个包改成公用的"></a>“private”: false 把这个包改成公用的</h6><h6 id="“main”-“dist-picture-upload-min-js”-这里的配置意思是，别人用这个包-import-PictureUpload-from-‘picture-upload’-时，引入的文件。可以看出，这个picture-upload最终需要打包出一个js文件，所以我们需要修改webpack-prod-config-js文件"><a href="#“main”-“dist-picture-upload-min-js”-这里的配置意思是，别人用这个包-import-PictureUpload-from-‘picture-upload’-时，引入的文件。可以看出，这个picture-upload最终需要打包出一个js文件，所以我们需要修改webpack-prod-config-js文件" class="headerlink" title="“main”: “dist/picture-upload.min.js”, 这里的配置意思是，别人用这个包 import PictureUpload from ‘picture-upload’; 时，引入的文件。可以看出，这个picture-upload最终需要打包出一个js文件，所以我们需要修改webpack.prod.config.js文件"></a>“main”: “dist/picture-upload.min.js”, 这里的配置意思是，别人用这个包 import PictureUpload from ‘picture-upload’; 时，引入的文件。可以看出，这个picture-upload最终需要打包出一个js文件，所以我们需要修改webpack.prod.config.js文件</h6><pre><code>var webpackConfig = merge(baseWebpackConfig, {  module: {    rules: utils.styleLoaders({      sourceMap: config.build.productionSourceMap,      extract: true    })  },  devtool: config.build.productionSourceMap ? &apos;#source-map&apos; : false,  // output: {  //   path: config.build.assetsRoot,  //   filename: utils.assetsPath(&apos;js/[name].[chunkhash].js&apos;),  //   chunkFilename: utils.assetsPath(&apos;js/[id].[chunkhash].js&apos;)  // },   output: {    path: config.bundle.assetsRoot,    publicPath: config.bundle.assetsPublicPath,    filename: &apos;picture-upload.min.js&apos;,    library: &apos;PictureUpload&apos;,    libraryTarget: &apos;umd&apos;  },  plugins: [    new webpack.DefinePlugin({      &apos;process.env&apos;: env    }),    new webpack.optimize.UglifyJsPlugin({      compress: {        warnings: false      },      sourceMap: true    }),    // extract css into its own file    new ExtractTextPlugin({      // filename: utils.assetsPath(&apos;css/[name].[contenthash].css&apos;)       filename: &apos;picture-upload.min.css&apos;    }),    new OptimizeCSSPlugin()  ]})module.exports = webpackConfig</code></pre><h6 id="主要是修改两个地方output里面的filename-就是打包生成的js文件的名字-library是引入时的模块名-extracttextpligin里的filename改成picture-upload-min-css-然后很多不需要的模块都注解掉了"><a href="#主要是修改两个地方output里面的filename-就是打包生成的js文件的名字-library是引入时的模块名-extracttextpligin里的filename改成picture-upload-min-css-然后很多不需要的模块都注解掉了" class="headerlink" title="主要是修改两个地方output里面的filename,就是打包生成的js文件的名字;library是引入时的模块名;extracttextpligin里的filename改成picture-upload.min.css;然后很多不需要的模块都注解掉了"></a>主要是修改两个地方output里面的filename,就是打包生成的js文件的名字;library是引入时的模块名;extracttextpligin里的filename改成picture-upload.min.css;然后很多不需要的模块都注解掉了</h6><h6 id="下面是config-index-js"><a href="#下面是config-index-js" class="headerlink" title="下面是config/index.js"></a>下面是config/index.js</h6><pre><code>bundle: {    env: require(&apos;./prod.env&apos;),    assetsRoot: path.resolve(__dirname, &apos;../dist&apos;),    assetsPublicPath: &apos;/&apos;,    assetsSubDirectory: &apos;/&apos;,    productionSourceMap: true,    productionGzip: false,    productionGzipExtensions: [&apos;js&apos;, &apos;css&apos;],    bundleAnalyzerReport: process.env.npm_config_report}</code></pre><h6 id="在build的下面加上这段代码-上面webpack-prod-config-js里面output里面配置的都是bundle"><a href="#在build的下面加上这段代码-上面webpack-prod-config-js里面output里面配置的都是bundle" class="headerlink" title="在build的下面加上这段代码,上面webpack.prod.config.js里面output里面配置的都是bundle"></a>在build的下面加上这段代码,上面webpack.prod.config.js里面output里面配置的都是bundle</h6><h6 id="编写组件-组件编写完成后-在main-js里面加上-其他的注释掉与不注释掉都可以"><a href="#编写组件-组件编写完成后-在main-js里面加上-其他的注释掉与不注释掉都可以" class="headerlink" title="编写组件,组件编写完成后,在main.js里面加上,其他的注释掉与不注释掉都可以"></a>编写组件,组件编写完成后,在main.js里面加上,其他的注释掉与不注释掉都可以</h6><pre><code>import PictureUpload from &apos;./components/PictureUpload.vue&apos;export default PictureUpload</code></pre><h6 id="最后执行npm-run-build"><a href="#最后执行npm-run-build" class="headerlink" title="最后执行npm run build"></a>最后执行npm run build</h6><h6 id="发布到npm上"><a href="#发布到npm上" class="headerlink" title="发布到npm上"></a>发布到npm上</h6><pre><code>npm loginnpm addusernpm publish</code></pre><h6 id="使用在下面项目链接的readme里面有"><a href="#使用在下面项目链接的readme里面有" class="headerlink" title="使用在下面项目链接的readme里面有"></a>使用在下面项目链接的readme里面有</h6><p><a href="https://github.com/zhangfuli/picture-upload" target="_blank" rel="noopener">点击这里</a></p><h6 id="注意-由于webpack最近的升级webpack组件用2-0写的在最新vue-cli生成的webpack3-0的项目中貌似不能用"><a href="#注意-由于webpack最近的升级webpack组件用2-0写的在最新vue-cli生成的webpack3-0的项目中貌似不能用" class="headerlink" title="注意:由于webpack最近的升级webpack组件用2.0写的在最新vue-cli生成的webpack3.0的项目中貌似不能用"></a>注意:由于webpack最近的升级webpack组件用2.0写的在最新vue-cli生成的webpack3.0的项目中貌似不能用</h6>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot; title=&quot;介绍&quot;&gt;&lt;/a&gt;介绍&lt;/h4&gt;&lt;h6 id=&quot;用vue-cli打包生成vue组件并且上传到npm上&quot;&gt;&lt;a href=&quot;#用vue-cli打包生成vue组件并且上传到npm上&quot;
+      
+    
+    </summary>
+    
+      <category term="vue" scheme="zhangfuli.github.io/categories/vue/"/>
+    
+    
+      <category term="vue" scheme="zhangfuli.github.io/tags/vue/"/>
+    
+  </entry>
+  
+  <entry>
     <title>javascript高级程序设计11-13</title>
     <link href="zhangfuli.github.io/2017/12/10/javascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A115-16/"/>
     <id>zhangfuli.github.io/2017/12/10/javascript高级程序设计15-16/</id>
@@ -486,31 +509,6 @@
     
     
       <category term="javascript" scheme="zhangfuli.github.io/tags/javascript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>单反镜片与摄影</title>
-    <link href="zhangfuli.github.io/2017/11/18/%E5%8D%95%E5%8F%8D%E9%95%9C%E7%89%87%E4%B8%8E%E6%91%84%E5%BD%B1/"/>
-    <id>zhangfuli.github.io/2017/11/18/单反镜片与摄影/</id>
-    <published>2017-11-18T02:42:30.000Z</published>
-    <updated>2018-07-18T08:28:09.966Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="镜片"><a href="#镜片" class="headerlink" title="镜片"></a>镜片</h4><h6 id="灰镜—-消除动态的人–长时间曝光"><a href="#灰镜—-消除动态的人–长时间曝光" class="headerlink" title="灰镜—-消除动态的人–长时间曝光"></a>灰镜—-消除动态的人–长时间曝光</h6><h6 id="黑白滤镜、UV镜"><a href="#黑白滤镜、UV镜" class="headerlink" title="黑白滤镜、UV镜"></a>黑白滤镜、UV镜</h6><h6 id="滤光镜"><a href="#滤光镜" class="headerlink" title="滤光镜"></a>滤光镜</h6><h6 id="凤凰品牌的镜片"><a href="#凤凰品牌的镜片" class="headerlink" title="凤凰品牌的镜片"></a>凤凰品牌的镜片</h6><h4 id="摄影技巧"><a href="#摄影技巧" class="headerlink" title="摄影技巧"></a>摄影技巧</h4><h6 id="虚化（前景虚化、背景虚化）、三分法"><a href="#虚化（前景虚化、背景虚化）、三分法" class="headerlink" title="虚化（前景虚化、背景虚化）、三分法"></a>虚化（前景虚化、背景虚化）、三分法</h6><p><img src="http://p0fuclq6b.bkt.clouddn.com/P2-1507020329.JPG"></p><h6 id="线条、色调、质感（隐形线条）"><a href="#线条、色调、质感（隐形线条）" class="headerlink" title="线条、色调、质感（隐形线条）"></a>线条、色调、质感（隐形线条）</h6><h6 id="平衡：对称、均衡、呼应"><a href="#平衡：对称、均衡、呼应" class="headerlink" title="平衡：对称、均衡、呼应"></a>平衡：对称、均衡、呼应</h6><p><img src="http://p0fuclq6b.bkt.clouddn.com/p3-1507020329.jpg"></p><h6 id="对比与和谐、排列与节奏、封闭与开放"><a href="#对比与和谐、排列与节奏、封闭与开放" class="headerlink" title="对比与和谐、排列与节奏、封闭与开放"></a>对比与和谐、排列与节奏、封闭与开放</h6><h4 id="用光技巧"><a href="#用光技巧" class="headerlink" title="用光技巧"></a>用光技巧</h4><h6 id="逆光、侧逆光–点测光对准画面最亮的地方"><a href="#逆光、侧逆光–点测光对准画面最亮的地方" class="headerlink" title="逆光、侧逆光–点测光对准画面最亮的地方"></a>逆光、侧逆光–点测光对准画面最亮的地方</h6><h6 id="顶光不单独拍人"><a href="#顶光不单独拍人" class="headerlink" title="顶光不单独拍人"></a>顶光不单独拍人</h6><h6 id="脚光拍摄透明物品"><a href="#脚光拍摄透明物品" class="headerlink" title="脚光拍摄透明物品"></a>脚光拍摄透明物品</h6><h6 id="侧逆光用于描绘人物轮廓，发质金黄"><a href="#侧逆光用于描绘人物轮廓，发质金黄" class="headerlink" title="侧逆光用于描绘人物轮廓，发质金黄"></a>侧逆光用于描绘人物轮廓，发质金黄</h6><h6 id="HDR拍摄：曝光补偿0、-2、2三张合成一张，要求画面不能动"><a href="#HDR拍摄：曝光补偿0、-2、2三张合成一张，要求画面不能动" class="headerlink" title="HDR拍摄：曝光补偿0、-2、2三张合成一张，要求画面不能动"></a>HDR拍摄：曝光补偿0、-2、2三张合成一张，要求画面不能动</h6>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h4 id=&quot;镜片&quot;&gt;&lt;a href=&quot;#镜片&quot; class=&quot;headerlink&quot; title=&quot;镜片&quot;&gt;&lt;/a&gt;镜片&lt;/h4&gt;&lt;h6 id=&quot;灰镜—-消除动态的人–长时间曝光&quot;&gt;&lt;a href=&quot;#灰镜—-消除动态的人–长时间曝光&quot; class=&quot;headerlink&quot; 
-      
-    
-    </summary>
-    
-      <category term="生活" scheme="zhangfuli.github.io/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-      <category term="生活" scheme="zhangfuli.github.io/tags/%E7%94%9F%E6%B4%BB/"/>
     
   </entry>
   
