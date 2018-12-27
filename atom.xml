@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="zhangfuli.github.io/"/>
-  <updated>2018-12-20T02:20:40.326Z</updated>
+  <updated>2018-12-27T03:06:51.712Z</updated>
   <id>zhangfuli.github.io/</id>
   
   <author>
@@ -17,22 +17,49 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>react-router-dom使用@withRouter</title>
-    <link href="zhangfuli.github.io/2018/12/20/react-router-dom%E4%BD%BF%E7%94%A8-withRouter/"/>
-    <id>zhangfuli.github.io/2018/12/20/react-router-dom使用-withRouter/</id>
-    <published>2018-12-20T02:08:30.000Z</published>
-    <updated>2018-12-20T02:20:40.326Z</updated>
+    <title>18.11.2周会</title>
+    <link href="zhangfuli.github.io/2018/12/27/18-11-2%E5%91%A8%E4%BC%9A/"/>
+    <id>zhangfuli.github.io/2018/12/27/18-11-2周会/</id>
+    <published>2018-12-27T03:03:26.000Z</published>
+    <updated>2018-12-27T03:06:51.712Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><h6 id="在React路由中-有这样一种写法-withReact-效果就是把路由相关的方法通过props传给它包裹的组件的props上"><a href="#在React路由中-有这样一种写法-withReact-效果就是把路由相关的方法通过props传给它包裹的组件的props上" class="headerlink" title="在React路由中, 有这样一种写法, @withReact, 效果就是把路由相关的方法通过props传给它包裹的组件的props上;"></a>在React路由中, 有这样一种写法, @withReact, 效果就是把路由相关的方法通过props传给它包裹的组件的props上;</h6><h6 id="跟withRouter-component-是一个效果"><a href="#跟withRouter-component-是一个效果" class="headerlink" title="跟withRouter(component)是一个效果;"></a>跟withRouter(component)是一个效果;</h6><h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><h6 id="安装-babel-plugin-transform-decorators-legacy"><a href="#安装-babel-plugin-transform-decorators-legacy" class="headerlink" title="安装 babel-plugin-transform-decorators-legacy"></a>安装 babel-plugin-transform-decorators-legacy</h6><pre><code>npm install babel-plugin-transform-decorators-legacy --save-dev</code></pre><h6 id="在-node-modules-babel-preset-react-app-create-js中加入装饰器支持"><a href="#在-node-modules-babel-preset-react-app-create-js中加入装饰器支持" class="headerlink" title="在\node_modules\babel-preset-react-app\create.js中加入装饰器支持"></a>在<code>\node_modules\babel-preset-react-app\create.js</code>中加入装饰器支持</h6><pre><code>require.resolve(&apos;babel-plugin-transform-decorators-legacy&apos;)</code></pre>]]></content>
+    <content type="html"><![CDATA[<h3 id="推荐阅读"><a href="#推荐阅读" class="headerlink" title="推荐阅读"></a>推荐阅读</h3><h6 id="lt-gt"><a href="#lt-gt" class="headerlink" title="&lt;&gt;"></a>&lt;<writing science="">&gt;</writing></h6><h6 id="lt-gt-1"><a href="#lt-gt-1" class="headerlink" title="&lt;&gt;"></a>&lt;<academic writing="" a="" handbook="" for...="">&gt;</academic></h6><h3 id="introduction-10"><a href="#introduction-10" class="headerlink" title="introduction 10%"></a>introduction 10%</h3><h6 id="1、-定义"><a href="#1、-定义" class="headerlink" title="1、 定义"></a>1、 定义</h6><h6 id="2、-背景"><a href="#2、-背景" class="headerlink" title="2、 背景"></a>2、 背景</h6><h6 id="3、-前人工作的review"><a href="#3、-前人工作的review" class="headerlink" title="3、 前人工作的review"></a>3、 前人工作的review</h6><h6 id="4、-目的"><a href="#4、-目的" class="headerlink" title="4、 目的"></a>4、 目的</h6><h6 id="5、-简单介绍方法、结论"><a href="#5、-简单介绍方法、结论" class="headerlink" title="5、 简单介绍方法、结论"></a>5、 简单介绍方法、结论</h6><h3 id="conclusion"><a href="#conclusion" class="headerlink" title="conclusion"></a>conclusion</h3><h6 id="1、-重新强调总结"><a href="#1、-重新强调总结" class="headerlink" title="1、 重新强调总结"></a>1、 重新强调总结</h6><h6 id="2、-简短的review"><a href="#2、-简短的review" class="headerlink" title="2、 简短的review"></a>2、 简短的review</h6><h6 id="3、-展望未来"><a href="#3、-展望未来" class="headerlink" title="3、 展望未来"></a>3、 展望未来</h6><h6 id="4、-辩证的看待自己的工作"><a href="#4、-辩证的看待自己的工作" class="headerlink" title="4、 辩证的看待自己的工作"></a>4、 辩证的看待自己的工作</h6><h3 id="re-writing"><a href="#re-writing" class="headerlink" title="re-writing"></a>re-writing</h3><h6 id="1、-篇幅均衡"><a href="#1、-篇幅均衡" class="headerlink" title="1、 篇幅均衡"></a>1、 篇幅均衡</h6><h6 id="2、-回答所有RQ"><a href="#2、-回答所有RQ" class="headerlink" title="2、 回答所有RQ"></a>2、 回答所有RQ</h6><h6 id="3、-思考缩短篇幅、提升"><a href="#3、-思考缩短篇幅、提升" class="headerlink" title="3、 思考缩短篇幅、提升"></a>3、 思考缩短篇幅、提升</h6><h3 id="proof-reading-校对"><a href="#proof-reading-校对" class="headerlink" title="proof-reading(校对)"></a>proof-reading(校对)</h3><h6 id="1、-句子不要太长难以理解"><a href="#1、-句子不要太长难以理解" class="headerlink" title="1、 句子不要太长难以理解"></a>1、 句子不要太长难以理解</h6><h6 id="2、-拼写错误"><a href="#2、-拼写错误" class="headerlink" title="2、 拼写错误"></a>2、 拼写错误</h6><h6 id="3、-语法错误"><a href="#3、-语法错误" class="headerlink" title="3、 语法错误"></a>3、 语法错误</h6><h3 id="问卷："><a href="#问卷：" class="headerlink" title="问卷："></a>问卷：</h3><h4 id="卷首"><a href="#卷首" class="headerlink" title="卷首"></a>卷首</h4><h6 id="1、-调查目的"><a href="#1、-调查目的" class="headerlink" title="1、 调查目的"></a>1、 调查目的</h6><h6 id="2、-保密声明"><a href="#2、-保密声明" class="headerlink" title="2、 保密声明"></a>2、 保密声明</h6><h6 id="3、-目标对象"><a href="#3、-目标对象" class="headerlink" title="3、 目标对象"></a>3、 目标对象</h6><h6 id="4、-答题耗时"><a href="#4、-答题耗时" class="headerlink" title="4、 答题耗时"></a>4、 答题耗时</h6><h6 id="5、-激励措施：-下方填写邮箱，-报告完成后将通过邮件发送给您"><a href="#5、-激励措施：-下方填写邮箱，-报告完成后将通过邮件发送给您" class="headerlink" title="5、 激励措施： 下方填写邮箱， 报告完成后将通过邮件发送给您"></a>5、 激励措施： 下方填写邮箱， 报告完成后将通过邮件发送给您</h6>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;h6 id=&quot;在React路由中-有这样一种写法-withReact-效果就是把路由相关的方法通过props传给它包裹的组件的props上&quot;&gt;&lt;
+        &lt;h3 id=&quot;推荐阅读&quot;&gt;&lt;a href=&quot;#推荐阅读&quot; class=&quot;headerlink&quot; title=&quot;推荐阅读&quot;&gt;&lt;/a&gt;推荐阅读&lt;/h3&gt;&lt;h6 id=&quot;lt-gt&quot;&gt;&lt;a href=&quot;#lt-gt&quot; class=&quot;headerlink&quot; title=&quot;&amp;lt;&amp;gt
       
     
     </summary>
+    
+      <category term="生活" scheme="zhangfuli.github.io/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+      <category term="生活" scheme="zhangfuli.github.io/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>react-router-dom使用@withRouter</title>
+    <link href="zhangfuli.github.io/2018/12/20/react-router-dom%E4%BD%BF%E7%94%A8-withRouter/"/>
+    <id>zhangfuli.github.io/2018/12/20/react-router-dom使用-withRouter/</id>
+    <published>2018-12-20T02:08:30.000Z</published>
+    <updated>2018-12-23T11:21:32.785Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><h6 id="在React路由中-有这样一种写法-withRouter-效果就是把路由相关的方法通过props传给它包裹的组件的props上"><a href="#在React路由中-有这样一种写法-withRouter-效果就是把路由相关的方法通过props传给它包裹的组件的props上" class="headerlink" title="在React路由中, 有这样一种写法, @withRouter, 效果就是把路由相关的方法通过props传给它包裹的组件的props上;"></a>在React路由中, 有这样一种写法, @withRouter, 效果就是把路由相关的方法通过props传给它包裹的组件的props上;</h6><h6 id="跟withRouter-component-是一个效果"><a href="#跟withRouter-component-是一个效果" class="headerlink" title="跟withRouter(component)是一个效果;"></a>跟withRouter(component)是一个效果;</h6><h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><h6 id="安装-babel-plugin-transform-decorators-legacy"><a href="#安装-babel-plugin-transform-decorators-legacy" class="headerlink" title="安装 babel-plugin-transform-decorators-legacy"></a>安装 babel-plugin-transform-decorators-legacy</h6><pre><code>npm install babel-plugin-transform-decorators-legacy --save-dev</code></pre><h6 id="在-node-modules-babel-preset-react-app-create-js中加入装饰器支持"><a href="#在-node-modules-babel-preset-react-app-create-js中加入装饰器支持" class="headerlink" title="在\node_modules\babel-preset-react-app\create.js中加入装饰器支持"></a>在<code>\node_modules\babel-preset-react-app\create.js</code>中加入装饰器支持</h6><pre><code>require.resolve(&apos;babel-plugin-transform-decorators-legacy&apos;)</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;h6 id=&quot;在React路由中-有这样一种写法-withRouter-效果就是把路由相关的方法通过props传给它包裹的组件的props上&quot;&gt;
+      
+    
+    </summary>
+    
+      <category term="react" scheme="zhangfuli.github.io/categories/react/"/>
     
     
       <category term="react" scheme="zhangfuli.github.io/tags/react/"/>
@@ -438,31 +465,6 @@
   </entry>
   
   <entry>
-    <title>javascript高级程序设计20-23</title>
-    <link href="zhangfuli.github.io/2017/12/19/javascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A120-23/"/>
-    <id>zhangfuli.github.io/2017/12/19/javascript高级程序设计20-23/</id>
-    <published>2017-12-19T02:42:30.000Z</published>
-    <updated>2018-07-18T08:38:14.003Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><h6 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h6><pre><code>{    name: &quot;test&quot;}</code></pre><h6 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h6><pre><code>{    &quot;name&quot;: &quot;test&quot;}</code></pre><h5 id="JSON对象方法"><a href="#JSON对象方法" class="headerlink" title="JSON对象方法"></a>JSON对象方法</h5><h6 id="JSON-stringify-将json对象转化为数据结构"><a href="#JSON-stringify-将json对象转化为数据结构" class="headerlink" title="JSON.stringify() //将json对象转化为数据结构"></a>JSON.stringify() //将json对象转化为数据结构</h6><h6 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h6><pre><code>let obj = {    name: &quot;test&quot;,    sex: [&apos;male&apos;, &apos;female&apos;]}JSON.stringify(obj)  JSON.stringify(obj, name)  //只保留nameJSON.stringify(obj,name,4) //字符缩进4个空格</code></pre><h4 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h4><h5 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h5><h6 id="cookie构成：名称、值、域、路径、失效时间、安全标志"><a href="#cookie构成：名称、值、域、路径、失效时间、安全标志" class="headerlink" title="cookie构成：名称、值、域、路径、失效时间、安全标志"></a>cookie构成：名称、值、域、路径、失效时间、安全标志</h6><pre><code>Set-Cookie: name=value; domain=.wrox.com; expires= Mon, 22-Jan-07; securedocument.cookie = &quot;name=value; .....&quot;</code></pre><h6 id="cookie-确实非常小，它的大小限制为4KB左右，是网景公司的前雇员-Lou-Montulli-在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在-Cookie-中存入一段辨别用户身份的数据来实现的"><a href="#cookie-确实非常小，它的大小限制为4KB左右，是网景公司的前雇员-Lou-Montulli-在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在-Cookie-中存入一段辨别用户身份的数据来实现的" class="headerlink" title="cookie 确实非常小，它的大小限制为4KB左右，是网景公司的前雇员 Lou Montulli 在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在 Cookie 中存入一段辨别用户身份的数据来实现的"></a>cookie 确实非常小，它的大小限制为4KB左右，是网景公司的前雇员 Lou Montulli 在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在 Cookie 中存入一段辨别用户身份的数据来实现的</h6><h4 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h4><pre><code>localStorage.setItem()localStorage.getItem()</code></pre><h4 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h4><h6 id="用法同上"><a href="#用法同上" class="headerlink" title="用法同上"></a>用法同上</h6><h4 id="浏览器缓存"><a href="#浏览器缓存" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h4><p><a href="https://segmentfault.com/a/1190000006741200" target="_blank" rel="noopener">浏览器缓存</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;JSON&quot;&gt;&lt;a href=&quot;#JSON&quot; class=&quot;headerlink&quot; title=&quot;JSON&quot;&gt;&lt;/a&gt;JSON&lt;/h3&gt;&lt;h6 id=&quot;对象&quot;&gt;&lt;a href=&quot;#对象&quot; class=&quot;headerlink&quot; title=&quot;对象&quot;&gt;&lt;/a&gt;对象&lt;/h
-      
-    
-    </summary>
-    
-      <category term="javascript" scheme="zhangfuli.github.io/categories/javascript/"/>
-    
-    
-      <category term="javascript" scheme="zhangfuli.github.io/tags/javascript/"/>
-    
-  </entry>
-  
-  <entry>
     <title>生成npm包--vue</title>
     <link href="zhangfuli.github.io/2017/12/19/%E7%94%9F%E6%88%90npm%E5%8C%85--vue/"/>
     <id>zhangfuli.github.io/2017/12/19/生成npm包--vue/</id>
@@ -488,19 +490,19 @@
   </entry>
   
   <entry>
-    <title>javascript高级程序设计11-13</title>
-    <link href="zhangfuli.github.io/2017/12/10/javascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A115-16/"/>
-    <id>zhangfuli.github.io/2017/12/10/javascript高级程序设计15-16/</id>
-    <published>2017-12-10T02:42:30.000Z</published>
-    <updated>2018-07-18T08:33:49.207Z</updated>
+    <title>javascript高级程序设计20-23</title>
+    <link href="zhangfuli.github.io/2017/12/19/javascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A120-23/"/>
+    <id>zhangfuli.github.io/2017/12/19/javascript高级程序设计20-23/</id>
+    <published>2017-12-19T02:42:30.000Z</published>
+    <updated>2018-07-18T08:38:14.003Z</updated>
     
-    <content type="html"><![CDATA[<h4 id="使用canvas画图"><a href="#使用canvas画图" class="headerlink" title="使用canvas画图"></a>使用canvas画图</h4><pre><code>&lt;canvas id=&quot;canvas&quot; width=&quot;200&quot; height=&quot;200&quot;&gt;&lt;/canvas&gt;let canvas = document.querySelector(&quot;#canvas&quot;);  let context = canvas.getContext(&quot;2d&quot;);  let image = new Image(160,160);  image.src = &quot;http://p0fuclq6b.bkt.clouddn.com/P2-1507020329.JPG&quot;;  document.body.append(image);  //绘制图形  context.fillStyle = &quot;#ff0000&quot;  context.fillRect(10,10,500,50)  //(起点x,起点y,宽度,高度)  context.fillStyle = &quot;rgba(0,0,255,0.5)&quot;  //半透明蓝色context.fillRect(30,30,50,50)context.clearRect(40,40,10,10)   //清除一块矩形区域  //绘制image  context.drawImage(image,50,50,50,50)</code></pre><h4 id="canvas压缩图片"><a href="#canvas压缩图片" class="headerlink" title="canvas压缩图片"></a>canvas压缩图片</h4><p><a href="http://leonshi.com/2015/10/31/html5-canvas-image-compress-crop/" target="_blank" rel="noopener">链接</a></p><h6 id="这里有一个canvas-toDataURL-‘image-jpeg’-quality-跨域未解决？？？"><a href="#这里有一个canvas-toDataURL-‘image-jpeg’-quality-跨域未解决？？？" class="headerlink" title="这里有一个canvas.toDataURL(‘image/jpeg’, quality); //跨域未解决？？？"></a>这里有一个canvas.toDataURL(‘image/jpeg’, quality); //跨域未解决？？？</h6><p><a href="https://github.com/think2011/localResizeIMG" target="_blank" rel="noopener">压缩图片</a></p><h4 id="拖放"><a href="#拖放" class="headerlink" title="拖放"></a>拖放</h4><h6 id="拖动某元素时，依次触发下列事件"><a href="#拖动某元素时，依次触发下列事件" class="headerlink" title="拖动某元素时，依次触发下列事件"></a>拖动某元素时，依次触发下列事件</h6><pre><code>dragstartdragdragend</code></pre><h6 id="当元素被拖动到一个有效的目标上时，依次触发"><a href="#当元素被拖动到一个有效的目标上时，依次触发" class="headerlink" title="当元素被拖动到一个有效的目标上时，依次触发"></a>当元素被拖动到一个有效的目标上时，依次触发</h6><pre><code>dragenterdragoverdragleave 或 drop</code></pre><h5 id="dataTransfer对象"><a href="#dataTransfer对象" class="headerlink" title="dataTransfer对象"></a>dataTransfer对象</h5><h6 id="主要用于拖放前，设定参数，拖放后取得参数"><a href="#主要用于拖放前，设定参数，拖放后取得参数" class="headerlink" title="主要用于拖放前，设定参数，拖放后取得参数"></a>主要用于拖放前，设定参数，拖放后取得参数</h6><pre><code>e.dataTransfer.setData(&quot;text&quot;,&quot;&quot;);  //键值对e.dataTransfer.getData(&quot;text&quot;);</code></pre><h5 id="设置元素可拖动"><a href="#设置元素可拖动" class="headerlink" title="设置元素可拖动"></a>设置元素可拖动</h5><pre><code>&lt;div draggable=&quot;true&quot;&gt;&lt;/div&gt;</code></pre><h6 id="拖动img时不会有拖动的痕迹"><a href="#拖动img时不会有拖动的痕迹" class="headerlink" title="拖动img时不会有拖动的痕迹"></a>拖动img时不会有拖动的痕迹</h6><script async src="//jsfiddle.net/2ok0Ldsn/embed/js,html,css,result/dark/"></script><h4 id="媒体元素"><a href="#媒体元素" class="headerlink" title="媒体元素"></a>媒体元素</h4><h6 id="嵌入视频"><a href="#嵌入视频" class="headerlink" title="嵌入视频"></a>嵌入视频</h6><pre><code>&lt;video&gt;    &lt;source src=&quot;&quot; type=&quot;&quot;&gt;&lt;/source&gt;    &lt;source src=&quot;&quot; type=&quot;&quot;&gt;&lt;/source&gt;&lt;/video&gt;</code></pre><h6 id="嵌入音频"><a href="#嵌入音频" class="headerlink" title="嵌入音频"></a>嵌入音频</h6><pre><code>&lt;audio&gt;    &lt;source src=&quot;&quot; type=&quot;&quot;&gt;&lt;/source&gt;    &lt;source src=&quot;&quot; type=&quot;&quot;&gt;&lt;/source&gt;&lt;/audio&gt;</code></pre><h4 id="MIME-类型"><a href="#MIME-类型" class="headerlink" title="MIME 类型"></a>MIME 类型</h4><h6 id="MIME-Multipurpose-Internet-Mail-Extensions-是描述消息内容类型的因特网标准。"><a href="#MIME-Multipurpose-Internet-Mail-Extensions-是描述消息内容类型的因特网标准。" class="headerlink" title="MIME (Multipurpose Internet Mail Extensions) 是描述消息内容类型的因特网标准。"></a>MIME (Multipurpose Internet Mail Extensions) 是描述消息内容类型的因特网标准。</h6><h6 id="MIME-消息能包含文本、图像、音频、视频以及其他应用程序专用的数据。"><a href="#MIME-消息能包含文本、图像、音频、视频以及其他应用程序专用的数据。" class="headerlink" title="MIME 消息能包含文本、图像、音频、视频以及其他应用程序专用的数据。"></a>MIME 消息能包含文本、图像、音频、视频以及其他应用程序专用的数据。</h6>]]></content>
+    <content type="html"><![CDATA[<h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><h6 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h6><pre><code>{    name: &quot;test&quot;}</code></pre><h6 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h6><pre><code>{    &quot;name&quot;: &quot;test&quot;}</code></pre><h5 id="JSON对象方法"><a href="#JSON对象方法" class="headerlink" title="JSON对象方法"></a>JSON对象方法</h5><h6 id="JSON-stringify-将json对象转化为数据结构"><a href="#JSON-stringify-将json对象转化为数据结构" class="headerlink" title="JSON.stringify() //将json对象转化为数据结构"></a>JSON.stringify() //将json对象转化为数据结构</h6><h6 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h6><pre><code>let obj = {    name: &quot;test&quot;,    sex: [&apos;male&apos;, &apos;female&apos;]}JSON.stringify(obj)  JSON.stringify(obj, name)  //只保留nameJSON.stringify(obj,name,4) //字符缩进4个空格</code></pre><h4 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h4><h5 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h5><h6 id="cookie构成：名称、值、域、路径、失效时间、安全标志"><a href="#cookie构成：名称、值、域、路径、失效时间、安全标志" class="headerlink" title="cookie构成：名称、值、域、路径、失效时间、安全标志"></a>cookie构成：名称、值、域、路径、失效时间、安全标志</h6><pre><code>Set-Cookie: name=value; domain=.wrox.com; expires= Mon, 22-Jan-07; securedocument.cookie = &quot;name=value; .....&quot;</code></pre><h6 id="cookie-确实非常小，它的大小限制为4KB左右，是网景公司的前雇员-Lou-Montulli-在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在-Cookie-中存入一段辨别用户身份的数据来实现的"><a href="#cookie-确实非常小，它的大小限制为4KB左右，是网景公司的前雇员-Lou-Montulli-在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在-Cookie-中存入一段辨别用户身份的数据来实现的" class="headerlink" title="cookie 确实非常小，它的大小限制为4KB左右，是网景公司的前雇员 Lou Montulli 在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在 Cookie 中存入一段辨别用户身份的数据来实现的"></a>cookie 确实非常小，它的大小限制为4KB左右，是网景公司的前雇员 Lou Montulli 在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在 Cookie 中存入一段辨别用户身份的数据来实现的</h6><h4 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h4><pre><code>localStorage.setItem()localStorage.getItem()</code></pre><h4 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h4><h6 id="用法同上"><a href="#用法同上" class="headerlink" title="用法同上"></a>用法同上</h6><h4 id="浏览器缓存"><a href="#浏览器缓存" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h4><p><a href="https://segmentfault.com/a/1190000006741200" target="_blank" rel="noopener">浏览器缓存</a></p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h4 id=&quot;使用canvas画图&quot;&gt;&lt;a href=&quot;#使用canvas画图&quot; class=&quot;headerlink&quot; title=&quot;使用canvas画图&quot;&gt;&lt;/a&gt;使用canvas画图&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;&amp;lt;canvas id=&amp;quot;canvas&amp;quo
+        &lt;h3 id=&quot;JSON&quot;&gt;&lt;a href=&quot;#JSON&quot; class=&quot;headerlink&quot; title=&quot;JSON&quot;&gt;&lt;/a&gt;JSON&lt;/h3&gt;&lt;h6 id=&quot;对象&quot;&gt;&lt;a href=&quot;#对象&quot; class=&quot;headerlink&quot; title=&quot;对象&quot;&gt;&lt;/a&gt;对象&lt;/h
       
     
     </summary>
