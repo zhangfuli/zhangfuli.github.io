@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[mongo shell 显示更多数量的结果]]></title>
+    <url>%2F2019%2F04%2F01%2Fmongo-shell-%E6%98%BE%E7%A4%BA%E6%9B%B4%E5%A4%9A%E6%95%B0%E9%87%8F%E7%9A%84%E7%BB%93%E6%9E%9C%2F</url>
+    <content type="text"><![CDATA[DBQuery.shellBatchSize = 300]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[XQuery环境开发]]></title>
+    <url>%2F2019%2F03%2F29%2FXQuery%E7%8E%AF%E5%A2%83%E5%BC%80%E5%8F%91%2F</url>
+    <content type="text"><![CDATA[前言Xquery的环境配置示例jar包idea新建maven项目，将jar包下载下来并添加入Librarieshttps://sourceforge.net/projects/saxon/ xqy在项目根目录新建book.xqy文件for $x in doc(&quot;books.xml&quot;)/books/book where $x/price&gt;30 return $x/title xml在项目根目录新建book.xml文件&lt;books&gt; &lt;book category=&quot;JAVA&quot;&gt; &lt;title lang=&quot;en&quot;&gt;15天搞定Java&lt;/title&gt; &lt;author&gt;Maxsu&lt;/author&gt; &lt;year&gt;2015&lt;/year&gt; &lt;price&gt;30.00&lt;/price&gt; &lt;/book&gt; &lt;book category=&quot;DOTNET&quot;&gt; &lt;title lang=&quot;en&quot;&gt;15天搞定.Net&lt;/title&gt; &lt;author&gt;Susen&lt;/author&gt; &lt;year&gt;2018&lt;/year&gt; &lt;price&gt;40.50&lt;/price&gt; &lt;/book&gt; &lt;book category=&quot;XML&quot;&gt; &lt;title lang=&quot;en&quot;&gt;3天搞定XQuery&lt;/title&gt; &lt;author&gt;Yizhi&lt;/author&gt; &lt;author&gt;Maxsu&lt;/author&gt; &lt;year&gt;2016&lt;/year&gt; &lt;price&gt;50.00&lt;/price&gt; &lt;/book&gt; &lt;book category=&quot;XML&quot;&gt; &lt;title lang=&quot;en&quot;&gt;24小时搞定XPath&lt;/title&gt; &lt;author&gt;Jazz Bee&lt;/author&gt; &lt;year&gt;2019&lt;/year&gt; &lt;price&gt;16.50&lt;/price&gt; &lt;/book&gt; &lt;/books&gt; XQueryTester.java新建, XQueryTester.java并导入相应的包public class XQueryTester { public static void main(String[] args){ try { execute(); } catch (FileNotFoundException e) { e.printStackTrace(); } catch (XQException e) { e.printStackTrace(); } } private static void execute() throws FileNotFoundException, XQException{ InputStream inputStream = new FileInputStream(new File(&quot;books.xqy&quot;)); XQDataSource ds = new SaxonXQDataSource(); XQConnection conn = ds.getConnection(); XQPreparedExpression exp = conn.prepareExpression(inputStream); XQResultSequence result = exp.executeQuery(); while (result.next()) { System.out.println(result.getItemAsString(null)); } } } 点击运行即可]]></content>
+      <categories>
+        <category>环境</category>
+      </categories>
+      <tags>
+        <tag>环境</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[18.11.2周会]]></title>
     <url>%2F2018%2F12%2F27%2F18-11-2%E5%91%A8%E4%BC%9A%2F</url>
     <content type="text"><![CDATA[推荐阅读&lt;&gt;&lt;&gt;introduction 10%1、 定义2、 背景3、 前人工作的review4、 目的5、 简单介绍方法、结论conclusion1、 重新强调总结2、 简短的review3、 展望未来4、 辩证的看待自己的工作re-writing1、 篇幅均衡2、 回答所有RQ3、 思考缩短篇幅、提升proof-reading(校对)1、 句子不要太长难以理解2、 拼写错误3、 语法错误问卷：卷首1、 调查目的2、 保密声明3、 目标对象4、 答题耗时5、 激励措施： 下方填写邮箱， 报告完成后将通过邮件发送给您]]></content>
@@ -50,17 +66,6 @@
       </categories>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[夏令营总结]]></title>
-    <url>%2F2018%2F07%2F16%2F%E5%A4%8F%E4%BB%A4%E8%90%A5%E6%80%BB%E7%BB%93%2F</url>
-    <content type="text"><![CDATA[前言这次夏令营陆陆续续从今年3月份开始到今天正式参加完毕。3月底，那段时间确实心里由于某件事情心情很糟糕，有些人走着走着就散了，那段时间生活失去了目标，想想生活还要继续，而且很重要的保研的工作也要来了。保研复习这段时间，无欲无求了吧目标在一开始给自己准备的目标是C9(清北浙南复交哈西中), 中游保底的院校选择了一些。今年人工智能炒的火热，计算机专业特别爆炸，这往往就造成了28的局面，20%的人拿到了80%的入营. 由于自己本科实力不是很强, 而且选择软件报计算机所以, 所以很多时候入营都成了困难。入营情况南大、南开、天大(冲突)、北理(冲突)、北交真诚相待很多同学为了拿更多的offer, 在回答“我要是给你offer, 你回来嘛”之类的问题的时候, 会表示我一定会去. 就我本人而言, 我做不到这样, 老师手里的offer是有限的他给了你, 而你答应了缺放老师的鸽子, 这不是一个学生应该有的态度. 我往往会直接回答我现在的夏令营规划是什么, 现在联系了几个老师有几个offer, 我真诚的跟老师讲这件事情, 老师也会理解学生的苦衷, 如果对方老师还是执意要问我, 那我会直接拒绝掉这个老师, 首先老师抛出这个问题说明老师有想录的你想法, 这证明了你很优秀, 那你就自不用担心最终拿不到offer, 通俗的讲我优秀, 我对老师谦逊, 老师这样会显得没有经验, 跟我脾气不符合, 那在他手底下念研究生也不会感到开心.这次我也被问到了这样的问题, 而且对方还是我目标高校的一位老师, 但是我还是给拒掉了, 营都没入。跟老师真诚相待很重要, 我这次特别特别感谢南开的王老师, 北交的张老师, 南大的张老师(缘分…我们都姓张)。 这些老师们我都给他们讲我实际的情况, 老师们也理解, 有些老师也愿意给我留offer到一定的时间, 等全部夏令营结果出来然我自己选择。面试过程南开:我报名的是南开大学青岛站的面试, 这一周的时间内有4场考试1场见面会1场面试.有些入营但是6级没过的会让你做一套英语题…当然我并不需要.进去面试的有计算机学院的5位老师,面试的内容包括自我介绍,问项目，随机一套英文题, 这里要特别感谢一下我的舍友, 我被问到的题是你最最喜欢的课程, 我本来准备的是math…我舍友说还不如准备software architecture, 正好第二天有软件体系结构的考试还能复习一下.这瞬间让这个问题的回答高大上了呀..第二天就被问到了. 回去之后第二天参加了体系结构考试再过了一天去到南京大学跟张老师面谈了一下我的情况南开初试过了之后会给你一张初试通过表, 你只有联系那边老师, 那边来老师愿意要你在表上签字你才算能去南开读研.有些导师让读论文出报告之类的.由于我跟我联系的老师讲好了, 他会给我留offer到7月底, 所以我的初试通过表现在还没发北交:北交是在从南大张老师那边回来之后一个星期后的事情, 这一个星期又考了3门试.还好成绩都不错除了编译原理都95+,嘿嘿嘿.北交我认为相对而言就比较简单了.我去北交的唯一一个目的就是去跟那边的张老师讲清楚我夏令营的所有情况.张老师是我编译原理老师的一位师弟, 之前表示把offer留给我, 所以我这次去的目的是跟老师当面讲清楚我具体的情况, 我不想让老师的名额浪费掉.期间还跟张老师吃了个饭,帮我分析研究生的规划, 很客观的分析一些老师等等.面试一共问了3个问题：一段特别特别特别简单的英文一句话翻译；夏令营还报了哪；项目问题.北交的老师都对同学们非常热情,都特别喜欢招推免的学生南大软:不得不说南大软院是真的有钱, 去了住5星级酒店.而且负责招生的老师也是特别负责,从入营到参加夏令营一些事项来往了不下十几封邮件.去面试之前又跟张老师简单的聊了一下.感觉我认识联系的老师都特别不错, 真心真诚对待老师是没有错的。面试我认为很简单软院注重项目经历一分钟英文自己我介绍, 然后老师问项目,我项目比较多还可以应付自如. 最最坑的是机试,一开始让选择C++ or java, 然后分别给了不同的例题, 说机试题不会超过给的例题的数据机构和算法(例题是:背包、线段树、贪心), 然后就使劲看ACM, 看这种类型的题. 结果C++ 第一题来个了OO…,第二题不需要什么思想, 开数组就行…然而我C++做OO都忘了呀, 那还是大一下的事情, 一直都用Java做….还是反映出能力欠佳呀 结果3周内，3次大面试+1次机试+1次宣讲+6门考试+1次专业课课程大项目结题, 然后得了病毒性角膜炎…结果还没出来,静待结果选择去什么地方吧]]></content>
-      <categories>
-        <category>生活</category>
-      </categories>
-      <tags>
-        <tag>生活</tag>
       </tags>
   </entry>
   <entry>
@@ -311,6 +316,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[数学建模国赛被整蛊]]></title>
+    <url>%2F2017%2F10%2F16%2F%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%9B%BD%E8%B5%9B%E8%A2%AB%E6%95%B4%E8%9B%8A%2F</url>
+    <content type="text"><![CDATA[国赛已经过去好长时间了，今天翻文件无意中看见”国赛A题论文.vbs”,想想在那三天的紧张的时间，看见这个是个什么心情？当然是，理性的分析一下啊。看到.vbs我就心里暗想着个东西不是啥好东西，结果用sublimetext打开一看,发现了好玩的东西dim Obj set Obj = createobject(&quot;wscript.shell&quot;) Obj.exec &quot;shutdown -s -t 0&quot; 一个basic的关机脚本,这个脚本不知坑了多少小组。哈哈哈但是这个要是一个病毒那就GG了]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[突然上不去网？]]></title>
     <url>%2F2017%2F10%2F16%2F%E7%AA%81%E7%84%B6%E4%B8%8A%E4%B8%8D%E5%8E%BB%E7%BD%91%EF%BC%9F%2F</url>
     <content type="text"><![CDATA[前言宿舍里经常会有分配不到IP的情况, 下面的命令应该能解决netsh winsock reset 重置winsock目录,宿舍分配不到ip其他常用命令shutdown –help —–shutdown的参数查 git clone ….. —— 克隆到当前文件夹 git add . —– 暂存 git commit —– 提交 写提交备注 —– vi用法 :wq git push —– 推送]]></content>
@@ -322,14 +338,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[数学建模国赛被整蛊]]></title>
-    <url>%2F2017%2F10%2F16%2F%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%9B%BD%E8%B5%9B%E8%A2%AB%E6%95%B4%E8%9B%8A%2F</url>
-    <content type="text"><![CDATA[国赛已经过去好长时间了，今天翻文件无意中看见”国赛A题论文.vbs”,想想在那三天的紧张的时间，看见这个是个什么心情？当然是，理性的分析一下啊。看到.vbs我就心里暗想着个东西不是啥好东西，结果用sublimetext打开一看,发现了好玩的东西dim Obj set Obj = createobject(&quot;wscript.shell&quot;) Obj.exec &quot;shutdown -s -t 0&quot; 一个basic的关机脚本,这个脚本不知坑了多少小组。哈哈哈但是这个要是一个病毒那就GG了]]></content>
+    <title><![CDATA[面向对象的程序设计]]></title>
+    <url>%2F2017%2F09%2F25%2F%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%2F</url>
+    <content type="text"><![CDATA[属性类型数据属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Writable]]:能否修改属性的值，默认为true [[Value]]:数据 改变上述属性Object.defineProperty() var person = {} Object.defineProperty(person,&quot;name&quot;,{ writable: false, //不能重写 value: &quot;123&quot;, configurable: false, //以后再也不可配置 enumerable: true }) console.log(person.name) //123 person.name = &quot;456&quot; console.log(person.name) //123 访问属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Get]]:读取属性的时候调用的函数 [[Set]]:写入属性的时候调用的函数 var book = { year: 2017, edition: 1 } Object.defineProperty(book,&quot;month&quot;,{ //对month进行访问 get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } }) book.month = 2018 //调用set console.log(book.year) console.log(book.month) //get方法返回123 访问多个属性var book = { year: 2017, edition: 1 } Object.defineProperties(book,{ edition:{ writeable:true, value: 2015 }, month:{ get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } } }) book.month = 2018 console.log(book.year) //2018 console.log(book.month) // 123 console.log(book.edition) //2015 获得属性 Object.getOwnPropertyDescriptor()var descriptor = Object.getOwnPropertyDescriptor(book,&quot;year&quot;) console.log(descriptor) 创建对象最合适的方法–构造函数模式和原型模式function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var john = new Person(&quot;john&quot;) john.sayName() //john 此类方法属性不共享，方法共享其他要点1.可将构造函数当普通函数用,原型中不行，只能在构造函数模式中function Person(name , age){ this.name = name this.age = age sayName = function(){ console.log(this.name) } } Person(&quot;john&quot;) window.sayName() //john 2.内存区问题 sayName()在同一内存区function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) 另一种情况 sayName在不同内存区(没有this是true)function Person(name , age){ this.name = name this.age = age this.sayName = function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) //false 原型–&gt;我的理解是一个实例，所有其他实例的父类isPrototypeOf()验证是否为某原型的实例Person.prototype.isPrototypeOf(person1) //true hasOwnProperty()检测属性是否存在于实例中person1.hasOwnProperty(“name”) function Person(){} Person.prototype = { name : &quot;name&quot;, age : &quot;age&quot;, sayName: function(){ console.log(this.name) } } var person1 = new Person() console.log(person1.hasOwnProperty(&quot;name&quot;)) //false person1.name = &quot;123&quot; console.log(person1.hasOwnProperty(&quot;name&quot;)) //true 原型与继承每个构造函数都有原型，每个原型都有指针指向构造函数，每个实例都有指向原型的指针function Animal(){} Animal.prototype = { constructor: Animal //__proto__ } function Dog(){} Dog.prototype ={ constructor: Dog //__proto__ } Dog.prototype = new Animal() //继承 let dog1 = new Dog() console.log(dog1) //Dog.__proto__ = Animal //Animal.__proto__ = Object 每个实例中都有proto指向new的类，若没有则指向本身原型与实例的关系instance intanceof Object Object.prototype.isPrototypeOf(intance) 最常用的继承模式–组合继承function Super(){ this.property = true } Super.prototype.getSuperProperty = function(){ return this.property } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = new Super() Sub.prototype.getSubProperty = function(){ return this.subProperty } let inte = new Sub() console.log(inte.getSuperProperty()) console.log(inte.getSubProperty()) 注意子类不能使用字面量的方法如下所示，它会重写了原型链，父类可以用字面量写法Sub.prototype = {} 我最常用的方法–野路子function Super(){ this.property = true } Super.prototype = { constructor: Super, getSuperProperty: function(){ return this.property } } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = { constructor: Sub, getSubProperty: function(){ return this.subProperty }, __proto__: Super.prototype } let inte = new Sub() console.log(inte.getSuperProperty()) /true console.log(inte.getSubProperty()) /false]]></content>
       <categories>
-        <category>生活</category>
+        <category>javascript</category>
       </categories>
       <tags>
-        <tag>生活</tag>
+        <tag>javascript</tag>
       </tags>
   </entry>
   <entry>
@@ -347,17 +363,6 @@
     <title><![CDATA[正则表达式]]></title>
     <url>%2F2017%2F09%2F25%2F%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%2F</url>
     <content type="text"><![CDATA[创建就像注释一样//，只不过在注释里面写内容标志g: 全局查找，不是在查找完第一个字符串之后立即停止i: 不区分大小写m: 多行，暂时用到的不是太多，作用是到达一行文本末尾是还会继续查找下一行是否存在与模式匹配的项元字符要转义$^*(){}[]|.?键盘468，三个类型括号，反斜杠(2shift竖杠),.?(一个shift一个不)方法regexObj.test(str) regexObj.exec(str) str.match(regexp) str.search(regexp) str.replace(regexp|substr, newSubStr|function) str.split([separator[, limit]]) 详情见JS指南正则表达式 一个要点在匹配到的替换文本中，脚本使用替代的1,1,2表示第一个和第二个括号的子字符串匹配。var re = /(\w+)\s(\w+)/; var str = &quot;John Smith&quot;; var newstr = str.replace(re, &quot;$2, $1&quot;); console.log(newstr); //Smith, John]]></content>
-      <categories>
-        <category>javascript</category>
-      </categories>
-      <tags>
-        <tag>javascript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[面向对象的程序设计]]></title>
-    <url>%2F2017%2F09%2F25%2F%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%2F</url>
-    <content type="text"><![CDATA[属性类型数据属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Writable]]:能否修改属性的值，默认为true [[Value]]:数据 改变上述属性Object.defineProperty() var person = {} Object.defineProperty(person,&quot;name&quot;,{ writable: false, //不能重写 value: &quot;123&quot;, configurable: false, //以后再也不可配置 enumerable: true }) console.log(person.name) //123 person.name = &quot;456&quot; console.log(person.name) //123 访问属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Get]]:读取属性的时候调用的函数 [[Set]]:写入属性的时候调用的函数 var book = { year: 2017, edition: 1 } Object.defineProperty(book,&quot;month&quot;,{ //对month进行访问 get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } }) book.month = 2018 //调用set console.log(book.year) console.log(book.month) //get方法返回123 访问多个属性var book = { year: 2017, edition: 1 } Object.defineProperties(book,{ edition:{ writeable:true, value: 2015 }, month:{ get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } } }) book.month = 2018 console.log(book.year) //2018 console.log(book.month) // 123 console.log(book.edition) //2015 获得属性 Object.getOwnPropertyDescriptor()var descriptor = Object.getOwnPropertyDescriptor(book,&quot;year&quot;) console.log(descriptor) 创建对象最合适的方法–构造函数模式和原型模式function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var john = new Person(&quot;john&quot;) john.sayName() //john 此类方法属性不共享，方法共享其他要点1.可将构造函数当普通函数用,原型中不行，只能在构造函数模式中function Person(name , age){ this.name = name this.age = age sayName = function(){ console.log(this.name) } } Person(&quot;john&quot;) window.sayName() //john 2.内存区问题 sayName()在同一内存区function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) 另一种情况 sayName在不同内存区(没有this是true)function Person(name , age){ this.name = name this.age = age this.sayName = function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) //false 原型–&gt;我的理解是一个实例，所有其他实例的父类isPrototypeOf()验证是否为某原型的实例Person.prototype.isPrototypeOf(person1) //true hasOwnProperty()检测属性是否存在于实例中person1.hasOwnProperty(“name”) function Person(){} Person.prototype = { name : &quot;name&quot;, age : &quot;age&quot;, sayName: function(){ console.log(this.name) } } var person1 = new Person() console.log(person1.hasOwnProperty(&quot;name&quot;)) //false person1.name = &quot;123&quot; console.log(person1.hasOwnProperty(&quot;name&quot;)) //true 原型与继承每个构造函数都有原型，每个原型都有指针指向构造函数，每个实例都有指向原型的指针function Animal(){} Animal.prototype = { constructor: Animal //__proto__ } function Dog(){} Dog.prototype ={ constructor: Dog //__proto__ } Dog.prototype = new Animal() //继承 let dog1 = new Dog() console.log(dog1) //Dog.__proto__ = Animal //Animal.__proto__ = Object 每个实例中都有proto指向new的类，若没有则指向本身原型与实例的关系instance intanceof Object Object.prototype.isPrototypeOf(intance) 最常用的继承模式–组合继承function Super(){ this.property = true } Super.prototype.getSuperProperty = function(){ return this.property } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = new Super() Sub.prototype.getSubProperty = function(){ return this.subProperty } let inte = new Sub() console.log(inte.getSuperProperty()) console.log(inte.getSubProperty()) 注意子类不能使用字面量的方法如下所示，它会重写了原型链，父类可以用字面量写法Sub.prototype = {} 我最常用的方法–野路子function Super(){ this.property = true } Super.prototype = { constructor: Super, getSuperProperty: function(){ return this.property } } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = { constructor: Sub, getSubProperty: function(){ return this.subProperty }, __proto__: Super.prototype } let inte = new Sub() console.log(inte.getSuperProperty()) /true console.log(inte.getSubProperty()) /false]]></content>
       <categories>
         <category>javascript</category>
       </categories>
@@ -432,9 +437,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[2017小学期--6.30]]></title>
-    <url>%2F2017%2F06%2F30%2F2017%E5%B0%8F%E5%AD%A6%E6%9C%9F-6-30%2F</url>
-    <content type="text"><![CDATA[反射机制Java的反射机制是在编译时并不确定是哪个类被加载了，而是在程序运行的时候才加载、探知、自审。使用的是在编译期并不知道的类。这样的编译特点就是java反射。要正确使用Java反射机制就得使用java.lang.Class这个类。它是Java反射机制的起源。当一个类被加载以后，Java虚拟机就会自动产生一个Class对象。通过这个Class对象我们就能获得加载到虚拟机当中这个Class对象对应的方法、成员以及构造方法的声明和定义等信息。javadocservlet *public class ClassClass Dog类的类对象永不回收——模板Dog类很多实例对象，很多方法。只需将方法实例化为类对象，属性各自存传来http请求–&gt;封装成servlet对象–&gt;找method方法–&gt;对应的doGet(doPost…)http协议请求响应模型: request response######轮巡，长链接(Netty)]]></content>
+    <title><![CDATA[2017小学期--7.2]]></title>
+    <url>%2F2017%2F06%2F30%2F2017%E5%B0%8F%E5%AD%A6%E6%9C%9F-7-2%2F</url>
+    <content type="text"><![CDATA[JSP = html + servletjsp生命周期jsp–&gt;转译(jsp语法错误)–&gt;Servlet–&gt;编译(java编译失败)–&gt;字节码文件–&gt;加载–&gt;实例化–&gt;初始化–&gt;服务–&gt;destroy服务器根据后缀名分静态跟动态网站控制器：接受请求对象和响应对象提取表单数据pojo中处理对话、调用模型根据第5步的结果调用jsp模型层：数据检查处理sql执行业务处理数据业务返回执行结果jsp：处理数据线程作用域requestScopesessionScope–同一个会话的多个servletURL:统一资源定位器一个页面的名字协议://IP:port//filename.xxx[?queryString]/对于IE代表的是—&gt;http://ip:port/对于web容器而言—&gt;本应用程序的根servlet页面跳转的方法:站内转发： req.getRequestDispatcher(“url”).forward(req,resp)重定向: resp.sendRedirect()AOP(面向切面编程)切面：通知：web部署描述符根据filter-mapping决定执行顺序struts2 按需导包加载jar包拦截请求定义xml文件编写action做页面跳转action是MVC的model]]></content>
       <categories>
         <category>生活</category>
       </categories>
@@ -443,9 +448,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[2017小学期--7.2]]></title>
-    <url>%2F2017%2F06%2F30%2F2017%E5%B0%8F%E5%AD%A6%E6%9C%9F-7-2%2F</url>
-    <content type="text"><![CDATA[JSP = html + servletjsp生命周期jsp–&gt;转译(jsp语法错误)–&gt;Servlet–&gt;编译(java编译失败)–&gt;字节码文件–&gt;加载–&gt;实例化–&gt;初始化–&gt;服务–&gt;destroy服务器根据后缀名分静态跟动态网站控制器：接受请求对象和响应对象提取表单数据pojo中处理对话、调用模型根据第5步的结果调用jsp模型层：数据检查处理sql执行业务处理数据业务返回执行结果jsp：处理数据线程作用域requestScopesessionScope–同一个会话的多个servletURL:统一资源定位器一个页面的名字协议://IP:port//filename.xxx[?queryString]/对于IE代表的是—&gt;http://ip:port/对于web容器而言—&gt;本应用程序的根servlet页面跳转的方法:站内转发： req.getRequestDispatcher(“url”).forward(req,resp)重定向: resp.sendRedirect()AOP(面向切面编程)切面：通知：web部署描述符根据filter-mapping决定执行顺序struts2 按需导包加载jar包拦截请求定义xml文件编写action做页面跳转action是MVC的model]]></content>
+    <title><![CDATA[2017小学期--6.30]]></title>
+    <url>%2F2017%2F06%2F30%2F2017%E5%B0%8F%E5%AD%A6%E6%9C%9F-6-30%2F</url>
+    <content type="text"><![CDATA[反射机制Java的反射机制是在编译时并不确定是哪个类被加载了，而是在程序运行的时候才加载、探知、自审。使用的是在编译期并不知道的类。这样的编译特点就是java反射。要正确使用Java反射机制就得使用java.lang.Class这个类。它是Java反射机制的起源。当一个类被加载以后，Java虚拟机就会自动产生一个Class对象。通过这个Class对象我们就能获得加载到虚拟机当中这个Class对象对应的方法、成员以及构造方法的声明和定义等信息。javadocservlet *public class ClassClass Dog类的类对象永不回收——模板Dog类很多实例对象，很多方法。只需将方法实例化为类对象，属性各自存传来http请求–&gt;封装成servlet对象–&gt;找method方法–&gt;对应的doGet(doPost…)http协议请求响应模型: request response######轮巡，长链接(Netty)]]></content>
       <categories>
         <category>生活</category>
       </categories>
@@ -927,9 +932,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[利用github和hexo搭建自己的博客]]></title>
-    <url>%2F2015%2F06%2F01%2Fbuildblog%2F</url>
-    <content type="text"><![CDATA[步骤首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。搭建环境(必须的) —Node和git利用choco在cmd(管理员模式)下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。安装开始执行如下命令npm install -g hexo 进行安装hexo init 进行初始化在Github里新建一个仓库，名字叫XXX(你Github的昵称).github.io下载安装Souretree(我用的是Souretree，你也可以选在别的软件)把XXX.github.io克隆到生成hexo的文件的public文件下(注：如果里面有文件的话先copy出来，让public为空文件夹)。OK，在网址上输入XXX.github.io，你的专属blog完成了。查看PS:需要运行在cmd下找到你的blog所在的文件夹运行hexo g即可，如果想在本地看看你的页面hexo s]]></content>
+    <title><![CDATA[Hello Blog]]></title>
+    <url>%2F2015%2F06%2F01%2Fhello-blog%2F</url>
+    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
       <categories>
         <category>hexo</category>
       </categories>
@@ -938,9 +943,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello Blog]]></title>
-    <url>%2F2015%2F06%2F01%2Fhello-blog%2F</url>
-    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
+    <title><![CDATA[利用github和hexo搭建自己的博客]]></title>
+    <url>%2F2015%2F06%2F01%2Fbuildblog%2F</url>
+    <content type="text"><![CDATA[步骤首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。搭建环境(必须的) —Node和git利用choco在cmd(管理员模式)下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。安装开始执行如下命令npm install -g hexo 进行安装hexo init 进行初始化在Github里新建一个仓库，名字叫XXX(你Github的昵称).github.io下载安装Souretree(我用的是Souretree，你也可以选在别的软件)把XXX.github.io克隆到生成hexo的文件的public文件下(注：如果里面有文件的话先copy出来，让public为空文件夹)。OK，在网址上输入XXX.github.io，你的专属blog完成了。查看PS:需要运行在cmd下找到你的blog所在的文件夹运行hexo g即可，如果想在本地看看你的页面hexo s]]></content>
       <categories>
         <category>hexo</category>
       </categories>
