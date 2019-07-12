@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title></title>
+    <url>%2F2019%2F07%2F12%2Ftarsgo%E8%B8%A9%E5%9D%91%2F</url>
+    <content type="text"><![CDATA[TarsGo windows系统下的踩坑安装Go语言下载安装Go(go安装包位置))，并在环境变量中设置两个关键路径如下：12GOROOT = Go的系统安装目录GOPATH = Go的工作路径 Go语言推荐目录结构: project-layoutTarsGo会生成一个默认的目录结构 Go的编译环境JetBrains GoLand下载安装JetBrains GoLand安装完成后需要在Settings内设置GOROOT、Global GOPATH、Project GOPATH目录 使windows支持linux命令 git bash，使用chocolaey)安装git mingw64， https://stackoverflow.com/questions/32127524/how-to-install-and-use-make-in-windows make，使用chocolaey)安装make TarsGo 通过TarsGo快速指南拉取TarsGo项目并编译Tars协议转Golang工具 如下所示修改create_tars_server.sh12345678910111213export GOPATH=$(echo $GOPATH | cut -f1 -d &apos;:&apos;)if [ &quot;$GOPATH&quot; == &quot;&quot; ]; thenecho &quot;GOPATH must be set&quot;exit 1fi......for RENAMEFILE in `ls ` //该句会报没有rename命令的错误无关紧要, 但手动修改文件名dorename &quot;Server&quot; &quot;$SERVER&quot; $RENAMEFILErename &quot;Servant&quot; &quot;$SERVANT&quot; $RENAMEFILEdone 12345export GOPATH=$(echo $GOPATH)if [ &quot;$GOPATH&quot; == &quot;&quot; ]; then echo &quot;GOPATH must be set&quot; exit 1fi 运行create_tars_server.sh创建服务 123sh $GOPATH/src/github.com/TarsCloud/TarsGo/tars/tools/create_tars_server.sh [App] [Server] [Servant]例如： sh $GOPATH/src/github.com/TarsCloud/TarsGo/tars/tools/create_tars_server.sh TestApp HelloGo SayHello 该脚本会在$(GOPATH)/src/生成项目[App]，暂时未到git bash 支持rename的方法，暂且手动修改\$(GOPATH)/src/[App]/[Server]下生成的文件名 1234Servant.tars----&gt;[Servant].tars ServantImp.go----&gt;[Servant]Imp.goServer.conf----&gt;[Server].confServer.go----&gt;[Server].go 若根据TarsGo快速指南的提示编写代码，main包下的func main()调用同一包但是不同文件下的SayHelloImp会出现引用不到的问题,故将SayHelloImp放入package imp包下 编写完成服务端代码TarsGo快速指南会提示运行make, 在此之前对$(GOPATH)/src/github.com/TarsCloud/TarsGo/tars/makefile.tars进行修改1234GO = $&#123;GOROOT&#125;/bin/golibpath=$&#123;subst :, ,$(GOPATH)&#125;TARS2GO := $(firstword $(subst :, , $(shell go env GOPATH)))/bin/tars2goJ2GO_FLAG := -outdir=vendor $&#123;J2GO_FLAG&#125; 1234GO = $(shell go env GOROOT)/bin/golibpath=$&#123;subst :, ,$(GOPATH)&#125;TARS2GO := $(firstword $(shell go env GOPATH))/bin/tars2goJ2GO_FLAG := -outdir=vendor $&#123;J2GO_FLAG&#125; 运行make &amp;&amp; make tar会生成[Server]的文件 启动运行./[Server] –config = [Server].config 在$(GOPATH)/src/[App]/[Server]/client下编写客户端代码测试, 注意要与[Server].config的端口一致]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[mongo shell 显示更多数量的结果]]></title>
     <url>%2F2019%2F04%2F01%2Fmongo-shell-%E6%98%BE%E7%A4%BA%E6%9B%B4%E5%A4%9A%E6%95%B0%E9%87%8F%E7%9A%84%E7%BB%93%E6%9E%9C%2F</url>
     <content type="text"><![CDATA[DBQuery.shellBatchSize = 300]]></content>
@@ -66,6 +71,17 @@
       </categories>
       <tags>
         <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[夏令营总结]]></title>
+    <url>%2F2018%2F07%2F16%2F%E5%A4%8F%E4%BB%A4%E8%90%A5%E6%80%BB%E7%BB%93%2F</url>
+    <content type="text"><![CDATA[前言这次夏令营陆陆续续从今年3月份开始到今天正式参加完毕。3月底，那段时间确实心里由于某件事情心情很糟糕，有些人走着走着就散了，那段时间生活失去了目标，想想生活还要继续，而且很重要的保研的工作也要来了。保研复习这段时间，无欲无求了吧目标在一开始给自己准备的目标是C9(清北浙南复交哈西中), 中游保底的院校选择了一些。今年人工智能炒的火热，计算机专业特别爆炸，这往往就造成了28的局面，20%的人拿到了80%的入营. 由于自己本科实力不是很强, 而且选择软件报计算机所以, 所以很多时候入营都成了困难。入营情况南大、南开、天大(冲突)、北理(冲突)、北交真诚相待很多同学为了拿更多的offer, 在回答“我要是给你offer, 你回来嘛”之类的问题的时候, 会表示我一定会去. 就我本人而言, 我做不到这样, 老师手里的offer是有限的他给了你, 而你答应了缺放老师的鸽子, 这不是一个学生应该有的态度. 我往往会直接回答我现在的夏令营规划是什么, 现在联系了几个老师有几个offer, 我真诚的跟老师讲这件事情, 老师也会理解学生的苦衷, 如果对方老师还是执意要问我, 那我会直接拒绝掉这个老师, 首先老师抛出这个问题说明老师有想录的你想法, 这证明了你很优秀, 那你就自不用担心最终拿不到offer, 通俗的讲我优秀, 我对老师谦逊, 老师这样会显得没有经验, 跟我脾气不符合, 那在他手底下念研究生也不会感到开心.这次我也被问到了这样的问题, 而且对方还是我目标高校的一位老师, 但是我还是给拒掉了, 营都没入。跟老师真诚相待很重要, 我这次特别特别感谢南开的王老师, 北交的张老师, 南大的张老师(缘分…我们都姓张)。 这些老师们我都给他们讲我实际的情况, 老师们也理解, 有些老师也愿意给我留offer到一定的时间, 等全部夏令营结果出来然我自己选择。面试过程南开:我报名的是南开大学青岛站的面试, 这一周的时间内有4场考试1场见面会1场面试.有些入营但是6级没过的会让你做一套英语题…当然我并不需要.进去面试的有计算机学院的5位老师,面试的内容包括自我介绍,问项目，随机一套英文题, 这里要特别感谢一下我的舍友, 我被问到的题是你最最喜欢的课程, 我本来准备的是math…我舍友说还不如准备software architecture, 正好第二天有软件体系结构的考试还能复习一下.这瞬间让这个问题的回答高大上了呀..第二天就被问到了. 回去之后第二天参加了体系结构考试再过了一天去到南京大学跟张老师面谈了一下我的情况南开初试过了之后会给你一张初试通过表, 你只有联系那边老师, 那边来老师愿意要你在表上签字你才算能去南开读研.有些导师让读论文出报告之类的.由于我跟我联系的老师讲好了, 他会给我留offer到7月底, 所以我的初试通过表现在还没发北交:北交是在从南大张老师那边回来之后一个星期后的事情, 这一个星期又考了3门试.还好成绩都不错除了编译原理都95+,嘿嘿嘿.北交我认为相对而言就比较简单了.我去北交的唯一一个目的就是去跟那边的张老师讲清楚我夏令营的所有情况.张老师是我编译原理老师的一位师弟, 之前表示把offer留给我, 所以我这次去的目的是跟老师当面讲清楚我具体的情况, 我不想让老师的名额浪费掉.期间还跟张老师吃了个饭,帮我分析研究生的规划, 很客观的分析一些老师等等.面试一共问了3个问题：一段特别特别特别简单的英文一句话翻译；夏令营还报了哪；项目问题.北交的老师都对同学们非常热情,都特别喜欢招推免的学生南大软:不得不说南大软院是真的有钱, 去了住5星级酒店.而且负责招生的老师也是特别负责,从入营到参加夏令营一些事项来往了不下十几封邮件.去面试之前又跟张老师简单的聊了一下.感觉我认识联系的老师都特别不错, 真心真诚对待老师是没有错的。面试我认为很简单软院注重项目经历一分钟英文自己我介绍, 然后老师问项目,我项目比较多还可以应付自如. 最最坑的是机试,一开始让选择C++ or java, 然后分别给了不同的例题, 说机试题不会超过给的例题的数据机构和算法(例题是:背包、线段树、贪心), 然后就使劲看ACM, 看这种类型的题. 结果C++ 第一题来个了OO…,第二题不需要什么思想, 开数组就行…然而我C++做OO都忘了呀, 那还是大一下的事情, 一直都用Java做….还是反映出能力欠佳呀 结果3周内，3次大面试+1次机试+1次宣讲+6门考试+1次专业课课程大项目结题, 然后得了病毒性角膜炎…结果还没出来,静待结果选择去什么地方吧]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
       </tags>
   </entry>
   <entry>
@@ -201,17 +217,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[生成npm包--vue]]></title>
-    <url>%2F2017%2F12%2F19%2F%E7%94%9F%E6%88%90npm%E5%8C%85--vue%2F</url>
-    <content type="text"><![CDATA[介绍用vue-cli打包生成vue组件并且上传到npm上前期准备vue-cli npm账号 webpack 首先，用vue-cli生成vue项目，并修改如下所示{ &quot;name&quot;: &quot;picture-upload&quot;, &quot;version&quot;: &quot;1.0.9&quot;, &quot;description&quot;: &quot;This is a component for picture uploaded by base64&quot;, &quot;author&quot;: &quot;zfl &lt;1171067930@qq.com&gt;&quot;, &quot;main&quot;: &quot;dist/picture-upload.min.js&quot;, &quot;license&quot;: &quot;MIT&quot;, &quot;private&quot;: false, &quot;scripts&quot;: { &quot;dev&quot;: &quot;node build/dev-server.js&quot;, &quot;start&quot;: &quot;node build/dev-server.js&quot;, &quot;build&quot;: &quot;node build/build.js&quot; }, &quot;dependencies&quot;: { &quot;vue&quot;: &quot;^2.3.3&quot;, &quot;vue-router&quot;: &quot;^2.6.0&quot; } ... } “private”: false 把这个包改成公用的“main”: “dist/picture-upload.min.js”, 这里的配置意思是，别人用这个包 import PictureUpload from ‘picture-upload’; 时，引入的文件。可以看出，这个picture-upload最终需要打包出一个js文件，所以我们需要修改webpack.prod.config.js文件var webpackConfig = merge(baseWebpackConfig, { module: { rules: utils.styleLoaders({ sourceMap: config.build.productionSourceMap, extract: true }) }, devtool: config.build.productionSourceMap ? &apos;#source-map&apos; : false, // output: { // path: config.build.assetsRoot, // filename: utils.assetsPath(&apos;js/[name].[chunkhash].js&apos;), // chunkFilename: utils.assetsPath(&apos;js/[id].[chunkhash].js&apos;) // }, output: { path: config.bundle.assetsRoot, publicPath: config.bundle.assetsPublicPath, filename: &apos;picture-upload.min.js&apos;, library: &apos;PictureUpload&apos;, libraryTarget: &apos;umd&apos; }, plugins: [ new webpack.DefinePlugin({ &apos;process.env&apos;: env }), new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false }, sourceMap: true }), // extract css into its own file new ExtractTextPlugin({ // filename: utils.assetsPath(&apos;css/[name].[contenthash].css&apos;) filename: &apos;picture-upload.min.css&apos; }), new OptimizeCSSPlugin() ] }) module.exports = webpackConfig 主要是修改两个地方output里面的filename,就是打包生成的js文件的名字;library是引入时的模块名;extracttextpligin里的filename改成picture-upload.min.css;然后很多不需要的模块都注解掉了下面是config/index.jsbundle: { env: require(&apos;./prod.env&apos;), assetsRoot: path.resolve(__dirname, &apos;../dist&apos;), assetsPublicPath: &apos;/&apos;, assetsSubDirectory: &apos;/&apos;, productionSourceMap: true, productionGzip: false, productionGzipExtensions: [&apos;js&apos;, &apos;css&apos;], bundleAnalyzerReport: process.env.npm_config_report } 在build的下面加上这段代码,上面webpack.prod.config.js里面output里面配置的都是bundle编写组件,组件编写完成后,在main.js里面加上,其他的注释掉与不注释掉都可以import PictureUpload from &apos;./components/PictureUpload.vue&apos; export default PictureUpload 最后执行npm run build发布到npm上npm login npm adduser npm publish 使用在下面项目链接的readme里面有点击这里 注意:由于webpack最近的升级webpack组件用2.0写的在最新vue-cli生成的webpack3.0的项目中貌似不能用]]></content>
-      <categories>
-        <category>vue</category>
-      </categories>
-      <tags>
-        <tag>vue</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[javascript高级程序设计20-23]]></title>
     <url>%2F2017%2F12%2F19%2Fjavascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A120-23%2F</url>
     <content type="text"><![CDATA[JSON对象{ name: &quot;test&quot; } 数据结构{ &quot;name&quot;: &quot;test&quot; } JSON对象方法JSON.stringify() //将json对象转化为数据结构参数let obj = { name: &quot;test&quot;, sex: [&apos;male&apos;, &apos;female&apos;] } JSON.stringify(obj) JSON.stringify(obj, name) //只保留name JSON.stringify(obj,name,4) //字符缩进4个空格 数据存储cookiecookie构成：名称、值、域、路径、失效时间、安全标志Set-Cookie: name=value; domain=.wrox.com; expires= Mon, 22-Jan-07; secure document.cookie = &quot;name=value; .....&quot; cookie 确实非常小，它的大小限制为4KB左右，是网景公司的前雇员 Lou Montulli 在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在 Cookie 中存入一段辨别用户身份的数据来实现的localStoragelocalStorage.setItem() localStorage.getItem() sessionStorage用法同上浏览器缓存浏览器缓存]]></content>
@@ -220,6 +225,17 @@
       </categories>
       <tags>
         <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[生成npm包--vue]]></title>
+    <url>%2F2017%2F12%2F19%2F%E7%94%9F%E6%88%90npm%E5%8C%85--vue%2F</url>
+    <content type="text"><![CDATA[介绍用vue-cli打包生成vue组件并且上传到npm上前期准备vue-cli npm账号 webpack 首先，用vue-cli生成vue项目，并修改如下所示{ &quot;name&quot;: &quot;picture-upload&quot;, &quot;version&quot;: &quot;1.0.9&quot;, &quot;description&quot;: &quot;This is a component for picture uploaded by base64&quot;, &quot;author&quot;: &quot;zfl &lt;1171067930@qq.com&gt;&quot;, &quot;main&quot;: &quot;dist/picture-upload.min.js&quot;, &quot;license&quot;: &quot;MIT&quot;, &quot;private&quot;: false, &quot;scripts&quot;: { &quot;dev&quot;: &quot;node build/dev-server.js&quot;, &quot;start&quot;: &quot;node build/dev-server.js&quot;, &quot;build&quot;: &quot;node build/build.js&quot; }, &quot;dependencies&quot;: { &quot;vue&quot;: &quot;^2.3.3&quot;, &quot;vue-router&quot;: &quot;^2.6.0&quot; } ... } “private”: false 把这个包改成公用的“main”: “dist/picture-upload.min.js”, 这里的配置意思是，别人用这个包 import PictureUpload from ‘picture-upload’; 时，引入的文件。可以看出，这个picture-upload最终需要打包出一个js文件，所以我们需要修改webpack.prod.config.js文件var webpackConfig = merge(baseWebpackConfig, { module: { rules: utils.styleLoaders({ sourceMap: config.build.productionSourceMap, extract: true }) }, devtool: config.build.productionSourceMap ? &apos;#source-map&apos; : false, // output: { // path: config.build.assetsRoot, // filename: utils.assetsPath(&apos;js/[name].[chunkhash].js&apos;), // chunkFilename: utils.assetsPath(&apos;js/[id].[chunkhash].js&apos;) // }, output: { path: config.bundle.assetsRoot, publicPath: config.bundle.assetsPublicPath, filename: &apos;picture-upload.min.js&apos;, library: &apos;PictureUpload&apos;, libraryTarget: &apos;umd&apos; }, plugins: [ new webpack.DefinePlugin({ &apos;process.env&apos;: env }), new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false }, sourceMap: true }), // extract css into its own file new ExtractTextPlugin({ // filename: utils.assetsPath(&apos;css/[name].[contenthash].css&apos;) filename: &apos;picture-upload.min.css&apos; }), new OptimizeCSSPlugin() ] }) module.exports = webpackConfig 主要是修改两个地方output里面的filename,就是打包生成的js文件的名字;library是引入时的模块名;extracttextpligin里的filename改成picture-upload.min.css;然后很多不需要的模块都注解掉了下面是config/index.jsbundle: { env: require(&apos;./prod.env&apos;), assetsRoot: path.resolve(__dirname, &apos;../dist&apos;), assetsPublicPath: &apos;/&apos;, assetsSubDirectory: &apos;/&apos;, productionSourceMap: true, productionGzip: false, productionGzipExtensions: [&apos;js&apos;, &apos;css&apos;], bundleAnalyzerReport: process.env.npm_config_report } 在build的下面加上这段代码,上面webpack.prod.config.js里面output里面配置的都是bundle编写组件,组件编写完成后,在main.js里面加上,其他的注释掉与不注释掉都可以import PictureUpload from &apos;./components/PictureUpload.vue&apos; export default PictureUpload 最后执行npm run build发布到npm上npm login npm adduser npm publish 使用在下面项目链接的readme里面有点击这里 注意:由于webpack最近的升级webpack组件用2.0写的在最新vue-cli生成的webpack3.0的项目中貌似不能用]]></content>
+      <categories>
+        <category>vue</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -294,17 +310,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[jsfiddle使用]]></title>
-    <url>%2F2017%2F10%2F18%2Fjsfiddle%E4%BD%BF%E7%94%A8%2F</url>
-    <content type="text"><![CDATA[背景这个也是在查找js闭包的时候，无意中发现别人的博客为什么可以嵌入js在线编辑比如想下边的链接MDN Web Docs–闭包 干货查找的都是只是给了干巴巴的语法，这令我这个小白很苦恼{% jsfiddle shorttag [tabs] [skin] [width] [height] %} 这边看了下源码，是用iframe引用了jsfiddle,也就是上面的代码的作用首先,你要先把你的代码在jsfiddle的网站中里写一下,然后点击Embed,它就会把你的代码生成script标签&lt;script async src=&quot;//jsfiddle.net/xAFs9/3/embed/js,html,css,result/dark/&quot;&gt;&lt;/script&gt; 你可以直接CV这个script标签进你的markdown,你也可以按照语法,替换结果如下,当然长度和宽度自选,不填的话是自适应{% jsfiddle xAFs9/3 js,html,css,result dark %} 结果]]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[javascript高级程序设计7-8]]></title>
     <url>%2F2017%2F10%2F18%2Fjavascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A17-8%2F</url>
     <content type="text"><![CDATA[函数声明函数function name(){},这个存在变量提升,而var name = function(){}不存在变量提升递归function factorial(num){ if(num&lt;=1){ return 1 }else{ return num*arguments.callee(num-1) //arguments.callee === factorical } } 闭包闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见的方式就是在函数内部创建另一个函数######当函数返回了一个闭包时。这个函数的作用域将会一直在内存中保存到闭包不存在为止 推荐例一var name = &quot;The Window&quot;; var object = { name : “My Object”, getNameFunc : function(){ return function(){ return this.name; }; } }; alert(object.getNameFunc()()); //The Window 例二 例三下面的例子中result[i] = function(){ return i } 每一个都是返回i,这个i的作用域在f()内,而自此时f()中的i=3,所以每个都返回3而当用for–in时返回的是0,1,2,这是为什么呢？继续探究修改代码如下function f(){ var result = new Array() for(var i = 0;i&lt;3;i++){ result[i] = function(){ console.log(&quot;内:&quot;+this) return i; } } return result } var result = f() console.log(result) //Array(3) 3个f(),这里的f()不是上面的f函数console.log(result[0]()) /* * 内:function (){ * console.log(&quot;内:&quot;+this) * return i; * },function (){ * console.log(&quot;内:&quot;+this) * return i; * },function (){ * console.log(&quot;内:&quot;+this) * return i; * } * */ console.log(result[0]) /*ƒ (){ * console.log(&quot;内:&quot;+this) * return i; * } */ 结果如上,console.log(result0)与console.log(result[0])可以合理的解释为什么全是3而且内this指向的是result数组所以会有三个function(){}疑问：为什么console.log(“内：”+this)会出来3个function(){}ES6function f(){ let result = new Array() for(let i = 0;i&lt;3;i++){ result[i] = function(){ return i; } } return result } let result = f() for(let i=0;i&lt;3;i++){ console.log(result[i]()) } 结果是0,1,2块级作用域(function(){ //这里是块级作用域 })() 作用:块级作用域是一个独立的作用域，多人协作时每个人有每个人的块级作用域可以互不影响,防止命名冲突 BOMwindow对象window对象是指浏览器打开的窗口window.名称 //全局对象window.frame[‘name’]窗口位置chrome\opera\safari—-screenTop|screenLeftfirefox—-screenX|screenYvar leftPos = (typeof window.screenLeft == &apos;number&apos;)?window.screenLeft:window.screenX; var rightPos = (typeof window.screenTop == &apos;number&apos;)?window.screenRight:window.screenY; window.moveTo(0,0); //移动到0，0 window.moveBy(0,100); //向下移动100像素 窗口大小outerWidth、outerHeight----返回浏览器窗口本身的大小 innerWidth、innerHeight----返回容器中试图区的大小 resizeTo()、resizeBy()----可以调整浏览器窗口的大小 导航和打开窗口window.open()----打开新的浏览器窗口 参数:URL、窗口目标、特性字符串、boolean(新页面是否取代浏览器历史纪录中当前加载页面) 第二参数可以是:_self、_parent、_top、_blankopener属性:保存着打开他的原始窗口对象 延时间歇延时setTimeout()、setTnterval()、clearTimeout() 系统对话框alert()、confirm()、prompt() location对象即是window的对象属性，也是document的对象属性console.log(window.location) //查看属性查询字符串参数/* 解析查询字符串 返回包含所有参数的一个对象 */ function getQueryStringArgs(){ //取得查询字符串并去掉开头的问号 var qs = (location.search.length &gt; 0 ? location.search.substring(1) : &apos;&apos;); //保存数据的对象 args = {}; //取得每一项 var items = qs.length ? qs.split(&apos;&amp;&apos;) : [], item = null, name = null, //在for循环中使用 i = 0, len = items.length; //逐个将每一项添加到args对象中 for(i = 0 ; i &lt; len; i++){ item = items[i].split(&apos;=&apos;); name = decodeURIComponent(item[0]); value = decodeURIComponent(item[1]); if(name.length){ args[name] = value; } } return args; }]]></content>
@@ -316,14 +321,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[数学建模国赛被整蛊]]></title>
-    <url>%2F2017%2F10%2F16%2F%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%9B%BD%E8%B5%9B%E8%A2%AB%E6%95%B4%E8%9B%8A%2F</url>
-    <content type="text"><![CDATA[国赛已经过去好长时间了，今天翻文件无意中看见”国赛A题论文.vbs”,想想在那三天的紧张的时间，看见这个是个什么心情？当然是，理性的分析一下啊。看到.vbs我就心里暗想着个东西不是啥好东西，结果用sublimetext打开一看,发现了好玩的东西dim Obj set Obj = createobject(&quot;wscript.shell&quot;) Obj.exec &quot;shutdown -s -t 0&quot; 一个basic的关机脚本,这个脚本不知坑了多少小组。哈哈哈但是这个要是一个病毒那就GG了]]></content>
+    <title><![CDATA[jsfiddle使用]]></title>
+    <url>%2F2017%2F10%2F18%2Fjsfiddle%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[背景这个也是在查找js闭包的时候，无意中发现别人的博客为什么可以嵌入js在线编辑比如想下边的链接MDN Web Docs–闭包 干货查找的都是只是给了干巴巴的语法，这令我这个小白很苦恼{% jsfiddle shorttag [tabs] [skin] [width] [height] %} 这边看了下源码，是用iframe引用了jsfiddle,也就是上面的代码的作用首先,你要先把你的代码在jsfiddle的网站中里写一下,然后点击Embed,它就会把你的代码生成script标签&lt;script async src=&quot;//jsfiddle.net/xAFs9/3/embed/js,html,css,result/dark/&quot;&gt;&lt;/script&gt; 你可以直接CV这个script标签进你的markdown,你也可以按照语法,替换结果如下,当然长度和宽度自选,不填的话是自适应{% jsfiddle xAFs9/3 js,html,css,result dark %} 结果]]></content>
       <categories>
-        <category>生活</category>
+        <category>工具</category>
       </categories>
       <tags>
-        <tag>生活</tag>
+        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -338,14 +343,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[面向对象的程序设计]]></title>
-    <url>%2F2017%2F09%2F25%2F%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%2F</url>
-    <content type="text"><![CDATA[属性类型数据属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Writable]]:能否修改属性的值，默认为true [[Value]]:数据 改变上述属性Object.defineProperty() var person = {} Object.defineProperty(person,&quot;name&quot;,{ writable: false, //不能重写 value: &quot;123&quot;, configurable: false, //以后再也不可配置 enumerable: true }) console.log(person.name) //123 person.name = &quot;456&quot; console.log(person.name) //123 访问属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Get]]:读取属性的时候调用的函数 [[Set]]:写入属性的时候调用的函数 var book = { year: 2017, edition: 1 } Object.defineProperty(book,&quot;month&quot;,{ //对month进行访问 get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } }) book.month = 2018 //调用set console.log(book.year) console.log(book.month) //get方法返回123 访问多个属性var book = { year: 2017, edition: 1 } Object.defineProperties(book,{ edition:{ writeable:true, value: 2015 }, month:{ get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } } }) book.month = 2018 console.log(book.year) //2018 console.log(book.month) // 123 console.log(book.edition) //2015 获得属性 Object.getOwnPropertyDescriptor()var descriptor = Object.getOwnPropertyDescriptor(book,&quot;year&quot;) console.log(descriptor) 创建对象最合适的方法–构造函数模式和原型模式function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var john = new Person(&quot;john&quot;) john.sayName() //john 此类方法属性不共享，方法共享其他要点1.可将构造函数当普通函数用,原型中不行，只能在构造函数模式中function Person(name , age){ this.name = name this.age = age sayName = function(){ console.log(this.name) } } Person(&quot;john&quot;) window.sayName() //john 2.内存区问题 sayName()在同一内存区function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) 另一种情况 sayName在不同内存区(没有this是true)function Person(name , age){ this.name = name this.age = age this.sayName = function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) //false 原型–&gt;我的理解是一个实例，所有其他实例的父类isPrototypeOf()验证是否为某原型的实例Person.prototype.isPrototypeOf(person1) //true hasOwnProperty()检测属性是否存在于实例中person1.hasOwnProperty(“name”) function Person(){} Person.prototype = { name : &quot;name&quot;, age : &quot;age&quot;, sayName: function(){ console.log(this.name) } } var person1 = new Person() console.log(person1.hasOwnProperty(&quot;name&quot;)) //false person1.name = &quot;123&quot; console.log(person1.hasOwnProperty(&quot;name&quot;)) //true 原型与继承每个构造函数都有原型，每个原型都有指针指向构造函数，每个实例都有指向原型的指针function Animal(){} Animal.prototype = { constructor: Animal //__proto__ } function Dog(){} Dog.prototype ={ constructor: Dog //__proto__ } Dog.prototype = new Animal() //继承 let dog1 = new Dog() console.log(dog1) //Dog.__proto__ = Animal //Animal.__proto__ = Object 每个实例中都有proto指向new的类，若没有则指向本身原型与实例的关系instance intanceof Object Object.prototype.isPrototypeOf(intance) 最常用的继承模式–组合继承function Super(){ this.property = true } Super.prototype.getSuperProperty = function(){ return this.property } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = new Super() Sub.prototype.getSubProperty = function(){ return this.subProperty } let inte = new Sub() console.log(inte.getSuperProperty()) console.log(inte.getSubProperty()) 注意子类不能使用字面量的方法如下所示，它会重写了原型链，父类可以用字面量写法Sub.prototype = {} 我最常用的方法–野路子function Super(){ this.property = true } Super.prototype = { constructor: Super, getSuperProperty: function(){ return this.property } } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = { constructor: Sub, getSubProperty: function(){ return this.subProperty }, __proto__: Super.prototype } let inte = new Sub() console.log(inte.getSuperProperty()) /true console.log(inte.getSubProperty()) /false]]></content>
+    <title><![CDATA[数学建模国赛被整蛊]]></title>
+    <url>%2F2017%2F10%2F16%2F%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%9B%BD%E8%B5%9B%E8%A2%AB%E6%95%B4%E8%9B%8A%2F</url>
+    <content type="text"><![CDATA[国赛已经过去好长时间了，今天翻文件无意中看见”国赛A题论文.vbs”,想想在那三天的紧张的时间，看见这个是个什么心情？当然是，理性的分析一下啊。看到.vbs我就心里暗想着个东西不是啥好东西，结果用sublimetext打开一看,发现了好玩的东西dim Obj set Obj = createobject(&quot;wscript.shell&quot;) Obj.exec &quot;shutdown -s -t 0&quot; 一个basic的关机脚本,这个脚本不知坑了多少小组。哈哈哈但是这个要是一个病毒那就GG了]]></content>
       <categories>
-        <category>javascript</category>
+        <category>生活</category>
       </categories>
       <tags>
-        <tag>javascript</tag>
+        <tag>生活</tag>
       </tags>
   </entry>
   <entry>
@@ -363,6 +368,17 @@
     <title><![CDATA[正则表达式]]></title>
     <url>%2F2017%2F09%2F25%2F%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%2F</url>
     <content type="text"><![CDATA[创建就像注释一样//，只不过在注释里面写内容标志g: 全局查找，不是在查找完第一个字符串之后立即停止i: 不区分大小写m: 多行，暂时用到的不是太多，作用是到达一行文本末尾是还会继续查找下一行是否存在与模式匹配的项元字符要转义$^*(){}[]|.?键盘468，三个类型括号，反斜杠(2shift竖杠),.?(一个shift一个不)方法regexObj.test(str) regexObj.exec(str) str.match(regexp) str.search(regexp) str.replace(regexp|substr, newSubStr|function) str.split([separator[, limit]]) 详情见JS指南正则表达式 一个要点在匹配到的替换文本中，脚本使用替代的1,1,2表示第一个和第二个括号的子字符串匹配。var re = /(\w+)\s(\w+)/; var str = &quot;John Smith&quot;; var newstr = str.replace(re, &quot;$2, $1&quot;); console.log(newstr); //Smith, John]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[面向对象的程序设计]]></title>
+    <url>%2F2017%2F09%2F25%2F%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%2F</url>
+    <content type="text"><![CDATA[属性类型数据属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Writable]]:能否修改属性的值，默认为true [[Value]]:数据 改变上述属性Object.defineProperty() var person = {} Object.defineProperty(person,&quot;name&quot;,{ writable: false, //不能重写 value: &quot;123&quot;, configurable: false, //以后再也不可配置 enumerable: true }) console.log(person.name) //123 person.name = &quot;456&quot; console.log(person.name) //123 访问属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Get]]:读取属性的时候调用的函数 [[Set]]:写入属性的时候调用的函数 var book = { year: 2017, edition: 1 } Object.defineProperty(book,&quot;month&quot;,{ //对month进行访问 get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } }) book.month = 2018 //调用set console.log(book.year) console.log(book.month) //get方法返回123 访问多个属性var book = { year: 2017, edition: 1 } Object.defineProperties(book,{ edition:{ writeable:true, value: 2015 }, month:{ get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } } }) book.month = 2018 console.log(book.year) //2018 console.log(book.month) // 123 console.log(book.edition) //2015 获得属性 Object.getOwnPropertyDescriptor()var descriptor = Object.getOwnPropertyDescriptor(book,&quot;year&quot;) console.log(descriptor) 创建对象最合适的方法–构造函数模式和原型模式function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var john = new Person(&quot;john&quot;) john.sayName() //john 此类方法属性不共享，方法共享其他要点1.可将构造函数当普通函数用,原型中不行，只能在构造函数模式中function Person(name , age){ this.name = name this.age = age sayName = function(){ console.log(this.name) } } Person(&quot;john&quot;) window.sayName() //john 2.内存区问题 sayName()在同一内存区function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) 另一种情况 sayName在不同内存区(没有this是true)function Person(name , age){ this.name = name this.age = age this.sayName = function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) //false 原型–&gt;我的理解是一个实例，所有其他实例的父类isPrototypeOf()验证是否为某原型的实例Person.prototype.isPrototypeOf(person1) //true hasOwnProperty()检测属性是否存在于实例中person1.hasOwnProperty(“name”) function Person(){} Person.prototype = { name : &quot;name&quot;, age : &quot;age&quot;, sayName: function(){ console.log(this.name) } } var person1 = new Person() console.log(person1.hasOwnProperty(&quot;name&quot;)) //false person1.name = &quot;123&quot; console.log(person1.hasOwnProperty(&quot;name&quot;)) //true 原型与继承每个构造函数都有原型，每个原型都有指针指向构造函数，每个实例都有指向原型的指针function Animal(){} Animal.prototype = { constructor: Animal //__proto__ } function Dog(){} Dog.prototype ={ constructor: Dog //__proto__ } Dog.prototype = new Animal() //继承 let dog1 = new Dog() console.log(dog1) //Dog.__proto__ = Animal //Animal.__proto__ = Object 每个实例中都有proto指向new的类，若没有则指向本身原型与实例的关系instance intanceof Object Object.prototype.isPrototypeOf(intance) 最常用的继承模式–组合继承function Super(){ this.property = true } Super.prototype.getSuperProperty = function(){ return this.property } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = new Super() Sub.prototype.getSubProperty = function(){ return this.subProperty } let inte = new Sub() console.log(inte.getSuperProperty()) console.log(inte.getSubProperty()) 注意子类不能使用字面量的方法如下所示，它会重写了原型链，父类可以用字面量写法Sub.prototype = {} 我最常用的方法–野路子function Super(){ this.property = true } Super.prototype = { constructor: Super, getSuperProperty: function(){ return this.property } } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = { constructor: Sub, getSubProperty: function(){ return this.subProperty }, __proto__: Super.prototype } let inte = new Sub() console.log(inte.getSuperProperty()) /true console.log(inte.getSubProperty()) /false]]></content>
       <categories>
         <category>javascript</category>
       </categories>
@@ -932,9 +948,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello Blog]]></title>
-    <url>%2F2015%2F06%2F01%2Fhello-blog%2F</url>
-    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
+    <title><![CDATA[利用github和hexo搭建自己的博客]]></title>
+    <url>%2F2015%2F06%2F01%2Fbuildblog%2F</url>
+    <content type="text"><![CDATA[步骤首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。搭建环境(必须的) —Node和git利用choco在cmd(管理员模式)下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。安装开始执行如下命令npm install -g hexo 进行安装hexo init 进行初始化在Github里新建一个仓库，名字叫XXX(你Github的昵称).github.io下载安装Souretree(我用的是Souretree，你也可以选在别的软件)把XXX.github.io克隆到生成hexo的文件的public文件下(注：如果里面有文件的话先copy出来，让public为空文件夹)。OK，在网址上输入XXX.github.io，你的专属blog完成了。查看PS:需要运行在cmd下找到你的blog所在的文件夹运行hexo g即可，如果想在本地看看你的页面hexo s]]></content>
       <categories>
         <category>hexo</category>
       </categories>
@@ -943,9 +959,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[利用github和hexo搭建自己的博客]]></title>
-    <url>%2F2015%2F06%2F01%2Fbuildblog%2F</url>
-    <content type="text"><![CDATA[步骤首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。搭建环境(必须的) —Node和git利用choco在cmd(管理员模式)下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。安装开始执行如下命令npm install -g hexo 进行安装hexo init 进行初始化在Github里新建一个仓库，名字叫XXX(你Github的昵称).github.io下载安装Souretree(我用的是Souretree，你也可以选在别的软件)把XXX.github.io克隆到生成hexo的文件的public文件下(注：如果里面有文件的话先copy出来，让public为空文件夹)。OK，在网址上输入XXX.github.io，你的专属blog完成了。查看PS:需要运行在cmd下找到你的blog所在的文件夹运行hexo g即可，如果想在本地看看你的页面hexo s]]></content>
+    <title><![CDATA[Hello Blog]]></title>
+    <url>%2F2015%2F06%2F01%2Fhello-blog%2F</url>
+    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
       <categories>
         <category>hexo</category>
       </categories>
