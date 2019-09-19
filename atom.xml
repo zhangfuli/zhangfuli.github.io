@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="zhangfuli.github.io/"/>
-  <updated>2019-07-12T10:40:05.906Z</updated>
+  <updated>2019-09-19T07:07:06.602Z</updated>
   <id>zhangfuli.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>19.09.17星环讲座</title>
+    <link href="zhangfuli.github.io/2019/09/17/19-09-17%E6%98%9F%E7%8E%AF%E8%AE%B2%E5%BA%A7/"/>
+    <id>zhangfuli.github.io/2019/09/17/19-09-17星环讲座/</id>
+    <published>2019-09-17T07:04:37.000Z</published>
+    <updated>2019-09-19T07:07:06.602Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="星环分布式闪存数据库-Transwarp-ArgoDB"><a href="#星环分布式闪存数据库-Transwarp-ArgoDB" class="headerlink" title="星环分布式闪存数据库(Transwarp ArgoDB)"></a>星环分布式闪存数据库(Transwarp ArgoDB)</h3><h5 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h5><p>1、 数据量大TB级别(分析、检索、在线、离线)<br>2、 结构化与非结构化数据<br>3、 事务的需求  传统关系型数据库事务的迁移</p><h5 id="ArgoDB"><a href="#ArgoDB" class="headerlink" title="ArgoDB"></a>ArgoDB</h5><p>DB2与hadoop的tradeoff</p><h5 id="挑战"><a href="#挑战" class="headerlink" title="挑战"></a>挑战</h5><ul><li>1、 兼容性： 支持oracle/db2语法</li><li>2、 水平扩展的分布式框架</li><li>3、 执行计划–&gt;最优</li><li>4、 存储和计算<ul><li>计算算子： Hive、Shark、SparkSQL、Impala等</li><li>存储：RC/ORC、Parquet、Canbondata、Clickhouse、LevelDB、Kudu等</li></ul></li></ul><h5 id="会议"><a href="#会议" class="headerlink" title="会议"></a>会议</h5><ul><li>SigMod</li></ul><h3 id="AI平台-Sophon"><a href="#AI平台-Sophon" class="headerlink" title="AI平台(Sophon)"></a>AI平台(Sophon)</h3><h5 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h5><ul><li>1、 机器学习实战  星环</li><li>2、 技术分享<ul><li>transwarp-alg.github.io</li><li>github.com/hibayesian/awesome-automl-papers</li></ul></li><li>3、 图计算</li><li>4、 分布式机器学习算法</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;星环分布式闪存数据库-Transwarp-ArgoDB&quot;&gt;&lt;a href=&quot;#星环分布式闪存数据库-Transwarp-ArgoDB&quot; class=&quot;headerlink&quot; title=&quot;星环分布式闪存数据库(Transwarp ArgoDB)&quot;&gt;&lt;/a&gt;星环分布
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>TarsGo windows系统下的踩坑</title>
@@ -482,31 +503,6 @@
     
     
       <category term="javascript" scheme="zhangfuli.github.io/tags/javascript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>transform</title>
-    <link href="zhangfuli.github.io/2018/02/15/transform/"/>
-    <id>zhangfuli.github.io/2018/02/15/transform/</id>
-    <published>2018-02-15T02:42:30.000Z</published>
-    <updated>2018-07-18T08:54:45.060Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><h6 id="在CSS3中transform主要包括以下几种：旋转rotate、扭曲skew、缩放scale和移动translate以及矩阵变形matrix-不改变原先的文档流"><a href="#在CSS3中transform主要包括以下几种：旋转rotate、扭曲skew、缩放scale和移动translate以及矩阵变形matrix-不改变原先的文档流" class="headerlink" title="在CSS3中transform主要包括以下几种：旋转rotate、扭曲skew、缩放scale和移动translate以及矩阵变形matrix,不改变原先的文档流"></a>在CSS3中transform主要包括以下几种：旋转rotate、扭曲skew、缩放scale和移动translate以及矩阵变形matrix,不改变原先的文档流</h6><h6 id="原文"><a href="#原文" class="headerlink" title="原文:"></a>原文:</h6><p><a href="https://www.w3cplus.com/content/css3-transform" target="_blank" rel="noopener">https://www.w3cplus.com/content/css3-transform</a></p><h4 id="1-改变元素基点transform-origin"><a href="#1-改变元素基点transform-origin" class="headerlink" title="1.改变元素基点transform-origin"></a>1.改变元素基点transform-origin</h4><pre><code>transform-origin:100% 50% 左右、上下transform-origin:right;</code></pre><p><img src="http://p4j7qpj9e.bkt.clouddn.com/transform-2.png"></p><pre><code>transform-origin:0% 0% 左右、上下transform-origin:top left;</code></pre><p><img src="http://p4j7qpj9e.bkt.clouddn.com/transform-1.png"></p><pre><code>transform-origin:25% 75% 左右、上下</code></pre><p><img src="http://p4j7qpj9e.bkt.clouddn.com/transform-3.png"></p><h4 id="2-旋转rotate"><a href="#2-旋转rotate" class="headerlink" title="2.旋转rotate"></a>2.旋转rotate</h4><pre><code>transform:rotate(30deg) 以中心点为基点顺时针旋转30°</code></pre><script async src="//jsfiddle.net/Nb7rG/5/embed/js,html,css,result/dark/"></script>#### 3.平移    transform: translate(100px, 100px); 以中心点为右移100px,下移100px<script async src="//jsfiddle.net/Nb7rG/6/embed/js,html,css,result/dark/"></script>#### 4.缩放    transform: scale(0.5, 2); 缩放（x, y）左右、上下缩放倍数<script async src="//jsfiddle.net/Nb7rG/7/embed/js,html,css,result/dark/"></script>#### 5.扭曲    transform: skew(30deg,10deg); 扭曲（x, y）扭曲的角度 正表示顺时针<img src="http://p4j7qpj9e.bkt.clouddn.com/transform-4.png"><script async src="//jsfiddle.net/Nb7rG/8/embed/js,html,css,result/dark/"></script><h4 id="6-matrix"><a href="#6-matrix" class="headerlink" title="6.matrix(, , , , , )"></a>6.matrix(, , , , , )</h4><h6 id="以一个含六值的-a-b-c-d-e-f-变换矩阵的形式指定一个2D变换，相当于直接应用一个-a-b-c-d-e-f-变换矩阵。"><a href="#以一个含六值的-a-b-c-d-e-f-变换矩阵的形式指定一个2D变换，相当于直接应用一个-a-b-c-d-e-f-变换矩阵。" class="headerlink" title="以一个含六值的(a,b,c,d,e,f)变换矩阵的形式指定一个2D变换，相当于直接应用一个[a b c d e f]变换矩阵。"></a>以一个含六值的(a,b,c,d,e,f)变换矩阵的形式指定一个2D变换，相当于直接应用一个[a b c d e f]变换矩阵。</h6>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h4 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h4&gt;&lt;h6 id=&quot;在CSS3中transform主要包括以下几种：旋转rotate、扭曲skew、缩放scale和移动translate以及矩阵变形
-      
-    
-    </summary>
-    
-      <category term="HTML CSS" scheme="zhangfuli.github.io/categories/HTML-CSS/"/>
-    
-    
-      <category term="HTML CSS" scheme="zhangfuli.github.io/tags/HTML-CSS/"/>
     
   </entry>
   
