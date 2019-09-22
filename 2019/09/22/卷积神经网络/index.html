@@ -81,16 +81,27 @@
 
 
 
-<meta name="description" content="Do myself,Believe myself,Try my best">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hello, ZhangFuli">
-<meta property="og:url" content="zhangfuli.github.io/archives/2017/05/index.html">
+<meta name="description" content="卷积1、简介直观理解深度学习卷积部分 2、过程 卷积能处理平移不变性，但是不能处理旋转不变性，平移结果对卷积之后的结果不产生影响，卷积-非线性-池化  提取边缘–横向纵向  特征的特征  激活函数，所有的卷积都是线性的，无论进行多少次卷积都相当于只进行了一次卷积，中间进行一次非线性的转化才能实现质的飞跃 池化，存在大量冗余的信息，将多余信息删掉，取一个最大的其余的去掉，抓大放小 卷积核的大小一般为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="卷积神经网络">
+<meta property="og:url" content="zhangfuli.github.io/2019/09/22/卷积神经网络/index.html">
 <meta property="og:site_name" content="Hello, ZhangFuli">
-<meta property="og:description" content="Do myself,Believe myself,Try my best">
+<meta property="og:description" content="卷积1、简介直观理解深度学习卷积部分 2、过程 卷积能处理平移不变性，但是不能处理旋转不变性，平移结果对卷积之后的结果不产生影响，卷积-非线性-池化  提取边缘–横向纵向  特征的特征  激活函数，所有的卷积都是线性的，无论进行多少次卷积都相当于只进行了一次卷积，中间进行一次非线性的转化才能实现质的飞跃 池化，存在大量冗余的信息，将多余信息删掉，取一个最大的其余的去掉，抓大放小 卷积核的大小一般为">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/65149356-854c7800-da54-11e9-80f7-4a6a7941acb8.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/65149580-eecc8680-da54-11e9-92c4-f03606257683.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/65149964-b24d5a80-da55-11e9-9fe7-08d7dbe15415.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/65149966-b24d5a80-da55-11e9-985d-4f82293c043a.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/65150275-65b64f00-da56-11e9-8219-c62ed7517f38.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/65150477-cf365d80-da56-11e9-8b44-c2644dd3bafa.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/65150933-a5316b00-da57-11e9-805a-6277bf4b962c.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/65151289-60f29a80-da58-11e9-845e-1192307007c1.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/65151418-a616cc80-da58-11e9-9eef-3b1307baec7c.png">
+<meta property="og:updated_time" content="2019-09-22T06:45:00.537Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello, ZhangFuli">
-<meta name="twitter:description" content="Do myself,Believe myself,Try my best">
+<meta name="twitter:title" content="卷积神经网络">
+<meta name="twitter:description" content="卷积1、简介直观理解深度学习卷积部分 2、过程 卷积能处理平移不变性，但是不能处理旋转不变性，平移结果对卷积之后的结果不产生影响，卷积-非线性-池化  提取边缘–横向纵向  特征的特征  激活函数，所有的卷积都是线性的，无论进行多少次卷积都相当于只进行了一次卷积，中间进行一次非线性的转化才能实现质的飞跃 池化，存在大量冗余的信息，将多余信息删掉，取一个最大的其余的去掉，抓大放小 卷积核的大小一般为">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/17808702/65149356-854c7800-da54-11e9-80f7-4a6a7941acb8.png">
 
 
 
@@ -120,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="zhangfuli.github.io/archives/2017/05/"/>
+  <link rel="canonical" href="zhangfuli.github.io/2019/09/22/卷积神经网络/"/>
 
 
 
 
 
-  <title>归档 | Hello, ZhangFuli</title>
+  <title>卷积神经网络 | Hello, ZhangFuli</title>
   
 
 
@@ -155,7 +166,7 @@
     
   
 
-  <div class="container sidebar-position-right page-archive">
+  <div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -293,110 +304,183 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-         
-          
-        很好! 目前共计 94 篇日志。 继续努力。
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2017">2017</h1>
-          </div>
-        
-        
-
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2019/09/22/卷积神经网络/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhangfuli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://p4j7qpj9e.bkt.clouddn.com/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hello, ZhangFuli">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2017/05/21/centos配置ss/" itemprop="url">
-              
-                <span itemprop="name">centos配置ss</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">卷积神经网络</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-21T22:23:11+08:00"
-              content="2017-05-21" >
-          05-21
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-22T14:44:10+08:00">
+                2019-09-22
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
 
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/05/16/geckodriver/" itemprop="url">
-              
-                <span itemprop="name">geckodriver</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-16T21:35:08+08:00"
-              content="2017-05-16" >
-          05-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
+      
+        <h3 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h3><h6 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h6><p><a href="https://www.jianshu.com/p/fc9175065d87" target="_blank" rel="noopener">直观理解深度学习卷积部分</a></p>
+<h5 id="2、过程"><a href="#2、过程" class="headerlink" title="2、过程"></a>2、过程</h5><ul>
+<li><p>卷积能处理平移不变性，但是不能处理旋转不变性，平移结果对卷积之后的结果不产生影响，卷积-非线性-池化<br><img src="https://user-images.githubusercontent.com/17808702/65149356-854c7800-da54-11e9-80f7-4a6a7941acb8.png" alt="TIM截图20190918203946"></p>
+</li>
+<li><p>提取边缘–横向纵向<img src="https://user-images.githubusercontent.com/17808702/65149580-eecc8680-da54-11e9-92c4-f03606257683.png" alt="TIM截图20190918204257"><br><img src="https://user-images.githubusercontent.com/17808702/65149964-b24d5a80-da55-11e9-9fe7-08d7dbe15415.png" alt="TIM截图20190918204519"></p>
+</li>
+<li><p>特征的特征<br><img src="https://user-images.githubusercontent.com/17808702/65149966-b24d5a80-da55-11e9-985d-4f82293c043a.png" alt="TIM截图20190918204702"></p>
+</li>
+<li>激活函数，所有的卷积都是线性的，无论进行多少次卷积都相当于只进行了一次卷积，中间进行一次非线性的转化才能实现质的飞跃<br><img src="https://user-images.githubusercontent.com/17808702/65150275-65b64f00-da56-11e9-8219-c62ed7517f38.png" alt="TIM截图20190918205112"></li>
+<li>池化，存在大量冗余的信息，将多余信息删掉，取一个最大的其余的去掉，抓大放小<br><img src="https://user-images.githubusercontent.com/17808702/65150477-cf365d80-da56-11e9-8b44-c2644dd3bafa.png" alt="TIM截图20190918205616"></li>
+<li>卷积核的大小一般为3*3(最小的)</li>
+<li>感受视野的扩张，从局部到全局<br><img src="https://user-images.githubusercontent.com/17808702/65150933-a5316b00-da57-11e9-805a-6277bf4b962c.png" alt="TIM截图20190918210144"></li>
+<li>全连接  出来的是概念，要分类的东西，然后统计概率<br><img src="https://user-images.githubusercontent.com/17808702/65151289-60f29a80-da58-11e9-845e-1192307007c1.png" alt="TIM截图20190918210716"><br><img src="https://user-images.githubusercontent.com/17808702/65151418-a616cc80-da58-11e9-9eef-3b1307baec7c.png" alt="TIM截图20190918210927"></li>
+</ul>
+
+      
     </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="http://p4j7qpj9e.bkt.clouddn.com/wechatpay.jpg" alt="Zhangfuli 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="http://p4j7qpj9e.bkt.clouddn.com/alipay.jpg" alt="Zhangfuli 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/21/人月神话读书笔记/" rel="next" title="人月神话读书笔记">
+                <i class="fa fa-chevron-left"></i> 人月神话读书笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -404,6 +488,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTI3MS83ODIw"></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -424,8 +517,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -512,6 +614,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#卷积"><span class="nav-number">1.</span> <span class="nav-text">卷积</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1、简介"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">1、简介</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、过程"><span class="nav-number">1.0.1.</span> <span class="nav-text">2、过程</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -645,6 +763,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -672,6 +794,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
