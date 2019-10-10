@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="zhangfuli.github.io/"/>
-  <updated>2019-10-08T08:21:07.785Z</updated>
+  <updated>2019-10-10T07:44:13.232Z</updated>
   <id>zhangfuli.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>docker运行mysql镜像并用navicat链接</title>
+    <link href="zhangfuli.github.io/2019/10/10/docker%E8%BF%90%E8%A1%8Cmysql%E9%95%9C%E5%83%8F%E5%B9%B6%E7%94%A8navicat%E9%93%BE%E6%8E%A5/"/>
+    <id>zhangfuli.github.io/2019/10/10/docker运行mysql镜像并用navicat链接/</id>
+    <published>2019-10-10T07:34:46.000Z</published>
+    <updated>2019-10-10T07:44:13.232Z</updated>
+    
+    <content type="html"><![CDATA[<p>1、运行下载mysql镜像，同时挂载数据</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --rm --name mysql -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 -v ~/docker/mysql/data:/var/lib/mysql -d mysql</span><br></pre></td></tr></table></figure><p>2、查看已运行的容器，确保mysql镜像运行成功</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a |grep mysql</span><br></pre></td></tr></table></figure><p>3、进入mysql镜像修改远程链接权限</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it mysql bash</span><br><span class="line">root@a42f31094df5:/# </span><br><span class="line">root@a42f31094df5:/# mysql -uroot -p</span><br><span class="line"><span class="meta">mysql&gt;</span> ALTER user 'root'@'%' IDENTIFIED WITH mysql_native_password BY '123456';  </span><br><span class="line"><span class="meta">mysql&gt;</span> FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure><p>4、可以测试远程访问啦</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;1、运行下载mysql镜像，同时挂载数据&lt;/p&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Navicat Premium for Mac12.0破解</title>
@@ -463,31 +485,6 @@
     
     
       <category term="生活" scheme="zhangfuli.github.io/tags/%E7%94%9F%E6%B4%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>配置https证书</title>
-    <link href="zhangfuli.github.io/2018/03/21/%E9%85%8D%E7%BD%AEhttps%E8%AF%81%E4%B9%A6/"/>
-    <id>zhangfuli.github.io/2018/03/21/配置https证书/</id>
-    <published>2018-03-21T02:42:30.000Z</published>
-    <updated>2018-07-18T09:10:08.917Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><h6 id="买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置"><a href="#买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置" class="headerlink" title="买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置"></a>买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置</h6><h6 id="不过也挺简单的"><a href="#不过也挺简单的" class="headerlink" title="不过也挺简单的"></a>不过也挺简单的</h6><h4 id="开撸"><a href="#开撸" class="headerlink" title="开撸"></a>开撸</h4><h6 id="下载腾讯云证书"><a href="#下载腾讯云证书" class="headerlink" title="下载腾讯云证书"></a>下载腾讯云证书</h6><p><img src="http://p4j7qpj9e.bkt.clouddn.com/https-1.png"></p><h6 id="我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器-usr-local-nginx-下"><a href="#我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器-usr-local-nginx-下" class="headerlink" title="我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器/usr/local/nginx/下"></a>我的是lnmp搭建的nginx服务器，将nginx文件夹里面的两个文件全部存入服务器/usr/local/nginx/下</h6><h6 id="修改-usr-local-nginx-nginx-conf"><a href="#修改-usr-local-nginx-nginx-conf" class="headerlink" title="修改/usr/local/nginx/nginx.conf"></a>修改/usr/local/nginx/nginx.conf</h6><h6 id="还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了"><a href="#还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了" class="headerlink" title="还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了"></a>还好实习的时候一个实习前辈让我修改文档前先把原文档的内容复制出来，要不就gg了</h6><h6 id="改了几遍结果如下-只需修改server内容即可"><a href="#改了几遍结果如下-只需修改server内容即可" class="headerlink" title="改了几遍结果如下(只需修改server内容即可)"></a>改了几遍结果如下(只需修改server内容即可)</h6><pre><code>server{    listen 80 default_server;    #listen [::]:80 default_server ipv6only=on;    ######################外加######################    error_page 497  https://www.域名;             #访问http时强制其访问https    ssl on;    listen 443 ssl;    ssl_certificate 1_域名_bundle.crt;         #两个复制的文件    ssl_certificate_key 2_域名.key;    ssl_protocols TLSv1 TLSv1.1 TLSv1.2; #按照这个协议配置    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;#按照这个套件配置    ssl_prefer_server_ciphers on;    ssl_session_timeout 5m;    server_name www.域名;                      #域名          #################################################    index index.html index.htm index.php;    root  /home/wwwroot/default;    #error_page   404   /404.html;    include enable-php.conf;    location /nginx_status    {        stub_status on;        access_log   off;    }    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$    {        expires      30d;    }    location ~ .*\.(js|css)?$    {        expires      12h;    }    location ~ /\.    {        deny all;    }    access_log  /home/wwwlogs/access.log  access;}</code></pre><h4 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h4><h6 id="检查是否成功"><a href="#检查是否成功" class="headerlink" title="检查是否成功"></a>检查是否成功</h6><pre><code>/bin/nginx -t</code></pre><h6 id="重启nginx"><a href="#重启nginx" class="headerlink" title="重启nginx"></a>重启nginx</h6><pre><code>/etc/init.d/nginx restart</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h4 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h4&gt;&lt;h6 id=&quot;买了个域名，这两天在备案解析域名，有服务器已经有两三年了，但是这个域名我是第一次配置&quot;&gt;&lt;a href=&quot;#买了个域名，这两天在备
-      
-    
-    </summary>
-    
-      <category term="Linux" scheme="zhangfuli.github.io/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="zhangfuli.github.io/tags/Linux/"/>
     
   </entry>
   
