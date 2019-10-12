@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="zhangfuli.github.io/"/>
-  <updated>2019-10-10T07:44:13.232Z</updated>
+  <updated>2019-10-12T08:09:11.392Z</updated>
   <id>zhangfuli.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>美团点评监控体系</title>
+    <link href="zhangfuli.github.io/2019/10/12/%E7%BE%8E%E5%9B%A2%E7%82%B9%E8%AF%84%E7%9B%91%E6%8E%A7%E4%BD%93%E7%B3%BB/"/>
+    <id>zhangfuli.github.io/2019/10/12/美团点评监控体系/</id>
+    <published>2019-10-12T08:08:16.000Z</published>
+    <updated>2019-10-12T08:09:11.392Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>监控平台：有故障发现，隐患故障发现</p></blockquote><h3 id="监控分层"><a href="#监控分层" class="headerlink" title="监控分层"></a>监控分层</h3><ul><li>移动端监控</li><li>业务监控</li><li>应用层监控：url、service、sql…</li><li>系统层监控</li><li>基础设施监控</li></ul><h3 id="监控系统挑战"><a href="#监控系统挑战" class="headerlink" title="监控系统挑战"></a>监控系统挑战</h3><ul><li>数据量大</li><li>实时性高</li><li>覆盖面广，对接全部技术体系</li></ul><h3 id="移动端监控"><a href="#移动端监控" class="headerlink" title="移动端监控"></a>移动端监控</h3><p>用户操作日志</p><h3 id="服务器端监控"><a href="#服务器端监控" class="headerlink" title="服务器端监控"></a>服务器端监控</h3><p><strong>埋点</strong>？外围监控？</p><p>​    配置、通用组件</p><p>监控是为了修复</p><p>​    回滚</p><p>监控指标的阈值</p><p>​    手动、根据业务情况</p><p>误报问题？</p><p>​    结构化的解决方式没有</p><ul><li><p>监控API接口访问量，耗时时间</p></li><li><p>监控所有数据库访问量，耗时时间</p></li><li><p>监控自身代码的性能相关</p><ul><li>执行慢</li><li>执行出错</li></ul></li><li>全链路压测</li><li>业务维度？</li></ul><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul><li>Everything Fails</li><li><strong>异常定位监测</strong></li><li>发现问题、定位问题、解决问题</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;监控平台：有故障发现，隐患故障发现&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;监控分层&quot;&gt;&lt;a href=&quot;#监控分层&quot; class=&quot;headerlink&quot; title=&quot;监控分层&quot;&gt;&lt;/a&gt;监控分层&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;移动端监
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>docker运行mysql镜像并用navicat链接</title>
@@ -460,31 +485,6 @@
     
     
       <category term="Linux" scheme="zhangfuli.github.io/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>letax中文问题</title>
-    <link href="zhangfuli.github.io/2018/04/20/letax%E4%B8%AD%E6%96%87%E9%97%AE%E9%A2%98/"/>
-    <id>zhangfuli.github.io/2018/04/20/letax中文问题/</id>
-    <published>2018-04-20T09:37:41.000Z</published>
-    <updated>2018-07-18T09:19:59.776Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h4><h6 id="最近一直在忙着申请实习生、申请夏令营，简历肯定是必不可少的，latex做pdf简历还是很不错的，"><a href="#最近一直在忙着申请实习生、申请夏令营，简历肯定是必不可少的，latex做pdf简历还是很不错的，" class="headerlink" title="最近一直在忙着申请实习生、申请夏令营，简历肯定是必不可少的，latex做pdf简历还是很不错的，"></a>最近一直在忙着申请实习生、申请夏令营，简历肯定是必不可少的，latex做pdf简历还是很不错的，</h6><p><a href="https://www.sharelatex.com/project" target="_blank" rel="noopener">sharelatex</a></p><h6 id="反正是觉得比在word里写好然后生成pdf高大上一点，毕竟还是喜欢敲代码…"><a href="#反正是觉得比在word里写好然后生成pdf高大上一点，毕竟还是喜欢敲代码…" class="headerlink" title="反正是觉得比在word里写好然后生成pdf高大上一点，毕竟还是喜欢敲代码…"></a>反正是觉得比在word里写好然后生成pdf高大上一点，毕竟还是喜欢敲代码…</h6><h6 id="但是存在着输入中文无法识别的问题，英文大佬走开…下面是解决方案"><a href="#但是存在着输入中文无法识别的问题，英文大佬走开…下面是解决方案" class="headerlink" title="但是存在着输入中文无法识别的问题，英文大佬走开…下面是解决方案"></a>但是存在着输入中文无法识别的问题，英文大佬走开…下面是解决方案</h6><h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><pre><code>\usepackage{CJKutf8}\begin{document}\begin{CJK*}{UTF8}{gbsn}............\end{CJK*}\end{document}</code></pre><h6 id="这不就是导入个包嘛？对这就是导入个包完美解决"><a href="#这不就是导入个包嘛？对这就是导入个包完美解决" class="headerlink" title="这不就是导入个包嘛？对这就是导入个包完美解决"></a>这不就是导入个包嘛？对这就是导入个包完美解决</h6>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h4 id=&quot;写在前面&quot;&gt;&lt;a href=&quot;#写在前面&quot; class=&quot;headerlink&quot; title=&quot;写在前面&quot;&gt;&lt;/a&gt;写在前面&lt;/h4&gt;&lt;h6 id=&quot;最近一直在忙着申请实习生、申请夏令营，简历肯定是必不可少的，latex做pdf简历还是很不错的，&quot;&gt;&lt;a href
-      
-    
-    </summary>
-    
-      <category term="生活" scheme="zhangfuli.github.io/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-      <category term="生活" scheme="zhangfuli.github.io/tags/%E7%94%9F%E6%B4%BB/"/>
     
   </entry>
   

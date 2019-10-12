@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="hexo," />
+  <meta name="keywords" content="Hexo, ZhangFuli" />
 
 
 
@@ -81,18 +81,17 @@
 
 
 
-<meta name="description" content="步骤首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。搭建环境(必须的)  —Node和git利用choco在cmd(管理员模式)下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。安装开始执行如下命令npm install -g hexo 进行安装hexo init 进行初始化在Github里新建一个仓库，名字叫XXX(你Git">
-<meta name="keywords" content="hexo">
+<meta name="description" content="监控平台：有故障发现，隐患故障发现  监控分层 移动端监控 业务监控 应用层监控：url、service、sql… 系统层监控 基础设施监控  监控系统挑战 数据量大 实时性高 覆盖面广，对接全部技术体系  移动端监控用户操作日志 服务器端监控埋点？外围监控？ ​    配置、通用组件 监控是为了修复 ​    回滚 监控指标的阈值 ​    手动、根据业务情况 误报问题？ ​    结构化的解">
 <meta property="og:type" content="article">
-<meta property="og:title" content="利用github和hexo搭建自己的博客">
-<meta property="og:url" content="zhangfuli.github.io/2015/06/01/buildblog/index.html">
+<meta property="og:title" content="美团点评监控体系">
+<meta property="og:url" content="zhangfuli.github.io/2019/10/12/美团点评监控体系/index.html">
 <meta property="og:site_name" content="Hello, ZhangFuli">
-<meta property="og:description" content="步骤首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。搭建环境(必须的)  —Node和git利用choco在cmd(管理员模式)下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。安装开始执行如下命令npm install -g hexo 进行安装hexo init 进行初始化在Github里新建一个仓库，名字叫XXX(你Git">
+<meta property="og:description" content="监控平台：有故障发现，隐患故障发现  监控分层 移动端监控 业务监控 应用层监控：url、service、sql… 系统层监控 基础设施监控  监控系统挑战 数据量大 实时性高 覆盖面广，对接全部技术体系  移动端监控用户操作日志 服务器端监控埋点？外围监控？ ​    配置、通用组件 监控是为了修复 ​    回滚 监控指标的阈值 ​    手动、根据业务情况 误报问题？ ​    结构化的解">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-29T09:48:16.683Z">
+<meta property="og:updated_time" content="2019-10-12T08:09:11.392Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用github和hexo搭建自己的博客">
-<meta name="twitter:description" content="步骤首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。搭建环境(必须的)  —Node和git利用choco在cmd(管理员模式)下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。安装开始执行如下命令npm install -g hexo 进行安装hexo init 进行初始化在Github里新建一个仓库，名字叫XXX(你Git">
+<meta name="twitter:title" content="美团点评监控体系">
+<meta name="twitter:description" content="监控平台：有故障发现，隐患故障发现  监控分层 移动端监控 业务监控 应用层监控：url、service、sql… 系统层监控 基础设施监控  监控系统挑战 数据量大 实时性高 覆盖面广，对接全部技术体系  移动端监控用户操作日志 服务器端监控埋点？外围监控？ ​    配置、通用组件 监控是为了修复 ​    回滚 监控指标的阈值 ​    手动、根据业务情况 误报问题？ ​    结构化的解">
 
 
 
@@ -122,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="zhangfuli.github.io/2015/06/01/buildblog/"/>
+  <link rel="canonical" href="zhangfuli.github.io/2019/10/12/美团点评监控体系/"/>
 
 
 
 
 
-  <title>利用github和hexo搭建自己的博客 | Hello, ZhangFuli</title>
+  <title>美团点评监控体系 | Hello, ZhangFuli</title>
   
 
 
@@ -309,7 +308,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2015/06/01/buildblog/">
+    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2019/10/12/美团点评监控体系/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhangfuli">
@@ -326,7 +325,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">利用github和hexo搭建自己的博客</h1>
+          <h1 class="post-title" itemprop="name headline">美团点评监控体系</h1>
         
 
         <div class="post-meta">
@@ -338,8 +337,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-06-01T00:00:00+08:00">
-                2015-06-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-12T16:08:16+08:00">
+                2019-10-12
               </time>
             
 
@@ -348,28 +347,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -398,9 +375,50 @@
       
 
       
-        <h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h6 id="首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。"><a href="#首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。" class="headerlink" title="首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。"></a>首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。</h6><h6 id="搭建环境-必须的-—Node和git"><a href="#搭建环境-必须的-—Node和git" class="headerlink" title="搭建环境(必须的)  —Node和git"></a>搭建环境(必须的)  —Node和git</h6><h6 id="利用choco在cmd-管理员模式-下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。"><a href="#利用choco在cmd-管理员模式-下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。" class="headerlink" title="利用choco在cmd(管理员模式)下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。"></a>利用choco在cmd(管理员模式)下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。</h6><h6 id="安装开始"><a href="#安装开始" class="headerlink" title="安装开始"></a>安装开始</h6><h6 id="执行如下命令"><a href="#执行如下命令" class="headerlink" title="执行如下命令"></a>执行如下命令</h6><pre><code>npm install -g hexo
-</code></pre><h6 id="进行安装"><a href="#进行安装" class="headerlink" title="进行安装"></a>进行安装</h6><pre><code>hexo init
-</code></pre><h6 id="进行初始化"><a href="#进行初始化" class="headerlink" title="进行初始化"></a>进行初始化</h6><h6 id="在Github里新建一个仓库，名字叫XXX-你Github的昵称-github-io"><a href="#在Github里新建一个仓库，名字叫XXX-你Github的昵称-github-io" class="headerlink" title="在Github里新建一个仓库，名字叫XXX(你Github的昵称).github.io"></a>在Github里新建一个仓库，名字叫XXX(你Github的昵称).github.io</h6><h6 id="下载安装Souretree-我用的是Souretree，你也可以选在别的软件"><a href="#下载安装Souretree-我用的是Souretree，你也可以选在别的软件" class="headerlink" title="下载安装Souretree(我用的是Souretree，你也可以选在别的软件)"></a>下载安装Souretree(我用的是Souretree，你也可以选在别的软件)</h6><h6 id="把XXX-github-io克隆到生成hexo的文件的public文件下-注：如果里面有文件的话先copy出来，让public为空文件夹-。"><a href="#把XXX-github-io克隆到生成hexo的文件的public文件下-注：如果里面有文件的话先copy出来，让public为空文件夹-。" class="headerlink" title="把XXX.github.io克隆到生成hexo的文件的public文件下(注：如果里面有文件的话先copy出来，让public为空文件夹)。"></a>把XXX.github.io克隆到生成hexo的文件的public文件下(注：如果里面有文件的话先copy出来，让public为空文件夹)。</h6><h6 id="OK，在网址上输入XXX-github-io，你的专属blog完成了。"><a href="#OK，在网址上输入XXX-github-io，你的专属blog完成了。" class="headerlink" title="OK，在网址上输入XXX.github.io，你的专属blog完成了。"></a>OK，在网址上输入XXX.github.io，你的专属blog完成了。</h6><h3 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h3><h6 id="PS-需要运行在cmd下找到你的blog所在的文件夹运行hexo-g即可，如果想在本地看看你的页面hexo-s"><a href="#PS-需要运行在cmd下找到你的blog所在的文件夹运行hexo-g即可，如果想在本地看看你的页面hexo-s" class="headerlink" title="PS:需要运行在cmd下找到你的blog所在的文件夹运行hexo g即可，如果想在本地看看你的页面hexo s"></a>PS:需要运行在cmd下找到你的blog所在的文件夹运行hexo g即可，如果想在本地看看你的页面hexo s</h6>
+        <blockquote>
+<p>监控平台：有故障发现，隐患故障发现</p>
+</blockquote>
+<h3 id="监控分层"><a href="#监控分层" class="headerlink" title="监控分层"></a>监控分层</h3><ul>
+<li>移动端监控</li>
+<li>业务监控</li>
+<li>应用层监控：url、service、sql…</li>
+<li>系统层监控</li>
+<li>基础设施监控</li>
+</ul>
+<h3 id="监控系统挑战"><a href="#监控系统挑战" class="headerlink" title="监控系统挑战"></a>监控系统挑战</h3><ul>
+<li>数据量大</li>
+<li>实时性高</li>
+<li>覆盖面广，对接全部技术体系</li>
+</ul>
+<h3 id="移动端监控"><a href="#移动端监控" class="headerlink" title="移动端监控"></a>移动端监控</h3><p>用户操作日志</p>
+<h3 id="服务器端监控"><a href="#服务器端监控" class="headerlink" title="服务器端监控"></a>服务器端监控</h3><p><strong>埋点</strong>？外围监控？</p>
+<p>​    配置、通用组件</p>
+<p>监控是为了修复</p>
+<p>​    回滚</p>
+<p>监控指标的阈值</p>
+<p>​    手动、根据业务情况</p>
+<p>误报问题？</p>
+<p>​    结构化的解决方式没有</p>
+<ul>
+<li><p>监控API接口访问量，耗时时间</p>
+</li>
+<li><p>监控所有数据库访问量，耗时时间</p>
+</li>
+<li><p>监控自身代码的性能相关</p>
+<ul>
+<li>执行慢</li>
+<li>执行出错</li>
+</ul>
+</li>
+<li>全链路压测</li>
+<li>业务维度？</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>Everything Fails</li>
+<li><strong>异常定位监测</strong></li>
+<li>发现问题、定位问题、解决问题</li>
+</ul>
+
       
     </div>
     
@@ -444,12 +462,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/hexo/" rel="tag"># hexo</a>
-          
-        </div>
-      
 
       
       
@@ -459,8 +471,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/06/01/hello-blog/" rel="next" title="Hello Blog">
-                <i class="fa fa-chevron-left"></i> Hello Blog
+              <a href="/2019/10/10/docker运行mysql镜像并用navicat链接/" rel="next" title="docker运行mysql镜像并用navicat链接">
+                <i class="fa fa-chevron-left"></i> docker运行mysql镜像并用navicat链接
               </a>
             
           </div>
@@ -468,10 +480,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/06/02/chocolatey/" rel="prev" title="windows下的包管理器chocolatey">
-                windows下的包管理器chocolatey <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -635,7 +643,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤"><span class="nav-number">1.</span> <span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#搭建环境-必须的-—Node和git"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">搭建环境(必须的)  —Node和git</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#利用choco在cmd-管理员模式-下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">利用choco在cmd(管理员模式)下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#安装开始"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">安装开始</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#执行如下命令"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">执行如下命令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#进行安装"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">进行安装</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#进行初始化"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">进行初始化</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#在Github里新建一个仓库，名字叫XXX-你Github的昵称-github-io"><span class="nav-number">1.0.0.8.</span> <span class="nav-text">在Github里新建一个仓库，名字叫XXX(你Github的昵称).github.io</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#下载安装Souretree-我用的是Souretree，你也可以选在别的软件"><span class="nav-number">1.0.0.9.</span> <span class="nav-text">下载安装Souretree(我用的是Souretree，你也可以选在别的软件)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#把XXX-github-io克隆到生成hexo的文件的public文件下-注：如果里面有文件的话先copy出来，让public为空文件夹-。"><span class="nav-number">1.0.0.10.</span> <span class="nav-text">把XXX.github.io克隆到生成hexo的文件的public文件下(注：如果里面有文件的话先copy出来，让public为空文件夹)。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#OK，在网址上输入XXX-github-io，你的专属blog完成了。"><span class="nav-number">1.0.0.11.</span> <span class="nav-text">OK，在网址上输入XXX.github.io，你的专属blog完成了。</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看"><span class="nav-number">2.</span> <span class="nav-text">查看</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#PS-需要运行在cmd下找到你的blog所在的文件夹运行hexo-g即可，如果想在本地看看你的页面hexo-s"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">PS:需要运行在cmd下找到你的blog所在的文件夹运行hexo g即可，如果想在本地看看你的页面hexo s</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#监控分层"><span class="nav-number">1.</span> <span class="nav-text">监控分层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监控系统挑战"><span class="nav-number">2.</span> <span class="nav-text">监控系统挑战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移动端监控"><span class="nav-number">3.</span> <span class="nav-text">移动端监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器端监控"><span class="nav-number">4.</span> <span class="nav-text">服务器端监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
