@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[python3的OJ输入]]></title>
+    <url>%2F2019%2F10%2F13%2Fpython3%E7%9A%84OJ%E8%BE%93%E5%85%A5%2F</url>
+    <content type="text"><![CDATA[1、输入整数 123case = int(input().strip())while case: case -= 1 2、 输入浮点数 1test = float(input().strip()) 3、字符串 1test = input().strip() 4、 输入 1 2 3 4 5 1nums = list(map(int, input().strip().split())) 5、输入 1.0 2.0 3.0 4.0 1nums = list(map(float, input().strip().split())) 6、输入 a b c d e 1test = list(input().strip().split()) 7、创建二维数组 1test = [[0 for i in range(col)] for j in range(row)]]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[python3全排列]]></title>
     <url>%2F2019%2F10%2F13%2Fpython3%E5%85%A8%E6%8E%92%E5%88%97%2F</url>
     <content type="text"><![CDATA[方式一 itertools.permutations(list, num) 123456789import itertoolsnum1 = list(map(int, input().split()))num2 = list(map(int, input().split()))num = num1 + num2for item in itertools.permutations(num): print(item) //tuple print(list(item)) 方式二分治思想：就是当指针指向第一个元素a时，它可以是其本身a(即和自己进行交换)，还可以和b，c进行交换，故有3种可能，当第一个元素a确定以后，指针移向第二位置，第二个位置可以和其本身b及其后的元素c进行交换，又可以形成两种排列，当指针指向第三个元素c的时候，这个时候其后没有元素了，此时，则确定了一组排列，输出。但是每次输出后要把数组恢复为原来的样子。 简单来说，它的思想即为，确定第1位，对n-1位进行全排列，确定第二位，对n-2位进行全排列。。。显然，这是一种递归的思想。 123456789101112131415def permutations(arr, position, end): if position == end: print(arr) else: for index in range(position, end): arr[index], arr[position] = arr[position], arr[index] permutations(arr, position+1, end) arr[index], arr[position] = arr[position], arr[index] arr = ["a","b","c"]permutations(arr, 0, len(arr)) 方式三深度搜索 1234567891011121314151617visit = [True, True, True]temp = ["" for x in range(0, 3)]def dfs(position): if position == len(arr): print(temp) return for index in range(0,len(arr)): if visit[index] == True: temp[position] = arr[index] visit[index] = False dfs(position + 1) visit[index] = True arr = ["a","b","c"]dfs(0)]]></content>
@@ -219,17 +224,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[卡死电脑代码]]></title>
-    <url>%2F2018%2F02%2F22%2F%E5%8D%A1%E6%AD%BB%E7%94%B5%E8%84%91%E4%BB%A3%E7%A0%81%2F</url>
-    <content type="text"><![CDATA[前言下面两段代码吃内存，造成浏览器卡死代码1var total=&quot;&quot;; for (var i=0;i&lt;1000000;i++){ total= total+i.toString (); history.pushState (0,0,total); } 代码2while(true) { document.body.appendChild(document.createElement(&quot;div&quot;)); }]]></content>
-      <categories>
-        <category>探究</category>
-      </categories>
-      <tags>
-        <tag>探究</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[图片懒加载]]></title>
     <url>%2F2018%2F02%2F22%2F%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BD%2F</url>
     <content type="text"><![CDATA[前言实现图片懒加载的代码思路：每一个image都有一个data-src用于存放将要加载的图片的地址，当这个图片的区域显示到屏幕上时，再将src = data-src图片的offsetTop &lt; 可见高度 + scrollTop]]></content>
@@ -238,6 +232,17 @@
       </categories>
       <tags>
         <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[卡死电脑代码]]></title>
+    <url>%2F2018%2F02%2F22%2F%E5%8D%A1%E6%AD%BB%E7%94%B5%E8%84%91%E4%BB%A3%E7%A0%81%2F</url>
+    <content type="text"><![CDATA[前言下面两段代码吃内存，造成浏览器卡死代码1var total=&quot;&quot;; for (var i=0;i&lt;1000000;i++){ total= total+i.toString (); history.pushState (0,0,total); } 代码2while(true) { document.body.appendChild(document.createElement(&quot;div&quot;)); }]]></content>
+      <categories>
+        <category>探究</category>
+      </categories>
+      <tags>
+        <tag>探究</tag>
       </tags>
   </entry>
   <entry>
@@ -378,17 +383,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[突然上不去网？]]></title>
-    <url>%2F2017%2F10%2F16%2F%E7%AA%81%E7%84%B6%E4%B8%8A%E4%B8%8D%E5%8E%BB%E7%BD%91%EF%BC%9F%2F</url>
-    <content type="text"><![CDATA[前言宿舍里经常会有分配不到IP的情况, 下面的命令应该能解决netsh winsock reset 重置winsock目录,宿舍分配不到ip其他常用命令shutdown –help —–shutdown的参数查 git clone ….. —— 克隆到当前文件夹 git add . —– 暂存 git commit —– 提交 写提交备注 —– vi用法 :wq git push —– 推送]]></content>
-      <categories>
-        <category>生活</category>
-      </categories>
-      <tags>
-        <tag>生活</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[数学建模国赛被整蛊]]></title>
     <url>%2F2017%2F10%2F16%2F%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%9B%BD%E8%B5%9B%E8%A2%AB%E6%95%B4%E8%9B%8A%2F</url>
     <content type="text"><![CDATA[国赛已经过去好长时间了，今天翻文件无意中看见”国赛A题论文.vbs”,想想在那三天的紧张的时间，看见这个是个什么心情？当然是，理性的分析一下啊。看到.vbs我就心里暗想着个东西不是啥好东西，结果用sublimetext打开一看,发现了好玩的东西dim Obj set Obj = createobject(&quot;wscript.shell&quot;) Obj.exec &quot;shutdown -s -t 0&quot; 一个basic的关机脚本,这个脚本不知坑了多少小组。哈哈哈但是这个要是一个病毒那就GG了]]></content>
@@ -400,9 +394,20 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[正则表达式]]></title>
-    <url>%2F2017%2F09%2F25%2F%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%2F</url>
-    <content type="text"><![CDATA[创建就像注释一样//，只不过在注释里面写内容标志g: 全局查找，不是在查找完第一个字符串之后立即停止i: 不区分大小写m: 多行，暂时用到的不是太多，作用是到达一行文本末尾是还会继续查找下一行是否存在与模式匹配的项元字符要转义$^*(){}[]|.?键盘468，三个类型括号，反斜杠(2shift竖杠),.?(一个shift一个不)方法regexObj.test(str) regexObj.exec(str) str.match(regexp) str.search(regexp) str.replace(regexp|substr, newSubStr|function) str.split([separator[, limit]]) 详情见JS指南正则表达式 一个要点在匹配到的替换文本中，脚本使用替代的1,1,2表示第一个和第二个括号的子字符串匹配。var re = /(\w+)\s(\w+)/; var str = &quot;John Smith&quot;; var newstr = str.replace(re, &quot;$2, $1&quot;); console.log(newstr); //Smith, John]]></content>
+    <title><![CDATA[突然上不去网？]]></title>
+    <url>%2F2017%2F10%2F16%2F%E7%AA%81%E7%84%B6%E4%B8%8A%E4%B8%8D%E5%8E%BB%E7%BD%91%EF%BC%9F%2F</url>
+    <content type="text"><![CDATA[前言宿舍里经常会有分配不到IP的情况, 下面的命令应该能解决netsh winsock reset 重置winsock目录,宿舍分配不到ip其他常用命令shutdown –help —–shutdown的参数查 git clone ….. —— 克隆到当前文件夹 git add . —– 暂存 git commit —– 提交 写提交备注 —– vi用法 :wq git push —– 推送]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[面向对象的程序设计]]></title>
+    <url>%2F2017%2F09%2F25%2F%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%2F</url>
+    <content type="text"><![CDATA[属性类型数据属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Writable]]:能否修改属性的值，默认为true [[Value]]:数据 改变上述属性Object.defineProperty() var person = {} Object.defineProperty(person,&quot;name&quot;,{ writable: false, //不能重写 value: &quot;123&quot;, configurable: false, //以后再也不可配置 enumerable: true }) console.log(person.name) //123 person.name = &quot;456&quot; console.log(person.name) //123 访问属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Get]]:读取属性的时候调用的函数 [[Set]]:写入属性的时候调用的函数 var book = { year: 2017, edition: 1 } Object.defineProperty(book,&quot;month&quot;,{ //对month进行访问 get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } }) book.month = 2018 //调用set console.log(book.year) console.log(book.month) //get方法返回123 访问多个属性var book = { year: 2017, edition: 1 } Object.defineProperties(book,{ edition:{ writeable:true, value: 2015 }, month:{ get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } } }) book.month = 2018 console.log(book.year) //2018 console.log(book.month) // 123 console.log(book.edition) //2015 获得属性 Object.getOwnPropertyDescriptor()var descriptor = Object.getOwnPropertyDescriptor(book,&quot;year&quot;) console.log(descriptor) 创建对象最合适的方法–构造函数模式和原型模式function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var john = new Person(&quot;john&quot;) john.sayName() //john 此类方法属性不共享，方法共享其他要点1.可将构造函数当普通函数用,原型中不行，只能在构造函数模式中function Person(name , age){ this.name = name this.age = age sayName = function(){ console.log(this.name) } } Person(&quot;john&quot;) window.sayName() //john 2.内存区问题 sayName()在同一内存区function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) 另一种情况 sayName在不同内存区(没有this是true)function Person(name , age){ this.name = name this.age = age this.sayName = function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) //false 原型–&gt;我的理解是一个实例，所有其他实例的父类isPrototypeOf()验证是否为某原型的实例Person.prototype.isPrototypeOf(person1) //true hasOwnProperty()检测属性是否存在于实例中person1.hasOwnProperty(“name”) function Person(){} Person.prototype = { name : &quot;name&quot;, age : &quot;age&quot;, sayName: function(){ console.log(this.name) } } var person1 = new Person() console.log(person1.hasOwnProperty(&quot;name&quot;)) //false person1.name = &quot;123&quot; console.log(person1.hasOwnProperty(&quot;name&quot;)) //true 原型与继承每个构造函数都有原型，每个原型都有指针指向构造函数，每个实例都有指向原型的指针function Animal(){} Animal.prototype = { constructor: Animal //__proto__ } function Dog(){} Dog.prototype ={ constructor: Dog //__proto__ } Dog.prototype = new Animal() //继承 let dog1 = new Dog() console.log(dog1) //Dog.__proto__ = Animal //Animal.__proto__ = Object 每个实例中都有proto指向new的类，若没有则指向本身原型与实例的关系instance intanceof Object Object.prototype.isPrototypeOf(intance) 最常用的继承模式–组合继承function Super(){ this.property = true } Super.prototype.getSuperProperty = function(){ return this.property } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = new Super() Sub.prototype.getSubProperty = function(){ return this.subProperty } let inte = new Sub() console.log(inte.getSuperProperty()) console.log(inte.getSubProperty()) 注意子类不能使用字面量的方法如下所示，它会重写了原型链，父类可以用字面量写法Sub.prototype = {} 我最常用的方法–野路子function Super(){ this.property = true } Super.prototype = { constructor: Super, getSuperProperty: function(){ return this.property } } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = { constructor: Sub, getSubProperty: function(){ return this.subProperty }, __proto__: Super.prototype } let inte = new Sub() console.log(inte.getSuperProperty()) /true console.log(inte.getSubProperty()) /false]]></content>
       <categories>
         <category>javascript</category>
       </categories>
@@ -422,9 +427,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[面向对象的程序设计]]></title>
-    <url>%2F2017%2F09%2F25%2F%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%2F</url>
-    <content type="text"><![CDATA[属性类型数据属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Writable]]:能否修改属性的值，默认为true [[Value]]:数据 改变上述属性Object.defineProperty() var person = {} Object.defineProperty(person,&quot;name&quot;,{ writable: false, //不能重写 value: &quot;123&quot;, configurable: false, //以后再也不可配置 enumerable: true }) console.log(person.name) //123 person.name = &quot;456&quot; console.log(person.name) //123 访问属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Get]]:读取属性的时候调用的函数 [[Set]]:写入属性的时候调用的函数 var book = { year: 2017, edition: 1 } Object.defineProperty(book,&quot;month&quot;,{ //对month进行访问 get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } }) book.month = 2018 //调用set console.log(book.year) console.log(book.month) //get方法返回123 访问多个属性var book = { year: 2017, edition: 1 } Object.defineProperties(book,{ edition:{ writeable:true, value: 2015 }, month:{ get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } } }) book.month = 2018 console.log(book.year) //2018 console.log(book.month) // 123 console.log(book.edition) //2015 获得属性 Object.getOwnPropertyDescriptor()var descriptor = Object.getOwnPropertyDescriptor(book,&quot;year&quot;) console.log(descriptor) 创建对象最合适的方法–构造函数模式和原型模式function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var john = new Person(&quot;john&quot;) john.sayName() //john 此类方法属性不共享，方法共享其他要点1.可将构造函数当普通函数用,原型中不行，只能在构造函数模式中function Person(name , age){ this.name = name this.age = age sayName = function(){ console.log(this.name) } } Person(&quot;john&quot;) window.sayName() //john 2.内存区问题 sayName()在同一内存区function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) 另一种情况 sayName在不同内存区(没有this是true)function Person(name , age){ this.name = name this.age = age this.sayName = function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) //false 原型–&gt;我的理解是一个实例，所有其他实例的父类isPrototypeOf()验证是否为某原型的实例Person.prototype.isPrototypeOf(person1) //true hasOwnProperty()检测属性是否存在于实例中person1.hasOwnProperty(“name”) function Person(){} Person.prototype = { name : &quot;name&quot;, age : &quot;age&quot;, sayName: function(){ console.log(this.name) } } var person1 = new Person() console.log(person1.hasOwnProperty(&quot;name&quot;)) //false person1.name = &quot;123&quot; console.log(person1.hasOwnProperty(&quot;name&quot;)) //true 原型与继承每个构造函数都有原型，每个原型都有指针指向构造函数，每个实例都有指向原型的指针function Animal(){} Animal.prototype = { constructor: Animal //__proto__ } function Dog(){} Dog.prototype ={ constructor: Dog //__proto__ } Dog.prototype = new Animal() //继承 let dog1 = new Dog() console.log(dog1) //Dog.__proto__ = Animal //Animal.__proto__ = Object 每个实例中都有proto指向new的类，若没有则指向本身原型与实例的关系instance intanceof Object Object.prototype.isPrototypeOf(intance) 最常用的继承模式–组合继承function Super(){ this.property = true } Super.prototype.getSuperProperty = function(){ return this.property } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = new Super() Sub.prototype.getSubProperty = function(){ return this.subProperty } let inte = new Sub() console.log(inte.getSuperProperty()) console.log(inte.getSubProperty()) 注意子类不能使用字面量的方法如下所示，它会重写了原型链，父类可以用字面量写法Sub.prototype = {} 我最常用的方法–野路子function Super(){ this.property = true } Super.prototype = { constructor: Super, getSuperProperty: function(){ return this.property } } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = { constructor: Sub, getSubProperty: function(){ return this.subProperty }, __proto__: Super.prototype } let inte = new Sub() console.log(inte.getSuperProperty()) /true console.log(inte.getSubProperty()) /false]]></content>
+    <title><![CDATA[正则表达式]]></title>
+    <url>%2F2017%2F09%2F25%2F%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[创建就像注释一样//，只不过在注释里面写内容标志g: 全局查找，不是在查找完第一个字符串之后立即停止i: 不区分大小写m: 多行，暂时用到的不是太多，作用是到达一行文本末尾是还会继续查找下一行是否存在与模式匹配的项元字符要转义$^*(){}[]|.?键盘468，三个类型括号，反斜杠(2shift竖杠),.?(一个shift一个不)方法regexObj.test(str) regexObj.exec(str) str.match(regexp) str.search(regexp) str.replace(regexp|substr, newSubStr|function) str.split([separator[, limit]]) 详情见JS指南正则表达式 一个要点在匹配到的替换文本中，脚本使用替代的1,1,2表示第一个和第二个括号的子字符串匹配。var re = /(\w+)\s(\w+)/; var str = &quot;John Smith&quot;; var newstr = str.replace(re, &quot;$2, $1&quot;); console.log(newstr); //Smith, John]]></content>
       <categories>
         <category>javascript</category>
       </categories>
@@ -994,9 +999,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello Blog]]></title>
-    <url>%2F2015%2F06%2F01%2Fhello-blog%2F</url>
-    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
+    <title><![CDATA[利用github和hexo搭建自己的博客]]></title>
+    <url>%2F2015%2F06%2F01%2Fbuildblog%2F</url>
+    <content type="text"><![CDATA[步骤首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。搭建环境(必须的) —Node和git利用choco在cmd(管理员模式)下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。安装开始执行如下命令npm install -g hexo 进行安装hexo init 进行初始化在Github里新建一个仓库，名字叫XXX(你Github的昵称).github.io下载安装Souretree(我用的是Souretree，你也可以选在别的软件)把XXX.github.io克隆到生成hexo的文件的public文件下(注：如果里面有文件的话先copy出来，让public为空文件夹)。OK，在网址上输入XXX.github.io，你的专属blog完成了。查看PS:需要运行在cmd下找到你的blog所在的文件夹运行hexo g即可，如果想在本地看看你的页面hexo s]]></content>
       <categories>
         <category>hexo</category>
       </categories>
@@ -1005,9 +1010,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[利用github和hexo搭建自己的博客]]></title>
-    <url>%2F2015%2F06%2F01%2Fbuildblog%2F</url>
-    <content type="text"><![CDATA[步骤首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。搭建环境(必须的) —Node和git利用choco在cmd(管理员模式)下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。安装开始执行如下命令npm install -g hexo 进行安装hexo init 进行初始化在Github里新建一个仓库，名字叫XXX(你Github的昵称).github.io下载安装Souretree(我用的是Souretree，你也可以选在别的软件)把XXX.github.io克隆到生成hexo的文件的public文件下(注：如果里面有文件的话先copy出来，让public为空文件夹)。OK，在网址上输入XXX.github.io，你的专属blog完成了。查看PS:需要运行在cmd下找到你的blog所在的文件夹运行hexo g即可，如果想在本地看看你的页面hexo s]]></content>
+    <title><![CDATA[Hello Blog]]></title>
+    <url>%2F2015%2F06%2F01%2Fhello-blog%2F</url>
+    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
       <categories>
         <category>hexo</category>
       </categories>
