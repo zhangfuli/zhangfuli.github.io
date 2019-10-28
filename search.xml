@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[python3的OJ输入]]></title>
     <url>%2F2019%2F10%2F13%2Fpython3%E7%9A%84OJ%E8%BE%93%E5%85%A5%2F</url>
-    <content type="text"><![CDATA[1、输入整数 123case = int(input().strip())while case: case -= 1 2、 输入浮点数 1test = float(input().strip()) 3、字符串 1test = input().strip() 4、 输入 1 2 3 4 5 1nums = list(map(int, input().strip().split())) 5、输入 1.0 2.0 3.0 4.0 1nums = list(map(float, input().strip().split())) 6、输入 a b c d e 1test = list(input().strip().split()) 7、创建二维数组 1test = [[0 for i in range(col)] for j in range(row)] 8、未知多少输入行 12345678910111213import syswhile True: line = sys.stdin.readline() if not line: break for str_x in line.strip().split(' '): i += 1 if i == 0: num = int(str_x) continue if i == 1: else:]]></content>
+    <content type="text"><![CDATA[1、输入整数 123case = int(input().strip())while case: case -= 1 2、 输入浮点数 1test = float(input().strip()) 3、字符串 1test = input().strip() 4、 输入 1 2 3 4 5 1nums = list(map(int, input().strip().split())) 5、输入 1.0 2.0 3.0 4.0 1nums = list(map(float, input().strip().split())) 6、输入 a b c d e 1test = list(input().strip().split()) 7、创建二维数组 1test = [[0 for i in range(col)] for j in range(row)] 8、未知多少输入行 123456789101112while True: line = sys.stdin.readline() if not line: break nums = [] i = -1 for str_x in line.strip().split(' '): i += 1 if i == 0: len_nuns = int(str_x) continue nums.append(int(str_x))]]></content>
   </entry>
   <entry>
     <title><![CDATA[python3全排列]]></title>
