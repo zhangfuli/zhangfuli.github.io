@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="zhangfuli.github.io/"/>
-  <updated>2019-10-28T07:03:26.563Z</updated>
+  <updated>2019-11-18T07:46:04.537Z</updated>
   <id>zhangfuli.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>k8s node 节点 kubectl 运行报错</title>
+    <link href="zhangfuli.github.io/2019/11/18/k8s-node-%E8%8A%82%E7%82%B9-kubectl-%E8%BF%90%E8%A1%8C%E6%8A%A5%E9%94%99/"/>
+    <id>zhangfuli.github.io/2019/11/18/k8s-node-节点-kubectl-运行报错/</id>
+    <published>2019-11-18T07:41:12.000Z</published>
+    <updated>2019-11-18T07:46:04.537Z</updated>
+    
+    <content type="html"><![CDATA[<p>###背景描述：</p><p>使用kubeadm搭建的集群环境，node节点 使用 kubectl查询资源报错</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The connection to the server localhost:8080 was refused - did you specify the right host or port?</span><br></pre></td></tr></table></figure><h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>1、 出现这个问题的原因是kubectl命令需要使用kubernetes-admin来运行，解决方法如下，将master节点中的<strong>/etc/kubernetes/admin.conf</strong>文件拷贝到从节点相同目录下，然后配置环境变量：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;export KUBECONFIG=/etc/kubernetes/admin.conf&quot; &gt;&gt; ~/.bash_profile</span><br></pre></td></tr></table></figure><p>2、使其生效</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;###背景描述：&lt;/p&gt;
+&lt;p&gt;使用kubeadm搭建的集群环境，node节点 使用 kubectl查询资源报错&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span cla
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>python3的OJ输入</title>
@@ -456,31 +479,6 @@
     
     
       <category term="hexo" scheme="zhangfuli.github.io/tags/hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>GPS数据格式转化</title>
-    <link href="zhangfuli.github.io/2018/06/04/GPS%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E8%BD%AC%E5%8C%96/"/>
-    <id>zhangfuli.github.io/2018/06/04/GPS数据格式转化/</id>
-    <published>2018-06-04T06:02:32.000Z</published>
-    <updated>2018-06-04T06:35:35.725Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><h6 id="最近在做一个博创杯跟赛佰特的一个硬件的项目-准备采用节点采集温度湿度气体信息并通过ZigBee传送给协调器-然后协调器通过串口将信息传送到PC端"><a href="#最近在做一个博创杯跟赛佰特的一个硬件的项目-准备采用节点采集温度湿度气体信息并通过ZigBee传送给协调器-然后协调器通过串口将信息传送到PC端" class="headerlink" title="最近在做一个博创杯跟赛佰特的一个硬件的项目, 准备采用节点采集温度湿度气体信息并通过ZigBee传送给协调器, 然后协调器通过串口将信息传送到PC端"></a>最近在做一个博创杯跟赛佰特的一个硬件的项目, 准备采用节点采集温度湿度气体信息并通过ZigBee传送给协调器, 然后协调器通过串口将信息传送到PC端</h6><h6 id="同时协调器端采集GPS信号并利用RFID进行读卡"><a href="#同时协调器端采集GPS信号并利用RFID进行读卡" class="headerlink" title="同时协调器端采集GPS信号并利用RFID进行读卡"></a>同时协调器端采集GPS信号并利用RFID进行读卡</h6><h3 id="GPS数据格式转化"><a href="#GPS数据格式转化" class="headerlink" title="GPS数据格式转化"></a>GPS数据格式转化</h3><h6 id="GPS采用的是北斗双定位模块S1216-店家给的资料是STM32单片机-但是我们用的安联德的CC2530只能自己整合数据-其实说起来原理还是蛮简单的-就是通过第二个串口接收该模块发送过来的数据-再用串口一发送给PC"><a href="#GPS采用的是北斗双定位模块S1216-店家给的资料是STM32单片机-但是我们用的安联德的CC2530只能自己整合数据-其实说起来原理还是蛮简单的-就是通过第二个串口接收该模块发送过来的数据-再用串口一发送给PC" class="headerlink" title="GPS采用的是北斗双定位模块S1216, 店家给的资料是STM32单片机, 但是我们用的安联德的CC2530只能自己整合数据, 其实说起来原理还是蛮简单的, 就是通过第二个串口接收该模块发送过来的数据, 再用串口一发送给PC"></a>GPS采用的是北斗双定位模块S1216, 店家给的资料是STM32单片机, 但是我们用的安联德的CC2530只能自己整合数据, 其实说起来原理还是蛮简单的, 就是通过第二个串口接收该模块发送过来的数据, 再用串口一发送给PC</h6><h6 id="采集的数据格式如下"><a href="#采集的数据格式如下" class="headerlink" title="采集的数据格式如下"></a>采集的数据格式如下</h6><pre><code>$GNRMC,113415.000,A,3556.6506,N,12010.1705,E,000.0,177.6,270518,,,A*7C</code></pre><h6 id="它的格式是ddmm-mmmm需要转化为dd-dddd度才能在常用的地图上进行定位显示-转化过程如下"><a href="#它的格式是ddmm-mmmm需要转化为dd-dddd度才能在常用的地图上进行定位显示-转化过程如下" class="headerlink" title="它的格式是ddmm.mmmm需要转化为dd.dddd度才能在常用的地图上进行定位显示, 转化过程如下"></a>它的格式是ddmm.mmmm需要转化为dd.dddd度才能在常用的地图上进行定位显示, 转化过程如下</h6><pre><code>3556.650656.6506/60 = 0.944176666735 + 0.9441766667 = 35.0.9441766667度</code></pre><h6 id="转化就是这样-项目还未完成暂时记个笔记"><a href="#转化就是这样-项目还未完成暂时记个笔记" class="headerlink" title="转化就是这样, 项目还未完成暂时记个笔记"></a>转化就是这样, 项目还未完成暂时记个笔记</h6>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;写在前面&quot;&gt;&lt;a href=&quot;#写在前面&quot; class=&quot;headerlink&quot; title=&quot;写在前面&quot;&gt;&lt;/a&gt;写在前面&lt;/h3&gt;&lt;h6 id=&quot;最近在做一个博创杯跟赛佰特的一个硬件的项目-准备采用节点采集温度湿度气体信息并通过ZigBee传送给协调器-然后协
-      
-    
-    </summary>
-    
-      <category term="硬件" scheme="zhangfuli.github.io/categories/%E7%A1%AC%E4%BB%B6/"/>
-    
-    
-      <category term="硬件" scheme="zhangfuli.github.io/tags/%E7%A1%AC%E4%BB%B6/"/>
     
   </entry>
   
