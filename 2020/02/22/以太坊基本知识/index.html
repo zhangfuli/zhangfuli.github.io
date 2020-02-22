@@ -97,7 +97,8 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/17808702/75085388-8f265a00-5563-11ea-88d1-2c9369252730.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/17808702/75088753-88600d00-558c-11ea-8178-1fce7ed76a06.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/17808702/75088675-a6793d80-558b-11ea-92e4-e70a9c323351.png">
-<meta property="og:updated_time" content="2020-02-22T11:06:20.222Z">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/75094386-7b134480-55c5-11ea-8f02-22c3491f3836.png">
+<meta property="og:updated_time" content="2020-02-22T15:00:18.202Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="以太坊基本知识">
 <meta name="twitter:description" content="以太坊1、改进：  ETH  以太坊出块时间：十几秒；比特币：10分钟  mining puzzle: 对内存要求高，限制ASIC芯片的使用  proof of work(工作量证明)—&amp;gt; proof of state(股份投票)  Smart contract(智能合约): 去中心化的合约  2、去中心化的货币好处：跨国转账 3、智能合约：跨国合约，用技术手段保证合同不违约 4、创始人：V">
@@ -537,7 +538,7 @@
 <p>5、proof of work –&gt; proof of stake</p>
 <p>6、算法的设计是为了让通用设备挖矿，参与的人越多越安全</p>
 <p>7、有人不这么认为：专用挖矿机的攻击成本会高</p>
-<h2 id="以太坊：难度调整"><a href="#以太坊：难度调整" class="headerlink" title="以太坊：难度调整"></a>以太坊：难度调整</h2><p>1、proof of work-比特币耗电量：</p>
+<h2 id="以太坊：PoS"><a href="#以太坊：PoS" class="headerlink" title="以太坊：PoS"></a>以太坊：PoS</h2><p>1、proof of work-比特币耗电量：</p>
 <ul>
 <li><p>一年挖矿耗电量：70tWh      1tWh = 10^12Wh      1kWh = 10^3Wh</p>
 </li>
@@ -549,7 +550,35 @@
 <li>一年挖矿耗电量：20tWh</li>
 <li>一笔交易耗电67度</li>
 </ul>
-
+<p>3、proof of stake</p>
+<ul>
+<li>给开发人员一部分币奖励</li>
+<li>给投资人员一部分币奖励</li>
+<li>根据币的多少投票</li>
+<li>根据币的权益降低挖矿难度</li>
+<li>维护安全的资源是个闭环</li>
+<li>决定新块的方式</li>
+</ul>
+<p>4、如何获得最长合法链？</p>
+<ul>
+<li>Casper the Friendly Finality Gadget（FFG）</li>
+<li>Validatir: 投入保证金投票，权重取决于保证金的数量大小<ul>
+<li>不能两边投票</li>
+</ul>
+</li>
+<li>混用下：<ul>
+<li>epoch：每100（优化后50）个出一个</li>
+<li>Two-phase commit<ul>
+<li>Prepare message    2/3</li>
+<li>Commit message    2/3</li>
+</ul>
+</li>
+<li>前一个的commit messgae作为下一个的prepare message</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://user-images.githubusercontent.com/17808702/75094386-7b134480-55c5-11ea-8f02-22c3491f3836.png" alt="image"></p>
+<h2 id="以太坊：智能合约"><a href="#以太坊：智能合约" class="headerlink" title="以太坊：智能合约"></a>以太坊：智能合约</h2>
       
     </div>
     
@@ -784,7 +813,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊"><span class="nav-number">1.</span> <span class="nav-text">以太坊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：账户"><span class="nav-number">2.</span> <span class="nav-text">以太坊：账户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：状态树"><span class="nav-number">3.</span> <span class="nav-text">以太坊：状态树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：交易树与收据树"><span class="nav-number">4.</span> <span class="nav-text">以太坊：交易树与收据树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：GHOST协议"><span class="nav-number">5.</span> <span class="nav-text">以太坊：GHOST协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：挖矿算法"><span class="nav-number">6.</span> <span class="nav-text">以太坊：挖矿算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：难度调整"><span class="nav-number">7.</span> <span class="nav-text">以太坊：难度调整</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊"><span class="nav-number">1.</span> <span class="nav-text">以太坊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：账户"><span class="nav-number">2.</span> <span class="nav-text">以太坊：账户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：状态树"><span class="nav-number">3.</span> <span class="nav-text">以太坊：状态树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：交易树与收据树"><span class="nav-number">4.</span> <span class="nav-text">以太坊：交易树与收据树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：GHOST协议"><span class="nav-number">5.</span> <span class="nav-text">以太坊：GHOST协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：挖矿算法"><span class="nav-number">6.</span> <span class="nav-text">以太坊：挖矿算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：PoS"><span class="nav-number">7.</span> <span class="nav-text">以太坊：PoS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：智能合约"><span class="nav-number">8.</span> <span class="nav-text">以太坊：智能合约</span></a></li></ol></div>
             
 
           </div>
