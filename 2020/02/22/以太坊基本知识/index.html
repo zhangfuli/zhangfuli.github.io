@@ -97,7 +97,7 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/17808702/75085388-8f265a00-5563-11ea-88d1-2c9369252730.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/17808702/75088753-88600d00-558c-11ea-8178-1fce7ed76a06.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/17808702/75088675-a6793d80-558b-11ea-92e4-e70a9c323351.png">
-<meta property="og:updated_time" content="2020-02-22T08:27:15.833Z">
+<meta property="og:updated_time" content="2020-02-22T11:06:20.222Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="以太坊基本知识">
 <meta name="twitter:description" content="以太坊1、改进：  ETH  以太坊出块时间：十几秒；比特币：10分钟  mining puzzle: 对内存要求高，限制ASIC芯片的使用  proof of work(工作量证明)—&amp;gt; proof of state(股份投票)  Smart contract(智能合约): 去中心化的合约  2、去中心化的货币好处：跨国转账 3、智能合约：跨国合约，用技术手段保证合同不违约 4、创始人：V">
@@ -520,6 +520,35 @@
 <li>只有分叉之后的第一个区块给block reward</li>
 </ul>
 <p><img src="https://user-images.githubusercontent.com/17808702/75088675-a6793d80-558b-11ea-92e4-e70a9c323351.png" alt="image"></p>
+<h2 id="以太坊：挖矿算法"><a href="#以太坊：挖矿算法" class="headerlink" title="以太坊：挖矿算法"></a>以太坊：挖矿算法</h2><p>1、名称: ethash</p>
+<p>2、ASIC resistance：增加对内存的mining puzzle</p>
+<p>3、、以太坊：</p>
+<ul>
+<li>16M cache, 用于轻节点验证</li>
+<li>1G dataset, DAG</li>
+<li>伪随机：seed–&gt;h(seed)–&gt;h(h(seed))….数组</li>
+</ul>
+<p>4、代码：</p>
+<ul>
+<li>生成16M的cache：seed–&gt;h(seed)–&gt;h(h(seed))….数组</li>
+<li>从cache生成1G的大数据集：读取cache中256个数据，然后取hash得到一个元素</li>
+<li>根据当前的nonce，读取64个相邻位置的hash组成128个，最后返回hash跟target比较</li>
+</ul>
+<p>5、proof of work –&gt; proof of stake</p>
+<p>6、算法的设计是为了让通用设备挖矿，参与的人越多越安全</p>
+<p>7、有人不这么认为：专用挖矿机的攻击成本会高</p>
+<h2 id="以太坊：难度调整"><a href="#以太坊：难度调整" class="headerlink" title="以太坊：难度调整"></a>以太坊：难度调整</h2><p>1、proof of work-比特币耗电量：</p>
+<ul>
+<li><p>一年挖矿耗电量：70tWh      1tWh = 10^12Wh      1kWh = 10^3Wh</p>
+</li>
+<li><p>一笔交易耗费1000度电</p>
+</li>
+</ul>
+<p>2、proof of work-以太坊耗电量：</p>
+<ul>
+<li>一年挖矿耗电量：20tWh</li>
+<li>一笔交易耗电67度</li>
+</ul>
 
       
     </div>
@@ -755,7 +784,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊"><span class="nav-number">1.</span> <span class="nav-text">以太坊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：账户"><span class="nav-number">2.</span> <span class="nav-text">以太坊：账户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：状态树"><span class="nav-number">3.</span> <span class="nav-text">以太坊：状态树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：交易树与收据树"><span class="nav-number">4.</span> <span class="nav-text">以太坊：交易树与收据树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：GHOST协议"><span class="nav-number">5.</span> <span class="nav-text">以太坊：GHOST协议</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊"><span class="nav-number">1.</span> <span class="nav-text">以太坊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：账户"><span class="nav-number">2.</span> <span class="nav-text">以太坊：账户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：状态树"><span class="nav-number">3.</span> <span class="nav-text">以太坊：状态树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：交易树与收据树"><span class="nav-number">4.</span> <span class="nav-text">以太坊：交易树与收据树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：GHOST协议"><span class="nav-number">5.</span> <span class="nav-text">以太坊：GHOST协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：挖矿算法"><span class="nav-number">6.</span> <span class="nav-text">以太坊：挖矿算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：难度调整"><span class="nav-number">7.</span> <span class="nav-text">以太坊：难度调整</span></a></li></ol></div>
             
 
           </div>
