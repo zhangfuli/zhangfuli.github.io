@@ -97,7 +97,7 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/17808702/75085388-8f265a00-5563-11ea-88d1-2c9369252730.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/17808702/75088753-88600d00-558c-11ea-8178-1fce7ed76a06.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/17808702/75088675-a6793d80-558b-11ea-92e4-e70a9c323351.png">
-<meta property="og:updated_time" content="2020-02-22T08:07:24.627Z">
+<meta property="og:updated_time" content="2020-02-22T08:27:15.833Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="以太坊基本知识">
 <meta name="twitter:description" content="以太坊1、改进：  ETH  以太坊出块时间：十几秒；比特币：10分钟  mining puzzle: 对内存要求高，限制ASIC芯片的使用  proof of work(工作量证明)—&amp;gt; proof of state(股份投票)  Smart contract(智能合约): 去中心化的合约  2、去中心化的货币好处：跨国转账 3、智能合约：跨国合约，用技术手段保证合同不违约 4、创始人：V">
@@ -402,6 +402,7 @@
 <p>4、创始人：Vitalik</p>
 <p>5、比特币中Merkle tree不能证明某个交易不存在，sorted 之后才可以</p>
 <p>6、没有规定定期减半</p>
+<p>7、区块奖励 + gas fee + uncle reward</p>
 <h2 id="以太坊：账户"><a href="#以太坊：账户" class="headerlink" title="以太坊：账户"></a>以太坊：账户</h2><p>1、转账区别：</p>
 <ul>
 <li>比特币：比特币花钱的时候要说明币的来源, 而且得将剩余的钱转给自己，A-&gt;B(10 BTC); B-&gt;C(3 BTC), B-&gt;B’(7 BTC)，否则7个就成了交易费了</li>
@@ -515,6 +516,8 @@
 <ul>
 <li>爷爷，曾祖父也可以为uncle block，但是最多7代以内最多的区块</li>
 <li>对于新区块包含不管那个辈份的都是奖励1/32个区块奖励(block reward)</li>
+<li>新区块要查叔父区块的合法性，但是不执行叔父中的交易</li>
+<li>只有分叉之后的第一个区块给block reward</li>
 </ul>
 <p><img src="https://user-images.githubusercontent.com/17808702/75088675-a6793d80-558b-11ea-92e4-e70a9c323351.png" alt="image"></p>
 
