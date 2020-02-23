@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[区块链总结]]></title>
+    <url>%2F2020%2F02%2F23%2F%E5%8C%BA%E5%9D%97%E9%93%BE%E6%80%BB%E7%BB%93%2F</url>
+    <content type="text"><![CDATA[区块链：总结1、区块链应用场景： 有机蔬菜生产、运输、销售 虽然能保证过程的不可更改 但是中间被调包了，区块链无法检测 2、在互不信任的实体之间进行共识交易 成功的商业模式中既可以有中心化的方式也可以有去中心化的方式 3、现实生活中的退款是两笔交易 付钱 退款 4、没有法律监护也就意味着没有法律保护 法律的监管与支付方式没有关系 5、比特币没有必要跟现有支付方式竞争 6、比特币新领域： 网上跨国支付 7、高考不是最好的制度，但是最不坏的制度 8、去中心化不一定是好事儿 9、如果商业模式是坏的，去中心化与中心化的制度都不行]]></content>
+      <tags>
+        <tag>区块链</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[比特币基本知识]]></title>
     <url>%2F2020%2F02%2F22%2F%E6%AF%94%E7%89%B9%E5%B8%81%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%2F</url>
     <content type="text"><![CDATA[北大肖臻老师区块链技术与应用上课笔记 比特币1、发明人：中本聪 2、著名交易所：门头沟（Mt. go） 3、私钥256位 比特币：共识协议Merkle tree Double Spending Attack1、数字货币与纸质货币的区别：double spending attack，花两次攻击（数组货币可复制粘贴，纸质只有一个花了就没了 ） 方案1: 维护数据库，017号货币在某某手里，花出去修改数据库，中心化方案 2、去中心化的数字货币解决两个问题： 数字货币的发行，谁有权利发行数字货币，什么时候发行 验证交易的有效性 3、验证交易的有效性 signed by A，用A的私钥签名 A-&gt;B A要知道B的地址，B的公钥取hash，B公开公钥 B要知道A的公钥，所有节点都要A的公钥 输入要说明A的公钥，B的来源 输出收款人公钥的hash 下个区块的输入脚本与上个脚本的输出脚本拼接完好成功执行才是无误 每个区块中可以形成merkle tree 4、区块的组成： block header version hash of previous block header merkle root hash target（H（block header）&lt;= target） nonce(挖矿用的随机数) 4 bytes block body transaction list–最多不超过1M 5、系统中的节点: full node、light node full node 保存全部信息 内存维护UTXO集合–谁有多少钱 light node 只保存block header 6、账本的内容要取得分布式的共识 分布式的hash table FLP impossibility result：异步系统中（网络时延没有上线），有一个节点挂掉，这个异步系统也无法达到共识 CAP Theorem: 任何一个分布式系统，只能办满足以下两个 consistency availability Partiontion tolerance 7、比特币中的共识协议： 基于投票： hyperledger fabric 联盟链协议 比特币系统中无法控制投票权，一个密钥对就是一个账户，存在sybil attack，恶意照很多账户投票 H(block header) &lt;= target 使用计算力来投票，每个节点都可以在本地组装一个候选区块将认为合法的交易放入，加入到区块链中，然后尝试不同的nonce值满足上述，则获得记账权；其他节点验证block header与block body是否合法 接受的区块应该是最长合法链，下图为分叉攻击，看是否存在两次转账，则只看前面的链，不看分叉链，解决方案：多等几个区块–6个；诚实的算力多，保证最长合法链，等待时间越长，被篡改几率越小 同时获得记账权，存在相同的最长合法链，然后竞争最长，最长合法链才是合法的 获得记账权的节点可以获得铸币权（coinbase transaction） 50BTC—21万个之后—25BTC—21万个之后—12.5BTC，每隔10分钟产生一个区块 取得的共识是：去中心化账本中的内容是共识的 根据算力来，hash rate 争夺记账权的过程叫挖矿 比特币：实现1、transaction-based ledger 拥有记账权的节点，可以记录交易，并收取小费 2、每一次挖矿的概率与挖矿时间无关，每次出块的平均时间为10分钟 3、系统中比特币的总量21w*50+21w*25+21w*12.5…..=2100w 比特币： 挖矿1、挖矿芯片 CPU GPU ASIC：专用挖矿芯片，一种币种有专用的，除非mining puzzel相同 2、矿池：充当全节点，给每个矿工分配任务，矿工只负责计算hash值，矿池负责组装 3、矿工如何证明工作量：每个矿工提交share（近似的hash）来证明工作量 4、coinbase–&gt;A: 在区块merkle tree里面 比特币： 脚本 只进行堆栈操作 输入脚本有签名 OP_RETURN: 当前区块的输出脚本，判断当前区块是否合法根本不执行这个脚本 比特币：分叉 state fork 分叉攻击 protocol fork：由于是去中心化的，新协议无法全部普及到全部节点 hard fork: 新协议，旧节点不认新协议，新节点不认旧协议 block size limit: 1M—&gt;3M 规定每个区块1M，增加交易的延迟，增加吞吐量，一个交易差不多250字节 可以允许有两条链，各带一个chainid soft fork: 新协议，旧节点也认新协议，但是新节点不认旧协议 block size limit: 1M—&gt;0.5M Coinbase: 铸币交易 前8 bytes: 可以调节里面的extra nonce: 里面的某些域：可以作为UTXO的hash值存进去 比特币：匿名性 匿名性是笔名，网名，不是跟现金一样完全无关 1、如果银行用匿名，隐私性是否比比特币要好？ 是的，比特币的账本是公开的, 且不可篡改 2、比特币什么时候可以破坏匿名性 一个人多个账户，什么操作将不同的账户关联？（这些账户是一个人的） 网上买东西： inputs：addr1，addr2； output：addr3，addr4 addr1与addr2就有联系 跟真实世界联系 买入比特币，卖出比特币 3、实现匿名性： application layer： 把很多人的比特币混在一起（coin mixing） network layer： 洋葱路由（Tor） 4、零知识证明：一方向另一方证明一个陈述是正确的，而无需透露该陈述是正确的以外的任何信息 证明这个私钥是我的，我签名你用公钥验证（有争议） 5、同态隐藏： x 不等于 y，则E(x) 不等于E(y)—hash碰撞 E(x) 很难推出 x — hiding property 同态运算： 同态加法：E(x) 和 E(y) –&gt;可以算出 E(x+y) 同态乘法：E(x) 和 E(y) –&gt;可以算出 E(xy) 扩展到多项式 5、零币和零钞：完全匿名 比特币：思考1、区块链中hash指针的传播：所谓的hash指针只是形象的说法，只有hash，没有指针。全节点存储（key，value）数据库，在levelDB查找value就可以查找出来，hash指针的性质保证了整个区块链不可被篡改 2、区块恋：单个账户的私钥被切分成两份, 不提倡。提倡使用多重签名，每个私钥都是独立产生，可以要求N个人中任意M个 3、分布式共识：分布式系统理论上不可能取得共识，很多理论上的不可能结论只是在特定上的条件下，在实际的时候改模型可行 4、稀缺的东西不适合用来做货币：比特币不适合，总量一定 5、量子计算：可以破解各种各样的密码 6、收钱：只需要提供公钥的hash，取钱：提供公钥与私钥的签名]]></content>
@@ -314,17 +322,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[javascript高级程序设计20-23]]></title>
-    <url>%2F2017%2F12%2F19%2Fjavascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A120-23%2F</url>
-    <content type="text"><![CDATA[JSON对象{ name: &quot;test&quot; } 数据结构{ &quot;name&quot;: &quot;test&quot; } JSON对象方法JSON.stringify() //将json对象转化为数据结构参数let obj = { name: &quot;test&quot;, sex: [&apos;male&apos;, &apos;female&apos;] } JSON.stringify(obj) JSON.stringify(obj, name) //只保留name JSON.stringify(obj,name,4) //字符缩进4个空格 数据存储cookiecookie构成：名称、值、域、路径、失效时间、安全标志Set-Cookie: name=value; domain=.wrox.com; expires= Mon, 22-Jan-07; secure document.cookie = &quot;name=value; .....&quot; cookie 确实非常小，它的大小限制为4KB左右，是网景公司的前雇员 Lou Montulli 在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在 Cookie 中存入一段辨别用户身份的数据来实现的localStoragelocalStorage.setItem() localStorage.getItem() sessionStorage用法同上浏览器缓存浏览器缓存]]></content>
-      <categories>
-        <category>javascript</category>
-      </categories>
-      <tags>
-        <tag>javascript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[生成npm包--vue]]></title>
     <url>%2F2017%2F12%2F19%2F%E7%94%9F%E6%88%90npm%E5%8C%85--vue%2F</url>
     <content type="text"><![CDATA[介绍用vue-cli打包生成vue组件并且上传到npm上前期准备vue-cli npm账号 webpack 首先，用vue-cli生成vue项目，并修改如下所示{ &quot;name&quot;: &quot;picture-upload&quot;, &quot;version&quot;: &quot;1.0.9&quot;, &quot;description&quot;: &quot;This is a component for picture uploaded by base64&quot;, &quot;author&quot;: &quot;zfl &lt;1171067930@qq.com&gt;&quot;, &quot;main&quot;: &quot;dist/picture-upload.min.js&quot;, &quot;license&quot;: &quot;MIT&quot;, &quot;private&quot;: false, &quot;scripts&quot;: { &quot;dev&quot;: &quot;node build/dev-server.js&quot;, &quot;start&quot;: &quot;node build/dev-server.js&quot;, &quot;build&quot;: &quot;node build/build.js&quot; }, &quot;dependencies&quot;: { &quot;vue&quot;: &quot;^2.3.3&quot;, &quot;vue-router&quot;: &quot;^2.6.0&quot; } ... } “private”: false 把这个包改成公用的“main”: “dist/picture-upload.min.js”, 这里的配置意思是，别人用这个包 import PictureUpload from ‘picture-upload’; 时，引入的文件。可以看出，这个picture-upload最终需要打包出一个js文件，所以我们需要修改webpack.prod.config.js文件var webpackConfig = merge(baseWebpackConfig, { module: { rules: utils.styleLoaders({ sourceMap: config.build.productionSourceMap, extract: true }) }, devtool: config.build.productionSourceMap ? &apos;#source-map&apos; : false, // output: { // path: config.build.assetsRoot, // filename: utils.assetsPath(&apos;js/[name].[chunkhash].js&apos;), // chunkFilename: utils.assetsPath(&apos;js/[id].[chunkhash].js&apos;) // }, output: { path: config.bundle.assetsRoot, publicPath: config.bundle.assetsPublicPath, filename: &apos;picture-upload.min.js&apos;, library: &apos;PictureUpload&apos;, libraryTarget: &apos;umd&apos; }, plugins: [ new webpack.DefinePlugin({ &apos;process.env&apos;: env }), new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false }, sourceMap: true }), // extract css into its own file new ExtractTextPlugin({ // filename: utils.assetsPath(&apos;css/[name].[contenthash].css&apos;) filename: &apos;picture-upload.min.css&apos; }), new OptimizeCSSPlugin() ] }) module.exports = webpackConfig 主要是修改两个地方output里面的filename,就是打包生成的js文件的名字;library是引入时的模块名;extracttextpligin里的filename改成picture-upload.min.css;然后很多不需要的模块都注解掉了下面是config/index.jsbundle: { env: require(&apos;./prod.env&apos;), assetsRoot: path.resolve(__dirname, &apos;../dist&apos;), assetsPublicPath: &apos;/&apos;, assetsSubDirectory: &apos;/&apos;, productionSourceMap: true, productionGzip: false, productionGzipExtensions: [&apos;js&apos;, &apos;css&apos;], bundleAnalyzerReport: process.env.npm_config_report } 在build的下面加上这段代码,上面webpack.prod.config.js里面output里面配置的都是bundle编写组件,组件编写完成后,在main.js里面加上,其他的注释掉与不注释掉都可以import PictureUpload from &apos;./components/PictureUpload.vue&apos; export default PictureUpload 最后执行npm run build发布到npm上npm login npm adduser npm publish 使用在下面项目链接的readme里面有点击这里 注意:由于webpack最近的升级webpack组件用2.0写的在最新vue-cli生成的webpack3.0的项目中貌似不能用]]></content>
@@ -333,6 +330,17 @@
       </categories>
       <tags>
         <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[javascript高级程序设计20-23]]></title>
+    <url>%2F2017%2F12%2F19%2Fjavascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A120-23%2F</url>
+    <content type="text"><![CDATA[JSON对象{ name: &quot;test&quot; } 数据结构{ &quot;name&quot;: &quot;test&quot; } JSON对象方法JSON.stringify() //将json对象转化为数据结构参数let obj = { name: &quot;test&quot;, sex: [&apos;male&apos;, &apos;female&apos;] } JSON.stringify(obj) JSON.stringify(obj, name) //只保留name JSON.stringify(obj,name,4) //字符缩进4个空格 数据存储cookiecookie构成：名称、值、域、路径、失效时间、安全标志Set-Cookie: name=value; domain=.wrox.com; expires= Mon, 22-Jan-07; secure document.cookie = &quot;name=value; .....&quot; cookie 确实非常小，它的大小限制为4KB左右，是网景公司的前雇员 Lou Montulli 在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在 Cookie 中存入一段辨别用户身份的数据来实现的localStoragelocalStorage.setItem() localStorage.getItem() sessionStorage用法同上浏览器缓存浏览器缓存]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
       </tags>
   </entry>
   <entry>
@@ -429,6 +437,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[突然上不去网？]]></title>
+    <url>%2F2017%2F10%2F16%2F%E7%AA%81%E7%84%B6%E4%B8%8A%E4%B8%8D%E5%8E%BB%E7%BD%91%EF%BC%9F%2F</url>
+    <content type="text"><![CDATA[前言宿舍里经常会有分配不到IP的情况, 下面的命令应该能解决netsh winsock reset 重置winsock目录,宿舍分配不到ip其他常用命令shutdown –help —–shutdown的参数查 git clone ….. —— 克隆到当前文件夹 git add . —– 暂存 git commit —– 提交 写提交备注 —– vi用法 :wq git push —– 推送]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[数学建模国赛被整蛊]]></title>
     <url>%2F2017%2F10%2F16%2F%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%9B%BD%E8%B5%9B%E8%A2%AB%E6%95%B4%E8%9B%8A%2F</url>
     <content type="text"><![CDATA[国赛已经过去好长时间了，今天翻文件无意中看见”国赛A题论文.vbs”,想想在那三天的紧张的时间，看见这个是个什么心情？当然是，理性的分析一下啊。看到.vbs我就心里暗想着个东西不是啥好东西，结果用sublimetext打开一看,发现了好玩的东西dim Obj set Obj = createobject(&quot;wscript.shell&quot;) Obj.exec &quot;shutdown -s -t 0&quot; 一个basic的关机脚本,这个脚本不知坑了多少小组。哈哈哈但是这个要是一个病毒那就GG了]]></content>
@@ -440,14 +459,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[突然上不去网？]]></title>
-    <url>%2F2017%2F10%2F16%2F%E7%AA%81%E7%84%B6%E4%B8%8A%E4%B8%8D%E5%8E%BB%E7%BD%91%EF%BC%9F%2F</url>
-    <content type="text"><![CDATA[前言宿舍里经常会有分配不到IP的情况, 下面的命令应该能解决netsh winsock reset 重置winsock目录,宿舍分配不到ip其他常用命令shutdown –help —–shutdown的参数查 git clone ….. —— 克隆到当前文件夹 git add . —– 暂存 git commit —– 提交 写提交备注 —– vi用法 :wq git push —– 推送]]></content>
+    <title><![CDATA[面向对象的程序设计]]></title>
+    <url>%2F2017%2F09%2F25%2F%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%2F</url>
+    <content type="text"><![CDATA[属性类型数据属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Writable]]:能否修改属性的值，默认为true [[Value]]:数据 改变上述属性Object.defineProperty() var person = {} Object.defineProperty(person,&quot;name&quot;,{ writable: false, //不能重写 value: &quot;123&quot;, configurable: false, //以后再也不可配置 enumerable: true }) console.log(person.name) //123 person.name = &quot;456&quot; console.log(person.name) //123 访问属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Get]]:读取属性的时候调用的函数 [[Set]]:写入属性的时候调用的函数 var book = { year: 2017, edition: 1 } Object.defineProperty(book,&quot;month&quot;,{ //对month进行访问 get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } }) book.month = 2018 //调用set console.log(book.year) console.log(book.month) //get方法返回123 访问多个属性var book = { year: 2017, edition: 1 } Object.defineProperties(book,{ edition:{ writeable:true, value: 2015 }, month:{ get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } } }) book.month = 2018 console.log(book.year) //2018 console.log(book.month) // 123 console.log(book.edition) //2015 获得属性 Object.getOwnPropertyDescriptor()var descriptor = Object.getOwnPropertyDescriptor(book,&quot;year&quot;) console.log(descriptor) 创建对象最合适的方法–构造函数模式和原型模式function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var john = new Person(&quot;john&quot;) john.sayName() //john 此类方法属性不共享，方法共享其他要点1.可将构造函数当普通函数用,原型中不行，只能在构造函数模式中function Person(name , age){ this.name = name this.age = age sayName = function(){ console.log(this.name) } } Person(&quot;john&quot;) window.sayName() //john 2.内存区问题 sayName()在同一内存区function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) 另一种情况 sayName在不同内存区(没有this是true)function Person(name , age){ this.name = name this.age = age this.sayName = function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) //false 原型–&gt;我的理解是一个实例，所有其他实例的父类isPrototypeOf()验证是否为某原型的实例Person.prototype.isPrototypeOf(person1) //true hasOwnProperty()检测属性是否存在于实例中person1.hasOwnProperty(“name”) function Person(){} Person.prototype = { name : &quot;name&quot;, age : &quot;age&quot;, sayName: function(){ console.log(this.name) } } var person1 = new Person() console.log(person1.hasOwnProperty(&quot;name&quot;)) //false person1.name = &quot;123&quot; console.log(person1.hasOwnProperty(&quot;name&quot;)) //true 原型与继承每个构造函数都有原型，每个原型都有指针指向构造函数，每个实例都有指向原型的指针function Animal(){} Animal.prototype = { constructor: Animal //__proto__ } function Dog(){} Dog.prototype ={ constructor: Dog //__proto__ } Dog.prototype = new Animal() //继承 let dog1 = new Dog() console.log(dog1) //Dog.__proto__ = Animal //Animal.__proto__ = Object 每个实例中都有proto指向new的类，若没有则指向本身原型与实例的关系instance intanceof Object Object.prototype.isPrototypeOf(intance) 最常用的继承模式–组合继承function Super(){ this.property = true } Super.prototype.getSuperProperty = function(){ return this.property } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = new Super() Sub.prototype.getSubProperty = function(){ return this.subProperty } let inte = new Sub() console.log(inte.getSuperProperty()) console.log(inte.getSubProperty()) 注意子类不能使用字面量的方法如下所示，它会重写了原型链，父类可以用字面量写法Sub.prototype = {} 我最常用的方法–野路子function Super(){ this.property = true } Super.prototype = { constructor: Super, getSuperProperty: function(){ return this.property } } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = { constructor: Sub, getSubProperty: function(){ return this.subProperty }, __proto__: Super.prototype } let inte = new Sub() console.log(inte.getSuperProperty()) /true console.log(inte.getSubProperty()) /false]]></content>
       <categories>
-        <category>生活</category>
+        <category>javascript</category>
       </categories>
       <tags>
-        <tag>生活</tag>
+        <tag>javascript</tag>
       </tags>
   </entry>
   <entry>
@@ -470,17 +489,6 @@
       </categories>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[面向对象的程序设计]]></title>
-    <url>%2F2017%2F09%2F25%2F%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%2F</url>
-    <content type="text"><![CDATA[属性类型数据属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Writable]]:能否修改属性的值，默认为true [[Value]]:数据 改变上述属性Object.defineProperty() var person = {} Object.defineProperty(person,&quot;name&quot;,{ writable: false, //不能重写 value: &quot;123&quot;, configurable: false, //以后再也不可配置 enumerable: true }) console.log(person.name) //123 person.name = &quot;456&quot; console.log(person.name) //123 访问属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Get]]:读取属性的时候调用的函数 [[Set]]:写入属性的时候调用的函数 var book = { year: 2017, edition: 1 } Object.defineProperty(book,&quot;month&quot;,{ //对month进行访问 get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } }) book.month = 2018 //调用set console.log(book.year) console.log(book.month) //get方法返回123 访问多个属性var book = { year: 2017, edition: 1 } Object.defineProperties(book,{ edition:{ writeable:true, value: 2015 }, month:{ get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } } }) book.month = 2018 console.log(book.year) //2018 console.log(book.month) // 123 console.log(book.edition) //2015 获得属性 Object.getOwnPropertyDescriptor()var descriptor = Object.getOwnPropertyDescriptor(book,&quot;year&quot;) console.log(descriptor) 创建对象最合适的方法–构造函数模式和原型模式function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var john = new Person(&quot;john&quot;) john.sayName() //john 此类方法属性不共享，方法共享其他要点1.可将构造函数当普通函数用,原型中不行，只能在构造函数模式中function Person(name , age){ this.name = name this.age = age sayName = function(){ console.log(this.name) } } Person(&quot;john&quot;) window.sayName() //john 2.内存区问题 sayName()在同一内存区function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) 另一种情况 sayName在不同内存区(没有this是true)function Person(name , age){ this.name = name this.age = age this.sayName = function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) //false 原型–&gt;我的理解是一个实例，所有其他实例的父类isPrototypeOf()验证是否为某原型的实例Person.prototype.isPrototypeOf(person1) //true hasOwnProperty()检测属性是否存在于实例中person1.hasOwnProperty(“name”) function Person(){} Person.prototype = { name : &quot;name&quot;, age : &quot;age&quot;, sayName: function(){ console.log(this.name) } } var person1 = new Person() console.log(person1.hasOwnProperty(&quot;name&quot;)) //false person1.name = &quot;123&quot; console.log(person1.hasOwnProperty(&quot;name&quot;)) //true 原型与继承每个构造函数都有原型，每个原型都有指针指向构造函数，每个实例都有指向原型的指针function Animal(){} Animal.prototype = { constructor: Animal //__proto__ } function Dog(){} Dog.prototype ={ constructor: Dog //__proto__ } Dog.prototype = new Animal() //继承 let dog1 = new Dog() console.log(dog1) //Dog.__proto__ = Animal //Animal.__proto__ = Object 每个实例中都有proto指向new的类，若没有则指向本身原型与实例的关系instance intanceof Object Object.prototype.isPrototypeOf(intance) 最常用的继承模式–组合继承function Super(){ this.property = true } Super.prototype.getSuperProperty = function(){ return this.property } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = new Super() Sub.prototype.getSubProperty = function(){ return this.subProperty } let inte = new Sub() console.log(inte.getSuperProperty()) console.log(inte.getSubProperty()) 注意子类不能使用字面量的方法如下所示，它会重写了原型链，父类可以用字面量写法Sub.prototype = {} 我最常用的方法–野路子function Super(){ this.property = true } Super.prototype = { constructor: Super, getSuperProperty: function(){ return this.property } } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = { constructor: Sub, getSubProperty: function(){ return this.subProperty }, __proto__: Super.prototype } let inte = new Sub() console.log(inte.getSuperProperty()) /true console.log(inte.getSubProperty()) /false]]></content>
-      <categories>
-        <category>javascript</category>
-      </categories>
-      <tags>
-        <tag>javascript</tag>
       </tags>
   </entry>
   <entry>
@@ -550,9 +558,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[2017小学期--6.30]]></title>
-    <url>%2F2017%2F06%2F30%2F2017%E5%B0%8F%E5%AD%A6%E6%9C%9F-6-30%2F</url>
-    <content type="text"><![CDATA[反射机制Java的反射机制是在编译时并不确定是哪个类被加载了，而是在程序运行的时候才加载、探知、自审。使用的是在编译期并不知道的类。这样的编译特点就是java反射。要正确使用Java反射机制就得使用java.lang.Class这个类。它是Java反射机制的起源。当一个类被加载以后，Java虚拟机就会自动产生一个Class对象。通过这个Class对象我们就能获得加载到虚拟机当中这个Class对象对应的方法、成员以及构造方法的声明和定义等信息。javadocservlet *public class ClassClass Dog类的类对象永不回收——模板Dog类很多实例对象，很多方法。只需将方法实例化为类对象，属性各自存传来http请求–&gt;封装成servlet对象–&gt;找method方法–&gt;对应的doGet(doPost…)http协议请求响应模型: request response######轮巡，长链接(Netty)]]></content>
+    <title><![CDATA[2017小学期--7.2]]></title>
+    <url>%2F2017%2F06%2F30%2F2017%E5%B0%8F%E5%AD%A6%E6%9C%9F-7-2%2F</url>
+    <content type="text"><![CDATA[JSP = html + servletjsp生命周期jsp–&gt;转译(jsp语法错误)–&gt;Servlet–&gt;编译(java编译失败)–&gt;字节码文件–&gt;加载–&gt;实例化–&gt;初始化–&gt;服务–&gt;destroy服务器根据后缀名分静态跟动态网站控制器：接受请求对象和响应对象提取表单数据pojo中处理对话、调用模型根据第5步的结果调用jsp模型层：数据检查处理sql执行业务处理数据业务返回执行结果jsp：处理数据线程作用域requestScopesessionScope–同一个会话的多个servletURL:统一资源定位器一个页面的名字协议://IP:port//filename.xxx[?queryString]/对于IE代表的是—&gt;http://ip:port/对于web容器而言—&gt;本应用程序的根servlet页面跳转的方法:站内转发： req.getRequestDispatcher(“url”).forward(req,resp)重定向: resp.sendRedirect()AOP(面向切面编程)切面：通知：web部署描述符根据filter-mapping决定执行顺序struts2 按需导包加载jar包拦截请求定义xml文件编写action做页面跳转action是MVC的model]]></content>
       <categories>
         <category>生活</category>
       </categories>
@@ -561,9 +569,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[2017小学期--7.2]]></title>
-    <url>%2F2017%2F06%2F30%2F2017%E5%B0%8F%E5%AD%A6%E6%9C%9F-7-2%2F</url>
-    <content type="text"><![CDATA[JSP = html + servletjsp生命周期jsp–&gt;转译(jsp语法错误)–&gt;Servlet–&gt;编译(java编译失败)–&gt;字节码文件–&gt;加载–&gt;实例化–&gt;初始化–&gt;服务–&gt;destroy服务器根据后缀名分静态跟动态网站控制器：接受请求对象和响应对象提取表单数据pojo中处理对话、调用模型根据第5步的结果调用jsp模型层：数据检查处理sql执行业务处理数据业务返回执行结果jsp：处理数据线程作用域requestScopesessionScope–同一个会话的多个servletURL:统一资源定位器一个页面的名字协议://IP:port//filename.xxx[?queryString]/对于IE代表的是—&gt;http://ip:port/对于web容器而言—&gt;本应用程序的根servlet页面跳转的方法:站内转发： req.getRequestDispatcher(“url”).forward(req,resp)重定向: resp.sendRedirect()AOP(面向切面编程)切面：通知：web部署描述符根据filter-mapping决定执行顺序struts2 按需导包加载jar包拦截请求定义xml文件编写action做页面跳转action是MVC的model]]></content>
+    <title><![CDATA[2017小学期--6.30]]></title>
+    <url>%2F2017%2F06%2F30%2F2017%E5%B0%8F%E5%AD%A6%E6%9C%9F-6-30%2F</url>
+    <content type="text"><![CDATA[反射机制Java的反射机制是在编译时并不确定是哪个类被加载了，而是在程序运行的时候才加载、探知、自审。使用的是在编译期并不知道的类。这样的编译特点就是java反射。要正确使用Java反射机制就得使用java.lang.Class这个类。它是Java反射机制的起源。当一个类被加载以后，Java虚拟机就会自动产生一个Class对象。通过这个Class对象我们就能获得加载到虚拟机当中这个Class对象对应的方法、成员以及构造方法的声明和定义等信息。javadocservlet *public class ClassClass Dog类的类对象永不回收——模板Dog类很多实例对象，很多方法。只需将方法实例化为类对象，属性各自存传来http请求–&gt;封装成servlet对象–&gt;找method方法–&gt;对应的doGet(doPost…)http协议请求响应模型: request response######轮巡，长链接(Netty)]]></content>
       <categories>
         <category>生活</category>
       </categories>
