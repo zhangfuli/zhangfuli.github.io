@@ -98,7 +98,7 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/17808702/75088753-88600d00-558c-11ea-8178-1fce7ed76a06.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/17808702/75088675-a6793d80-558b-11ea-92e4-e70a9c323351.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/17808702/75094386-7b134480-55c5-11ea-8f02-22c3491f3836.png">
-<meta property="og:updated_time" content="2020-02-22T15:00:18.202Z">
+<meta property="og:updated_time" content="2020-02-23T09:24:47.397Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="以太坊基本知识">
 <meta name="twitter:description" content="以太坊1、改进：  ETH  以太坊出块时间：十几秒；比特币：10分钟  mining puzzle: 对内存要求高，限制ASIC芯片的使用  proof of work(工作量证明)—&amp;gt; proof of state(股份投票)  Smart contract(智能合约): 去中心化的合约  2、去中心化的货币好处：跨国转账 3、智能合约：跨国合约，用技术手段保证合同不违约 4、创始人：V">
@@ -404,6 +404,9 @@
 <p>5、比特币中Merkle tree不能证明某个交易不存在，sorted 之后才可以</p>
 <p>6、没有规定定期减半</p>
 <p>7、区块奖励 + gas fee + uncle reward</p>
+<p>8、发布一个交易所有全节点都要执行这个交易</p>
+<p>9、挖矿是<strong>无记忆</strong>的</p>
+<p>10、区块链的安全性是每个全节点验证区块链上的准确性</p>
 <h2 id="以太坊：账户"><a href="#以太坊：账户" class="headerlink" title="以太坊：账户"></a>以太坊：账户</h2><p>1、转账区别：</p>
 <ul>
 <li>比特币：比特币花钱的时候要说明币的来源, 而且得将剩余的钱转给自己，A-&gt;B(10 BTC); B-&gt;C(3 BTC), B-&gt;B’(7 BTC)，否则7个就成了交易费了</li>
@@ -578,7 +581,151 @@
 </li>
 </ul>
 <p><img src="https://user-images.githubusercontent.com/17808702/75094386-7b134480-55c5-11ea-8f02-22c3491f3836.png" alt="image"></p>
-<h2 id="以太坊：智能合约"><a href="#以太坊：智能合约" class="headerlink" title="以太坊：智能合约"></a>以太坊：智能合约</h2>
+<h2 id="以太坊：智能合约"><a href="#以太坊：智能合约" class="headerlink" title="以太坊：智能合约"></a>以太坊：智能合约</h2><p>1、什么是智能合约？</p>
+<ul>
+<li>智能合约时运行在区块链上的一段代码，代码逻辑定义了合约的内容</li>
+<li>智能合约的账户保存了合约的当前运行状态<ul>
+<li>balance</li>
+<li>nonce</li>
+<li>code</li>
+<li>storage：是一个MPT树</li>
+</ul>
+</li>
+<li>Solidity是智能合约常用的语言</li>
+</ul>
+<p>2、如何调用智能合约？</p>
+<ul>
+<li>外部账户创建一个交易，接收地址为要调用的那个智能合约的地址</li>
+<li>合约调用另一个合约</li>
+<li>凡是要接收外部转账的智能合约要定义为payable</li>
+<li>合约A调用合约B，要在转账交易的data域表明合约B的哪个函数</li>
+<li>合约账户，A—&gt;B缺省函数, 默认调用B的fallback()函数</li>
+</ul>
+<p>3、gas fee:</p>
+<ul>
+<li>执行合约中的指令要收取gas fee, 发起交易的人支付</li>
+</ul>
+<p>4、交易有原子性：要么执行完，要么不执行</p>
+<ul>
+<li>执行到一半，gas fee不退回</li>
+<li>A–&gt;B, B失败，根据调用方式决定A是否会滚</li>
+</ul>
+<p>5、block header 中的 gas limit: 可以通过上一个的基础上进行上调或下调     1/1024</p>
+<p>6、汽油费如何扣除？</p>
+<ul>
+<li>全节点维护3棵树，收取汽油费的时候只是在本地状态树中的账户余额扣除</li>
+<li>只有在本地修改完了，发布到区块链上才能变成共识</li>
+<li>先执行完区块中的全部交易更新三棵树，更新blocke header，再发布，获得汽油费</li>
+<li>执行交易，智能合约的全节点但是没有发布的，没有补偿，还要根据链上新区块更新自己的三棵树</li>
+<li>执行智能合约出错的也要发布，扣汽油费</li>
+</ul>
+<p>7、Solidity不支持多线程原因：</p>
+<p>多核对内存调用顺序不同结果使不同的，但是区块链是一个交易驱动的状态机，同样的输入必须同样的输出</p>
+<p>8、转账：</p>
+<ul>
+<li>tranfer() 会导致连锁回滚</li>
+<li>send() 不会连锁回滚</li>
+<li>call().value() 不建议</li>
+</ul>
+<p>9、简单例子：拍卖</p>
+<ul>
+<li>拍卖出价向智能合约中存以太币，且不允许取出</li>
+</ul>
+<p>10、code is law—-代码发布上去就不可更改，发布之前要测试测试测试</p>
+<h2 id="以太坊：The-DAO"><a href="#以太坊：The-DAO" class="headerlink" title="以太坊：The DAO"></a>以太坊：The DAO</h2><blockquote>
+<p>Decentralized Autonom Organization 去中心化的自治组织</p>
+</blockquote>
+<p>1、什么是The Dao？</p>
+<p>是Dao的一个组织：众筹投资组织，使用以太币换取投资权</p>
+<p>2、split DAO：</p>
+<ul>
+<li>成立子基金，使得投资者取回投资的唯一途径(自己投资自己)</li>
+<li>先把账户清零再转账</li>
+<li>被黑了1/3以太币，但是有28天的锁定期</li>
+</ul>
+<p>3、普通回滚，即分叉攻击没有用</p>
+<p>4、措施</p>
+<ul>
+<li>升级，凡是跟the DAO相关账号的相关的交易等于非法<ul>
+<li>软分叉</li>
+<li>升级之后，要判断是不是跟the DAO相关，要不要收gas fee？<ul>
+<li>没有收gas fee</li>
+<li>结果升级之后不停的收到这个gas fee的攻击</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>升级，the Dao账户的资金强行到新的智能合约<ul>
+<li>硬分叉</li>
+<li>投票，升级之后<ul>
+<li>新链 ETH(被强制执行了)</li>
+<li>旧链 ETC</li>
+</ul>
+</li>
+<li>增加chainID分开</li>
+</ul>
+</li>
+</ul>
+<h2 id="以太坊：反思"><a href="#以太坊：反思" class="headerlink" title="以太坊：反思"></a>以太坊：反思</h2><p>1、智能合约真的智能吗？</p>
+<p>Smart contract is anything but smart</p>
+<p>2、不可篡改性是个双刃剑</p>
+<ul>
+<li>账户私钥公开之后怎么办？<ul>
+<li>将钱转走</li>
+</ul>
+</li>
+</ul>
+<p>3、没有什么是不可篡改的</p>
+<ul>
+<li>美国宪法修正案<ul>
+<li>不能喝酒</li>
+</ul>
+</li>
+</ul>
+<p>4、Solidity 是正确的编程语言吗？</p>
+<ul>
+<li>从语言设计的角度，Solidity够呛</li>
+<li>Solidity是图灵完备的语言</li>
+<li>使用模板写合同</li>
+</ul>
+<p>5、Many eyeball fallacy(misbelief)</p>
+<ul>
+<li>虽然开源，但是不一定安全，有多少人看，又有多少人懂</li>
+</ul>
+<p>6、去中心化意味着什么？</p>
+<ul>
+<li>去中心化对规则的修改也要用去中心化的手段去解决</li>
+<li>分叉恰恰是去中心化的体现</li>
+</ul>
+<p>7、去中心化系统不等于分布式</p>
+<ul>
+<li>去中心化系统是分布式的</li>
+<li>分布式的系统不一定是去中心化的</li>
+<li>在互不信任的网络中建立共识</li>
+</ul>
+<h2 id="以太坊：美链"><a href="#以太坊：美链" class="headerlink" title="以太坊：美链"></a>以太坊：美链</h2><blockquote>
+<p>Beauty Chain</p>
+</blockquote>
+<p>1、ICO：Initial Coin Offering</p>
+<ul>
+<li>以太坊的代币，通过智能合约函数完成</li>
+<li>ERC 20(Ethereum Request fot comments)是以太坊发行代币的一个标准</li>
+</ul>
+<p>2、bug：从总账户中扣代币，给其他每个账户分发</p>
+<ul>
+<li>amount = receivers.length * value</li>
+<li>扣钱(amount)，循环发钱（value）<ul>
+<li>amount 可能溢出，成为一个很小的数值</li>
+</ul>
+</li>
+</ul>
+<p>3、被回滚了</p>
+<p>4、判断合法运算：</p>
+<ul>
+<li>c = a*b(a,b 为256位的整数)</li>
+<li>assert(c / a, b)</li>
+</ul>
+
       
     </div>
     
@@ -813,7 +960,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊"><span class="nav-number">1.</span> <span class="nav-text">以太坊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：账户"><span class="nav-number">2.</span> <span class="nav-text">以太坊：账户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：状态树"><span class="nav-number">3.</span> <span class="nav-text">以太坊：状态树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：交易树与收据树"><span class="nav-number">4.</span> <span class="nav-text">以太坊：交易树与收据树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：GHOST协议"><span class="nav-number">5.</span> <span class="nav-text">以太坊：GHOST协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：挖矿算法"><span class="nav-number">6.</span> <span class="nav-text">以太坊：挖矿算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：PoS"><span class="nav-number">7.</span> <span class="nav-text">以太坊：PoS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：智能合约"><span class="nav-number">8.</span> <span class="nav-text">以太坊：智能合约</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊"><span class="nav-number">1.</span> <span class="nav-text">以太坊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：账户"><span class="nav-number">2.</span> <span class="nav-text">以太坊：账户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：状态树"><span class="nav-number">3.</span> <span class="nav-text">以太坊：状态树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：交易树与收据树"><span class="nav-number">4.</span> <span class="nav-text">以太坊：交易树与收据树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：GHOST协议"><span class="nav-number">5.</span> <span class="nav-text">以太坊：GHOST协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：挖矿算法"><span class="nav-number">6.</span> <span class="nav-text">以太坊：挖矿算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：PoS"><span class="nav-number">7.</span> <span class="nav-text">以太坊：PoS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：智能合约"><span class="nav-number">8.</span> <span class="nav-text">以太坊：智能合约</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：The-DAO"><span class="nav-number">9.</span> <span class="nav-text">以太坊：The DAO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：反思"><span class="nav-number">10.</span> <span class="nav-text">以太坊：反思</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊：美链"><span class="nav-number">11.</span> <span class="nav-text">以太坊：美链</span></a></li></ol></div>
             
 
           </div>
