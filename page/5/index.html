@@ -308,7 +308,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2018/02/22/卡死电脑代码/">
+    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2018/02/27/promise实现原理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhangfuli">
@@ -327,7 +327,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/02/22/卡死电脑代码/" itemprop="url">卡死电脑代码</a></h1>
+                <a class="post-title-link" href="/2018/02/27/promise实现原理/" itemprop="url">promise实现原理</a></h1>
         
 
         <div class="post-meta">
@@ -339,8 +339,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-22T10:42:30+08:00">
-                2018-02-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-27T10:42:30+08:00">
+                2018-02-27
               </time>
             
 
@@ -362,8 +362,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/探究/" itemprop="url" rel="index">
-                    <span itemprop="name">探究</span>
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
                   </a>
                 </span>
 
@@ -401,16 +401,14 @@
       
         
           
-          前言下面两段代码吃内存，造成浏览器卡死代码1var total=&quot;&quot;;
-for (var i=0;i&lt;1000000;i++){
-    total= total+i.toString ();
-    history.pushState (0,0,total);
-}
-代码2
+          若没有链式then,then函数就不用return new Promise递归function Promise(fn) {
+    var state = &quot;pending&quot;
+    var value = null,
+        callbacks = [];  //cal
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/02/22/卡死电脑代码/#more" rel="contents">
+            <a class="btn" href="/2018/02/27/promise实现原理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -559,6 +557,159 @@ for (var i=0;i&lt;1000000;i++){
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/02/22/图片懒加载/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2018/02/22/卡死电脑代码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhangfuli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://p4j7qpj9e.bkt.clouddn.com/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hello, ZhangFuli">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/22/卡死电脑代码/" itemprop="url">卡死电脑代码</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-22T10:42:30+08:00">
+                2018-02-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/探究/" itemprop="url" rel="index">
+                    <span itemprop="name">探究</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          前言下面两段代码吃内存，造成浏览器卡死代码1var total=&quot;&quot;;
+for (var i=0;i&lt;1000000;i++){
+    total= total+i.toString ();
+    history.pushState (0,0,total);
+}
+代码2
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/02/22/卡死电脑代码/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1627,132 +1778,6 @@ let canvas = document.querySelector(&quot;#
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2017/11/16/网络安全-石乐义/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhangfuli">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://p4j7qpj9e.bkt.clouddn.com/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hello, ZhangFuli">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/16/网络安全-石乐义/" itemprop="url">网络安全-石乐义</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-16T16:18:05+08:00">
-                2017-11-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          L-Dos：拥塞控制人为造成拥塞假象botnet：僵尸网络sniffer.c以太网广播的方式混杂模式–&gt;收到所有信息分析包 n&lt;=42 14(帧)+20(ip报头)+2+2(udp)+8nslookup + 域名，查询域名的ipARP攻击：冒充网关(网关ip+自己的mac)ping所有主
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/11/16/网络安全-石乐义/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1807,7 +1832,7 @@ let canvas = document.querySelector(&quot;#
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">114</span>
+                  <span class="site-state-item-count">115</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
