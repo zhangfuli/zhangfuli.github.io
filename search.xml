@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[基于Hyperledger Fabric的智能合约微服务化团队架构]]></title>
+    <url>%2F2020%2F06%2F05%2F%E5%9F%BA%E4%BA%8EHyperledger-Fabric%E7%9A%84%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%8C%96%E5%9B%A2%E9%98%9F%E6%9E%B6%E6%9E%84%2F</url>
+    <content type="text"><![CDATA[智能合约微服务化团队组织架构 康威定律指出系统的架构往往受制于产生这些设计的组织的沟通结构,高效的智能合约微服务化团队往往会促进智能合约微服务化开发效率,如图3所示给出了智能合约微服务化团队的范例,对于智能合约微服务化团队有如下建议: 两个披萨原则,如果两个披萨不足以喂饱整个项目团队,那么项目团队就太大了,即采用小而精的团队.根据沟通渠道公式n(n-1)/2(n代表组织中的人数),有效的沟通和反馈是团队高效运作的核心,小而精的团队能有效的降低沟通成本.目前大多数开发团队依赖敏捷实践采取小而精的团队促进规划和软件发布,这促进了普通团队向智能合约微服务化团队的转型; 在确立了新的团队之后,选取适合团队成员的熟悉的自动化工具.智能合约微服务化的开发借鉴微服务的思想,将新型智能合约应用采用传统微服务的工具联系起来.选取适合熟悉的开发工具能够使团队成员能降低团队成员的开发、运维智能合约应用的门槛.在团队稳定成熟之后,可以开发适合自己团队组织结构的智能合约微服务化工具及工具链,满足本团队对自动化工具的需求; 针对业务与团队需求,灵活搭配流水线各开发流程以及团队敏捷协作工具.智能合约微服务化开发流程以及敏捷协作工具都是固定的,要想清楚这些流程及工具背后的意义,针对于自己的团队的沟通模式以及业务需求,一步步选取搭配适合自己团队的开发流水线及协作模式; 形成自己团队文化及价值观,消除需求、开发、测试、运维之间隔阂,使其通力合作,团队成员完全对自己开发的智能合约微服务全部生命周期负责,建立完善的制度激发团队成员的热情.]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[华为云 HE2E研发全流程管理]]></title>
     <url>%2F2020%2F05%2F09%2F%E5%8D%8E%E4%B8%BA%E4%BA%91-HE2E%E7%A0%94%E5%8F%91%E5%85%A8%E6%B5%81%E7%A8%8B%E7%AE%A1%E7%90%86%2F</url>
     <content type="text"><![CDATA[介绍 姚冬 Devops精要业务视角 背景 亨利福特： 泰勒科学管理方法：将生产制造的阶段拆散 规模化降低成本 输入什么，输出确定。最终环节保证质量 需求固定 大野耐一： 丰田精益生产TPS 按需生产，按照需要随时改造 小批量生产控制成本 bug为浪费，客户不需要功能的为浪费 Just in time 质量检查环节内建 员工可以随时停止流水线 teamwork一起检查问题 埃隆马斯克 联网思维，第一性原理 IOT服务 业界软件阶段 瀑布 敏捷 DevOps: 反脆弱 华为DevOps之路 瀑布 IPD CMMI 持续集成 单元测试 构建 开发测试 测试用例自动生成 持续交付 服务化-容器化开发 云原生 眼界打开，为什么有这些步骤？ Devops思路 研发交付的核心目的 可持续、可交付、高质量、快速、可工作 业务能力、研发能力、技术能力、工程能力 价值过程中的混乱之墙 客户：希望产生价值 业务部门：客户至上，所有需求都承诺 开发：交付快 运维：稳定 Devops实践总结-全景 1铁三角 团队 迭代开发 最小可工作产品 2端到端交付环 17个实践 需求：漏斗 全需求 产品backlog 迭代backlog 微服务团队：自己养活自己]]></content>
@@ -313,17 +318,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[卡死电脑代码]]></title>
-    <url>%2F2018%2F02%2F22%2F%E5%8D%A1%E6%AD%BB%E7%94%B5%E8%84%91%E4%BB%A3%E7%A0%81%2F</url>
-    <content type="text"><![CDATA[前言下面两段代码吃内存，造成浏览器卡死代码1var total=&quot;&quot;; for (var i=0;i&lt;1000000;i++){ total= total+i.toString (); history.pushState (0,0,total); } 代码2while(true) { document.body.appendChild(document.createElement(&quot;div&quot;)); }]]></content>
-      <categories>
-        <category>探究</category>
-      </categories>
-      <tags>
-        <tag>探究</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[图片懒加载]]></title>
     <url>%2F2018%2F02%2F22%2F%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BD%2F</url>
     <content type="text"><![CDATA[前言实现图片懒加载的代码思路：每一个image都有一个data-src用于存放将要加载的图片的地址，当这个图片的区域显示到屏幕上时，再将src = data-src图片的offsetTop &lt; 可见高度 + scrollTop]]></content>
@@ -332,6 +326,17 @@
       </categories>
       <tags>
         <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[卡死电脑代码]]></title>
+    <url>%2F2018%2F02%2F22%2F%E5%8D%A1%E6%AD%BB%E7%94%B5%E8%84%91%E4%BB%A3%E7%A0%81%2F</url>
+    <content type="text"><![CDATA[前言下面两段代码吃内存，造成浏览器卡死代码1var total=&quot;&quot;; for (var i=0;i&lt;1000000;i++){ total= total+i.toString (); history.pushState (0,0,total); } 代码2while(true) { document.body.appendChild(document.createElement(&quot;div&quot;)); }]]></content>
+      <categories>
+        <category>探究</category>
+      </categories>
+      <tags>
+        <tag>探究</tag>
       </tags>
   </entry>
   <entry>
@@ -450,17 +455,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[jsfiddle使用]]></title>
-    <url>%2F2017%2F10%2F18%2Fjsfiddle%E4%BD%BF%E7%94%A8%2F</url>
-    <content type="text"><![CDATA[背景这个也是在查找js闭包的时候，无意中发现别人的博客为什么可以嵌入js在线编辑比如想下边的链接MDN Web Docs–闭包 干货查找的都是只是给了干巴巴的语法，这令我这个小白很苦恼{% jsfiddle shorttag [tabs] [skin] [width] [height] %} 这边看了下源码，是用iframe引用了jsfiddle,也就是上面的代码的作用首先,你要先把你的代码在jsfiddle的网站中里写一下,然后点击Embed,它就会把你的代码生成script标签&lt;script async src=&quot;//jsfiddle.net/xAFs9/3/embed/js,html,css,result/dark/&quot;&gt;&lt;/script&gt; 你可以直接CV这个script标签进你的markdown,你也可以按照语法,替换结果如下,当然长度和宽度自选,不填的话是自适应{% jsfiddle xAFs9/3 js,html,css,result dark %} 结果]]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[javascript高级程序设计7-8]]></title>
     <url>%2F2017%2F10%2F18%2Fjavascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A17-8%2F</url>
     <content type="text"><![CDATA[函数声明函数function name(){},这个存在变量提升,而var name = function(){}不存在变量提升递归function factorial(num){ if(num&lt;=1){ return 1 }else{ return num*arguments.callee(num-1) //arguments.callee === factorical } } 闭包闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见的方式就是在函数内部创建另一个函数######当函数返回了一个闭包时。这个函数的作用域将会一直在内存中保存到闭包不存在为止 推荐例一var name = &quot;The Window&quot;; var object = { name : “My Object”, getNameFunc : function(){ return function(){ return this.name; }; } }; alert(object.getNameFunc()()); //The Window 例二 例三下面的例子中result[i] = function(){ return i } 每一个都是返回i,这个i的作用域在f()内,而自此时f()中的i=3,所以每个都返回3而当用for–in时返回的是0,1,2,这是为什么呢？继续探究修改代码如下function f(){ var result = new Array() for(var i = 0;i&lt;3;i++){ result[i] = function(){ console.log(&quot;内:&quot;+this) return i; } } return result } var result = f() console.log(result) //Array(3) 3个f(),这里的f()不是上面的f函数console.log(result[0]()) /* * 内:function (){ * console.log(&quot;内:&quot;+this) * return i; * },function (){ * console.log(&quot;内:&quot;+this) * return i; * },function (){ * console.log(&quot;内:&quot;+this) * return i; * } * */ console.log(result[0]) /*ƒ (){ * console.log(&quot;内:&quot;+this) * return i; * } */ 结果如上,console.log(result0)与console.log(result[0])可以合理的解释为什么全是3而且内this指向的是result数组所以会有三个function(){}疑问：为什么console.log(“内：”+this)会出来3个function(){}ES6function f(){ let result = new Array() for(let i = 0;i&lt;3;i++){ result[i] = function(){ return i; } } return result } let result = f() for(let i=0;i&lt;3;i++){ console.log(result[i]()) } 结果是0,1,2块级作用域(function(){ //这里是块级作用域 })() 作用:块级作用域是一个独立的作用域，多人协作时每个人有每个人的块级作用域可以互不影响,防止命名冲突 BOMwindow对象window对象是指浏览器打开的窗口window.名称 //全局对象window.frame[‘name’]窗口位置chrome\opera\safari—-screenTop|screenLeftfirefox—-screenX|screenYvar leftPos = (typeof window.screenLeft == &apos;number&apos;)?window.screenLeft:window.screenX; var rightPos = (typeof window.screenTop == &apos;number&apos;)?window.screenRight:window.screenY; window.moveTo(0,0); //移动到0，0 window.moveBy(0,100); //向下移动100像素 窗口大小outerWidth、outerHeight----返回浏览器窗口本身的大小 innerWidth、innerHeight----返回容器中试图区的大小 resizeTo()、resizeBy()----可以调整浏览器窗口的大小 导航和打开窗口window.open()----打开新的浏览器窗口 参数:URL、窗口目标、特性字符串、boolean(新页面是否取代浏览器历史纪录中当前加载页面) 第二参数可以是:_self、_parent、_top、_blankopener属性:保存着打开他的原始窗口对象 延时间歇延时setTimeout()、setTnterval()、clearTimeout() 系统对话框alert()、confirm()、prompt() location对象即是window的对象属性，也是document的对象属性console.log(window.location) //查看属性查询字符串参数/* 解析查询字符串 返回包含所有参数的一个对象 */ function getQueryStringArgs(){ //取得查询字符串并去掉开头的问号 var qs = (location.search.length &gt; 0 ? location.search.substring(1) : &apos;&apos;); //保存数据的对象 args = {}; //取得每一项 var items = qs.length ? qs.split(&apos;&amp;&apos;) : [], item = null, name = null, //在for循环中使用 i = 0, len = items.length; //逐个将每一项添加到args对象中 for(i = 0 ; i &lt; len; i++){ item = items[i].split(&apos;=&apos;); name = decodeURIComponent(item[0]); value = decodeURIComponent(item[1]); if(name.length){ args[name] = value; } } return args; }]]></content>
@@ -469,6 +463,17 @@
       </categories>
       <tags>
         <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[jsfiddle使用]]></title>
+    <url>%2F2017%2F10%2F18%2Fjsfiddle%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[背景这个也是在查找js闭包的时候，无意中发现别人的博客为什么可以嵌入js在线编辑比如想下边的链接MDN Web Docs–闭包 干货查找的都是只是给了干巴巴的语法，这令我这个小白很苦恼{% jsfiddle shorttag [tabs] [skin] [width] [height] %} 这边看了下源码，是用iframe引用了jsfiddle,也就是上面的代码的作用首先,你要先把你的代码在jsfiddle的网站中里写一下,然后点击Embed,它就会把你的代码生成script标签&lt;script async src=&quot;//jsfiddle.net/xAFs9/3/embed/js,html,css,result/dark/&quot;&gt;&lt;/script&gt; 你可以直接CV这个script标签进你的markdown,你也可以按照语法,替换结果如下,当然长度和宽度自选,不填的话是自适应{% jsfiddle xAFs9/3 js,html,css,result dark %} 结果]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -494,6 +499,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Linux常用命令]]></title>
+    <url>%2F2017%2F09%2F25%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[Everything is a file (inode 除外)whoami –我是谁 pwd –我在哪 ls –我能干什么 ls -l 显示详细信息 -a 显示全部文件 蓝色 –文件夹 –d 黑色 –文件 b c –驱动 /dev 设备文件夹 l –软链接 whereis +命令(ls) /bin /sbin–外部应用 shell自带的命令 man +命令 –查手册 mkdir +名字 –新建文件夹 vi +名字 –新建vi文件 命令属性:w –保存–:w! 强制保存 :q –退出–:q! 强制退出 :wq 编辑属性gcc hello.c -o hello 执行时 ./hello若直接为hello系统视为是一个命令 gcc -c hello.c -o hello.o gcc hello. -o hello linux文件夹bin--普通命令 sbin--系统命令 root--超级用户 home--普通用户 proc--进程 dev--设备 usr--内部程序 opt--外部程序 boot--内核文件 mnt--挂载 etc--配置文件 ————————————————–cat 显示 + 文本文件 type(dos) 尽可能不要打开非文本文件more/less 也是显示 + 文本是否分页显示 touch 修改创建时间 ln find 查找文件 grep 查找或不查找文本文件内容相关的信息 sda1 –sd 串口 a 第一个硬盘的第一个分区 fdisk -l 显示硬盘 挂载 mount /dev/sdb1 /mnt/usb rm 删除文件 rm + 文件名 -f rm + 删除文件夹 -r(递归) cp/mv a—-&gt;b 文件夹 -r 在同级文件夹下mv就是改名 ncurse—图形界面的引擎 gcc menu.c -o menu -lcurses //引入lib库文件 ————————————————find [path] [attr] [key] find /mnt -name usb /mnt/usb grep [key] [file] 查找文件内容 ln (-s) source des 硬链接增加节点索引号，不消耗资源修改权限chmod(修改权限) chown(修改属主) chgrp(修改属组) chmod +x ./jiaoben rwxrwxrwx read write execute-可执行 u–g–o user group(对用户所在的组的其他用户的权限) other(组外权限) chomd u+x ./jiaoben rwxr-xr-x 111101101 //755 特殊1、3不能出现 chomd 755 ./jiaoben 环境命令：env、echo、export1.env –输出环境变量 path –命令的链接路径 2.echo –输出环境变量 echo $PATH —查环境变量要给钱 3.更改PATH export PATH=路径:$PATH //放在前面优先级高 归档命令：tar -xjvf -xzvf whereis ls makefile make clean –只保留源代码 make –执行第一个 make clean make menuconfig make dep –建立依赖关系 make bzImage –编辑内核 Makefile结构 target:source (tab)commond 目标:源 命令 标号 make A –执行A之后B之前 A: B: sh脚本 –chmod +x addstu #!/bin/bash –用的什么shell&lt; -lt &lt;= -le &gt; -gt &gt;= -ge = -eq != -ne $变量 while [ condition ] do done if [ condition ] then else fi case esac i=$(($i+1)) i++ ——————————————————–/etc/shadow –密码 /etc/passwd –用户 /etc/group –分组 /etc/inittab init 0 关机 init 3 多用户有网络 startx init 6 重启 进入单用户模式 改密码grub e kernal e + 1–单用户模式 b –启动 os：bootloader 16位 作用：1.把16位的环境调成32位2.准备加载kernek内核kernel 32/64 rootfs 软盘1.44M service ssh start/status update-rc.d ssh enable 进程ps process status ps -aux 当前所有的进程 top 动态进程 jobs 后台执行的进程 ctrl + c 把当前进程中断 kill -9 + pid ctrl + z 把当前进程搬到后台暂停 fg 1 //1为序号 ps process status ps -aux 当前所有的进程 top 动态进程 jobs 后台执行的进程 ctrl + c 把当前进程中断 kill -9 + pid ctrl + z 把当前进程搬到后台暂停 fg 1 //1为序号 pthread.h gcc -lpthread 哲学家进餐：mutex lock wait left wait right eat signal left signal right unloack]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[面向对象的程序设计]]></title>
     <url>%2F2017%2F09%2F25%2F%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%2F</url>
     <content type="text"><![CDATA[属性类型数据属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Writable]]:能否修改属性的值，默认为true [[Value]]:数据 改变上述属性Object.defineProperty() var person = {} Object.defineProperty(person,&quot;name&quot;,{ writable: false, //不能重写 value: &quot;123&quot;, configurable: false, //以后再也不可配置 enumerable: true }) console.log(person.name) //123 person.name = &quot;456&quot; console.log(person.name) //123 访问属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Get]]:读取属性的时候调用的函数 [[Set]]:写入属性的时候调用的函数 var book = { year: 2017, edition: 1 } Object.defineProperty(book,&quot;month&quot;,{ //对month进行访问 get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } }) book.month = 2018 //调用set console.log(book.year) console.log(book.month) //get方法返回123 访问多个属性var book = { year: 2017, edition: 1 } Object.defineProperties(book,{ edition:{ writeable:true, value: 2015 }, month:{ get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } } }) book.month = 2018 console.log(book.year) //2018 console.log(book.month) // 123 console.log(book.edition) //2015 获得属性 Object.getOwnPropertyDescriptor()var descriptor = Object.getOwnPropertyDescriptor(book,&quot;year&quot;) console.log(descriptor) 创建对象最合适的方法–构造函数模式和原型模式function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var john = new Person(&quot;john&quot;) john.sayName() //john 此类方法属性不共享，方法共享其他要点1.可将构造函数当普通函数用,原型中不行，只能在构造函数模式中function Person(name , age){ this.name = name this.age = age sayName = function(){ console.log(this.name) } } Person(&quot;john&quot;) window.sayName() //john 2.内存区问题 sayName()在同一内存区function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) 另一种情况 sayName在不同内存区(没有this是true)function Person(name , age){ this.name = name this.age = age this.sayName = function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) //false 原型–&gt;我的理解是一个实例，所有其他实例的父类isPrototypeOf()验证是否为某原型的实例Person.prototype.isPrototypeOf(person1) //true hasOwnProperty()检测属性是否存在于实例中person1.hasOwnProperty(“name”) function Person(){} Person.prototype = { name : &quot;name&quot;, age : &quot;age&quot;, sayName: function(){ console.log(this.name) } } var person1 = new Person() console.log(person1.hasOwnProperty(&quot;name&quot;)) //false person1.name = &quot;123&quot; console.log(person1.hasOwnProperty(&quot;name&quot;)) //true 原型与继承每个构造函数都有原型，每个原型都有指针指向构造函数，每个实例都有指向原型的指针function Animal(){} Animal.prototype = { constructor: Animal //__proto__ } function Dog(){} Dog.prototype ={ constructor: Dog //__proto__ } Dog.prototype = new Animal() //继承 let dog1 = new Dog() console.log(dog1) //Dog.__proto__ = Animal //Animal.__proto__ = Object 每个实例中都有proto指向new的类，若没有则指向本身原型与实例的关系instance intanceof Object Object.prototype.isPrototypeOf(intance) 最常用的继承模式–组合继承function Super(){ this.property = true } Super.prototype.getSuperProperty = function(){ return this.property } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = new Super() Sub.prototype.getSubProperty = function(){ return this.subProperty } let inte = new Sub() console.log(inte.getSuperProperty()) console.log(inte.getSubProperty()) 注意子类不能使用字面量的方法如下所示，它会重写了原型链，父类可以用字面量写法Sub.prototype = {} 我最常用的方法–野路子function Super(){ this.property = true } Super.prototype = { constructor: Super, getSuperProperty: function(){ return this.property } } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = { constructor: Sub, getSubProperty: function(){ return this.subProperty }, __proto__: Super.prototype } let inte = new Sub() console.log(inte.getSuperProperty()) /true console.log(inte.getSubProperty()) /false]]></content>
@@ -513,17 +529,6 @@
       </categories>
       <tags>
         <tag>javascript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Linux常用命令]]></title>
-    <url>%2F2017%2F09%2F25%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
-    <content type="text"><![CDATA[Everything is a file (inode 除外)whoami –我是谁 pwd –我在哪 ls –我能干什么 ls -l 显示详细信息 -a 显示全部文件 蓝色 –文件夹 –d 黑色 –文件 b c –驱动 /dev 设备文件夹 l –软链接 whereis +命令(ls) /bin /sbin–外部应用 shell自带的命令 man +命令 –查手册 mkdir +名字 –新建文件夹 vi +名字 –新建vi文件 命令属性:w –保存–:w! 强制保存 :q –退出–:q! 强制退出 :wq 编辑属性gcc hello.c -o hello 执行时 ./hello若直接为hello系统视为是一个命令 gcc -c hello.c -o hello.o gcc hello. -o hello linux文件夹bin--普通命令 sbin--系统命令 root--超级用户 home--普通用户 proc--进程 dev--设备 usr--内部程序 opt--外部程序 boot--内核文件 mnt--挂载 etc--配置文件 ————————————————–cat 显示 + 文本文件 type(dos) 尽可能不要打开非文本文件more/less 也是显示 + 文本是否分页显示 touch 修改创建时间 ln find 查找文件 grep 查找或不查找文本文件内容相关的信息 sda1 –sd 串口 a 第一个硬盘的第一个分区 fdisk -l 显示硬盘 挂载 mount /dev/sdb1 /mnt/usb rm 删除文件 rm + 文件名 -f rm + 删除文件夹 -r(递归) cp/mv a—-&gt;b 文件夹 -r 在同级文件夹下mv就是改名 ncurse—图形界面的引擎 gcc menu.c -o menu -lcurses //引入lib库文件 ————————————————find [path] [attr] [key] find /mnt -name usb /mnt/usb grep [key] [file] 查找文件内容 ln (-s) source des 硬链接增加节点索引号，不消耗资源修改权限chmod(修改权限) chown(修改属主) chgrp(修改属组) chmod +x ./jiaoben rwxrwxrwx read write execute-可执行 u–g–o user group(对用户所在的组的其他用户的权限) other(组外权限) chomd u+x ./jiaoben rwxr-xr-x 111101101 //755 特殊1、3不能出现 chomd 755 ./jiaoben 环境命令：env、echo、export1.env –输出环境变量 path –命令的链接路径 2.echo –输出环境变量 echo $PATH —查环境变量要给钱 3.更改PATH export PATH=路径:$PATH //放在前面优先级高 归档命令：tar -xjvf -xzvf whereis ls makefile make clean –只保留源代码 make –执行第一个 make clean make menuconfig make dep –建立依赖关系 make bzImage –编辑内核 Makefile结构 target:source (tab)commond 目标:源 命令 标号 make A –执行A之后B之前 A: B: sh脚本 –chmod +x addstu #!/bin/bash –用的什么shell&lt; -lt &lt;= -le &gt; -gt &gt;= -ge = -eq != -ne $变量 while [ condition ] do done if [ condition ] then else fi case esac i=$(($i+1)) i++ ——————————————————–/etc/shadow –密码 /etc/passwd –用户 /etc/group –分组 /etc/inittab init 0 关机 init 3 多用户有网络 startx init 6 重启 进入单用户模式 改密码grub e kernal e + 1–单用户模式 b –启动 os：bootloader 16位 作用：1.把16位的环境调成32位2.准备加载kernek内核kernel 32/64 rootfs 软盘1.44M service ssh start/status update-rc.d ssh enable 进程ps process status ps -aux 当前所有的进程 top 动态进程 jobs 后台执行的进程 ctrl + c 把当前进程中断 kill -9 + pid ctrl + z 把当前进程搬到后台暂停 fg 1 //1为序号 ps process status ps -aux 当前所有的进程 top 动态进程 jobs 后台执行的进程 ctrl + c 把当前进程中断 kill -9 + pid ctrl + z 把当前进程搬到后台暂停 fg 1 //1为序号 pthread.h gcc -lpthread 哲学家进餐：mutex lock wait left wait right eat signal left signal right unloack]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -1088,9 +1093,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[利用github和hexo搭建自己的博客]]></title>
-    <url>%2F2015%2F06%2F01%2Fbuildblog%2F</url>
-    <content type="text"><![CDATA[步骤首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。搭建环境(必须的) —Node和git利用choco在cmd(管理员模式)下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。安装开始执行如下命令npm install -g hexo 进行安装hexo init 进行初始化在Github里新建一个仓库，名字叫XXX(你Github的昵称).github.io下载安装Souretree(我用的是Souretree，你也可以选在别的软件)把XXX.github.io克隆到生成hexo的文件的public文件下(注：如果里面有文件的话先copy出来，让public为空文件夹)。OK，在网址上输入XXX.github.io，你的专属blog完成了。查看PS:需要运行在cmd下找到你的blog所在的文件夹运行hexo g即可，如果想在本地看看你的页面hexo s]]></content>
+    <title><![CDATA[Hello Blog]]></title>
+    <url>%2F2015%2F06%2F01%2Fhello-blog%2F</url>
+    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
       <categories>
         <category>hexo</category>
       </categories>
@@ -1099,9 +1104,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello Blog]]></title>
-    <url>%2F2015%2F06%2F01%2Fhello-blog%2F</url>
-    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
+    <title><![CDATA[利用github和hexo搭建自己的博客]]></title>
+    <url>%2F2015%2F06%2F01%2Fbuildblog%2F</url>
+    <content type="text"><![CDATA[步骤首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。搭建环境(必须的) —Node和git利用choco在cmd(管理员模式)下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。安装开始执行如下命令npm install -g hexo 进行安装hexo init 进行初始化在Github里新建一个仓库，名字叫XXX(你Github的昵称).github.io下载安装Souretree(我用的是Souretree，你也可以选在别的软件)把XXX.github.io克隆到生成hexo的文件的public文件下(注：如果里面有文件的话先copy出来，让public为空文件夹)。OK，在网址上输入XXX.github.io，你的专属blog完成了。查看PS:需要运行在cmd下找到你的blog所在的文件夹运行hexo g即可，如果想在本地看看你的页面hexo s]]></content>
       <categories>
         <category>hexo</category>
       </categories>
