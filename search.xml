@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[ARIMA时间序列预测-1]]></title>
+    <url>%2F2020%2F08%2F18%2FARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-1%2F</url>
+    <content type="text"><![CDATA[12import numpy as npimport pandas as pd 时间序列 时间戳 时间间隔 固定周期 12345# D 天# H 小时# M 月rng = pd.date_range('2016/07/01', periods=10 , freq='D')rng DatetimeIndex([&apos;2016-07-01&apos;, &apos;2016-07-02&apos;, &apos;2016-07-03&apos;, &apos;2016-07-04&apos;, &apos;2016-07-05&apos;, &apos;2016-07-06&apos;, &apos;2016-07-07&apos;, &apos;2016-07-08&apos;, &apos;2016-07-09&apos;, &apos;2016-07-10&apos;], dtype=&apos;datetime64[ns]&apos;, freq=&apos;D&apos;) 12rng = pd.date_range('2016/07/01', periods=10 , freq='3D')rng DatetimeIndex([&apos;2016-07-01&apos;, &apos;2016-07-04&apos;, &apos;2016-07-07&apos;, &apos;2016-07-10&apos;, &apos;2016-07-13&apos;, &apos;2016-07-16&apos;, &apos;2016-07-19&apos;, &apos;2016-07-22&apos;, &apos;2016-07-25&apos;, &apos;2016-07-28&apos;], dtype=&apos;datetime64[ns]&apos;, freq=&apos;3D&apos;) 12time = pd.Series(np.random.randn(20), index=pd.date_range('2016/1/1', periods=20))time 2016-01-01 -0.512570 2016-01-02 -1.077638 2016-01-03 0.126473 2016-01-04 -1.242304 2016-01-05 -0.311126 2016-01-06 -0.380349 2016-01-07 1.459504 2016-01-08 -0.328805 2016-01-09 0.537477 2016-01-10 -0.377715 2016-01-11 -0.036280 2016-01-12 -2.522750 2016-01-13 -0.936564 2016-01-14 0.220823 2016-01-15 -0.515707 2016-01-16 -0.338733 2016-01-17 1.403778 2016-01-18 1.316850 2016-01-19 -0.988479 2016-01-20 -1.655101 Freq: D, dtype: float64 12data = pd.date_range('2020/01/01','2020/01/20',freq='D')data DatetimeIndex([&apos;2020-01-01&apos;, &apos;2020-01-02&apos;, &apos;2020-01-03&apos;, &apos;2020-01-04&apos;, &apos;2020-01-05&apos;, &apos;2020-01-06&apos;, &apos;2020-01-07&apos;, &apos;2020-01-08&apos;, &apos;2020-01-09&apos;, &apos;2020-01-10&apos;, &apos;2020-01-11&apos;, &apos;2020-01-12&apos;, &apos;2020-01-13&apos;, &apos;2020-01-14&apos;, &apos;2020-01-15&apos;, &apos;2020-01-16&apos;, &apos;2020-01-17&apos;, &apos;2020-01-18&apos;, &apos;2020-01-19&apos;, &apos;2020-01-20&apos;], dtype=&apos;datetime64[ns]&apos;, freq=&apos;D&apos;) 过滤1time.truncate(before='2016-1-10') # after 2016-01-10 -0.377715 2016-01-11 -0.036280 2016-01-12 -2.522750 2016-01-13 -0.936564 2016-01-14 0.220823 2016-01-15 -0.515707 2016-01-16 -0.338733 2016-01-17 1.403778 2016-01-18 1.316850 2016-01-19 -0.988479 2016-01-20 -1.655101 Freq: D, dtype: float64 1pd.Timestamp('2020/01/01') Timestamp(&apos;2020-01-01 00:00:00&apos;) 数据重采样 升采样 降采样 123rng = pd.date_range('2020/01/01', periods=90, freq='D')ts = pd.Series(np.random.randn(len(rng)), index=rng)ts.head() 2020-01-01 1.316377 2020-01-02 1.979066 2020-01-03 -1.101733 2020-01-04 -0.154840 2020-01-05 0.661635 Freq: D, dtype: float64 1ts.resample('M').sum() # 将天转化为月 2020-01-31 6.521808 2020-02-29 1.520356 2020-03-31 -6.827269 Freq: M, dtype: float64 12day3D = ts.resample('3D').sum()print(day3D) 2020-01-01 2.193710 2020-01-04 0.216971 2020-01-07 -1.321336 2020-01-10 1.099015 2020-01-13 3.568412 2020-01-16 2.904386 2020-01-19 -2.107415 2020-01-22 -0.324793 2020-01-25 -1.017733 2020-01-28 0.357197 2020-01-31 0.586223 2020-02-03 -1.602844 2020-02-06 0.676791 2020-02-09 -2.443876 2020-02-12 -0.546803 2020-02-15 4.927371 2020-02-18 -0.726225 2020-02-21 1.586811 2020-02-24 0.500058 2020-02-27 -0.483757 2020-03-01 -0.520131 2020-03-04 3.073532 2020-03-07 -2.036933 2020-03-10 -3.002754 2020-03-13 1.658833 2020-03-16 -0.804828 2020-03-19 -1.198226 2020-03-22 -3.494161 2020-03-25 1.942300 2020-03-28 -2.444900 Freq: 3D, dtype: float64 12# 升采样print(day3D.resample('D').asfreq()) 2020-01-01 2.193710 2020-01-02 NaN 2020-01-03 NaN 2020-01-04 0.216971 2020-01-05 NaN 2020-01-06 NaN 2020-01-07 -1.321336 2020-01-08 NaN 2020-01-09 NaN 2020-01-10 1.099015 2020-01-11 NaN 2020-01-12 NaN 2020-01-13 3.568412 2020-01-14 NaN 2020-01-15 NaN 2020-01-16 2.904386 2020-01-17 NaN 2020-01-18 NaN 2020-01-19 -2.107415 2020-01-20 NaN 2020-01-21 NaN 2020-01-22 -0.324793 2020-01-23 NaN 2020-01-24 NaN 2020-01-25 -1.017733 2020-01-26 NaN 2020-01-27 NaN 2020-01-28 0.357197 2020-01-29 NaN 2020-01-30 NaN ... 2020-02-28 NaN 2020-02-29 NaN 2020-03-01 -0.520131 2020-03-02 NaN 2020-03-03 NaN 2020-03-04 3.073532 2020-03-05 NaN 2020-03-06 NaN 2020-03-07 -2.036933 2020-03-08 NaN 2020-03-09 NaN 2020-03-10 -3.002754 2020-03-11 NaN 2020-03-12 NaN 2020-03-13 1.658833 2020-03-14 NaN 2020-03-15 NaN 2020-03-16 -0.804828 2020-03-17 NaN 2020-03-18 NaN 2020-03-19 -1.198226 2020-03-20 NaN 2020-03-21 NaN 2020-03-22 -3.494161 2020-03-23 NaN 2020-03-24 NaN 2020-03-25 1.942300 2020-03-26 NaN 2020-03-27 NaN 2020-03-28 -2.444900 Freq: D, Length: 88, dtype: float64 插值方法： ffill 空值取前面的值 bfill 空值取后面的值 interpolate 线性取值 1day3D.resample('D').ffill(1).head() 2020-01-01 2.193710 2020-01-02 2.193710 2020-01-03 NaN 2020-01-04 0.216971 2020-01-05 0.216971 Freq: D, dtype: float64 1day3D.resample('D').interpolate('linear').head() 2020-01-01 2.193710 2020-01-02 1.534797 2020-01-03 0.875884 2020-01-04 0.216971 2020-01-05 -0.295798 Freq: D, dtype: float64 滑动窗口12r = ts.rolling(window=10)r Rolling [window=10,center=False,axis=0] 12# r.max r.median r.std r.skew r.sum r.varprint(r.mean()) 2020-01-01 NaN 2020-01-02 NaN 2020-01-03 NaN 2020-01-04 NaN 2020-01-05 NaN 2020-01-06 NaN 2020-01-07 NaN 2020-01-08 NaN 2020-01-09 NaN 2020-01-10 0.227167 2020-01-11 0.078212 2020-01-12 -0.110708 2020-01-13 0.148539 2020-01-14 0.297714 2020-01-15 0.305627 2020-01-16 0.575904 2020-01-17 0.611440 2020-01-18 0.700247 2020-01-19 0.621096 2020-01-20 0.320521 2020-01-21 0.445525 2020-01-22 0.198997 2020-01-23 0.040407 2020-01-24 0.121294 2020-01-25 -0.011793 2020-01-26 -0.331101 2020-01-27 -0.350714 2020-01-28 -0.319107 2020-01-29 -0.204708 2020-01-30 0.009153 ... 2020-03-01 0.117644 2020-03-02 -0.073529 2020-03-03 -0.047548 2020-03-04 0.160732 2020-03-05 0.345953 2020-03-06 0.334522 2020-03-07 0.287958 2020-03-08 0.273020 2020-03-09 0.063349 2020-03-10 -0.136058 2020-03-11 -0.151545 2020-03-12 -0.130524 2020-03-13 -0.149661 2020-03-14 -0.384004 2020-03-15 -0.271879 2020-03-16 -0.500738 2020-03-17 -0.359947 2020-03-18 -0.357707 2020-03-19 -0.265655 2020-03-20 -0.161695 2020-03-21 -0.088838 2020-03-22 -0.185694 2020-03-23 -0.330775 2020-03-24 -0.407565 2020-03-25 -0.457954 2020-03-26 -0.254431 2020-03-27 -0.414623 2020-03-28 -0.291319 2020-03-29 -0.424687 2020-03-30 -0.384974 Freq: D, Length: 90, dtype: float64 12345import matplotlib.pyplot as plt%matplotlib inlineplt.figure(figsize=(15, 5))ts.plot(style='r--')ts.rolling(window = 10).mean().plot(style='b') &lt;matplotlib.axes._subplots.AxesSubplot at 0x123521400&gt;]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[基于Hyperledger Fabric的智能合约微服务化团队架构]]></title>
     <url>%2F2020%2F06%2F05%2F%E5%9F%BA%E4%BA%8EHyperledger-Fabric%E7%9A%84%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%8C%96%E5%9B%A2%E9%98%9F%E6%9E%B6%E6%9E%84%2F</url>
     <content type="text"><![CDATA[康威定律指出系统的架构往往受制于产生这些设计的组织的沟通结构,高效的智能合约微服务化团队往往会促进智能合约微服务化开发效率,如图3所示给出了智能合约微服务化团队的范例,对于智能合约微服务化团队有如下建议: 两个披萨原则,如果两个披萨不足以喂饱整个项目团队,那么项目团队就太大了,即采用小而精的团队.根据沟通渠道公式n(n-1)/2(n代表组织中的人数),有效的沟通和反馈是团队高效运作的核心,小而精的团队能有效的降低沟通成本.目前大多数开发团队依赖敏捷实践采取小而精的团队促进规划和软件发布,这促进了普通团队向智能合约微服务化团队的转型; 在确立了新的团队之后,选取适合团队成员的熟悉的自动化工具.智能合约微服务化的开发借鉴微服务的思想,将新型智能合约应用采用传统微服务的工具联系起来.选取适合熟悉的开发工具能够使团队成员能降低团队成员的开发、运维智能合约应用的门槛.在团队稳定成熟之后,可以开发适合自己团队组织结构的智能合约微服务化工具及工具链,满足本团队对自动化工具的需求; 针对业务与团队需求,灵活搭配流水线各开发流程以及团队敏捷协作工具.智能合约微服务化开发流程以及敏捷协作工具都是固定的,要想清楚这些流程及工具背后的意义,针对于自己的团队的沟通模式以及业务需求,一步步选取搭配适合自己团队的开发流水线及协作模式; 形成自己团队文化及价值观,消除需求、开发、测试、运维之间隔阂,使其通力合作,团队成员完全对自己开发的智能合约微服务全部生命周期负责,建立完善的制度激发团队成员的热情.]]></content>
@@ -477,9 +482,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[突然上不去网？]]></title>
-    <url>%2F2017%2F10%2F16%2F%E7%AA%81%E7%84%B6%E4%B8%8A%E4%B8%8D%E5%8E%BB%E7%BD%91%EF%BC%9F%2F</url>
-    <content type="text"><![CDATA[前言宿舍里经常会有分配不到IP的情况, 下面的命令应该能解决netsh winsock reset 重置winsock目录,宿舍分配不到ip其他常用命令shutdown –help —–shutdown的参数查 git clone ….. —— 克隆到当前文件夹 git add . —– 暂存 git commit —– 提交 写提交备注 —– vi用法 :wq git push —– 推送]]></content>
+    <title><![CDATA[数学建模国赛被整蛊]]></title>
+    <url>%2F2017%2F10%2F16%2F%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%9B%BD%E8%B5%9B%E8%A2%AB%E6%95%B4%E8%9B%8A%2F</url>
+    <content type="text"><![CDATA[国赛已经过去好长时间了，今天翻文件无意中看见”国赛A题论文.vbs”,想想在那三天的紧张的时间，看见这个是个什么心情？当然是，理性的分析一下啊。看到.vbs我就心里暗想着个东西不是啥好东西，结果用sublimetext打开一看,发现了好玩的东西dim Obj set Obj = createobject(&quot;wscript.shell&quot;) Obj.exec &quot;shutdown -s -t 0&quot; 一个basic的关机脚本,这个脚本不知坑了多少小组。哈哈哈但是这个要是一个病毒那就GG了]]></content>
       <categories>
         <category>生活</category>
       </categories>
@@ -488,9 +493,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[数学建模国赛被整蛊]]></title>
-    <url>%2F2017%2F10%2F16%2F%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%9B%BD%E8%B5%9B%E8%A2%AB%E6%95%B4%E8%9B%8A%2F</url>
-    <content type="text"><![CDATA[国赛已经过去好长时间了，今天翻文件无意中看见”国赛A题论文.vbs”,想想在那三天的紧张的时间，看见这个是个什么心情？当然是，理性的分析一下啊。看到.vbs我就心里暗想着个东西不是啥好东西，结果用sublimetext打开一看,发现了好玩的东西dim Obj set Obj = createobject(&quot;wscript.shell&quot;) Obj.exec &quot;shutdown -s -t 0&quot; 一个basic的关机脚本,这个脚本不知坑了多少小组。哈哈哈但是这个要是一个病毒那就GG了]]></content>
+    <title><![CDATA[突然上不去网？]]></title>
+    <url>%2F2017%2F10%2F16%2F%E7%AA%81%E7%84%B6%E4%B8%8A%E4%B8%8D%E5%8E%BB%E7%BD%91%EF%BC%9F%2F</url>
+    <content type="text"><![CDATA[前言宿舍里经常会有分配不到IP的情况, 下面的命令应该能解决netsh winsock reset 重置winsock目录,宿舍分配不到ip其他常用命令shutdown –help —–shutdown的参数查 git clone ….. —— 克隆到当前文件夹 git add . —– 暂存 git commit —– 提交 写提交备注 —– vi用法 :wq git push —– 推送]]></content>
       <categories>
         <category>生活</category>
       </categories>
@@ -598,9 +603,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[2017小学期--7.2]]></title>
-    <url>%2F2017%2F06%2F30%2F2017%E5%B0%8F%E5%AD%A6%E6%9C%9F-7-2%2F</url>
-    <content type="text"><![CDATA[JSP = html + servletjsp生命周期jsp–&gt;转译(jsp语法错误)–&gt;Servlet–&gt;编译(java编译失败)–&gt;字节码文件–&gt;加载–&gt;实例化–&gt;初始化–&gt;服务–&gt;destroy服务器根据后缀名分静态跟动态网站控制器：接受请求对象和响应对象提取表单数据pojo中处理对话、调用模型根据第5步的结果调用jsp模型层：数据检查处理sql执行业务处理数据业务返回执行结果jsp：处理数据线程作用域requestScopesessionScope–同一个会话的多个servletURL:统一资源定位器一个页面的名字协议://IP:port//filename.xxx[?queryString]/对于IE代表的是—&gt;http://ip:port/对于web容器而言—&gt;本应用程序的根servlet页面跳转的方法:站内转发： req.getRequestDispatcher(“url”).forward(req,resp)重定向: resp.sendRedirect()AOP(面向切面编程)切面：通知：web部署描述符根据filter-mapping决定执行顺序struts2 按需导包加载jar包拦截请求定义xml文件编写action做页面跳转action是MVC的model]]></content>
+    <title><![CDATA[2017小学期--6.30]]></title>
+    <url>%2F2017%2F06%2F30%2F2017%E5%B0%8F%E5%AD%A6%E6%9C%9F-6-30%2F</url>
+    <content type="text"><![CDATA[反射机制Java的反射机制是在编译时并不确定是哪个类被加载了，而是在程序运行的时候才加载、探知、自审。使用的是在编译期并不知道的类。这样的编译特点就是java反射。要正确使用Java反射机制就得使用java.lang.Class这个类。它是Java反射机制的起源。当一个类被加载以后，Java虚拟机就会自动产生一个Class对象。通过这个Class对象我们就能获得加载到虚拟机当中这个Class对象对应的方法、成员以及构造方法的声明和定义等信息。javadocservlet *public class ClassClass Dog类的类对象永不回收——模板Dog类很多实例对象，很多方法。只需将方法实例化为类对象，属性各自存传来http请求–&gt;封装成servlet对象–&gt;找method方法–&gt;对应的doGet(doPost…)http协议请求响应模型: request response######轮巡，长链接(Netty)]]></content>
       <categories>
         <category>生活</category>
       </categories>
@@ -609,9 +614,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[2017小学期--6.30]]></title>
-    <url>%2F2017%2F06%2F30%2F2017%E5%B0%8F%E5%AD%A6%E6%9C%9F-6-30%2F</url>
-    <content type="text"><![CDATA[反射机制Java的反射机制是在编译时并不确定是哪个类被加载了，而是在程序运行的时候才加载、探知、自审。使用的是在编译期并不知道的类。这样的编译特点就是java反射。要正确使用Java反射机制就得使用java.lang.Class这个类。它是Java反射机制的起源。当一个类被加载以后，Java虚拟机就会自动产生一个Class对象。通过这个Class对象我们就能获得加载到虚拟机当中这个Class对象对应的方法、成员以及构造方法的声明和定义等信息。javadocservlet *public class ClassClass Dog类的类对象永不回收——模板Dog类很多实例对象，很多方法。只需将方法实例化为类对象，属性各自存传来http请求–&gt;封装成servlet对象–&gt;找method方法–&gt;对应的doGet(doPost…)http协议请求响应模型: request response######轮巡，长链接(Netty)]]></content>
+    <title><![CDATA[2017小学期--7.2]]></title>
+    <url>%2F2017%2F06%2F30%2F2017%E5%B0%8F%E5%AD%A6%E6%9C%9F-7-2%2F</url>
+    <content type="text"><![CDATA[JSP = html + servletjsp生命周期jsp–&gt;转译(jsp语法错误)–&gt;Servlet–&gt;编译(java编译失败)–&gt;字节码文件–&gt;加载–&gt;实例化–&gt;初始化–&gt;服务–&gt;destroy服务器根据后缀名分静态跟动态网站控制器：接受请求对象和响应对象提取表单数据pojo中处理对话、调用模型根据第5步的结果调用jsp模型层：数据检查处理sql执行业务处理数据业务返回执行结果jsp：处理数据线程作用域requestScopesessionScope–同一个会话的多个servletURL:统一资源定位器一个页面的名字协议://IP:port//filename.xxx[?queryString]/对于IE代表的是—&gt;http://ip:port/对于web容器而言—&gt;本应用程序的根servlet页面跳转的方法:站内转发： req.getRequestDispatcher(“url”).forward(req,resp)重定向: resp.sendRedirect()AOP(面向切面编程)切面：通知：web部署描述符根据filter-mapping决定执行顺序struts2 按需导包加载jar包拦截请求定义xml文件编写action做页面跳转action是MVC的model]]></content>
       <categories>
         <category>生活</category>
       </categories>
@@ -1093,9 +1098,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello Blog]]></title>
-    <url>%2F2015%2F06%2F01%2Fhello-blog%2F</url>
-    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
+    <title><![CDATA[利用github和hexo搭建自己的博客]]></title>
+    <url>%2F2015%2F06%2F01%2Fbuildblog%2F</url>
+    <content type="text"><![CDATA[步骤首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。搭建环境(必须的) —Node和git利用choco在cmd(管理员模式)下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。安装开始执行如下命令npm install -g hexo 进行安装hexo init 进行初始化在Github里新建一个仓库，名字叫XXX(你Github的昵称).github.io下载安装Souretree(我用的是Souretree，你也可以选在别的软件)把XXX.github.io克隆到生成hexo的文件的public文件下(注：如果里面有文件的话先copy出来，让public为空文件夹)。OK，在网址上输入XXX.github.io，你的专属blog完成了。查看PS:需要运行在cmd下找到你的blog所在的文件夹运行hexo g即可，如果想在本地看看你的页面hexo s]]></content>
       <categories>
         <category>hexo</category>
       </categories>
@@ -1104,9 +1109,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[利用github和hexo搭建自己的博客]]></title>
-    <url>%2F2015%2F06%2F01%2Fbuildblog%2F</url>
-    <content type="text"><![CDATA[步骤首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。搭建环境(必须的) —Node和git利用choco在cmd(管理员模式)下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。安装开始执行如下命令npm install -g hexo 进行安装hexo init 进行初始化在Github里新建一个仓库，名字叫XXX(你Github的昵称).github.io下载安装Souretree(我用的是Souretree，你也可以选在别的软件)把XXX.github.io克隆到生成hexo的文件的public文件下(注：如果里面有文件的话先copy出来，让public为空文件夹)。OK，在网址上输入XXX.github.io，你的专属blog完成了。查看PS:需要运行在cmd下找到你的blog所在的文件夹运行hexo g即可，如果想在本地看看你的页面hexo s]]></content>
+    <title><![CDATA[Hello Blog]]></title>
+    <url>%2F2015%2F06%2F01%2Fhello-blog%2F</url>
+    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
       <categories>
         <category>hexo</category>
       </categories>
