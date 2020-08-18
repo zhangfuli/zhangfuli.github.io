@@ -88,12 +88,12 @@
 <meta property="og:site_name" content="Hello, ZhangFuli">
 <meta property="og:description" content="12import numpy as npimport pandas as pd 时间序列 时间戳 时间间隔 固定周期  12345# D 天# H 小时# M 月rng = pd.date_range(&apos;2016/07/01&apos;, periods=10 , freq=&apos;D&apos;)rng DatetimeIndex([&amp;apos;2016-07-01&amp;apos;, &amp;apos;2016-07-02&amp;apo">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="/image/ARIMA时间序列分析-1/output_20_1.png">
-<meta property="og:updated_time" content="2020-08-18T04:53:29.644Z">
+<meta property="og:image" content="/images/ARIMA时间序列分析-1/output_20_1.png">
+<meta property="og:updated_time" content="2020-08-18T04:55:41.182Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ARIMA时间序列预测-1">
 <meta name="twitter:description" content="12import numpy as npimport pandas as pd 时间序列 时间戳 时间间隔 固定周期  12345# D 天# H 小时# M 月rng = pd.date_range(&apos;2016/07/01&apos;, periods=10 , freq=&apos;D&apos;)rng DatetimeIndex([&amp;apos;2016-07-01&amp;apos;, &amp;apos;2016-07-02&amp;apo">
-<meta name="twitter:image" content="/image/ARIMA时间序列分析-1/output_20_1.png">
+<meta name="twitter:image" content="/images/ARIMA时间序列分析-1/output_20_1.png">
 
 
 
@@ -634,7 +634,7 @@ Freq: D, dtype: float64
 Freq: D, Length: 90, dtype: float64
 </code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">%matplotlib inline</span><br><span class="line">plt.figure(figsize=(<span class="number">15</span>, <span class="number">5</span>))</span><br><span class="line">ts.plot(style=<span class="string">'r--'</span>)</span><br><span class="line">ts.rolling(window = <span class="number">10</span>).mean().plot(style=<span class="string">'b'</span>)</span><br></pre></td></tr></table></figure>
 <pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x123521400&gt;
-</code></pre><p><img src="/image/ARIMA时间序列分析-1/output_20_1.png" alt="png"></p>
+</code></pre><p><img src="/images/ARIMA时间序列分析-1/output_20_1.png" alt="png"></p>
 
       
     </div>
