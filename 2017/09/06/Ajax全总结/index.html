@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="javascript," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hello, ZhangFuli" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言这篇是在看过JS高级程序设计以及自己以前的一些项目所做的总结let xhr = new XMLHttpRequest() xhr用法open() 有三个参数1.请求类型 2.URL 3.是否为异步发送请求xhr.open(‘get’, URL, false) 注意：它不会发送请求当调用send()时才会发送请求send(data)  data:要发送的数据不需要发送数据时必须传入null响应的">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ajax全总结">
+<meta property="og:url" content="zhangfuli.github.io/2017/09/06/Ajax全总结/index.html">
+<meta property="og:site_name" content="Hello, ZhangFuli">
+<meta property="og:description" content="前言这篇是在看过JS高级程序设计以及自己以前的一些项目所做的总结let xhr = new XMLHttpRequest() xhr用法open() 有三个参数1.请求类型 2.URL 3.是否为异步发送请求xhr.open(‘get’, URL, false) 注意：它不会发送请求当调用send()时才会发送请求send(data)  data:要发送的数据不需要发送数据时必须传入null响应的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-06T03:17:37.034Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ajax全总结">
+<meta name="twitter:description" content="前言这篇是在看过JS高级程序设计以及自己以前的一些项目所做的总结let xhr = new XMLHttpRequest() xhr用法open() 有三个参数1.请求类型 2.URL 3.是否为异步发送请求xhr.open(‘get’, URL, false) 注意：它不会发送请求当调用send()时才会发送请求send(data)  data:要发送的数据不需要发送数据时必须传入null响应的">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="zhangfuli.github.io/2017/09/06/Ajax全总结/"/>
+
+
+
+
+
+  <title>Ajax全总结 | Hello, ZhangFuli</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?aab3d4e9187a78f10123d63e6f46fae7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hello, ZhangFuli</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2017/09/06/Ajax全总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhangfuli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://p4j7qpj9e.bkt.clouddn.com/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hello, ZhangFuli">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Ajax全总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-06T10:42:30+08:00">
+                2017-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/06/Ajax全总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/09/06/Ajax全总结/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><h6 id="这篇是在看过JS高级程序设计以及自己以前的一些项目所做的总结"><a href="#这篇是在看过JS高级程序设计以及自己以前的一些项目所做的总结" class="headerlink" title="这篇是在看过JS高级程序设计以及自己以前的一些项目所做的总结"></a>这篇是在看过JS高级程序设计以及自己以前的一些项目所做的总结</h6><pre><code>let xhr = new XMLHttpRequest()
+</code></pre><h3 id="xhr用法"><a href="#xhr用法" class="headerlink" title="xhr用法"></a>xhr用法</h3><h6 id="open-有三个参数"><a href="#open-有三个参数" class="headerlink" title="open() 有三个参数"></a>open() 有三个参数</h6><h6 id="1-请求类型-2-URL-3-是否为异步发送请求"><a href="#1-请求类型-2-URL-3-是否为异步发送请求" class="headerlink" title="1.请求类型 2.URL 3.是否为异步发送请求"></a>1.请求类型 2.URL 3.是否为异步发送请求</h6><pre><code>xhr.open(‘get’, URL, false)
+</code></pre><h6 id="注意：它不会发送请求当调用send-时才会发送请求"><a href="#注意：它不会发送请求当调用send-时才会发送请求" class="headerlink" title="注意：它不会发送请求当调用send()时才会发送请求"></a>注意：它不会发送请求当调用send()时才会发送请求</h6><pre><code>send(data) 
+</code></pre><h6 id="data-要发送的数据"><a href="#data-要发送的数据" class="headerlink" title="data:要发送的数据"></a>data:要发送的数据</h6><h6 id="不需要发送数据时必须传入null"><a href="#不需要发送数据时必须传入null" class="headerlink" title="不需要发送数据时必须传入null"></a>不需要发送数据时必须传入null</h6><h6 id="响应的数据"><a href="#响应的数据" class="headerlink" title="响应的数据"></a>响应的数据</h6><h6 id="xhr-responseText-返回主体"><a href="#xhr-responseText-返回主体" class="headerlink" title="xhr.responseText 返回主体"></a>xhr.responseText 返回主体</h6><h6 id="xhr-responseXML"><a href="#xhr-responseXML" class="headerlink" title="xhr.responseXML"></a>xhr.responseXML</h6><h6 id="xhr-status-响应的HTTP状态"><a href="#xhr-status-响应的HTTP状态" class="headerlink" title="xhr.status 响应的HTTP状态"></a>xhr.status 响应的HTTP状态</h6><h6 id="xhr-readyState"><a href="#xhr-readyState" class="headerlink" title="xhr.readyState"></a>xhr.readyState</h6><h6 id="0：-未初始化-未调用open"><a href="#0：-未初始化-未调用open" class="headerlink" title="0： 未初始化 未调用open()"></a>0： 未初始化 未调用open()</h6><h6 id="1-启动-已经调用open-未调用send"><a href="#1-启动-已经调用open-未调用send" class="headerlink" title="1:  启动 已经调用open() 未调用send()"></a>1:  启动 已经调用open() 未调用send()</h6><h6 id="2-发送-已经调用send-未收到响应"><a href="#2-发送-已经调用send-未收到响应" class="headerlink" title="2:  发送 已经调用send() 未收到响应"></a>2:  发送 已经调用send() 未收到响应</h6><h6 id="3：-接受-接受部分响应数据-–用于检测http流"><a href="#3：-接受-接受部分响应数据-–用于检测http流" class="headerlink" title="3： 接受 接受部分响应数据   –用于检测http流"></a>3： 接受 接受部分响应数据   –用于检测http流</h6><h6 id="4：-完成"><a href="#4：-完成" class="headerlink" title="4： 完成"></a>4： 完成</h6><pre><code>xhr.onreadystatechange = function(){
+    if(xhr.readStatus == 4){
+        if((xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300) || xhr.status == 304){
+            console.log(&quot;success&quot;)
+        }else{
+            console.log(&quot;error&quot;)
+        }
+    }
+}
+
+xhr.open()
+xhr.send(null)
+xhr.abort() 取消异步请求
+xhr.setRequestHeader(‘myHeader’, ‘myValue’) 设置头信息
+xhr.getAllResponseHeaders() 得到头部信息
+</code></pre><h3 id="超时设定"><a href="#超时设定" class="headerlink" title="超时设定"></a>超时设定</h3><pre><code>xhr.timeout = 1000 (毫秒)
+xhr.ontimeout = function(){}
+</code></pre><h6 id="overrideMimeType-重写XHR响应的MIME类型-必须在send-之前"><a href="#overrideMimeType-重写XHR响应的MIME类型-必须在send-之前" class="headerlink" title="overrideMimeType() 重写XHR响应的MIME类型 必须在send()之前"></a>overrideMimeType() 重写XHR响应的MIME类型 必须在send()之前</h6><h6 id="xhr-overrideMimeType-“text-xml”-强迫xhr对象将响应当作XML处理"><a href="#xhr-overrideMimeType-“text-xml”-强迫xhr对象将响应当作XML处理" class="headerlink" title="xhr.overrideMimeType(“text/xml”)  强迫xhr对象将响应当作XML处理"></a>xhr.overrideMimeType(“text/xml”)  强迫xhr对象将响应当作XML处理</h6><h3 id="get请求"><a href="#get请求" class="headerlink" title="get请求"></a>get请求</h3><h6 id="1-amp-分隔符"><a href="#1-amp-分隔符" class="headerlink" title="1.&amp;分隔符"></a>1.&amp;分隔符</h6><h6 id="2-查询字符串中每个参数的名和值都必须用encodeURIComponent-进行编码"><a href="#2-查询字符串中每个参数的名和值都必须用encodeURIComponent-进行编码" class="headerlink" title="2.查询字符串中每个参数的名和值都必须用encodeURIComponent()进行编码"></a>2.查询字符串中每个参数的名和值都必须用encodeURIComponent()进行编码</h6><h6 id="在URL后能看见字符串参数"><a href="#在URL后能看见字符串参数" class="headerlink" title="在URL后能看见字符串参数"></a>在URL后能看见字符串参数</h6><pre><code>function addURLParam(url, name, value){
+    url += (url.indexOf(&quot;?&quot;) == -1 ? &quot;?&quot; : &quot;&amp;&quot;);
+    url += encodeURIComponent(name) + &quot;=&quot; + encodeURIComponent(value);
+    return url;
+}
+
+let url = &quot;example.php&quot;
+url = addURLParam(url, &quot;name&quot; , &quot;zfl&quot;)
+xhr.open(&apos;get&apos;, url, false)
+</code></pre><h6 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h6><pre><code>let URL = &quot;http://localhost:8080/getWeather&quot;
+let xhr = new XMLHttpRequest();
+
+// URL = addURLParam(URL, &quot;city&quot;, data)
+xhr.open(&quot;get&quot;, URL, false)
+xhr.send(null)
+if((xhr.status&gt;=200 &amp;&amp; xhr.status &lt;300) || xhr.status == 304){
+    console.log(xhr.responseText);
+}
+let resp = JSON.parse(xhr.responseText)
+console.log(resp.city)
+document.querySelector(&apos;.city&apos;).innerHTML = resp.city
+document.querySelector(&apos;.weather&apos;).innerHTML = resp.weather
+</code></pre><h3 id="post请求"><a href="#post请求" class="headerlink" title="post请求"></a>post请求</h3><h6 id="不限传输长度和格式-base64上传图片就必须用post-get传输的太短"><a href="#不限传输长度和格式-base64上传图片就必须用post-get传输的太短" class="headerlink" title="不限传输长度和格式(base64上传图片就必须用post,get传输的太短)"></a>不限传输长度和格式(base64上传图片就必须用post,get传输的太短)</h6><h6 id="post和提交web表单不一样"><a href="#post和提交web表单不一样" class="headerlink" title="post和提交web表单不一样"></a>post和提交web表单不一样</h6><h6 id="将表单数据序列化传到服务器"><a href="#将表单数据序列化传到服务器" class="headerlink" title="将表单数据序列化传到服务器"></a>将表单数据序列化传到服务器</h6><pre><code>let form = document.getElementById(&quot;myform&quot;)
+xhr.send(serialize(form))
+</code></pre><h6 id="或者"><a href="#或者" class="headerlink" title="或者"></a>或者</h6><pre><code>let form = new FormData(document.getElementById(&quot;myform&quot;))
+xhr.send(form)
+</code></pre><h6 id="进度事件"><a href="#进度事件" class="headerlink" title="进度事件"></a>进度事件</h6><h6 id="loadstart-在接收第一个字节时触发"><a href="#loadstart-在接收第一个字节时触发" class="headerlink" title="loadstart: 在接收第一个字节时触发"></a>loadstart: 在接收第一个字节时触发</h6><h6 id="progress：周期性的触发"><a href="#progress：周期性的触发" class="headerlink" title="progress：周期性的触发"></a>progress：周期性的触发</h6><pre><code>xhr.onprogress = function(event){
+    if(event.lengthComputable){  //进度信息是否可用
+        event.position  //已经接受的字节数
+        event.totalSize  //根据Content-Length响应头部去顶的预期字节数
+    }
+}
+</code></pre><h3 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h3><h6 id="CORES"><a href="#CORES" class="headerlink" title="CORES"></a>CORES</h6><h6 id="本质上是使用自定义的HTTP头部让浏览器与服务器沟通，从而决定是否响应成功"><a href="#本质上是使用自定义的HTTP头部让浏览器与服务器沟通，从而决定是否响应成功" class="headerlink" title="本质上是使用自定义的HTTP头部让浏览器与服务器沟通，从而决定是否响应成功"></a>本质上是使用自定义的HTTP头部让浏览器与服务器沟通，从而决定是否响应成功</h6><pre><code>Origin: http://123.com   //浏览器
+Access-Control-Allow-Origin: http://123.com
+</code></pre><h6 id="通过将withCredentials-设置为true可以指定某请求发送凭据"><a href="#通过将withCredentials-设置为true可以指定某请求发送凭据" class="headerlink" title="通过将withCredentials 设置为true可以指定某请求发送凭据"></a>通过将withCredentials 设置为true可以指定某请求发送凭据</h6><pre><code>Access-Control-Allow-Credentials: true  //浏览器
+</code></pre><h6 id="以下情况在服务器端设定好了"><a href="#以下情况在服务器端设定好了" class="headerlink" title="以下情况在服务器端设定好了"></a>以下情况在服务器端设定好了</h6><pre><code>Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials : true
+</code></pre><h6 id="vue实现跨域请求–以vue-cli为例"><a href="#vue实现跨域请求–以vue-cli为例" class="headerlink" title="vue实现跨域请求–以vue-cli为例"></a>vue实现跨域请求–以vue-cli为例</h6><h6 id="在vue-cli生成的时候会给你引入vueresource如果没有的话可以参照项目自己引入进去"><a href="#在vue-cli生成的时候会给你引入vueresource如果没有的话可以参照项目自己引入进去" class="headerlink" title="在vue-cli生成的时候会给你引入vueresource如果没有的话可以参照项目自己引入进去"></a>在vue-cli生成的时候会给你引入vueresource如果没有的话可以参照项目自己引入进去</h6><h6 id="只需在router-index-js里面加入"><a href="#只需在router-index-js里面加入" class="headerlink" title="只需在router/index.js里面加入"></a>只需在router/index.js里面加入</h6><pre><code>Vue.http.options.emulateJSON = true
+</code></pre><h6 id="这样在每次进行get、post的时候就不用都写入-emulateJSON-true"><a href="#这样在每次进行get、post的时候就不用都写入-emulateJSON-true" class="headerlink" title="这样在每次进行get、post的时候就不用都写入{emulateJSON: true}"></a>这样在每次进行get、post的时候就不用都写入{emulateJSON: true}</h6><h6 id="善用-let-self-this"><a href="#善用-let-self-this" class="headerlink" title="善用 let self = this"></a>善用 let self = this</h6><h6 id="不会出现在自己未知的情况下this指针作用域发生变化而导致的bug"><a href="#不会出现在自己未知的情况下this指针作用域发生变化而导致的bug" class="headerlink" title="不会出现在自己未知的情况下this指针作用域发生变化而导致的bug"></a>不会出现在自己未知的情况下this指针作用域发生变化而导致的bug</h6><h6 id="两个例子是在17年暑期实践的时候给队友写的这边就直接拿来了"><a href="#两个例子是在17年暑期实践的时候给队友写的这边就直接拿来了" class="headerlink" title="两个例子是在17年暑期实践的时候给队友写的这边就直接拿来了"></a>两个例子是在17年暑期实践的时候给队友写的这边就直接拿来了</h6><pre><code>initGet(){
+  let self = this
+    self.$http.get(API.testGet).then((response)=&gt; {
+        console.log(response)
+    },()=&gt;{
+        console.log(&quot;error&quot;)
+    })
+},
+initPost(){
+  let self = this
+  let data = {
+      a:&apos;test&apos;
+  }
+  self.$http.post(API.testPost,data).then((response)=&gt; {
+    console.log()
+  },()=&gt;{
+    console.log(&quot;error&quot;)
+  })
+}
+</code></pre><h3 id="ng1的跨域问题"><a href="#ng1的跨域问题" class="headerlink" title="ng1的跨域问题"></a>ng1的跨域问题</h3><h6 id="用yeoman生成的angular的脚手架-在16年的暑假黑客马拉松写的易二手轻应用"><a href="#用yeoman生成的angular的脚手架-在16年的暑假黑客马拉松写的易二手轻应用" class="headerlink" title="用yeoman生成的angular的脚手架,在16年的暑假黑客马拉松写的易二手轻应用"></a>用yeoman生成的angular的脚手架,在16年的暑假黑客马拉松写的易二手轻应用</h6><h6 id="在app-js里的config里加入"><a href="#在app-js里的config里加入" class="headerlink" title="在app.js里的config里加入"></a>在app.js里的config里加入</h6><pre><code>$httpProvider.defaults.withCredentials = true;
+</code></pre><h6 id="其他就正常调用get、post方法即可"><a href="#其他就正常调用get、post方法即可" class="headerlink" title="其他就正常调用get、post方法即可"></a>其他就正常调用get、post方法即可</h6><h6 id="ng2的跨域到目前为止，我只是粗略的走过ng2的教程并没有用ng2写过项目，但是跨域的重点在于前后端的http头匹配问题，也就是前后端设定相同的http头，其他的就没什么大问题了"><a href="#ng2的跨域到目前为止，我只是粗略的走过ng2的教程并没有用ng2写过项目，但是跨域的重点在于前后端的http头匹配问题，也就是前后端设定相同的http头，其他的就没什么大问题了" class="headerlink" title="ng2的跨域到目前为止，我只是粗略的走过ng2的教程并没有用ng2写过项目，但是跨域的重点在于前后端的http头匹配问题，也就是前后端设定相同的http头，其他的就没什么大问题了"></a>ng2的跨域到目前为止，我只是粗略的走过ng2的教程并没有用ng2写过项目，但是跨域的重点在于前后端的http头匹配问题，也就是前后端设定相同的http头，其他的就没什么大问题了</h6><h3 id="其他跨域方法"><a href="#其他跨域方法" class="headerlink" title="其他跨域方法"></a>其他跨域方法</h3><h6 id="图像ping"><a href="#图像ping" class="headerlink" title="图像ping"></a>图像ping</h6><p>######利用的核心思想是一个网页可以从任何网页加载图像而不需要担心跨域的问题图像ping是与服务器进行简单的、单向的苦于通信，浏览器得不到任何数据，而且只能发送get请求<br>    let img = new Image()<br>    img.onload = img.onerror = function(){}<br>    img.src = ‘<a href="http://www.example.com?name" target="_blank" rel="noopener">http://www.example.com?name</a> = zfl’   //设定路径的那一刻发送get请求</p>
+<h3 id="JSONP跨域"><a href="#JSONP跨域" class="headerlink" title="JSONP跨域"></a>JSONP跨域</h3><h6 id="通过script标签"><a href="#通过script标签" class="headerlink" title="通过script标签"></a>通过script标签</h6><pre><code>function showData (result) {
+    var data = JSON.stringify(result); //json对象转成字符串
+}
+$(&quot;#btn&quot;).click(function () {
+    $(&quot;head&quot;).append(&quot;&lt;script src=&apos;http://www.expample.com?callback=showData&apos;&gt;&lt;\/script&gt;&quot;);   
+})
+</code></pre><h6 id="在服务器端"><a href="#在服务器端" class="headerlink" title="在服务器端"></a>在服务器端</h6><pre><code>List&lt;Student&gt; studentList = getStudentList();
+JSONArray jsonArray = JSONArray.fromObject(studentList);
+String result = jsonArray.toString();
+//前端传过来的回调函数名称
+String callback = request.getParameter(&quot;callback&quot;);   
+//用回调函数名称包裹返回数据，这样，返回数据就作为回调函数的参数传回去了
+result = callback + &quot;(&quot; + result + &quot;)&quot;;
+response.getWriter().write(result)
+</code></pre><h6 id="特别注意：JSONP只能是get方法"><a href="#特别注意：JSONP只能是get方法" class="headerlink" title="特别注意：JSONP只能是get方法"></a>特别注意：JSONP只能是get方法</h6><h3 id="Comet"><a href="#Comet" class="headerlink" title="Comet"></a>Comet</h3><h6 id="服务器向页面推送数据的技术"><a href="#服务器向页面推送数据的技术" class="headerlink" title="服务器向页面推送数据的技术"></a>服务器向页面推送数据的技术</h6><h6 id="1-长轮询：浏览器定时发送请求，是否有数据"><a href="#1-长轮询：浏览器定时发送请求，是否有数据" class="headerlink" title="1.长轮询：浏览器定时发送请求，是否有数据"></a>1.长轮询：浏览器定时发送请求，是否有数据</h6><h6 id="2-短轮询：浏览器发送一次请求，服务器保持请求，直到有数据发送"><a href="#2-短轮询：浏览器发送一次请求，服务器保持请求，直到有数据发送" class="headerlink" title="2.短轮询：浏览器发送一次请求，服务器保持请求，直到有数据发送"></a>2.短轮询：浏览器发送一次请求，服务器保持请求，直到有数据发送</h6><h6 id="3-HTTP流：浏览器发送一次请求，服务器保持请求，并周期性的发送一个数据"><a href="#3-HTTP流：浏览器发送一次请求，服务器保持请求，并周期性的发送一个数据" class="headerlink" title="3.HTTP流：浏览器发送一次请求，服务器保持请求，并周期性的发送一个数据"></a>3.HTTP流：浏览器发送一次请求，服务器保持请求，并周期性的发送一个数据</h6><pre><code>function createStreamingClient(url, progress, finished){
+    let xhr = new XMLHttpRequest(),
+        received = 0;
+    xhr.open(&apos;get&apos;, url, true);
+    xhr.onreadystatechange = function(){
+        let result;
+        if(xhr.readyState == 3){
+            reault = xhr.reaponseText.substring(received);
+            received += result.length;
+
+            progress(result)
+        }else if(xhr.readyState == 4){
+            finished(xhr.responseText)
+        }
+    }
+}
+let client = createStreamingClient(&quot;example.com&quot;,function(data){
+        alert(&quot;received:&quot; + data);
+    },function(data){
+        alert(&quot;Done!&quot;);
+    })
+</code></pre><h3 id="服务器发送事件"><a href="#服务器发送事件" class="headerlink" title="服务器发送事件"></a>服务器发送事件</h3><h6 id="1-SSE-适合长轮询和http流"><a href="#1-SSE-适合长轮询和http流" class="headerlink" title="1.SSE 适合长轮询和http流"></a>1.SSE 适合长轮询和http流</h6><pre><code>let source = new EventSource(“example.com”) 断开始: source.close()
+</code></pre><h5 id="必须为同源，有三个事件open、message、error"><a href="#必须为同源，有三个事件open、message、error" class="headerlink" title="必须为同源，有三个事件open、message、error"></a>必须为同源，有三个事件open、message、error</h5><pre><code>source.onmessage = function(event){
+    console.log(event.data)  //返回的数据在event.data里
+}
+</code></pre><h3 id="2-事件流"><a href="#2-事件流" class="headerlink" title="2.事件流"></a>2.事件流</h3><h6 id="响应的MIME类型为”text-event-stream”-结果在event-data里"><a href="#响应的MIME类型为”text-event-stream”-结果在event-data里" class="headerlink" title="响应的MIME类型为”text/event-stream” 结果在event.data里"></a>响应的MIME类型为”text/event-stream” 结果在event.data里</h6><pre><code>data: foo    //&quot;foo&quot;
+
+data: bar    //&quot;bar&quot;
+
+data: foo
+data: bar     //&quot;foo/nbar&quot;
+</code></pre><h3 id="websockets—全双工、双向通信"><a href="#websockets—全双工、双向通信" class="headerlink" title="websockets—全双工、双向通信"></a>websockets—全双工、双向通信</h3><h6 id="它不使用http-、https-协议，有自己的ws-、wss-协议"><a href="#它不使用http-、https-协议，有自己的ws-、wss-协议" class="headerlink" title="它不使用http://、https://协议，有自己的ws://、wss://协议"></a>它不使用http://、https://协议，有自己的ws://、wss://协议</h6><pre><code>let socket = new WebSocket(&quot;ws://example.com&quot;)
+</code></pre><h6 id="同源策略不适用所以可以传入任何站点链接-只要服务器端认可-实例化对象后马上尝试建立链接"><a href="#同源策略不适用所以可以传入任何站点链接-只要服务器端认可-实例化对象后马上尝试建立链接" class="headerlink" title="同源策略不适用所以可以传入任何站点链接,只要服务器端认可,实例化对象后马上尝试建立链接"></a>同源策略不适用所以可以传入任何站点链接,只要服务器端认可,实例化对象后马上尝试建立链接</h6><pre><code>readyState属性
+WebSocket.OPENING(0)  :正在建立连接
+WebSocket.OPEN(1) : 已经建立连接
+WebSocket.CLOSING(2) : 正在关闭连接
+WebSocket.CLOSE(3) :  已经关闭连接
+</code></pre><h6 id="其他事件跟xhr一样"><a href="#其他事件跟xhr一样" class="headerlink" title="其他事件跟xhr一样"></a>其他事件跟xhr一样</h6><h3 id="web安全"><a href="#web安全" class="headerlink" title="web安全"></a>web安全</h3><h4 id="sql注入原理"><a href="#sql注入原理" class="headerlink" title="sql注入原理"></a>sql注入原理</h4><h6 id="在提交表单时，把sql语句提交上去"><a href="#在提交表单时，把sql语句提交上去" class="headerlink" title="在提交表单时，把sql语句提交上去"></a>在提交表单时，把sql语句提交上去</h6><h6 id="1-永远不要信任用户的输入，要对用户的输入进行校验，可以通过正则表达式，或限制长度，对单引号和双”-“进行转换等。"><a href="#1-永远不要信任用户的输入，要对用户的输入进行校验，可以通过正则表达式，或限制长度，对单引号和双”-“进行转换等。" class="headerlink" title="1.永远不要信任用户的输入，要对用户的输入进行校验，可以通过正则表达式，或限制长度，对单引号和双”-“进行转换等。"></a>1.永远不要信任用户的输入，要对用户的输入进行校验，可以通过正则表达式，或限制长度，对单引号和双”-“进行转换等。</h6><h6 id="2-永远不要使用动态拼装SQL，可以使用参数化的SQL或者直接使用存储过程进行数据查询存取。"><a href="#2-永远不要使用动态拼装SQL，可以使用参数化的SQL或者直接使用存储过程进行数据查询存取。" class="headerlink" title="2.永远不要使用动态拼装SQL，可以使用参数化的SQL或者直接使用存储过程进行数据查询存取。"></a>2.永远不要使用动态拼装SQL，可以使用参数化的SQL或者直接使用存储过程进行数据查询存取。</h6><h6 id="3-永远不要使用管理员权限的数据库连接，为每个应用使用单独的权限有限的数据库连接。"><a href="#3-永远不要使用管理员权限的数据库连接，为每个应用使用单独的权限有限的数据库连接。" class="headerlink" title="3.永远不要使用管理员权限的数据库连接，为每个应用使用单独的权限有限的数据库连接。"></a>3.永远不要使用管理员权限的数据库连接，为每个应用使用单独的权限有限的数据库连接。</h6><h6 id="4-不要把机密信息明文存放，请加密或者hash掉密码和敏感的信息"><a href="#4-不要把机密信息明文存放，请加密或者hash掉密码和敏感的信息" class="headerlink" title="4.不要把机密信息明文存放，请加密或者hash掉密码和敏感的信息"></a>4.不要把机密信息明文存放，请加密或者hash掉密码和敏感的信息</h6><h6 id="xxs-跨站脚本攻击-Cross-Site-Scripting-，恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的-html代码-javascript代码-会被执行，从而达到恶意攻击用户的特殊目的。"><a href="#xxs-跨站脚本攻击-Cross-Site-Scripting-，恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的-html代码-javascript代码-会被执行，从而达到恶意攻击用户的特殊目的。" class="headerlink" title="xxs 跨站脚本攻击(Cross Site Scripting)，恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的 (html代码/javascript代码) 会被执行，从而达到恶意攻击用户的特殊目的。"></a>xxs 跨站脚本攻击(Cross Site Scripting)，恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的 (html代码/javascript代码) 会被执行，从而达到恶意攻击用户的特殊目的。</h6><h6 id="最终目的是为了获取用户信息，网站存在xxs，csrf就无从谈起"><a href="#最终目的是为了获取用户信息，网站存在xxs，csrf就无从谈起" class="headerlink" title="最终目的是为了获取用户信息，网站存在xxs，csrf就无从谈起"></a>最终目的是为了获取用户信息，网站存在xxs，csrf就无从谈起</h6><p>防范</p>
+<h6 id="首先代码里对用户输入的地方和变量都需要仔细检查长度和对”-lt-”-”-gt-”-”-”-”’”等字符做过滤；"><a href="#首先代码里对用户输入的地方和变量都需要仔细检查长度和对”-lt-”-”-gt-”-”-”-”’”等字符做过滤；" class="headerlink" title="首先代码里对用户输入的地方和变量都需要仔细检查长度和对”&lt;”,”&gt;”,”;”,”’”等字符做过滤；"></a>首先代码里对用户输入的地方和变量都需要仔细检查长度和对”&lt;”,”&gt;”,”;”,”’”等字符做过滤；</h6><h6 id="其次任何内容写到页面之前都必须加以encode，避免不小心把html-tag弄出来。这一个层面做好，至少可以堵住超过一半的XSS-攻击。"><a href="#其次任何内容写到页面之前都必须加以encode，避免不小心把html-tag弄出来。这一个层面做好，至少可以堵住超过一半的XSS-攻击。" class="headerlink" title="其次任何内容写到页面之前都必须加以encode，避免不小心把html tag弄出来。这一个层面做好，至少可以堵住超过一半的XSS 攻击。"></a>其次任何内容写到页面之前都必须加以encode，避免不小心把html tag弄出来。这一个层面做好，至少可以堵住超过一半的XSS 攻击。</h6><h6 id="避免直接在cookie-中泄露用户隐私，例如email、密码等等。"><a href="#避免直接在cookie-中泄露用户隐私，例如email、密码等等。" class="headerlink" title="避免直接在cookie 中泄露用户隐私，例如email、密码等等。"></a>避免直接在cookie 中泄露用户隐私，例如email、密码等等。</h6><h6 id="通过使cookie-和系统ip-绑定来降低cookie-泄露后的危险。这样攻击者得到的cookie-没有实际价值，不可能拿来重放。"><a href="#通过使cookie-和系统ip-绑定来降低cookie-泄露后的危险。这样攻击者得到的cookie-没有实际价值，不可能拿来重放。" class="headerlink" title="通过使cookie 和系统ip 绑定来降低cookie 泄露后的危险。这样攻击者得到的cookie 没有实际价值，不可能拿来重放。"></a>通过使cookie 和系统ip 绑定来降低cookie 泄露后的危险。这样攻击者得到的cookie 没有实际价值，不可能拿来重放。</h6><h6 id="如果网站不需要再浏览器端对cookie-进行操作，可以在Set-Cookie-末尾加上HttpOnly-来防止javascript-代码直接获取cookie-。"><a href="#如果网站不需要再浏览器端对cookie-进行操作，可以在Set-Cookie-末尾加上HttpOnly-来防止javascript-代码直接获取cookie-。" class="headerlink" title="如果网站不需要再浏览器端对cookie 进行操作，可以在Set-Cookie 末尾加上HttpOnly 来防止javascript 代码直接获取cookie 。"></a>如果网站不需要再浏览器端对cookie 进行操作，可以在Set-Cookie 末尾加上HttpOnly 来防止javascript 代码直接获取cookie 。</h6><h6 id="尽量采用POST-而非GET-提交表单"><a href="#尽量采用POST-而非GET-提交表单" class="headerlink" title="尽量采用POST 而非GET 提交表单"></a>尽量采用POST 而非GET 提交表单</h6><h3 id="CSRF-伪造用户身份去干事情"><a href="#CSRF-伪造用户身份去干事情" class="headerlink" title="CSRF 伪造用户身份去干事情"></a>CSRF 伪造用户身份去干事情</h3><h6 id="检查referer-X-Requested-With-Orign头"><a href="#检查referer-X-Requested-With-Orign头" class="headerlink" title="检查referer, X-Requested-With, Orign头"></a>检查referer, X-Requested-With, Orign头</h6><h6 id="使用POST代替GET"><a href="#使用POST代替GET" class="headerlink" title="使用POST代替GET"></a>使用POST代替GET</h6><h6 id="添加校验Token至表单中"><a href="#添加校验Token至表单中" class="headerlink" title="添加校验Token至表单中"></a>添加校验Token至表单中</h6><h6 id="添加验证码或其他人机验证手段，如-Google-的-recaptcha"><a href="#添加验证码或其他人机验证手段，如-Google-的-recaptcha" class="headerlink" title="添加验证码或其他人机验证手段，如 Google 的 recaptcha"></a>添加验证码或其他人机验证手段，如 Google 的 recaptcha</h6><h6 id="把Token放到自定义的HTTP-Header-Cookie-to-Header-Token"><a href="#把Token放到自定义的HTTP-Header-Cookie-to-Header-Token" class="headerlink" title="把Token放到自定义的HTTP Header, Cookie-to-Header Token"></a>把Token放到自定义的HTTP Header, Cookie-to-Header Token</h6>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://user-images.githubusercontent.com/17808702/65498913-4fddd980-deef-11e9-9da1-56f86199713b.png" alt="Zhangfuli 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="https://user-images.githubusercontent.com/17808702/65498969-6d12a800-deef-11e9-927a-89d5d0ce9e42.png" alt="Zhangfuli 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/26/vue-picture-upload/" rel="next" title="vue-picture-upload">
+                <i class="fa fa-chevron-left"></i> vue-picture-upload
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/10/javascript高级程序设计1-3/" rel="prev" title="javascript高级程序设计1-3">
+                javascript高级程序设计1-3 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://p4j7qpj9e.bkt.clouddn.com/avatar.jpg"
+                alt="Zhangfuli" />
+            
+              <p class="site-author-name" itemprop="name">Zhangfuli</p>
+              <p class="site-description motion-element" itemprop="description">Do myself,Believe myself,Try my best</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zhangfuli" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zflxsr@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#这篇是在看过JS高级程序设计以及自己以前的一些项目所做的总结"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">这篇是在看过JS高级程序设计以及自己以前的一些项目所做的总结</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xhr用法"><span class="nav-number">2.</span> <span class="nav-text">xhr用法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#open-有三个参数"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">open() 有三个参数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-请求类型-2-URL-3-是否为异步发送请求"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">1.请求类型 2.URL 3.是否为异步发送请求</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#注意：它不会发送请求当调用send-时才会发送请求"><span class="nav-number">2.0.0.3.</span> <span class="nav-text">注意：它不会发送请求当调用send()时才会发送请求</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#data-要发送的数据"><span class="nav-number">2.0.0.4.</span> <span class="nav-text">data:要发送的数据</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#不需要发送数据时必须传入null"><span class="nav-number">2.0.0.5.</span> <span class="nav-text">不需要发送数据时必须传入null</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#响应的数据"><span class="nav-number">2.0.0.6.</span> <span class="nav-text">响应的数据</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#xhr-responseText-返回主体"><span class="nav-number">2.0.0.7.</span> <span class="nav-text">xhr.responseText 返回主体</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#xhr-responseXML"><span class="nav-number">2.0.0.8.</span> <span class="nav-text">xhr.responseXML</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#xhr-status-响应的HTTP状态"><span class="nav-number">2.0.0.9.</span> <span class="nav-text">xhr.status 响应的HTTP状态</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#xhr-readyState"><span class="nav-number">2.0.0.10.</span> <span class="nav-text">xhr.readyState</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#0：-未初始化-未调用open"><span class="nav-number">2.0.0.11.</span> <span class="nav-text">0： 未初始化 未调用open()</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-启动-已经调用open-未调用send"><span class="nav-number">2.0.0.12.</span> <span class="nav-text">1:  启动 已经调用open() 未调用send()</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-发送-已经调用send-未收到响应"><span class="nav-number">2.0.0.13.</span> <span class="nav-text">2:  发送 已经调用send() 未收到响应</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3：-接受-接受部分响应数据-–用于检测http流"><span class="nav-number">2.0.0.14.</span> <span class="nav-text">3： 接受 接受部分响应数据   –用于检测http流</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4：-完成"><span class="nav-number">2.0.0.15.</span> <span class="nav-text">4： 完成</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#超时设定"><span class="nav-number">3.</span> <span class="nav-text">超时设定</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#overrideMimeType-重写XHR响应的MIME类型-必须在send-之前"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">overrideMimeType() 重写XHR响应的MIME类型 必须在send()之前</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#xhr-overrideMimeType-“text-xml”-强迫xhr对象将响应当作XML处理"><span class="nav-number">3.0.0.2.</span> <span class="nav-text">xhr.overrideMimeType(“text/xml”)  强迫xhr对象将响应当作XML处理</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get请求"><span class="nav-number">4.</span> <span class="nav-text">get请求</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-amp-分隔符"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">1.&amp;分隔符</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-查询字符串中每个参数的名和值都必须用encodeURIComponent-进行编码"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">2.查询字符串中每个参数的名和值都必须用encodeURIComponent()进行编码</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#在URL后能看见字符串参数"><span class="nav-number">4.0.0.3.</span> <span class="nav-text">在URL后能看见字符串参数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#案例"><span class="nav-number">4.0.0.4.</span> <span class="nav-text">案例</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#post请求"><span class="nav-number">5.</span> <span class="nav-text">post请求</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#不限传输长度和格式-base64上传图片就必须用post-get传输的太短"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">不限传输长度和格式(base64上传图片就必须用post,get传输的太短)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#post和提交web表单不一样"><span class="nav-number">5.0.0.2.</span> <span class="nav-text">post和提交web表单不一样</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#将表单数据序列化传到服务器"><span class="nav-number">5.0.0.3.</span> <span class="nav-text">将表单数据序列化传到服务器</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#或者"><span class="nav-number">5.0.0.4.</span> <span class="nav-text">或者</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#进度事件"><span class="nav-number">5.0.0.5.</span> <span class="nav-text">进度事件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#loadstart-在接收第一个字节时触发"><span class="nav-number">5.0.0.6.</span> <span class="nav-text">loadstart: 在接收第一个字节时触发</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#progress：周期性的触发"><span class="nav-number">5.0.0.7.</span> <span class="nav-text">progress：周期性的触发</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跨域"><span class="nav-number">6.</span> <span class="nav-text">跨域</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#CORES"><span class="nav-number">6.0.0.1.</span> <span class="nav-text">CORES</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#本质上是使用自定义的HTTP头部让浏览器与服务器沟通，从而决定是否响应成功"><span class="nav-number">6.0.0.2.</span> <span class="nav-text">本质上是使用自定义的HTTP头部让浏览器与服务器沟通，从而决定是否响应成功</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#通过将withCredentials-设置为true可以指定某请求发送凭据"><span class="nav-number">6.0.0.3.</span> <span class="nav-text">通过将withCredentials 设置为true可以指定某请求发送凭据</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#以下情况在服务器端设定好了"><span class="nav-number">6.0.0.4.</span> <span class="nav-text">以下情况在服务器端设定好了</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#vue实现跨域请求–以vue-cli为例"><span class="nav-number">6.0.0.5.</span> <span class="nav-text">vue实现跨域请求–以vue-cli为例</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#在vue-cli生成的时候会给你引入vueresource如果没有的话可以参照项目自己引入进去"><span class="nav-number">6.0.0.6.</span> <span class="nav-text">在vue-cli生成的时候会给你引入vueresource如果没有的话可以参照项目自己引入进去</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#只需在router-index-js里面加入"><span class="nav-number">6.0.0.7.</span> <span class="nav-text">只需在router/index.js里面加入</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#这样在每次进行get、post的时候就不用都写入-emulateJSON-true"><span class="nav-number">6.0.0.8.</span> <span class="nav-text">这样在每次进行get、post的时候就不用都写入{emulateJSON: true}</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#善用-let-self-this"><span class="nav-number">6.0.0.9.</span> <span class="nav-text">善用 let self = this</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#不会出现在自己未知的情况下this指针作用域发生变化而导致的bug"><span class="nav-number">6.0.0.10.</span> <span class="nav-text">不会出现在自己未知的情况下this指针作用域发生变化而导致的bug</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#两个例子是在17年暑期实践的时候给队友写的这边就直接拿来了"><span class="nav-number">6.0.0.11.</span> <span class="nav-text">两个例子是在17年暑期实践的时候给队友写的这边就直接拿来了</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ng1的跨域问题"><span class="nav-number">7.</span> <span class="nav-text">ng1的跨域问题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#用yeoman生成的angular的脚手架-在16年的暑假黑客马拉松写的易二手轻应用"><span class="nav-number">7.0.0.1.</span> <span class="nav-text">用yeoman生成的angular的脚手架,在16年的暑假黑客马拉松写的易二手轻应用</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#在app-js里的config里加入"><span class="nav-number">7.0.0.2.</span> <span class="nav-text">在app.js里的config里加入</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#其他就正常调用get、post方法即可"><span class="nav-number">7.0.0.3.</span> <span class="nav-text">其他就正常调用get、post方法即可</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#ng2的跨域到目前为止，我只是粗略的走过ng2的教程并没有用ng2写过项目，但是跨域的重点在于前后端的http头匹配问题，也就是前后端设定相同的http头，其他的就没什么大问题了"><span class="nav-number">7.0.0.4.</span> <span class="nav-text">ng2的跨域到目前为止，我只是粗略的走过ng2的教程并没有用ng2写过项目，但是跨域的重点在于前后端的http头匹配问题，也就是前后端设定相同的http头，其他的就没什么大问题了</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他跨域方法"><span class="nav-number">8.</span> <span class="nav-text">其他跨域方法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#图像ping"><span class="nav-number">8.0.0.1.</span> <span class="nav-text">图像ping</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSONP跨域"><span class="nav-number">9.</span> <span class="nav-text">JSONP跨域</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#通过script标签"><span class="nav-number">9.0.0.1.</span> <span class="nav-text">通过script标签</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#在服务器端"><span class="nav-number">9.0.0.2.</span> <span class="nav-text">在服务器端</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#特别注意：JSONP只能是get方法"><span class="nav-number">9.0.0.3.</span> <span class="nav-text">特别注意：JSONP只能是get方法</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Comet"><span class="nav-number">10.</span> <span class="nav-text">Comet</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#服务器向页面推送数据的技术"><span class="nav-number">10.0.0.1.</span> <span class="nav-text">服务器向页面推送数据的技术</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-长轮询：浏览器定时发送请求，是否有数据"><span class="nav-number">10.0.0.2.</span> <span class="nav-text">1.长轮询：浏览器定时发送请求，是否有数据</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-短轮询：浏览器发送一次请求，服务器保持请求，直到有数据发送"><span class="nav-number">10.0.0.3.</span> <span class="nav-text">2.短轮询：浏览器发送一次请求，服务器保持请求，直到有数据发送</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-HTTP流：浏览器发送一次请求，服务器保持请求，并周期性的发送一个数据"><span class="nav-number">10.0.0.4.</span> <span class="nav-text">3.HTTP流：浏览器发送一次请求，服务器保持请求，并周期性的发送一个数据</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器发送事件"><span class="nav-number">11.</span> <span class="nav-text">服务器发送事件</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-SSE-适合长轮询和http流"><span class="nav-number">11.0.0.1.</span> <span class="nav-text">1.SSE 适合长轮询和http流</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#必须为同源，有三个事件open、message、error"><span class="nav-number">11.0.1.</span> <span class="nav-text">必须为同源，有三个事件open、message、error</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-事件流"><span class="nav-number">12.</span> <span class="nav-text">2.事件流</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#响应的MIME类型为”text-event-stream”-结果在event-data里"><span class="nav-number">12.0.0.1.</span> <span class="nav-text">响应的MIME类型为”text/event-stream” 结果在event.data里</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#websockets—全双工、双向通信"><span class="nav-number">13.</span> <span class="nav-text">websockets—全双工、双向通信</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#它不使用http-、https-协议，有自己的ws-、wss-协议"><span class="nav-number">13.0.0.1.</span> <span class="nav-text">它不使用http://、https://协议，有自己的ws://、wss://协议</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#同源策略不适用所以可以传入任何站点链接-只要服务器端认可-实例化对象后马上尝试建立链接"><span class="nav-number">13.0.0.2.</span> <span class="nav-text">同源策略不适用所以可以传入任何站点链接,只要服务器端认可,实例化对象后马上尝试建立链接</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#其他事件跟xhr一样"><span class="nav-number">13.0.0.3.</span> <span class="nav-text">其他事件跟xhr一样</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web安全"><span class="nav-number">14.</span> <span class="nav-text">web安全</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sql注入原理"><span class="nav-number">14.1.</span> <span class="nav-text">sql注入原理</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#在提交表单时，把sql语句提交上去"><span class="nav-number">14.1.0.1.</span> <span class="nav-text">在提交表单时，把sql语句提交上去</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-永远不要信任用户的输入，要对用户的输入进行校验，可以通过正则表达式，或限制长度，对单引号和双”-“进行转换等。"><span class="nav-number">14.1.0.2.</span> <span class="nav-text">1.永远不要信任用户的输入，要对用户的输入进行校验，可以通过正则表达式，或限制长度，对单引号和双”-“进行转换等。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-永远不要使用动态拼装SQL，可以使用参数化的SQL或者直接使用存储过程进行数据查询存取。"><span class="nav-number">14.1.0.3.</span> <span class="nav-text">2.永远不要使用动态拼装SQL，可以使用参数化的SQL或者直接使用存储过程进行数据查询存取。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-永远不要使用管理员权限的数据库连接，为每个应用使用单独的权限有限的数据库连接。"><span class="nav-number">14.1.0.4.</span> <span class="nav-text">3.永远不要使用管理员权限的数据库连接，为每个应用使用单独的权限有限的数据库连接。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-不要把机密信息明文存放，请加密或者hash掉密码和敏感的信息"><span class="nav-number">14.1.0.5.</span> <span class="nav-text">4.不要把机密信息明文存放，请加密或者hash掉密码和敏感的信息</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#xxs-跨站脚本攻击-Cross-Site-Scripting-，恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的-html代码-javascript代码-会被执行，从而达到恶意攻击用户的特殊目的。"><span class="nav-number">14.1.0.6.</span> <span class="nav-text">xxs 跨站脚本攻击(Cross Site Scripting)，恶意攻击者往Web页面里插入恶意html代码，当用户浏览该页之时，嵌入其中Web里面的 (html代码/javascript代码) 会被执行，从而达到恶意攻击用户的特殊目的。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#最终目的是为了获取用户信息，网站存在xxs，csrf就无从谈起"><span class="nav-number">14.1.0.7.</span> <span class="nav-text">最终目的是为了获取用户信息，网站存在xxs，csrf就无从谈起</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#首先代码里对用户输入的地方和变量都需要仔细检查长度和对”-lt-”-”-gt-”-”-”-”’”等字符做过滤；"><span class="nav-number">14.1.0.8.</span> <span class="nav-text">首先代码里对用户输入的地方和变量都需要仔细检查长度和对”&lt;”,”&gt;”,”;”,”’”等字符做过滤；</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#其次任何内容写到页面之前都必须加以encode，避免不小心把html-tag弄出来。这一个层面做好，至少可以堵住超过一半的XSS-攻击。"><span class="nav-number">14.1.0.9.</span> <span class="nav-text">其次任何内容写到页面之前都必须加以encode，避免不小心把html tag弄出来。这一个层面做好，至少可以堵住超过一半的XSS 攻击。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#避免直接在cookie-中泄露用户隐私，例如email、密码等等。"><span class="nav-number">14.1.0.10.</span> <span class="nav-text">避免直接在cookie 中泄露用户隐私，例如email、密码等等。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#通过使cookie-和系统ip-绑定来降低cookie-泄露后的危险。这样攻击者得到的cookie-没有实际价值，不可能拿来重放。"><span class="nav-number">14.1.0.11.</span> <span class="nav-text">通过使cookie 和系统ip 绑定来降低cookie 泄露后的危险。这样攻击者得到的cookie 没有实际价值，不可能拿来重放。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#如果网站不需要再浏览器端对cookie-进行操作，可以在Set-Cookie-末尾加上HttpOnly-来防止javascript-代码直接获取cookie-。"><span class="nav-number">14.1.0.12.</span> <span class="nav-text">如果网站不需要再浏览器端对cookie 进行操作，可以在Set-Cookie 末尾加上HttpOnly 来防止javascript 代码直接获取cookie 。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#尽量采用POST-而非GET-提交表单"><span class="nav-number">14.1.0.13.</span> <span class="nav-text">尽量采用POST 而非GET 提交表单</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF-伪造用户身份去干事情"><span class="nav-number">15.</span> <span class="nav-text">CSRF 伪造用户身份去干事情</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#检查referer-X-Requested-With-Orign头"><span class="nav-number">15.0.0.1.</span> <span class="nav-text">检查referer, X-Requested-With, Orign头</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#使用POST代替GET"><span class="nav-number">15.0.0.2.</span> <span class="nav-text">使用POST代替GET</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#添加校验Token至表单中"><span class="nav-number">15.0.0.3.</span> <span class="nav-text">添加校验Token至表单中</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#添加验证码或其他人机验证手段，如-Google-的-recaptcha"><span class="nav-number">15.0.0.4.</span> <span class="nav-text">添加验证码或其他人机验证手段，如 Google 的 recaptcha</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#把Token放到自定义的HTTP-Header-Cookie-to-Header-Token"><span class="nav-number">15.0.0.5.</span> <span class="nav-text">把Token放到自定义的HTTP Header, Cookie-to-Header Token</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhangfuli</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'zhangfuli',
+            repo: 'zhangfuli.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '989fa2e02fad4e80ff02236e82557d84dcbd4b7c',
+            
+                client_id: 'aa58cc061c5cec2a43ed'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+
+<script type='text/javascript'>
+function addLink() {
+    var body_element = document.getElementsByTagName('body')[0];
+    var selection;
+    if(window.getSelection){//DOM,FF,Webkit,Chrome,IE10
+      selection = window.getSelection();
+    }else if(document.getSelection){//IE10
+      selection= document.getSelection();
+    }else if(document.selection){//IE6+10-
+      selection= document.selection.createRange().text;
+    }else{
+      selection= "";
+    }
+    var pagelink = "<br /><br/ ><br />" +
+      "著作权归作者所有<br />" +
+      "商业转载请联系作者获得授权,非商业转载请注明出处 <br />" +
+      "作者:zfl <br />" +
+      "链接:https://zhangfuli.github.io/<br /><br /><br />"; 
+    var copy_text = selection + pagelink;
+    var new_div = document.createElement('div');
+    new_div.style.left='-99999px';
+    new_div.style.position='absolute';
+    body_element.appendChild(new_div);
+    new_div.innerHTML = copy_text ;
+    selection.selectAllChildren(new_div);
+    window.setTimeout(function() {
+        body_element.removeChild(new_div);
+    },0);
+}
+document.body.oncopy = addLink;
+</script>
+
+</html>

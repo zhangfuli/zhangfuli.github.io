@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, ZhangFuli" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hello, ZhangFuli" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="12import numpy as npimport pandas as pd 时间序列 时间戳 时间间隔 固定周期  12345# D 天# H 小时# M 月rng = pd.date_range(&apos;2016/07/01&apos;, periods=10 , freq=&apos;D&apos;)rng DatetimeIndex([&amp;apos;2016-07-01&amp;apos;, &amp;apos;2016-07-02&amp;apo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ARIMA时间序列预测-1">
+<meta property="og:url" content="zhangfuli.github.io/2020/08/18/ARIMA时间序列预测-1/index.html">
+<meta property="og:site_name" content="Hello, ZhangFuli">
+<meta property="og:description" content="12import numpy as npimport pandas as pd 时间序列 时间戳 时间间隔 固定周期  12345# D 天# H 小时# M 月rng = pd.date_range(&apos;2016/07/01&apos;, periods=10 , freq=&apos;D&apos;)rng DatetimeIndex([&amp;apos;2016-07-01&amp;apos;, &amp;apos;2016-07-02&amp;apo">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="/images/ARIMA时间序列分析-1/output_20_1.png">
+<meta property="og:updated_time" content="2020-08-18T04:56:55.159Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ARIMA时间序列预测-1">
+<meta name="twitter:description" content="12import numpy as npimport pandas as pd 时间序列 时间戳 时间间隔 固定周期  12345# D 天# H 小时# M 月rng = pd.date_range(&apos;2016/07/01&apos;, periods=10 , freq=&apos;D&apos;)rng DatetimeIndex([&amp;apos;2016-07-01&amp;apos;, &amp;apos;2016-07-02&amp;apo">
+<meta name="twitter:image" content="/images/ARIMA时间序列分析-1/output_20_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="zhangfuli.github.io/2020/08/18/ARIMA时间序列预测-1/"/>
+
+
+
+
+
+  <title>ARIMA时间序列预测-1 | Hello, ZhangFuli</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?aab3d4e9187a78f10123d63e6f46fae7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hello, ZhangFuli</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2020/08/18/ARIMA时间序列预测-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhangfuli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://p4j7qpj9e.bkt.clouddn.com/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hello, ZhangFuli">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ARIMA时间序列预测-1</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-18T12:49:43+08:00">
+                2020-08-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/08/18/ARIMA时间序列预测-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2020/08/18/ARIMA时间序列预测-1/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure>
+<h2 id="时间序列"><a href="#时间序列" class="headerlink" title="时间序列"></a>时间序列</h2><ul>
+<li>时间戳</li>
+<li>时间间隔</li>
+<li>固定周期</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># D 天</span></span><br><span class="line"><span class="comment"># H 小时</span></span><br><span class="line"><span class="comment"># M 月</span></span><br><span class="line">rng = pd.date_range(<span class="string">'2016/07/01'</span>, periods=<span class="number">10</span> , freq=<span class="string">'D'</span>)</span><br><span class="line">rng</span><br></pre></td></tr></table></figure>
+<pre><code>DatetimeIndex([&apos;2016-07-01&apos;, &apos;2016-07-02&apos;, &apos;2016-07-03&apos;, &apos;2016-07-04&apos;,
+               &apos;2016-07-05&apos;, &apos;2016-07-06&apos;, &apos;2016-07-07&apos;, &apos;2016-07-08&apos;,
+               &apos;2016-07-09&apos;, &apos;2016-07-10&apos;],
+              dtype=&apos;datetime64[ns]&apos;, freq=&apos;D&apos;)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rng = pd.date_range(<span class="string">'2016/07/01'</span>, periods=<span class="number">10</span> , freq=<span class="string">'3D'</span>)</span><br><span class="line">rng</span><br></pre></td></tr></table></figure>
+<pre><code>DatetimeIndex([&apos;2016-07-01&apos;, &apos;2016-07-04&apos;, &apos;2016-07-07&apos;, &apos;2016-07-10&apos;,
+               &apos;2016-07-13&apos;, &apos;2016-07-16&apos;, &apos;2016-07-19&apos;, &apos;2016-07-22&apos;,
+               &apos;2016-07-25&apos;, &apos;2016-07-28&apos;],
+              dtype=&apos;datetime64[ns]&apos;, freq=&apos;3D&apos;)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">time = pd.Series(np.random.randn(<span class="number">20</span>), index=pd.date_range(<span class="string">'2016/1/1'</span>, periods=<span class="number">20</span>))</span><br><span class="line">time</span><br></pre></td></tr></table></figure>
+<pre><code>2016-01-01   -0.512570
+2016-01-02   -1.077638
+2016-01-03    0.126473
+2016-01-04   -1.242304
+2016-01-05   -0.311126
+2016-01-06   -0.380349
+2016-01-07    1.459504
+2016-01-08   -0.328805
+2016-01-09    0.537477
+2016-01-10   -0.377715
+2016-01-11   -0.036280
+2016-01-12   -2.522750
+2016-01-13   -0.936564
+2016-01-14    0.220823
+2016-01-15   -0.515707
+2016-01-16   -0.338733
+2016-01-17    1.403778
+2016-01-18    1.316850
+2016-01-19   -0.988479
+2016-01-20   -1.655101
+Freq: D, dtype: float64
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data = pd.date_range(<span class="string">'2020/01/01'</span>,<span class="string">'2020/01/20'</span>,freq=<span class="string">'D'</span>)</span><br><span class="line">data</span><br></pre></td></tr></table></figure>
+<pre><code>DatetimeIndex([&apos;2020-01-01&apos;, &apos;2020-01-02&apos;, &apos;2020-01-03&apos;, &apos;2020-01-04&apos;,
+               &apos;2020-01-05&apos;, &apos;2020-01-06&apos;, &apos;2020-01-07&apos;, &apos;2020-01-08&apos;,
+               &apos;2020-01-09&apos;, &apos;2020-01-10&apos;, &apos;2020-01-11&apos;, &apos;2020-01-12&apos;,
+               &apos;2020-01-13&apos;, &apos;2020-01-14&apos;, &apos;2020-01-15&apos;, &apos;2020-01-16&apos;,
+               &apos;2020-01-17&apos;, &apos;2020-01-18&apos;, &apos;2020-01-19&apos;, &apos;2020-01-20&apos;],
+              dtype=&apos;datetime64[ns]&apos;, freq=&apos;D&apos;)
+</code></pre><h2 id="过滤"><a href="#过滤" class="headerlink" title="过滤"></a>过滤</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">time.truncate(before=<span class="string">'2016-1-10'</span>)   <span class="comment"># after</span></span><br></pre></td></tr></table></figure>
+<pre><code>2016-01-10   -0.377715
+2016-01-11   -0.036280
+2016-01-12   -2.522750
+2016-01-13   -0.936564
+2016-01-14    0.220823
+2016-01-15   -0.515707
+2016-01-16   -0.338733
+2016-01-17    1.403778
+2016-01-18    1.316850
+2016-01-19   -0.988479
+2016-01-20   -1.655101
+Freq: D, dtype: float64
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.Timestamp(<span class="string">'2020/01/01'</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>Timestamp(&apos;2020-01-01 00:00:00&apos;)
+</code></pre><h2 id="数据重采样"><a href="#数据重采样" class="headerlink" title="数据重采样"></a>数据重采样</h2><ul>
+<li>升采样</li>
+<li>降采样</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rng = pd.date_range(<span class="string">'2020/01/01'</span>, periods=<span class="number">90</span>, freq=<span class="string">'D'</span>)</span><br><span class="line">ts = pd.Series(np.random.randn(len(rng)), index=rng)</span><br><span class="line">ts.head()</span><br></pre></td></tr></table></figure>
+<pre><code>2020-01-01    1.316377
+2020-01-02    1.979066
+2020-01-03   -1.101733
+2020-01-04   -0.154840
+2020-01-05    0.661635
+Freq: D, dtype: float64
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ts.resample(<span class="string">'M'</span>).sum()  <span class="comment"># 将天转化为月</span></span><br></pre></td></tr></table></figure>
+<pre><code>2020-01-31    6.521808
+2020-02-29    1.520356
+2020-03-31   -6.827269
+Freq: M, dtype: float64
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">day3D = ts.resample(<span class="string">'3D'</span>).sum()</span><br><span class="line">print(day3D)</span><br></pre></td></tr></table></figure>
+<pre><code>2020-01-01    2.193710
+2020-01-04    0.216971
+2020-01-07   -1.321336
+2020-01-10    1.099015
+2020-01-13    3.568412
+2020-01-16    2.904386
+2020-01-19   -2.107415
+2020-01-22   -0.324793
+2020-01-25   -1.017733
+2020-01-28    0.357197
+2020-01-31    0.586223
+2020-02-03   -1.602844
+2020-02-06    0.676791
+2020-02-09   -2.443876
+2020-02-12   -0.546803
+2020-02-15    4.927371
+2020-02-18   -0.726225
+2020-02-21    1.586811
+2020-02-24    0.500058
+2020-02-27   -0.483757
+2020-03-01   -0.520131
+2020-03-04    3.073532
+2020-03-07   -2.036933
+2020-03-10   -3.002754
+2020-03-13    1.658833
+2020-03-16   -0.804828
+2020-03-19   -1.198226
+2020-03-22   -3.494161
+2020-03-25    1.942300
+2020-03-28   -2.444900
+Freq: 3D, dtype: float64
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 升采样</span></span><br><span class="line">print(day3D.resample(<span class="string">'D'</span>).asfreq())</span><br></pre></td></tr></table></figure>
+<pre><code>2020-01-01    2.193710
+2020-01-02         NaN
+2020-01-03         NaN
+2020-01-04    0.216971
+2020-01-05         NaN
+2020-01-06         NaN
+2020-01-07   -1.321336
+2020-01-08         NaN
+2020-01-09         NaN
+2020-01-10    1.099015
+2020-01-11         NaN
+2020-01-12         NaN
+2020-01-13    3.568412
+2020-01-14         NaN
+2020-01-15         NaN
+2020-01-16    2.904386
+2020-01-17         NaN
+2020-01-18         NaN
+2020-01-19   -2.107415
+2020-01-20         NaN
+2020-01-21         NaN
+2020-01-22   -0.324793
+2020-01-23         NaN
+2020-01-24         NaN
+2020-01-25   -1.017733
+2020-01-26         NaN
+2020-01-27         NaN
+2020-01-28    0.357197
+2020-01-29         NaN
+2020-01-30         NaN
+                ...   
+2020-02-28         NaN
+2020-02-29         NaN
+2020-03-01   -0.520131
+2020-03-02         NaN
+2020-03-03         NaN
+2020-03-04    3.073532
+2020-03-05         NaN
+2020-03-06         NaN
+2020-03-07   -2.036933
+2020-03-08         NaN
+2020-03-09         NaN
+2020-03-10   -3.002754
+2020-03-11         NaN
+2020-03-12         NaN
+2020-03-13    1.658833
+2020-03-14         NaN
+2020-03-15         NaN
+2020-03-16   -0.804828
+2020-03-17         NaN
+2020-03-18         NaN
+2020-03-19   -1.198226
+2020-03-20         NaN
+2020-03-21         NaN
+2020-03-22   -3.494161
+2020-03-23         NaN
+2020-03-24         NaN
+2020-03-25    1.942300
+2020-03-26         NaN
+2020-03-27         NaN
+2020-03-28   -2.444900
+Freq: D, Length: 88, dtype: float64
+</code></pre><h2 id="插值方法："><a href="#插值方法：" class="headerlink" title="插值方法："></a>插值方法：</h2><ul>
+<li>ffill 空值取前面的值</li>
+<li>bfill 空值取后面的值</li>
+<li>interpolate 线性取值</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">day3D.resample(<span class="string">'D'</span>).ffill(<span class="number">1</span>).head()</span><br></pre></td></tr></table></figure>
+<pre><code>2020-01-01    2.193710
+2020-01-02    2.193710
+2020-01-03         NaN
+2020-01-04    0.216971
+2020-01-05    0.216971
+Freq: D, dtype: float64
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">day3D.resample(<span class="string">'D'</span>).interpolate(<span class="string">'linear'</span>).head()</span><br></pre></td></tr></table></figure>
+<pre><code>2020-01-01    2.193710
+2020-01-02    1.534797
+2020-01-03    0.875884
+2020-01-04    0.216971
+2020-01-05   -0.295798
+Freq: D, dtype: float64
+</code></pre><h2 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">r = ts.rolling(window=<span class="number">10</span>)</span><br><span class="line">r</span><br></pre></td></tr></table></figure>
+<pre><code>Rolling [window=10,center=False,axis=0]
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># r.max r.median r.std r.skew r.sum r.var</span></span><br><span class="line">print(r.mean())</span><br></pre></td></tr></table></figure>
+<pre><code>2020-01-01         NaN
+2020-01-02         NaN
+2020-01-03         NaN
+2020-01-04         NaN
+2020-01-05         NaN
+2020-01-06         NaN
+2020-01-07         NaN
+2020-01-08         NaN
+2020-01-09         NaN
+2020-01-10    0.227167
+2020-01-11    0.078212
+2020-01-12   -0.110708
+2020-01-13    0.148539
+2020-01-14    0.297714
+2020-01-15    0.305627
+2020-01-16    0.575904
+2020-01-17    0.611440
+2020-01-18    0.700247
+2020-01-19    0.621096
+2020-01-20    0.320521
+2020-01-21    0.445525
+2020-01-22    0.198997
+2020-01-23    0.040407
+2020-01-24    0.121294
+2020-01-25   -0.011793
+2020-01-26   -0.331101
+2020-01-27   -0.350714
+2020-01-28   -0.319107
+2020-01-29   -0.204708
+2020-01-30    0.009153
+                ...   
+2020-03-01    0.117644
+2020-03-02   -0.073529
+2020-03-03   -0.047548
+2020-03-04    0.160732
+2020-03-05    0.345953
+2020-03-06    0.334522
+2020-03-07    0.287958
+2020-03-08    0.273020
+2020-03-09    0.063349
+2020-03-10   -0.136058
+2020-03-11   -0.151545
+2020-03-12   -0.130524
+2020-03-13   -0.149661
+2020-03-14   -0.384004
+2020-03-15   -0.271879
+2020-03-16   -0.500738
+2020-03-17   -0.359947
+2020-03-18   -0.357707
+2020-03-19   -0.265655
+2020-03-20   -0.161695
+2020-03-21   -0.088838
+2020-03-22   -0.185694
+2020-03-23   -0.330775
+2020-03-24   -0.407565
+2020-03-25   -0.457954
+2020-03-26   -0.254431
+2020-03-27   -0.414623
+2020-03-28   -0.291319
+2020-03-29   -0.424687
+2020-03-30   -0.384974
+Freq: D, Length: 90, dtype: float64
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">%matplotlib inline</span><br><span class="line">plt.figure(figsize=(<span class="number">15</span>, <span class="number">5</span>))</span><br><span class="line">ts.plot(style=<span class="string">'r--'</span>)</span><br><span class="line">ts.rolling(window = <span class="number">10</span>).mean().plot(style=<span class="string">'b'</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x123521400&gt;
+</code></pre><p><img src="/images/ARIMA时间序列分析-1/output_20_1.png" alt="png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://user-images.githubusercontent.com/17808702/65498913-4fddd980-deef-11e9-9da1-56f86199713b.png" alt="Zhangfuli 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="https://user-images.githubusercontent.com/17808702/65498969-6d12a800-deef-11e9-927a-89d5d0ce9e42.png" alt="Zhangfuli 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/05/基于Hyperledger-Fabric的智能合约微服务化团队架构/" rel="next" title="基于Hyperledger Fabric的智能合约微服务化团队架构">
+                <i class="fa fa-chevron-left"></i> 基于Hyperledger Fabric的智能合约微服务化团队架构
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/08/18/ARIMA时间序列预测-2/" rel="prev" title="ARIMA时间序列预测-2">
+                ARIMA时间序列预测-2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://p4j7qpj9e.bkt.clouddn.com/avatar.jpg"
+                alt="Zhangfuli" />
+            
+              <p class="site-author-name" itemprop="name">Zhangfuli</p>
+              <p class="site-description motion-element" itemprop="description">Do myself,Believe myself,Try my best</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zhangfuli" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zflxsr@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#时间序列"><span class="nav-number">1.</span> <span class="nav-text">时间序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过滤"><span class="nav-number">2.</span> <span class="nav-text">过滤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据重采样"><span class="nav-number">3.</span> <span class="nav-text">数据重采样</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插值方法："><span class="nav-number">4.</span> <span class="nav-text">插值方法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#滑动窗口"><span class="nav-number">5.</span> <span class="nav-text">滑动窗口</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhangfuli</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'zhangfuli',
+            repo: 'zhangfuli.github.io',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '989fa2e02fad4e80ff02236e82557d84dcbd4b7c',
+            
+                client_id: 'aa58cc061c5cec2a43ed'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+
+<script type='text/javascript'>
+function addLink() {
+    var body_element = document.getElementsByTagName('body')[0];
+    var selection;
+    if(window.getSelection){//DOM,FF,Webkit,Chrome,IE10
+      selection = window.getSelection();
+    }else if(document.getSelection){//IE10
+      selection= document.getSelection();
+    }else if(document.selection){//IE6+10-
+      selection= document.selection.createRange().text;
+    }else{
+      selection= "";
+    }
+    var pagelink = "<br /><br/ ><br />" +
+      "著作权归作者所有<br />" +
+      "商业转载请联系作者获得授权,非商业转载请注明出处 <br />" +
+      "作者:zfl <br />" +
+      "链接:https://zhangfuli.github.io/<br /><br /><br />"; 
+    var copy_text = selection + pagelink;
+    var new_div = document.createElement('div');
+    new_div.style.left='-99999px';
+    new_div.style.position='absolute';
+    body_element.appendChild(new_div);
+    new_div.innerHTML = copy_text ;
+    selection.selectAllChildren(new_div);
+    window.setTimeout(function() {
+        body_element.removeChild(new_div);
+    },0);
+}
+document.body.oncopy = addLink;
+</script>
+
+</html>
