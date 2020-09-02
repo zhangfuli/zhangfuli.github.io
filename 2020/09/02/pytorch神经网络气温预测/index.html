@@ -90,7 +90,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/pytorch神经网络气温预测/output_5_0.png">
 <meta property="og:image" content="/images/pytorch神经网络气温预测/output_14_0.png">
-<meta property="og:updated_time" content="2020-09-02T07:58:49.077Z">
+<meta property="og:updated_time" content="2020-09-02T08:02:53.316Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pytorch神经网络气温预测">
 <meta name="twitter:description" content="12345678import numpy as npimport pandas as pdimport matplotlib.pyplot as pltimport torchimport torch.optim as optimimport warningswarnings.filterwarnings(&apos;ignore&apos;)%matplotlib inline 12345features = pd">
@@ -390,8 +390,8 @@
       
         <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">'ignore'</span>)</span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">features = pd.read_csv(<span class="string">'temps.csv'</span>)</span><br><span class="line">features.head()</span><br><span class="line"><span class="comment"># temp_2 前天最高气温</span></span><br><span class="line"><span class="comment"># temp_1 昨天最高气温</span></span><br><span class="line"><span class="comment"># 历史上这一天平均最高气温</span></span><br></pre></td></tr></table></figure>
- 
-<table border="1" style="overflow-x:scroll;">
+
+<table border="1" style="overflow:scroll; width=500px">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -483,7 +483,7 @@
 <p><img src="/images/pytorch神经网络气温预测/output_5_0.png" alt="png"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># one-hot编码</span></span><br><span class="line">features = pd.get_dummies(features)</span><br><span class="line">features.head(<span class="number">5</span>) <span class="comment"># 自动判断</span></span><br></pre></td></tr></table></figure>
 
-<div style="overflow-x: scroll;">
+<div style="overflow-x: scroll;width:500px">
 <table border="1">
   <thead>
     <tr style="text-align: right;">
