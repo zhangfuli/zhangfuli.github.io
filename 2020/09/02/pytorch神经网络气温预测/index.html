@@ -90,7 +90,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/pytorch神经网络气温预测/output_5_0.png">
 <meta property="og:image" content="/images/pytorch神经网络气温预测/output_14_0.png">
-<meta property="og:updated_time" content="2020-09-02T07:50:41.914Z">
+<meta property="og:updated_time" content="2020-09-02T07:55:10.437Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pytorch神经网络气温预测">
 <meta name="twitter:description" content="12345678import numpy as npimport pandas as pdimport matplotlib.pyplot as pltimport torchimport torch.optim as optimimport warningswarnings.filterwarnings(&apos;ignore&apos;)%matplotlib inline 12345features = pd">
@@ -390,11 +390,85 @@
       
         <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">'ignore'</span>)</span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">features = pd.read_csv(<span class="string">'temps.csv'</span>)</span><br><span class="line">features.head()</span><br><span class="line"><span class="comment"># temp_2 前天最高气温</span></span><br><span class="line"><span class="comment"># temp_1 昨天最高气温</span></span><br><span class="line"><span class="comment"># 历史上这一天平均最高气温</span></span><br></pre></td></tr></table></figure>
-<table border="1" style="overflow:scroll;"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>year</th><br>      <th>month</th><br>      <th>day</th><br>      <th>week</th><br>      <th>temp_2</th><br>      <th>temp_1</th><br>      <th>average</th><br>      <th>actual</th><br>      <th>friend</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>0</th><br>      <td>2016</td><br>      <td>1</td><br>      <td>1</td><br>      <td>Fri</td><br>      <td>45</td><br>      <td>45</td><br>      <td>45.6</td><br>      <td>45</td><br>      <td>29</td><br>    </tr><br>    <tr><br>      <th>1</th><br>      <td>2016</td><br>      <td>1</td><br>      <td>2</td><br>      <td>Sat</td><br>      <td>44</td><br>      <td>45</td><br>      <td>45.7</td><br>      <td>44</td><br>      <td>61</td><br>    </tr><br>    <tr><br>      <th>2</th><br>      <td>2016</td><br>      <td>1</td><br>      <td>3</td><br>      <td>Sun</td><br>      <td>45</td><br>      <td>44</td><br>      <td>45.8</td><br>      <td>41</td><br>      <td>56</td><br>    </tr><br>    <tr><br>      <th>3</th><br>      <td>2016</td><br>      <td>1</td><br>      <td>4</td><br>      <td>Mon</td><br>      <td>44</td><br>      <td>41</td><br>      <td>45.9</td><br>      <td>40</td><br>      <td>53</td><br>    </tr><br>    <tr><br>      <th>4</th><br>      <td>2016</td><br>      <td>1</td><br>      <td>5</td><br>      <td>Tues</td><br>      <td>41</td><br>      <td>40</td><br>      <td>46.0</td><br>      <td>44</td><br>      <td>41</td><br>    </tr><br>  </tbody><br></table>
-
-
-
-
+ 
+<table border="1" style="overflow:scroll;">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>month</th>
+      <th>day</th>
+      <th>week</th>
+      <th>temp_2</th>
+      <th>temp_1</th>
+      <th>average</th>
+      <th>actual</th>
+      <th>friend</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2016</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Fri</td>
+      <td>45</td>
+      <td>45</td>
+      <td>45.6</td>
+      <td>45</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2016</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Sat</td>
+      <td>44</td>
+      <td>45</td>
+      <td>45.7</td>
+      <td>44</td>
+      <td>61</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2016</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Sun</td>
+      <td>45</td>
+      <td>44</td>
+      <td>45.8</td>
+      <td>41</td>
+      <td>56</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2016</td>
+      <td>1</td>
+      <td>4</td>
+      <td>Mon</td>
+      <td>44</td>
+      <td>41</td>
+      <td>45.9</td>
+      <td>40</td>
+      <td>53</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2016</td>
+      <td>1</td>
+      <td>5</td>
+      <td>Tues</td>
+      <td>41</td>
+      <td>40</td>
+      <td>46.0</td>
+      <td>44</td>
+      <td>41</td>
+    </tr>
+  </tbody>
+</table>
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(features.shape)</span><br></pre></td></tr></table></figure>
 <pre><code>(348, 9)
