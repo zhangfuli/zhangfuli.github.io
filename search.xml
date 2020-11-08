@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[数据库操作-3]]></title>
+    <url>%2F2020%2F10%2F24%2F%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C-3%2F</url>
+    <content type="text"><![CDATA[1、检索: 12SELECT sno, sname, sex, age, dept FROM Student_2WHERE sex='F' and age = 18; 2、去掉重复项: 1SELECT DISTINCT age FROM Student_2; 3、确定范围: 12SELECT sno, sname, sex, age, dept FROM Student_2WHERE age BETWEEN 18 AND 19; 4、模糊查询: 12345678910111213141516SELECT sno, sname, sex, age, dept FROM Student_2WHERE dept LIKE 'C%';SELECT sno, sname, sex, age, dept FROM Student_2WHERE dept LIKE 'C%' or dept LIKE 'I%';SELECT sno, sname, sex, age, dept FROM Student_2WHERE dept LIKE 'I_T';SELECT sno, sname, sex, age, dept FROM Student_2WHERE dept LIKE 'I%T';SELECT sno, sname, sex, age, dept FROM Student_2WHERE dept LIKE '%o_';-- aabbccddefg 5、组合查询: 12345SELECT sno, sname, sex, age, dept FROM Student_2WHERE dept in ('CS', 'IoT');SELECT sno, sname, sex, age, dept FROM Student_2WHERE dept not in ('CS', 'IoT'); 6、对结果排序: 1234567SELECT sno, sname, sex, age, dept FROM Student_2WHERE sex = 'F'ORDER BY age;SELECT sno, sname, sex, age, dept FROM Student_2WHERE sex = 'F'ORDER BY age DESC; 7、函数: 123456789101112131415161718192021222324252627SELECT COUNT(*) FROM Student_2WHERE sex = 'F';SELECT COUNT(*) AS 'student_count' FROM Student_2WHERE sex = 'F';SELECT AVG(age) AS 'avg_age' FROM Student_2WHERE sex = 'F';SELECT COUNT(*) as 'count', AVG(age) as 'avg' FROM Student_2WHERE sex = 'F';SELECT COUNT(DISTINCT age) FROM Student_2WHERE sex = 'F';-- 查询学生的个数SELECT MAX(age) FROM Student_2WHERE sex = 'F';SELECT MIN(age) FROM Student_2WHERE sex = 'F';SELECT SUM(age) FROM Student_2WHERE sex = 'F';-- SC表,查询最高成绩、最低成绩、平均成绩 8、分组查询: 1234567891011121314151617181920212223242526272829303132SELECT age, COUNT(*) FROM Student_2GROUP BY age;SELECT sno, AVG(grade) FROM SC2GROUP BY sno;SELECT sno, AVG(grade) FROM SC2GROUP BY sno;HAVING avg(grade) &gt; 70-- 至少选修2门成绩的学生的学号SELECT sno FROM SC2GROUP BY snoHAVING count(*) &gt; 2;SELECT cno, AVG(grade) FROM SC2GROUP BY cno;SELECT cno, AVG(grade), count(*) FROM SC2GROUP BY cno;SELECT age, COUNT(*) as number FROM Student_2GROUP BY ageHAVING number&gt;5ORDER BY age DESC;-- 按照平均成绩降序且所有课程都及格的学号，及其平均成绩（不包含3号课）SELECT sno, AVG(grade) as avg_g FROM SC2WHERE cno &lt;&gt; '003'GROUP BY snoHAVING MIN(grade)&gt;=60ORDER BY avg_g DESC;]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[数据库操作-2]]></title>
     <url>%2F2020%2F10%2F24%2F%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C-2%2F</url>
-    <content type="text"><![CDATA[1、SQL索引的建立: 123456789CREATE INDEX age_indexON Student_2(age)DROP INDEX age_index on Student_2;--SELECT sno,sname FROM Student_2WHERE age=19; 2、随机生成学生 12345678910111213141516171819202122232425262728293031323334353637383940414243DROP FUNCTION IF EXISTS rand_sex;DELIMITER $$ CREATE FUNCTION rand_sex()RETURNS VARCHAR(2)BEGIN RETURN ELT(CEILING(RAND()*2), "M","F");END $$DELIMITER;DROP FUNCTION IF EXISTS rand_age;DELIMITER $$ CREATE FUNCTION rand_age()RETURNS INT(5)BEGIN DECLARE i INT DEFAULT 0; SET i = FLOOR(18+rand()*4);RETURN i;END$$DELIMITER;DROP FUNCTION IF EXISTS rand_dept;DELIMITER $$ CREATE FUNCTION rand_dept()RETURNS VARCHAR(10)BEGIN RETURN ELT(CEILING(RAND()*4), "CS","SE", "IoT", "AI");END$$DELIMITER;DROP PROCEDURE IF EXISTS initStu;DELIMITER $$ CREATE PROCEDURE initStu() BEGIN DECLARE i INT DEFAULT 1; WHILE i &lt; 20 DO INSERT INTO Student_2(sno, sname,sex, age, dept) VALUES(i,'stu_name', rand_sex(), rand_age(), rand_dept()); SET i = i + 1; END WHILE;END$$ TRUNCATE TABLE Student_2;CALL initStu();]]></content>
+    <content type="text"><![CDATA[1、SQL索引的建立: 123456789CREATE INDEX age_indexON Student_2(age)DROP INDEX age_index on Student_2;--SELECT sno,sname FROM Student_2WHERE age=19; 2、随机生成学生 12345678910111213141516171819202122232425262728293031323334353637383940414243DROP FUNCTION IF EXISTS rand_sex;DELIMITER $$ CREATE FUNCTION rand_sex()RETURNS VARCHAR(2)BEGIN RETURN ELT(CEILING(RAND()*2), "M","F");END $$DELIMITER;DROP FUNCTION IF EXISTS rand_age;DELIMITER $$ CREATE FUNCTION rand_age()RETURNS INT(5)BEGIN DECLARE i INT DEFAULT 0; SET i = FLOOR(18+rand()*4);RETURN i;END$$DELIMITER;DROP FUNCTION IF EXISTS rand_dept;DELIMITER $$ CREATE FUNCTION rand_dept()RETURNS VARCHAR(10)BEGIN RETURN ELT(CEILING(RAND()*4), "CS","SE", "IoT", "AI");END$$DELIMITER;DROP PROCEDURE IF EXISTS initStu;DELIMITER $$ CREATE PROCEDURE initStu() BEGIN DECLARE i INT DEFAULT 1; WHILE i &lt; 20 DO INSERT INTO Student_2(sno, sname,sex, age, dept) VALUES(i,'stu_name', rand_sex(), rand_age(), rand_dept()); SET i = i + 1; END WHILE;END$$ TRUNCATE TABLE Student_2;CALL initStu(); 3、随机生成课程表 1234567891011121314151617181920212223242526272829303132333435DROP TABLE IF EXISTS Course;CREATE TABLE Course( cno char(4) PRIMARY KEY, cname char(10) not null, pcno char(4), credit SMALLINT, FOREIGN KEY(pcno) REFERENCES Course(cno));DROP FUNCTION IF EXISTS rand_credit;DELIMITER $$ CREATE FUNCTION rand_credit()RETURNS INT(5)BEGIN DECLARE i INT DEFAULT 0; SET i = FLOOR(1+rand()*4);RETURN i;END$$DELIMITER;DROP PROCEDURE IF EXISTS initCourse;DELIMITER $$ CREATE PROCEDURE initCourse() BEGIN DECLARE i INT DEFAULT 1; WHILE i &lt; 20 DO INSERT INTO Course(cno, cname, pcno, credit) VALUES(i,'c_name', i-1 ,rand_credit()); SET i = i + 1; END WHILE;END$$ INSERT INTO Course(cno, cname, pcno, credit) VALUES(0,'c_name', '',1);CALL initCourse(); 4、随机生成SC(不加主码、外码) 12345678910111213141516171819202122232425262728293031323334353637383940DROP TABLE IF EXISTS SC2;CREATE TABLE SC2( id INT, sno CHAR(4), cno CHAR(10), grade INT);DROP FUNCTION IF EXISTS rand_sno;DELIMITER $$ CREATE FUNCTION rand_sno()RETURNS INT(5)BEGIN RETURN ELT(CEILING(RAND()*6), "001","002", "003", "004", "005", "006");RETURN i;END$$DELIMITER;DROP FUNCTION IF EXISTS rand_cno;DELIMITER $$ CREATE FUNCTION rand_cno()RETURNS INT(5)BEGIN RETURN ELT(CEILING(RAND()*3), "001","002", "003");RETURN i;END$$DELIMITER;DROP PROCEDURE IF EXISTS initSC;DELIMITER $$ CREATE PROCEDURE initSC() BEGIN DECLARE i INT DEFAULT 1; WHILE i &lt; 20 DO INSERT INTO SC2(id, sno, cno, grade) VALUES(i , rand_sno(), rand_cno() ,rand_grade()); SET i = i + 1; END WHILE;END$$ CALL initSC();]]></content>
   </entry>
   <entry>
     <title><![CDATA[数据库操作-1]]></title>
     <url>%2F2020%2F10%2F24%2F%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C%2F</url>
-    <content type="text"><![CDATA[1、SQL模式的定义与删除: 1CREATE SCHEMA Teaching_DB; 1DROP SCHEMA Teaching_DB; 2、表的建立 1234567CREATE TABLE Student( sno char(5) not null UNIQUE, sname char(8) not null, sex char(2), age int, dept char(20)) 123456789CREATE TABLE Student_2( sno char(5), sname char(8) not null, sex char(2), age SMALLINT, dept char(20), PRIMARY KEY(sno), CHECK (sex IN ('男','女'))); 1234567CREATE TABLE Student_3( sno char(5) PRIMARY KEY, sname char(8) not null, sex char(2) CHECK(sex in ('男','女')), age SMALLINT, dept char(20)); 1234567CREATE TABLE Course( cno char(4) PRIMARY KEY, cname char(10) not null, pcno char(4), credit SMALLINT, FOREIGN KEY(pcno) REFERENCES Course(cno)) 12345678CREATE TABLE SC( sno char(5), cno char(4), PRIMARY KEY(sno, cno), FOREIGN KEY(sno) REFERENCES Student(sno), FOREIGN KEY(cno) REFERENCES Course(cno), CHECK ((grade is null) or (grade BETWEEN 0 and 100))) 3、表的删除、修改 123-- 删除表的某列ALTER TABLE StudentDROP age 123-- 修改某列的类型ALTER TABLE StudentMODIFY sname char(100) 12ALTER TABLE StudentDROP PREPARE KEY 12ALTER TABLE StudentADD PREPARE KEY (sno) 1ALTER TABLE Student RENAME TO stu; 12345678910ALTER TABLE stuCHANGE COLUMN sex ssex int-- 不管用ALTER TABLE stuRENAME COLUMN ssex to ss-- alter table stu drop constraint pk_student;alter table stu add constraint pk_student primary key(sno); 4、插入数据 12INSERT INTO Student_3(sno,sname)VALUES ('1','1')]]></content>
+    <content type="text"><![CDATA[1、SQL模式的定义与删除: 1CREATE SCHEMA Teaching_DB; 1DROP SCHEMA Teaching_DB; 2、表的建立 1234567CREATE TABLE Student( sno char(5) not null UNIQUE, sname char(8) not null, sex char(2), age int, dept char(20)) 123456789CREATE TABLE Student_2( sno char(5), sname char(8) not null, sex char(2), age SMALLINT, dept char(20), PRIMARY KEY(sno), CHECK (sex IN ('男','女'))); 1234567CREATE TABLE Student_3( sno char(5) PRIMARY KEY, sname char(8) not null, sex char(2) CHECK(sex in ('男','女')), age SMALLINT, dept char(20)); 1234567CREATE TABLE Course( cno char(4) PRIMARY KEY, cname char(10) not null, pcno char(4), credit SMALLINT, FOREIGN KEY(pcno) REFERENCES Course(cno)) 123456789CREATE TABLE SC( sno char(5), cno char(4), grade int, PRIMARY KEY(sno, cno), FOREIGN KEY(sno) REFERENCES Student(sno), FOREIGN KEY(cno) REFERENCES Course(cno), CHECK ((grade is null) or (grade BETWEEN 0 and 100))) 3、表的删除、修改 123-- 删除表的某列ALTER TABLE StudentDROP age 123-- 修改某列的类型ALTER TABLE StudentMODIFY sname char(100) 12ALTER TABLE StudentDROP PREPARE KEY 12ALTER TABLE StudentADD PREPARE KEY (sno) 1ALTER TABLE Student RENAME TO stu; 12345678910ALTER TABLE stuCHANGE COLUMN sex ssex int-- 不管用ALTER TABLE stuRENAME COLUMN ssex to ss-- alter table stu drop constraint pk_student;alter table stu add constraint pk_student primary key(sno); 4、插入数据 12INSERT INTO Student_3(sno,sname)VALUES ('1','1')]]></content>
   </entry>
   <entry>
     <title><![CDATA[中诚合作-跨境三文鱼区块链平台]]></title>
@@ -403,17 +408,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[图片懒加载]]></title>
-    <url>%2F2018%2F02%2F22%2F%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BD%2F</url>
-    <content type="text"><![CDATA[前言实现图片懒加载的代码思路：每一个image都有一个data-src用于存放将要加载的图片的地址，当这个图片的区域显示到屏幕上时，再将src = data-src图片的offsetTop &lt; 可见高度 + scrollTop]]></content>
-      <categories>
-        <category>javascript</category>
-      </categories>
-      <tags>
-        <tag>javascript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[卡死电脑代码]]></title>
     <url>%2F2018%2F02%2F22%2F%E5%8D%A1%E6%AD%BB%E7%94%B5%E8%84%91%E4%BB%A3%E7%A0%81%2F</url>
     <content type="text"><![CDATA[前言下面两段代码吃内存，造成浏览器卡死代码1var total=&quot;&quot;; for (var i=0;i&lt;1000000;i++){ total= total+i.toString (); history.pushState (0,0,total); } 代码2while(true) { document.body.appendChild(document.createElement(&quot;div&quot;)); }]]></content>
@@ -422,6 +416,17 @@
       </categories>
       <tags>
         <tag>探究</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[图片懒加载]]></title>
+    <url>%2F2018%2F02%2F22%2F%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BD%2F</url>
+    <content type="text"><![CDATA[前言实现图片懒加载的代码思路：每一个image都有一个data-src用于存放将要加载的图片的地址，当这个图片的区域显示到屏幕上时，再将src = data-src图片的offsetTop &lt; 可见高度 + scrollTop]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
       </tags>
   </entry>
   <entry>
@@ -447,17 +452,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[javascript高级程序设计20-23]]></title>
-    <url>%2F2017%2F12%2F19%2Fjavascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A120-23%2F</url>
-    <content type="text"><![CDATA[JSON对象{ name: &quot;test&quot; } 数据结构{ &quot;name&quot;: &quot;test&quot; } JSON对象方法JSON.stringify() //将json对象转化为数据结构参数let obj = { name: &quot;test&quot;, sex: [&apos;male&apos;, &apos;female&apos;] } JSON.stringify(obj) JSON.stringify(obj, name) //只保留name JSON.stringify(obj,name,4) //字符缩进4个空格 数据存储cookiecookie构成：名称、值、域、路径、失效时间、安全标志Set-Cookie: name=value; domain=.wrox.com; expires= Mon, 22-Jan-07; secure document.cookie = &quot;name=value; .....&quot; cookie 确实非常小，它的大小限制为4KB左右，是网景公司的前雇员 Lou Montulli 在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在 Cookie 中存入一段辨别用户身份的数据来实现的localStoragelocalStorage.setItem() localStorage.getItem() sessionStorage用法同上浏览器缓存浏览器缓存]]></content>
-      <categories>
-        <category>javascript</category>
-      </categories>
-      <tags>
-        <tag>javascript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[生成npm包--vue]]></title>
     <url>%2F2017%2F12%2F19%2F%E7%94%9F%E6%88%90npm%E5%8C%85--vue%2F</url>
     <content type="text"><![CDATA[介绍用vue-cli打包生成vue组件并且上传到npm上前期准备vue-cli npm账号 webpack 首先，用vue-cli生成vue项目，并修改如下所示{ &quot;name&quot;: &quot;picture-upload&quot;, &quot;version&quot;: &quot;1.0.9&quot;, &quot;description&quot;: &quot;This is a component for picture uploaded by base64&quot;, &quot;author&quot;: &quot;zfl &lt;1171067930@qq.com&gt;&quot;, &quot;main&quot;: &quot;dist/picture-upload.min.js&quot;, &quot;license&quot;: &quot;MIT&quot;, &quot;private&quot;: false, &quot;scripts&quot;: { &quot;dev&quot;: &quot;node build/dev-server.js&quot;, &quot;start&quot;: &quot;node build/dev-server.js&quot;, &quot;build&quot;: &quot;node build/build.js&quot; }, &quot;dependencies&quot;: { &quot;vue&quot;: &quot;^2.3.3&quot;, &quot;vue-router&quot;: &quot;^2.6.0&quot; } ... } “private”: false 把这个包改成公用的“main”: “dist/picture-upload.min.js”, 这里的配置意思是，别人用这个包 import PictureUpload from ‘picture-upload’; 时，引入的文件。可以看出，这个picture-upload最终需要打包出一个js文件，所以我们需要修改webpack.prod.config.js文件var webpackConfig = merge(baseWebpackConfig, { module: { rules: utils.styleLoaders({ sourceMap: config.build.productionSourceMap, extract: true }) }, devtool: config.build.productionSourceMap ? &apos;#source-map&apos; : false, // output: { // path: config.build.assetsRoot, // filename: utils.assetsPath(&apos;js/[name].[chunkhash].js&apos;), // chunkFilename: utils.assetsPath(&apos;js/[id].[chunkhash].js&apos;) // }, output: { path: config.bundle.assetsRoot, publicPath: config.bundle.assetsPublicPath, filename: &apos;picture-upload.min.js&apos;, library: &apos;PictureUpload&apos;, libraryTarget: &apos;umd&apos; }, plugins: [ new webpack.DefinePlugin({ &apos;process.env&apos;: env }), new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false }, sourceMap: true }), // extract css into its own file new ExtractTextPlugin({ // filename: utils.assetsPath(&apos;css/[name].[contenthash].css&apos;) filename: &apos;picture-upload.min.css&apos; }), new OptimizeCSSPlugin() ] }) module.exports = webpackConfig 主要是修改两个地方output里面的filename,就是打包生成的js文件的名字;library是引入时的模块名;extracttextpligin里的filename改成picture-upload.min.css;然后很多不需要的模块都注解掉了下面是config/index.jsbundle: { env: require(&apos;./prod.env&apos;), assetsRoot: path.resolve(__dirname, &apos;../dist&apos;), assetsPublicPath: &apos;/&apos;, assetsSubDirectory: &apos;/&apos;, productionSourceMap: true, productionGzip: false, productionGzipExtensions: [&apos;js&apos;, &apos;css&apos;], bundleAnalyzerReport: process.env.npm_config_report } 在build的下面加上这段代码,上面webpack.prod.config.js里面output里面配置的都是bundle编写组件,组件编写完成后,在main.js里面加上,其他的注释掉与不注释掉都可以import PictureUpload from &apos;./components/PictureUpload.vue&apos; export default PictureUpload 最后执行npm run build发布到npm上npm login npm adduser npm publish 使用在下面项目链接的readme里面有点击这里 注意:由于webpack最近的升级webpack组件用2.0写的在最新vue-cli生成的webpack3.0的项目中貌似不能用]]></content>
@@ -466,6 +460,17 @@
       </categories>
       <tags>
         <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[javascript高级程序设计20-23]]></title>
+    <url>%2F2017%2F12%2F19%2Fjavascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A120-23%2F</url>
+    <content type="text"><![CDATA[JSON对象{ name: &quot;test&quot; } 数据结构{ &quot;name&quot;: &quot;test&quot; } JSON对象方法JSON.stringify() //将json对象转化为数据结构参数let obj = { name: &quot;test&quot;, sex: [&apos;male&apos;, &apos;female&apos;] } JSON.stringify(obj) JSON.stringify(obj, name) //只保留name JSON.stringify(obj,name,4) //字符缩进4个空格 数据存储cookiecookie构成：名称、值、域、路径、失效时间、安全标志Set-Cookie: name=value; domain=.wrox.com; expires= Mon, 22-Jan-07; secure document.cookie = &quot;name=value; .....&quot; cookie 确实非常小，它的大小限制为4KB左右，是网景公司的前雇员 Lou Montulli 在1993年3月的发明。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在 Cookie 中存入一段辨别用户身份的数据来实现的localStoragelocalStorage.setItem() localStorage.getItem() sessionStorage用法同上浏览器缓存浏览器缓存]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
       </tags>
   </entry>
   <entry>
@@ -540,17 +545,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[jsfiddle使用]]></title>
-    <url>%2F2017%2F10%2F18%2Fjsfiddle%E4%BD%BF%E7%94%A8%2F</url>
-    <content type="text"><![CDATA[背景这个也是在查找js闭包的时候，无意中发现别人的博客为什么可以嵌入js在线编辑比如想下边的链接MDN Web Docs–闭包 干货查找的都是只是给了干巴巴的语法，这令我这个小白很苦恼{% jsfiddle shorttag [tabs] [skin] [width] [height] %} 这边看了下源码，是用iframe引用了jsfiddle,也就是上面的代码的作用首先,你要先把你的代码在jsfiddle的网站中里写一下,然后点击Embed,它就会把你的代码生成script标签&lt;script async src=&quot;//jsfiddle.net/xAFs9/3/embed/js,html,css,result/dark/&quot;&gt;&lt;/script&gt; 你可以直接CV这个script标签进你的markdown,你也可以按照语法,替换结果如下,当然长度和宽度自选,不填的话是自适应{% jsfiddle xAFs9/3 js,html,css,result dark %} 结果]]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[javascript高级程序设计7-8]]></title>
     <url>%2F2017%2F10%2F18%2Fjavascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A17-8%2F</url>
     <content type="text"><![CDATA[函数声明函数function name(){},这个存在变量提升,而var name = function(){}不存在变量提升递归function factorial(num){ if(num&lt;=1){ return 1 }else{ return num*arguments.callee(num-1) //arguments.callee === factorical } } 闭包闭包是指有权访问另一个函数作用域中的变量的函数。创建闭包的常见的方式就是在函数内部创建另一个函数######当函数返回了一个闭包时。这个函数的作用域将会一直在内存中保存到闭包不存在为止 推荐例一var name = &quot;The Window&quot;; var object = { name : “My Object”, getNameFunc : function(){ return function(){ return this.name; }; } }; alert(object.getNameFunc()()); //The Window 例二 例三下面的例子中result[i] = function(){ return i } 每一个都是返回i,这个i的作用域在f()内,而自此时f()中的i=3,所以每个都返回3而当用for–in时返回的是0,1,2,这是为什么呢？继续探究修改代码如下function f(){ var result = new Array() for(var i = 0;i&lt;3;i++){ result[i] = function(){ console.log(&quot;内:&quot;+this) return i; } } return result } var result = f() console.log(result) //Array(3) 3个f(),这里的f()不是上面的f函数console.log(result[0]()) /* * 内:function (){ * console.log(&quot;内:&quot;+this) * return i; * },function (){ * console.log(&quot;内:&quot;+this) * return i; * },function (){ * console.log(&quot;内:&quot;+this) * return i; * } * */ console.log(result[0]) /*ƒ (){ * console.log(&quot;内:&quot;+this) * return i; * } */ 结果如上,console.log(result0)与console.log(result[0])可以合理的解释为什么全是3而且内this指向的是result数组所以会有三个function(){}疑问：为什么console.log(“内：”+this)会出来3个function(){}ES6function f(){ let result = new Array() for(let i = 0;i&lt;3;i++){ result[i] = function(){ return i; } } return result } let result = f() for(let i=0;i&lt;3;i++){ console.log(result[i]()) } 结果是0,1,2块级作用域(function(){ //这里是块级作用域 })() 作用:块级作用域是一个独立的作用域，多人协作时每个人有每个人的块级作用域可以互不影响,防止命名冲突 BOMwindow对象window对象是指浏览器打开的窗口window.名称 //全局对象window.frame[‘name’]窗口位置chrome\opera\safari—-screenTop|screenLeftfirefox—-screenX|screenYvar leftPos = (typeof window.screenLeft == &apos;number&apos;)?window.screenLeft:window.screenX; var rightPos = (typeof window.screenTop == &apos;number&apos;)?window.screenRight:window.screenY; window.moveTo(0,0); //移动到0，0 window.moveBy(0,100); //向下移动100像素 窗口大小outerWidth、outerHeight----返回浏览器窗口本身的大小 innerWidth、innerHeight----返回容器中试图区的大小 resizeTo()、resizeBy()----可以调整浏览器窗口的大小 导航和打开窗口window.open()----打开新的浏览器窗口 参数:URL、窗口目标、特性字符串、boolean(新页面是否取代浏览器历史纪录中当前加载页面) 第二参数可以是:_self、_parent、_top、_blankopener属性:保存着打开他的原始窗口对象 延时间歇延时setTimeout()、setTnterval()、clearTimeout() 系统对话框alert()、confirm()、prompt() location对象即是window的对象属性，也是document的对象属性console.log(window.location) //查看属性查询字符串参数/* 解析查询字符串 返回包含所有参数的一个对象 */ function getQueryStringArgs(){ //取得查询字符串并去掉开头的问号 var qs = (location.search.length &gt; 0 ? location.search.substring(1) : &apos;&apos;); //保存数据的对象 args = {}; //取得每一项 var items = qs.length ? qs.split(&apos;&amp;&apos;) : [], item = null, name = null, //在for循环中使用 i = 0, len = items.length; //逐个将每一项添加到args对象中 for(i = 0 ; i &lt; len; i++){ item = items[i].split(&apos;=&apos;); name = decodeURIComponent(item[0]); value = decodeURIComponent(item[1]); if(name.length){ args[name] = value; } } return args; }]]></content>
@@ -559,6 +553,17 @@
       </categories>
       <tags>
         <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[jsfiddle使用]]></title>
+    <url>%2F2017%2F10%2F18%2Fjsfiddle%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[背景这个也是在查找js闭包的时候，无意中发现别人的博客为什么可以嵌入js在线编辑比如想下边的链接MDN Web Docs–闭包 干货查找的都是只是给了干巴巴的语法，这令我这个小白很苦恼{% jsfiddle shorttag [tabs] [skin] [width] [height] %} 这边看了下源码，是用iframe引用了jsfiddle,也就是上面的代码的作用首先,你要先把你的代码在jsfiddle的网站中里写一下,然后点击Embed,它就会把你的代码生成script标签&lt;script async src=&quot;//jsfiddle.net/xAFs9/3/embed/js,html,css,result/dark/&quot;&gt;&lt;/script&gt; 你可以直接CV这个script标签进你的markdown,你也可以按照语法,替换结果如下,当然长度和宽度自选,不填的话是自适应{% jsfiddle xAFs9/3 js,html,css,result dark %} 结果]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
@@ -584,17 +589,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[面向对象的程序设计]]></title>
-    <url>%2F2017%2F09%2F25%2F%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%2F</url>
-    <content type="text"><![CDATA[属性类型数据属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Writable]]:能否修改属性的值，默认为true [[Value]]:数据 改变上述属性Object.defineProperty() var person = {} Object.defineProperty(person,&quot;name&quot;,{ writable: false, //不能重写 value: &quot;123&quot;, configurable: false, //以后再也不可配置 enumerable: true }) console.log(person.name) //123 person.name = &quot;456&quot; console.log(person.name) //123 访问属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Get]]:读取属性的时候调用的函数 [[Set]]:写入属性的时候调用的函数 var book = { year: 2017, edition: 1 } Object.defineProperty(book,&quot;month&quot;,{ //对month进行访问 get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } }) book.month = 2018 //调用set console.log(book.year) console.log(book.month) //get方法返回123 访问多个属性var book = { year: 2017, edition: 1 } Object.defineProperties(book,{ edition:{ writeable:true, value: 2015 }, month:{ get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } } }) book.month = 2018 console.log(book.year) //2018 console.log(book.month) // 123 console.log(book.edition) //2015 获得属性 Object.getOwnPropertyDescriptor()var descriptor = Object.getOwnPropertyDescriptor(book,&quot;year&quot;) console.log(descriptor) 创建对象最合适的方法–构造函数模式和原型模式function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var john = new Person(&quot;john&quot;) john.sayName() //john 此类方法属性不共享，方法共享其他要点1.可将构造函数当普通函数用,原型中不行，只能在构造函数模式中function Person(name , age){ this.name = name this.age = age sayName = function(){ console.log(this.name) } } Person(&quot;john&quot;) window.sayName() //john 2.内存区问题 sayName()在同一内存区function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) 另一种情况 sayName在不同内存区(没有this是true)function Person(name , age){ this.name = name this.age = age this.sayName = function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) //false 原型–&gt;我的理解是一个实例，所有其他实例的父类isPrototypeOf()验证是否为某原型的实例Person.prototype.isPrototypeOf(person1) //true hasOwnProperty()检测属性是否存在于实例中person1.hasOwnProperty(“name”) function Person(){} Person.prototype = { name : &quot;name&quot;, age : &quot;age&quot;, sayName: function(){ console.log(this.name) } } var person1 = new Person() console.log(person1.hasOwnProperty(&quot;name&quot;)) //false person1.name = &quot;123&quot; console.log(person1.hasOwnProperty(&quot;name&quot;)) //true 原型与继承每个构造函数都有原型，每个原型都有指针指向构造函数，每个实例都有指向原型的指针function Animal(){} Animal.prototype = { constructor: Animal //__proto__ } function Dog(){} Dog.prototype ={ constructor: Dog //__proto__ } Dog.prototype = new Animal() //继承 let dog1 = new Dog() console.log(dog1) //Dog.__proto__ = Animal //Animal.__proto__ = Object 每个实例中都有proto指向new的类，若没有则指向本身原型与实例的关系instance intanceof Object Object.prototype.isPrototypeOf(intance) 最常用的继承模式–组合继承function Super(){ this.property = true } Super.prototype.getSuperProperty = function(){ return this.property } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = new Super() Sub.prototype.getSubProperty = function(){ return this.subProperty } let inte = new Sub() console.log(inte.getSuperProperty()) console.log(inte.getSubProperty()) 注意子类不能使用字面量的方法如下所示，它会重写了原型链，父类可以用字面量写法Sub.prototype = {} 我最常用的方法–野路子function Super(){ this.property = true } Super.prototype = { constructor: Super, getSuperProperty: function(){ return this.property } } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = { constructor: Sub, getSubProperty: function(){ return this.subProperty }, __proto__: Super.prototype } let inte = new Sub() console.log(inte.getSuperProperty()) /true console.log(inte.getSubProperty()) /false]]></content>
-      <categories>
-        <category>javascript</category>
-      </categories>
-      <tags>
-        <tag>javascript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Linux常用命令]]></title>
     <url>%2F2017%2F09%2F25%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[Everything is a file (inode 除外)whoami –我是谁 pwd –我在哪 ls –我能干什么 ls -l 显示详细信息 -a 显示全部文件 蓝色 –文件夹 –d 黑色 –文件 b c –驱动 /dev 设备文件夹 l –软链接 whereis +命令(ls) /bin /sbin–外部应用 shell自带的命令 man +命令 –查手册 mkdir +名字 –新建文件夹 vi +名字 –新建vi文件 命令属性:w –保存–:w! 强制保存 :q –退出–:q! 强制退出 :wq 编辑属性gcc hello.c -o hello 执行时 ./hello若直接为hello系统视为是一个命令 gcc -c hello.c -o hello.o gcc hello. -o hello linux文件夹bin--普通命令 sbin--系统命令 root--超级用户 home--普通用户 proc--进程 dev--设备 usr--内部程序 opt--外部程序 boot--内核文件 mnt--挂载 etc--配置文件 ————————————————–cat 显示 + 文本文件 type(dos) 尽可能不要打开非文本文件more/less 也是显示 + 文本是否分页显示 touch 修改创建时间 ln find 查找文件 grep 查找或不查找文本文件内容相关的信息 sda1 –sd 串口 a 第一个硬盘的第一个分区 fdisk -l 显示硬盘 挂载 mount /dev/sdb1 /mnt/usb rm 删除文件 rm + 文件名 -f rm + 删除文件夹 -r(递归) cp/mv a—-&gt;b 文件夹 -r 在同级文件夹下mv就是改名 ncurse—图形界面的引擎 gcc menu.c -o menu -lcurses //引入lib库文件 ————————————————find [path] [attr] [key] find /mnt -name usb /mnt/usb grep [key] [file] 查找文件内容 ln (-s) source des 硬链接增加节点索引号，不消耗资源修改权限chmod(修改权限) chown(修改属主) chgrp(修改属组) chmod +x ./jiaoben rwxrwxrwx read write execute-可执行 u–g–o user group(对用户所在的组的其他用户的权限) other(组外权限) chomd u+x ./jiaoben rwxr-xr-x 111101101 //755 特殊1、3不能出现 chomd 755 ./jiaoben 环境命令：env、echo、export1.env –输出环境变量 path –命令的链接路径 2.echo –输出环境变量 echo $PATH —查环境变量要给钱 3.更改PATH export PATH=路径:$PATH //放在前面优先级高 归档命令：tar -xjvf -xzvf whereis ls makefile make clean –只保留源代码 make –执行第一个 make clean make menuconfig make dep –建立依赖关系 make bzImage –编辑内核 Makefile结构 target:source (tab)commond 目标:源 命令 标号 make A –执行A之后B之前 A: B: sh脚本 –chmod +x addstu #!/bin/bash –用的什么shell&lt; -lt &lt;= -le &gt; -gt &gt;= -ge = -eq != -ne $变量 while [ condition ] do done if [ condition ] then else fi case esac i=$(($i+1)) i++ ——————————————————–/etc/shadow –密码 /etc/passwd –用户 /etc/group –分组 /etc/inittab init 0 关机 init 3 多用户有网络 startx init 6 重启 进入单用户模式 改密码grub e kernal e + 1–单用户模式 b –启动 os：bootloader 16位 作用：1.把16位的环境调成32位2.准备加载kernek内核kernel 32/64 rootfs 软盘1.44M service ssh start/status update-rc.d ssh enable 进程ps process status ps -aux 当前所有的进程 top 动态进程 jobs 后台执行的进程 ctrl + c 把当前进程中断 kill -9 + pid ctrl + z 把当前进程搬到后台暂停 fg 1 //1为序号 ps process status ps -aux 当前所有的进程 top 动态进程 jobs 后台执行的进程 ctrl + c 把当前进程中断 kill -9 + pid ctrl + z 把当前进程搬到后台暂停 fg 1 //1为序号 pthread.h gcc -lpthread 哲学家进餐：mutex lock wait left wait right eat signal left signal right unloack]]></content>
@@ -603,6 +597,17 @@
       </categories>
       <tags>
         <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[面向对象的程序设计]]></title>
+    <url>%2F2017%2F09%2F25%2F%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%2F</url>
+    <content type="text"><![CDATA[属性类型数据属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Writable]]:能否修改属性的值，默认为true [[Value]]:数据 改变上述属性Object.defineProperty() var person = {} Object.defineProperty(person,&quot;name&quot;,{ writable: false, //不能重写 value: &quot;123&quot;, configurable: false, //以后再也不可配置 enumerable: true }) console.log(person.name) //123 person.name = &quot;456&quot; console.log(person.name) //123 访问属性[[Configurable]]:是否能通过delete删除属性，默认为true [[Enumberable]]:是否能通过for-in返回属性，默认为true [[Get]]:读取属性的时候调用的函数 [[Set]]:写入属性的时候调用的函数 var book = { year: 2017, edition: 1 } Object.defineProperty(book,&quot;month&quot;,{ //对month进行访问 get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } }) book.month = 2018 //调用set console.log(book.year) console.log(book.month) //get方法返回123 访问多个属性var book = { year: 2017, edition: 1 } Object.defineProperties(book,{ edition:{ writeable:true, value: 2015 }, month:{ get: function(){ return &quot;123&quot; }, set: function(newValue){ if(newValue&gt;2017){ this.year = newValue } } } }) book.month = 2018 console.log(book.year) //2018 console.log(book.month) // 123 console.log(book.edition) //2015 获得属性 Object.getOwnPropertyDescriptor()var descriptor = Object.getOwnPropertyDescriptor(book,&quot;year&quot;) console.log(descriptor) 创建对象最合适的方法–构造函数模式和原型模式function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var john = new Person(&quot;john&quot;) john.sayName() //john 此类方法属性不共享，方法共享其他要点1.可将构造函数当普通函数用,原型中不行，只能在构造函数模式中function Person(name , age){ this.name = name this.age = age sayName = function(){ console.log(this.name) } } Person(&quot;john&quot;) window.sayName() //john 2.内存区问题 sayName()在同一内存区function Person(name , age){ this.name = name this.age = age } Person.prototype = { constructor: Person, sayName: function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) 另一种情况 sayName在不同内存区(没有this是true)function Person(name , age){ this.name = name this.age = age this.sayName = function(){ console.log(this.name) } } var person1 = new Person(&quot;john&quot;) var person2 = new Person(&quot;john2&quot;) console.log(person1.sayName == person2.sayName) //false 原型–&gt;我的理解是一个实例，所有其他实例的父类isPrototypeOf()验证是否为某原型的实例Person.prototype.isPrototypeOf(person1) //true hasOwnProperty()检测属性是否存在于实例中person1.hasOwnProperty(“name”) function Person(){} Person.prototype = { name : &quot;name&quot;, age : &quot;age&quot;, sayName: function(){ console.log(this.name) } } var person1 = new Person() console.log(person1.hasOwnProperty(&quot;name&quot;)) //false person1.name = &quot;123&quot; console.log(person1.hasOwnProperty(&quot;name&quot;)) //true 原型与继承每个构造函数都有原型，每个原型都有指针指向构造函数，每个实例都有指向原型的指针function Animal(){} Animal.prototype = { constructor: Animal //__proto__ } function Dog(){} Dog.prototype ={ constructor: Dog //__proto__ } Dog.prototype = new Animal() //继承 let dog1 = new Dog() console.log(dog1) //Dog.__proto__ = Animal //Animal.__proto__ = Object 每个实例中都有proto指向new的类，若没有则指向本身原型与实例的关系instance intanceof Object Object.prototype.isPrototypeOf(intance) 最常用的继承模式–组合继承function Super(){ this.property = true } Super.prototype.getSuperProperty = function(){ return this.property } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = new Super() Sub.prototype.getSubProperty = function(){ return this.subProperty } let inte = new Sub() console.log(inte.getSuperProperty()) console.log(inte.getSubProperty()) 注意子类不能使用字面量的方法如下所示，它会重写了原型链，父类可以用字面量写法Sub.prototype = {} 我最常用的方法–野路子function Super(){ this.property = true } Super.prototype = { constructor: Super, getSuperProperty: function(){ return this.property } } function Sub(){ this.subProperty = false Super.call(this) } Sub.prototype = { constructor: Sub, getSubProperty: function(){ return this.subProperty }, __proto__: Super.prototype } let inte = new Sub() console.log(inte.getSuperProperty()) /true console.log(inte.getSubProperty()) /false]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
       </tags>
   </entry>
   <entry>
@@ -1178,9 +1183,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[利用github和hexo搭建自己的博客]]></title>
-    <url>%2F2015%2F06%2F01%2Fbuildblog%2F</url>
-    <content type="text"><![CDATA[步骤首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。搭建环境(必须的) —Node和git利用choco在cmd(管理员模式)下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。安装开始执行如下命令npm install -g hexo 进行安装hexo init 进行初始化在Github里新建一个仓库，名字叫XXX(你Github的昵称).github.io下载安装Souretree(我用的是Souretree，你也可以选在别的软件)把XXX.github.io克隆到生成hexo的文件的public文件下(注：如果里面有文件的话先copy出来，让public为空文件夹)。OK，在网址上输入XXX.github.io，你的专属blog完成了。查看PS:需要运行在cmd下找到你的blog所在的文件夹运行hexo g即可，如果想在本地看看你的页面hexo s]]></content>
+    <title><![CDATA[Hello Blog]]></title>
+    <url>%2F2015%2F06%2F01%2Fhello-blog%2F</url>
+    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
       <categories>
         <category>hexo</category>
       </categories>
@@ -1189,9 +1194,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hello Blog]]></title>
-    <url>%2F2015%2F06%2F01%2Fhello-blog%2F</url>
-    <content type="text"><![CDATA[沿用每一个程序员都写过的“Hello world”,我也说一句”Hello blog”]]></content>
+    <title><![CDATA[利用github和hexo搭建自己的博客]]></title>
+    <url>%2F2015%2F06%2F01%2Fbuildblog%2F</url>
+    <content type="text"><![CDATA[步骤首先，你要先自己注册一个Github的账户。自己去github官网注册个账号就ok了。搭建环境(必须的) —Node和git利用choco在cmd(管理员模式)下安装很方便。choco在前面已经讲过。可以自己去chocolaty官网上自己查找。安装开始执行如下命令npm install -g hexo 进行安装hexo init 进行初始化在Github里新建一个仓库，名字叫XXX(你Github的昵称).github.io下载安装Souretree(我用的是Souretree，你也可以选在别的软件)把XXX.github.io克隆到生成hexo的文件的public文件下(注：如果里面有文件的话先copy出来，让public为空文件夹)。OK，在网址上输入XXX.github.io，你的专属blog完成了。查看PS:需要运行在cmd下找到你的blog所在的文件夹运行hexo g即可，如果想在本地看看你的页面hexo s]]></content>
       <categories>
         <category>hexo</category>
       </categories>
