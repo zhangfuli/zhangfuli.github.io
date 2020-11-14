@@ -81,17 +81,17 @@
 
 
 
-<meta name="description" content="title: 数据库操作-4(多表查询)date: 2020-10-24 10:08:49tags: 1、docker启动mysql: 1docker run --privileged=true --name mysql -p 3306:3306 -v /Users/zhangfuli/Desktop/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root">
+<meta name="description" content="1、docker启动mysql: 1docker run --privileged=true --name mysql -p 3306:3306 -v /Users/zhangfuli/Desktop/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:latest 2、查询学生的学号与平均成绩, 并按照成绩降序排序 123SELECT">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello, ZhangFuli">
+<meta property="og:title" content="数据库操作-4(多表查询)">
 <meta property="og:url" content="zhangfuli.github.io/2020/10/24/数据库操作-4/index.html">
 <meta property="og:site_name" content="Hello, ZhangFuli">
-<meta property="og:description" content="title: 数据库操作-4(多表查询)date: 2020-10-24 10:08:49tags: 1、docker启动mysql: 1docker run --privileged=true --name mysql -p 3306:3306 -v /Users/zhangfuli/Desktop/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root">
+<meta property="og:description" content="1、docker启动mysql: 1docker run --privileged=true --name mysql -p 3306:3306 -v /Users/zhangfuli/Desktop/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:latest 2、查询学生的学号与平均成绩, 并按照成绩降序排序 123SELECT">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-11-14T04:05:23.767Z">
+<meta property="og:updated_time" content="2020-11-14T05:58:19.002Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello, ZhangFuli">
-<meta name="twitter:description" content="title: 数据库操作-4(多表查询)date: 2020-10-24 10:08:49tags: 1、docker启动mysql: 1docker run --privileged=true --name mysql -p 3306:3306 -v /Users/zhangfuli/Desktop/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root">
+<meta name="twitter:title" content="数据库操作-4(多表查询)">
+<meta name="twitter:description" content="1、docker启动mysql: 1docker run --privileged=true --name mysql -p 3306:3306 -v /Users/zhangfuli/Desktop/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:latest 2、查询学生的学号与平均成绩, 并按照成绩降序排序 123SELECT">
 
 
 
@@ -127,7 +127,7 @@
 
 
 
-  <title> | Hello, ZhangFuli</title>
+  <title>数据库操作-4(多表查询) | Hello, ZhangFuli</title>
   
 
 
@@ -325,7 +325,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">数据库操作-4(多表查询)</h1>
         
 
         <div class="post-meta">
@@ -385,8 +385,7 @@
       
 
       
-        <p>title: 数据库操作-4(多表查询)<br>date: 2020-10-24 10:08:49<br>tags:</p>
-<p>1、docker启动mysql:</p>
+        <p>1、docker启动mysql:</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span> --privileged=true --name mysql -p 3306:3306 -v /Users/zhangfuli/Desktop/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:latest</span><br></pre></td></tr></table></figure>
 <p>2、查询学生的学号与平均成绩, 并按照成绩降序排序</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> sno, <span class="keyword">AVG</span>(grade) <span class="keyword">FROM</span> SC2 </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> sno</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">AVG</span>(grade) <span class="keyword">DESC</span></span><br></pre></td></tr></table></figure>
@@ -461,8 +460,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/10/24/数据库操作-1/" rel="next" title="数据库操作-1">
-                <i class="fa fa-chevron-left"></i> 数据库操作-1
+              <a href="/2020/10/24/数据库操作-3/" rel="next" title="数据库操作-3(单表查询)">
+                <i class="fa fa-chevron-left"></i> 数据库操作-3(单表查询)
               </a>
             
           </div>
@@ -470,6 +469,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/10/24/数据库操作-2/" rel="prev" title="数据库操作-2(生成随机数据)">
+                数据库操作-2(生成随机数据) <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
