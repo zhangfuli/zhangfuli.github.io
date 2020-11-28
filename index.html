@@ -308,6 +308,135 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2020/10/24/数据库操作-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhangfuli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://p4j7qpj9e.bkt.clouddn.com/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hello, ZhangFuli">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/10/24/数据库操作-5/" itemprop="url">数据库操作-5(多表查询)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-24T10:08:49+08:00">
+                2020-10-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          1、查询每门课的间接选修课:
+12SELECT d1.cno, d2.pcno FROM Course AS d1, Course AS d2 WHERE d1.pcno = d2.cno
+2、查询选课成绩在80分以上的男生姓名、课程名、成绩
+123456789SELECT sname, cname
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/10/24/数据库操作-5/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2020/10/24/数据库操作-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -388,135 +517,6 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2020/10/24/数据库操作-1/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2020/10/24/数据库操作-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhangfuli">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://p4j7qpj9e.bkt.clouddn.com/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hello, ZhangFuli">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/10/24/数据库操作-2/" itemprop="url">数据库操作-2(生成随机数据)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-24T10:08:49+08:00">
-                2020-10-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          1、SQL索引的建立:
-123456789CREATE INDEX age_indexON Student_2(age)DROP INDEX age_index on Student_2;--SELECT sno,sname FROM Student_2WHERE age=19;
-2、随机生成学生
-
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/10/24/数据库操作-2/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -775,6 +775,135 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2020/10/24/数据库操作-3/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2020/10/24/数据库操作-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhangfuli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://p4j7qpj9e.bkt.clouddn.com/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hello, ZhangFuli">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/10/24/数据库操作-2/" itemprop="url">数据库操作-2(生成随机数据)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-24T10:08:49+08:00">
+                2020-10-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          1、SQL索引的建立:
+123456789CREATE INDEX age_indexON Student_2(age)DROP INDEX age_index on Student_2;--SELECT sno,sname FROM Student_2WHERE age=19;
+2、随机生成学生
+
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/10/24/数据库操作-2/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1491,133 +1620,6 @@ nn.Module模块
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2020/09/01/Hub模块/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhangfuli">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://p4j7qpj9e.bkt.clouddn.com/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hello, ZhangFuli">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/09/01/Hub模块/" itemprop="url">Hub模块</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-01T22:47:47+08:00">
-                2020-09-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          加载别人的模型与参数模型 https://pytorch.org/hub/
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/09/01/Hub模块/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1672,7 +1674,7 @@ nn.Module模块
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">136</span>
+                  <span class="site-state-item-count">137</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
