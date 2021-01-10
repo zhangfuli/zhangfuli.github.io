@@ -88,7 +88,7 @@
 <meta property="og:site_name" content="Hello, ZhangFuli">
 <meta property="og:description" content="1、docker启动mysql: 1docker run --privileged=true --name mysql -p 3306:3306 -v /Users/zhangfuli/Desktop/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:latest 2、查询学生的学号与平均成绩, 并按照成绩降序排序 123SELECT">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-11-14T05:58:19.002Z">
+<meta property="og:updated_time" content="2020-11-14T06:06:38.167Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库操作-4(多表查询)">
 <meta name="twitter:description" content="1、docker启动mysql: 1docker run --privileged=true --name mysql -p 3306:3306 -v /Users/zhangfuli/Desktop/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:latest 2、查询学生的学号与平均成绩, 并按照成绩降序排序 123SELECT">
@@ -386,7 +386,7 @@
 
       
         <p>1、docker启动mysql:</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span> --privileged=true --name mysql -p 3306:3306 -v /Users/zhangfuli/Desktop/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:latest</span><br></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span><span class="bash"> --privileged=<span class="literal">true</span> --name mysql -p 3306:3306 -v /Users/zhangfuli/Desktop/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:latest</span></span><br></pre></td></tr></table></figure>
 <p>2、查询学生的学号与平均成绩, 并按照成绩降序排序</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> sno, <span class="keyword">AVG</span>(grade) <span class="keyword">FROM</span> SC2 </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> sno</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">AVG</span>(grade) <span class="keyword">DESC</span></span><br></pre></td></tr></table></figure>
 <p>3、查询至少选修4门课程的学生学号</p>
@@ -460,8 +460,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/10/24/数据库操作-3/" rel="next" title="数据库操作-3(单表查询)">
-                <i class="fa fa-chevron-left"></i> 数据库操作-3(单表查询)
+              <a href="/2020/10/24/数据库操作-5/" rel="next" title="数据库操作-5(多表查询)">
+                <i class="fa fa-chevron-left"></i> 数据库操作-5(多表查询)
               </a>
             
           </div>
@@ -470,8 +470,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/10/24/数据库操作-1/" rel="prev" title="数据库操作-1">
-                数据库操作-1 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/10/24/数据库操作-3/" rel="prev" title="数据库操作-3(单表查询)">
+                数据库操作-3(单表查询) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -551,7 +551,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">138</span>
+                  <span class="site-state-item-count">139</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -633,7 +633,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
