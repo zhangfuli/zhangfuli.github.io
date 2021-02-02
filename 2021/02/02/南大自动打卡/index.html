@@ -81,17 +81,17 @@
 
 
 
-<meta name="description" content="南大自动打卡脚本 脚本基于chrome和selenium，模拟浏览器点击  项目用于学习交流，仅用于各项无异常时打卡，建议如实打卡。 功能列表： 自定义定位 检测登录是否成功和网页能否打开 定时自动打卡* 微信推送打卡结果** 日志记录  12345678910111213141516171819202122232425262728293031323334353637383940414243444">
+<meta name="description" content="南大自动打卡脚本 脚本基于chrome和selenium，模拟浏览器点击  项目用于学习交流，仅用于各项无异常时打卡，建议如实打卡。 与北航自动打卡脚本不同，本脚本需三步：  第一步，selenium登陆获取某个cookie（时间关系，不深究是那个cookie了，准备春招了）  通过抓包获取到app里面的请求可知，打卡相关为两个请求 getAppInfo/postAppInfo   第二步，由于自">
 <meta property="og:type" content="article">
 <meta property="og:title" content="南大自动打卡">
 <meta property="og:url" content="zhangfuli.github.io/2021/02/02/南大自动打卡/index.html">
 <meta property="og:site_name" content="Hello, ZhangFuli">
-<meta property="og:description" content="南大自动打卡脚本 脚本基于chrome和selenium，模拟浏览器点击  项目用于学习交流，仅用于各项无异常时打卡，建议如实打卡。 功能列表： 自定义定位 检测登录是否成功和网页能否打开 定时自动打卡* 微信推送打卡结果** 日志记录  12345678910111213141516171819202122232425262728293031323334353637383940414243444">
+<meta property="og:description" content="南大自动打卡脚本 脚本基于chrome和selenium，模拟浏览器点击  项目用于学习交流，仅用于各项无异常时打卡，建议如实打卡。 与北航自动打卡脚本不同，本脚本需三步：  第一步，selenium登陆获取某个cookie（时间关系，不深究是那个cookie了，准备春招了）  通过抓包获取到app里面的请求可知，打卡相关为两个请求 getAppInfo/postAppInfo   第二步，由于自">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-02-02T06:43:05.014Z">
+<meta property="og:updated_time" content="2021-02-02T06:57:25.344Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="南大自动打卡">
-<meta name="twitter:description" content="南大自动打卡脚本 脚本基于chrome和selenium，模拟浏览器点击  项目用于学习交流，仅用于各项无异常时打卡，建议如实打卡。 功能列表： 自定义定位 检测登录是否成功和网页能否打开 定时自动打卡* 微信推送打卡结果** 日志记录  12345678910111213141516171819202122232425262728293031323334353637383940414243444">
+<meta name="twitter:description" content="南大自动打卡脚本 脚本基于chrome和selenium，模拟浏览器点击  项目用于学习交流，仅用于各项无异常时打卡，建议如实打卡。 与北航自动打卡脚本不同，本脚本需三步：  第一步，selenium登陆获取某个cookie（时间关系，不深究是那个cookie了，准备春招了）  通过抓包获取到app里面的请求可知，打卡相关为两个请求 getAppInfo/postAppInfo   第二步，由于自">
 
 
 
@@ -389,6 +389,18 @@
 <p>脚本基于chrome和selenium，模拟浏览器点击</p>
 </blockquote>
 <p>项目用于学习交流，仅用于各项无异常时打卡，建议如实打卡。</p>
+<p>与北航自动打卡脚本不同，本脚本需三步：</p>
+<ul>
+<li><p>第一步，selenium登陆获取某个cookie（时间关系，不深究是那个cookie了，准备春招了）</p>
+<blockquote>
+<p>通过抓包获取到app里面的请求可知，打卡相关为两个请求 getAppInfo/postAppInfo</p>
+</blockquote>
+</li>
+<li><p>第二步，由于自动打卡内部每天会自动写一份数据自带一个WID作为post的输入所以访问getAppInfo拿到WID</p>
+</li>
+<li><p>第三步，直接调用post将信息传入即可</p>
+</li>
+</ul>
 <h4 id="功能列表："><a href="#功能列表：" class="headerlink" title="功能列表："></a>功能列表：</h4><ul>
 <li>自定义定位</li>
 <li>检测登录是否成功和网页能否打开</li>
