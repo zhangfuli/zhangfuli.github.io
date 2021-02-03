@@ -81,17 +81,19 @@
 
 
 
-<meta name="description" content="1、检索: 12SELECT sno, sname, sex, age, dept FROM Student_2WHERE sex=&apos;F&apos; and age = 18; 2、去掉重复项: 1SELECT DISTINCT age FROM Student_2; 3、确定范围: 12SELECT sno, sname, sex, age, dept FROM Student_2WHERE age BE">
+<meta name="description" content="1、CAP理论分布式架构中有一个基础的CAP理论，也就是我们的系统最多只能满足数据一致性(Consistency)、可用性(Availability)和网络分区容忍(Partition Tolerance)三个特性中的两个 2、Paxos不考虑拜占庭将军问题（Leslie Lamport） 一组拜占庭将军分别各率领一支军队共同围困一座城市。为了简化问题，将各支军队的行动策略限定为进攻或撤离两种。因">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据库操作-3(单表查询)">
-<meta property="og:url" content="zhangfuli.github.io/2020/10/24/数据库操作-3/index.html">
+<meta property="og:title" content="Paxos算法">
+<meta property="og:url" content="zhangfuli.github.io/2021/02/03/Paxos算法/index.html">
 <meta property="og:site_name" content="Hello, ZhangFuli">
-<meta property="og:description" content="1、检索: 12SELECT sno, sname, sex, age, dept FROM Student_2WHERE sex=&apos;F&apos; and age = 18; 2、去掉重复项: 1SELECT DISTINCT age FROM Student_2; 3、确定范围: 12SELECT sno, sname, sex, age, dept FROM Student_2WHERE age BE">
+<meta property="og:description" content="1、CAP理论分布式架构中有一个基础的CAP理论，也就是我们的系统最多只能满足数据一致性(Consistency)、可用性(Availability)和网络分区容忍(Partition Tolerance)三个特性中的两个 2、Paxos不考虑拜占庭将军问题（Leslie Lamport） 一组拜占庭将军分别各率领一支军队共同围困一座城市。为了简化问题，将各支军队的行动策略限定为进攻或撤离两种。因">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-11-14T02:31:02.416Z">
+<meta property="og:image" content="/images/Paxos算法/1.png">
+<meta property="og:updated_time" content="2021-02-03T11:32:10.902Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据库操作-3(单表查询)">
-<meta name="twitter:description" content="1、检索: 12SELECT sno, sname, sex, age, dept FROM Student_2WHERE sex=&apos;F&apos; and age = 18; 2、去掉重复项: 1SELECT DISTINCT age FROM Student_2; 3、确定范围: 12SELECT sno, sname, sex, age, dept FROM Student_2WHERE age BE">
+<meta name="twitter:title" content="Paxos算法">
+<meta name="twitter:description" content="1、CAP理论分布式架构中有一个基础的CAP理论，也就是我们的系统最多只能满足数据一致性(Consistency)、可用性(Availability)和网络分区容忍(Partition Tolerance)三个特性中的两个 2、Paxos不考虑拜占庭将军问题（Leslie Lamport） 一组拜占庭将军分别各率领一支军队共同围困一座城市。为了简化问题，将各支军队的行动策略限定为进攻或撤离两种。因">
+<meta name="twitter:image" content="/images/Paxos算法/1.png">
 
 
 
@@ -121,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="zhangfuli.github.io/2020/10/24/数据库操作-3/"/>
+  <link rel="canonical" href="zhangfuli.github.io/2021/02/03/Paxos算法/"/>
 
 
 
 
 
-  <title>数据库操作-3(单表查询) | Hello, ZhangFuli</title>
+  <title>Paxos算法 | Hello, ZhangFuli</title>
   
 
 
@@ -308,7 +310,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2020/10/24/数据库操作-3/">
+    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2021/02/03/Paxos算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhangfuli">
@@ -325,7 +327,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">数据库操作-3(单表查询)</h1>
+          <h1 class="post-title" itemprop="name headline">Paxos算法</h1>
         
 
         <div class="post-meta">
@@ -337,8 +339,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-24T10:08:49+08:00">
-                2020-10-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-03T17:24:52+08:00">
+                2021-02-03
               </time>
             
 
@@ -356,8 +358,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/10/24/数据库操作-3/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2020/10/24/数据库操作-3/" itemprop="commentsCount"></span>
+                <a href="/2021/02/03/Paxos算法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2021/02/03/Paxos算法/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -385,22 +387,62 @@
       
 
       
-        <p>1、检索:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> sno, sname, sex, age, dept <span class="keyword">FROM</span> Student_2</span><br><span class="line"><span class="keyword">WHERE</span> sex=<span class="string">'F'</span> <span class="keyword">and</span> age = <span class="number">18</span>;</span><br></pre></td></tr></table></figure>
-<p>2、去掉重复项:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> age <span class="keyword">FROM</span> Student_2;</span><br></pre></td></tr></table></figure>
-<p>3、确定范围:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> sno, sname, sex, age, dept <span class="keyword">FROM</span> Student_2</span><br><span class="line"><span class="keyword">WHERE</span> age <span class="keyword">BETWEEN</span> <span class="number">18</span> <span class="keyword">AND</span> <span class="number">19</span>;</span><br></pre></td></tr></table></figure>
-<p>4、模糊查询:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> sno, sname, sex, age, dept <span class="keyword">FROM</span> Student_2</span><br><span class="line"><span class="keyword">WHERE</span> dept <span class="keyword">LIKE</span> <span class="string">'C%'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> sno, sname, sex, age, dept <span class="keyword">FROM</span> Student_2</span><br><span class="line"><span class="keyword">WHERE</span> dept <span class="keyword">LIKE</span> <span class="string">'C%'</span> <span class="keyword">or</span> dept <span class="keyword">LIKE</span> <span class="string">'I%'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> sno, sname, sex, age, dept <span class="keyword">FROM</span> Student_2</span><br><span class="line"><span class="keyword">WHERE</span> dept <span class="keyword">LIKE</span> <span class="string">'I_T'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> sno, sname, sex, age, dept <span class="keyword">FROM</span> Student_2</span><br><span class="line"><span class="keyword">WHERE</span> dept <span class="keyword">LIKE</span> <span class="string">'I%T'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> sno, sname, sex, age, dept <span class="keyword">FROM</span> Student_2</span><br><span class="line"><span class="keyword">WHERE</span> dept <span class="keyword">LIKE</span> <span class="string">'%o_'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- aabbccddefg</span></span><br></pre></td></tr></table></figure>
-<p>5、组合查询:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> sno, sname, sex, age, dept <span class="keyword">FROM</span> Student_2</span><br><span class="line"><span class="keyword">WHERE</span> dept <span class="keyword">in</span> (<span class="string">'CS'</span>, <span class="string">'IoT'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> sno, sname, sex, age, dept <span class="keyword">FROM</span> Student_2</span><br><span class="line"><span class="keyword">WHERE</span> dept <span class="keyword">not</span> <span class="keyword">in</span> (<span class="string">'CS'</span>, <span class="string">'IoT'</span>);</span><br></pre></td></tr></table></figure>
-<p>6、对结果排序:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> sno, sname, sex, age, dept <span class="keyword">FROM</span> Student_2</span><br><span class="line"><span class="keyword">WHERE</span> sex = <span class="string">'F'</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> age;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> sno, sname, sex, age, dept <span class="keyword">FROM</span> Student_2</span><br><span class="line"><span class="keyword">WHERE</span> sex = <span class="string">'F'</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> age <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
-<p>7、函数:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">FROM</span> Student_2</span><br><span class="line"><span class="keyword">WHERE</span> sex = <span class="string">'F'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> <span class="string">'student_count'</span> <span class="keyword">FROM</span> Student_2</span><br><span class="line"><span class="keyword">WHERE</span> sex = <span class="string">'F'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">AVG</span>(age) <span class="keyword">AS</span> <span class="string">'avg_age'</span> <span class="keyword">FROM</span> Student_2</span><br><span class="line"><span class="keyword">WHERE</span> sex = <span class="string">'F'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">as</span> <span class="string">'count'</span>, <span class="keyword">AVG</span>(age) <span class="keyword">as</span> <span class="string">'avg'</span> <span class="keyword">FROM</span> Student_2</span><br><span class="line"><span class="keyword">WHERE</span> sex = <span class="string">'F'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span> age) <span class="keyword">FROM</span> Student_2</span><br><span class="line"><span class="keyword">WHERE</span> sex = <span class="string">'F'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询学生的个数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">MAX</span>(age) <span class="keyword">FROM</span> Student_2</span><br><span class="line"><span class="keyword">WHERE</span> sex = <span class="string">'F'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">MIN</span>(age) <span class="keyword">FROM</span> Student_2</span><br><span class="line"><span class="keyword">WHERE</span> sex = <span class="string">'F'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">SUM</span>(age) <span class="keyword">FROM</span> Student_2</span><br><span class="line"><span class="keyword">WHERE</span> sex = <span class="string">'F'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- SC表,查询最高成绩、最低成绩、平均成绩</span></span><br></pre></td></tr></table></figure>
-<p>8、分组查询:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> age, <span class="keyword">COUNT</span>(*) <span class="keyword">FROM</span> Student_2</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> age;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span>  sno, <span class="keyword">AVG</span>(grade) <span class="keyword">FROM</span> SC2</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> sno;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span>  sno, <span class="keyword">AVG</span>(grade) <span class="keyword">FROM</span> SC2</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> sno;</span><br><span class="line">HAVING avg(grade) &gt; 70</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 至少选修2门成绩的学生的学号</span></span><br><span class="line"><span class="keyword">SELECT</span>  sno <span class="keyword">FROM</span> SC2</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> sno</span><br><span class="line"><span class="keyword">HAVING</span> <span class="keyword">count</span>(*) &gt; <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> cno, <span class="keyword">AVG</span>(grade) <span class="keyword">FROM</span> SC2</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> cno;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> cno, <span class="keyword">AVG</span>(grade), <span class="keyword">count</span>(*) <span class="keyword">FROM</span> SC2</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> cno;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> age, <span class="keyword">COUNT</span>(*) <span class="keyword">as</span> <span class="built_in">number</span> <span class="keyword">FROM</span> Student_2</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> age</span><br><span class="line"><span class="keyword">HAVING</span> <span class="built_in">number</span>&gt;<span class="number">5</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> age <span class="keyword">DESC</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 按照平均成绩降序且所有课程都及格的学号，及其平均成绩（不包含3号课）</span></span><br><span class="line"><span class="keyword">SELECT</span> sno, <span class="keyword">AVG</span>(grade) <span class="keyword">as</span> avg_g <span class="keyword">FROM</span> SC2</span><br><span class="line"><span class="keyword">WHERE</span> cno &lt;&gt; <span class="string">'003'</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> sno</span><br><span class="line"><span class="keyword">HAVING</span> <span class="keyword">MIN</span>(grade)&gt;=<span class="number">60</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> avg_g <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+        <h4 id="1、CAP理论"><a href="#1、CAP理论" class="headerlink" title="1、CAP理论"></a>1、CAP理论</h4><p>分布式架构中有一个基础的CAP理论，也就是我们的系统最多只能满足数据一致性(Consistency)、可用性(Availability)和网络分区容忍(Partition Tolerance)三个特性中的两个</p>
+<h4 id="2、Paxos不考虑拜占庭将军问题（Leslie-Lamport）"><a href="#2、Paxos不考虑拜占庭将军问题（Leslie-Lamport）" class="headerlink" title="2、Paxos不考虑拜占庭将军问题（Leslie Lamport）"></a>2、Paxos不考虑拜占庭将军问题（Leslie Lamport）</h4><blockquote>
+<p>一组<a href="https://zh.wikipedia.org/wiki/拜占庭帝國" target="_blank" rel="noopener">拜占庭</a>将军分别各率领一支军队共同围困一座城市。为了简化问题，将各支军队的行动策略限定为进攻或撤离两种。因为部分军队进攻部分军队撤离可能会造成灾难性后果，因此各位将军必须通过投票来达成一致策略，即所有军队一起进攻或所有军队一起撤离。因为各位将军分处城市不同方向，他们只能通过信使互相联系。在投票过程中每位将军都将自己投票给进攻还是撤退的信息通过信使分别通知其他所有将军，这样一来每位将军根据自己的投票和其他所有将军送来的信息就可以知道共同的投票结果而决定行动策略。</p>
+</blockquote>
+<p>系统的问题在于，可能将军中出现<a href="https://zh.wikipedia.org/wiki/叛徒" target="_blank" rel="noopener">叛徒</a>，他们不仅可能向较为糟糕的策略投票，还可能选择性地发送投票信息。假设有9位将军投票，其中1名叛徒。8名忠诚的将军中出现了4人投进攻，4人投撤离的情况。这时候叛徒可能故意给4名投进攻的将领送信表示投票进攻，而给4名投撤离的将领送信表示投撤离。这样一来在4名投进攻的将领看来，投票结果是5人投进攻，从而发起进攻；而在4名投撤离的将军看来则是5人投撤离。这样各支军队的一致协同就遭到了破坏。</p>
+<p><strong>一个将军怎么根据自己所知的信息进行进攻或者撤退</strong></p>
+<h4 id="3、Paxos角色："><a href="#3、Paxos角色：" class="headerlink" title="3、Paxos角色："></a>3、Paxos角色：</h4><ul>
+<li>Proposer：提案者</li>
+<li>Acceptor: 表决者</li>
+<li>Learner: 同步者</li>
+</ul>
+<h4 id="4、Paxos数据一致性体现在以下几点："><a href="#4、Paxos数据一致性体现在以下几点：" class="headerlink" title="4、Paxos数据一致性体现在以下几点："></a>4、Paxos数据一致性体现在以下几点：</h4><ul>
+<li>每个提案者在提出提案时都会首先获取到一个具有<strong>全局唯一</strong>性的、递增的提案编号 N， 即在整个集群中是唯一的编号 N，然后将该编号赋予其要提出的提案。</li>
+<li>每个表决者在 accept 某提案后，会将该提案的编号 N 记录在本地，这样每个表决者中保存的已经被 accept 的提案中会存在一个编号最大的提案，其编号假设为 maxN。每个表决者仅会 accept 编号大于自己本地 maxN 的提案。</li>
+<li>在众多提案中最终只能有一个提案被选定。</li>
+<li>一旦一个提案被选定，则其它服务器会主动同步(Learn)该提案到本地。</li>
+<li>没有提案被提出则不会有提案被选定</li>
+</ul>
+<h4 id="5、过程："><a href="#5、过程：" class="headerlink" title="5、过程："></a>5、过程：</h4><ul>
+<li><p>第一阶段（预提案）：</p>
+<ul>
+<li><p>提案者先选择一个提案编号N，并且将该编号的预提交请求Prepare(N)发送给表决者。</p>
+</li>
+<li><p>表决者收到预提案请求Prepare(N)，比较存储的最大提案编号PN与N的关系：</p>
+<ul>
+<li><p>如果PN &lt; N，则先令PN = N，并且同意提议者请求，发送表决者的最大提案编号PN(等于N)和最后一个批准的数据Value(可能为空)。 </p>
+</li>
+<li><p>否则，拒绝请求，同样发送发送当前长老们的最大提案编号PN(等于N)和最后一个批准的数据Value(可能为空)。这个部分的意思就好比是逐个表决，及时更新赞同最多的方案。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>第二阶段（提案）：</p>
+<ul>
+<li><p>当预提案Prepare(N)被大多数表决者同意时（PN=N），则做出以下提案：</p>
+<ul>
+<li><p>如果所有接收到的PrepareResponse(PN, Value)中Value全部为空（表决者还未批准任何提案），则自己制定一个该值的取值Vn，并向表决者集合发送提案：Proposal(N, Vn) </p>
+</li>
+<li><p>如果接收到的PrepareResponse(PN, Value)集合中存在不为空的Value，则选取Value不为空的PrepareResponse(PN, ValueNotNull)集合中PN最大的值(PNmax, ValueNotNull)，并将其作为提案发送给表决者：Proposal(PNmax, ValueNotNull)  </p>
+</li>
+</ul>
+</li>
+<li><p>如果一个表决者接收到一个提案编号为N的提案Proposal(N, Vn)则：</p>
+<ul>
+<li>如果PN为空或者PN &lt; N，则先令PN = N，Value = Vn，并且通过该条提案，返回:ProposalResponse(PN, Value) </li>
+<li>如果PN == N并且Value为空（尚未批准提案号为PN的任何提案），则先令Value = Vn，并且通过该条提案，返回:ProposalResponse(PN, Value) </li>
+<li>如果PN &gt; N则拒绝该提案，回:ProposalResponse(PN, Value)        </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/Paxos算法/1.png" alt="img"></p>
+<h4 id="6、活锁和选主"><a href="#6、活锁和选主" class="headerlink" title="6、活锁和选主"></a>6、活锁和选主</h4><p>当某一提案者提交的提案被拒绝时，可能是因为表决者 承诺返回了更大编号的proposal，因此proposer提高编号继续提交。 如果2个提案者都发现自己的编号过低转而提出更高编号的提案者，会导致死循环，这种情况也称为活锁</p>
+<p>为了保证流程的执行，我们必须选出一个主提案者，作为提案的唯一人选。如果主提案者能和大数派的集合进行通信，并且使用了一个比所有已经批准的提案号都大的编号，那么它就能成功产生被接受的提案</p>
 
       
     </div>
@@ -454,8 +496,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/10/21/中诚合作-跨境三文鱼区块链平台/" rel="next" title="中诚合作-跨境三文鱼区块链平台">
-                <i class="fa fa-chevron-left"></i> 中诚合作-跨境三文鱼区块链平台
+              <a href="/2021/02/03/2021年春招准备-Docker篇/" rel="next" title="2021年春招准备-Docker篇">
+                <i class="fa fa-chevron-left"></i> 2021年春招准备-Docker篇
               </a>
             
           </div>
@@ -463,10 +505,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/10/24/数据库操作-6/" rel="prev" title="数据库操作-6(其他)">
-                数据库操作-6(其他) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -525,8 +563,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -613,6 +660,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、CAP理论"><span class="nav-number">1.</span> <span class="nav-text">1、CAP理论</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、Paxos不考虑拜占庭将军问题（Leslie-Lamport）"><span class="nav-number">2.</span> <span class="nav-text">2、Paxos不考虑拜占庭将军问题（Leslie Lamport）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、Paxos角色："><span class="nav-number">3.</span> <span class="nav-text">3、Paxos角色：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、Paxos数据一致性体现在以下几点："><span class="nav-number">4.</span> <span class="nav-text">4、Paxos数据一致性体现在以下几点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、过程："><span class="nav-number">5.</span> <span class="nav-text">5、过程：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6、活锁和选主"><span class="nav-number">6.</span> <span class="nav-text">6、活锁和选主</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

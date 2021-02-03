@@ -88,14 +88,14 @@
 <meta property="og:site_name" content="Hello, ZhangFuli">
 <meta property="og:description" content="熟悉 Java、Golang 或 C++至少一⻔语言。 有良好的计算机基础，基本功扎实：熟悉常用的算法、数据结构，熟悉操作系统、网络等基础知识。 加分项(任一即可)： • 熟悉微服务领域相关技术或产品，如 gRPC，Dubbo，Spring Cloud，RocketMQ等。 • 熟悉容器相关技术或产品，如 Docker, Kubernetes, Istio/Envoy 等。 • 熟悉监控领域相关">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="/images/2021年春招准备-Docker篇/docker-vm.png">
-<meta property="og:image" content="file:////Users/zhangfuli/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image001.png">
-<meta property="og:image" content="file:////Users/zhangfuli/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image002.png">
-<meta property="og:updated_time" content="2021-02-03T04:19:05.199Z">
+<meta property="og:image" content="/images/2021年春招准备-Docker篇/2.png">
+<meta property="og:image" content="/images/2021年春招准备-Docker篇/3.png">
+<meta property="og:image" content="/images/2021年春招准备-Docker篇/9.png">
+<meta property="og:updated_time" content="2021-02-03T11:48:14.847Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2021年春招准备-Docker篇">
 <meta name="twitter:description" content="熟悉 Java、Golang 或 C++至少一⻔语言。 有良好的计算机基础，基本功扎实：熟悉常用的算法、数据结构，熟悉操作系统、网络等基础知识。 加分项(任一即可)： • 熟悉微服务领域相关技术或产品，如 gRPC，Dubbo，Spring Cloud，RocketMQ等。 • 熟悉容器相关技术或产品，如 Docker, Kubernetes, Istio/Envoy 等。 • 熟悉监控领域相关">
-<meta name="twitter:image" content="/images/2021年春招准备-Docker篇/docker-vm.png">
+<meta name="twitter:image" content="/images/2021年春招准备-Docker篇/2.png">
 
 
 
@@ -399,35 +399,40 @@
 <p>• 熟悉数据处理相关技术或产品，如 Flink，Spark，HBase，ElasticSearch 等。</p>
 <p>• 熟悉机器学习技术，有相关实战经验。技术，有相关实战经验。</p>
 </blockquote>
+<h4 id="1-什么是Docker？"><a href="#1-什么是Docker？" class="headerlink" title="1. 什么是Docker？"></a>1. 什么是Docker？</h4><p>虚拟化的工具，Docker、虚拟机</p>
+<h4 id="2-Docker与虚拟机的区别"><a href="#2-Docker与虚拟机的区别" class="headerlink" title="2. Docker与虚拟机的区别:"></a>2. Docker与虚拟机的区别:</h4><ul>
+<li>虚拟机是在硬件的基础上虚拟出多个操作系统。传统虚拟机技术是虚拟出一套硬件后，在其上运行一个完整操作系统</li>
+<li>Docker容器没有自己的内核，在操作系统之上虚拟了一份文件系统，更加轻便。</li>
+</ul>
+<p><img src="/images/2021年春招准备-Docker篇/2.png" alt="title"></p>
+<h4 id="3-Docker容器有几种状态"><a href="#3-Docker容器有几种状态" class="headerlink" title="3. Docker容器有几种状态"></a>3. Docker容器有几种状态</h4><p>运行、已暂停、重新启动、已退出</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+<p><img src="/images/2021年春招准备-Docker篇/3.png" alt="title"></p>
+<h4 id="4．Dockerfile中最常见的指令是什么"><a href="#4．Dockerfile中最常见的指令是什么" class="headerlink" title="4．Dockerfile中最常见的指令是什么"></a>4．Dockerfile中最常见的指令是什么</h4><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> node:<span class="number">8</span>-slim  <span class="comment"># 指定基础镜像</span></span><br><span class="line"><span class="keyword">RUN</span> apt-get update &amp;&amp; apt-get install -y nginx # 运行指定的命令</span><br><span class="line">WORKDIR /var/www/html</span><br><span class="line">COPY ./build/ ./</span><br><span class="line">RUN ls</span><br><span class="line">EXPOSE 80</span><br><span class="line">CMD ["nginx","-g","daemon off;"] # 容器启动时要运行的命令</span><br></pre></td></tr></table></figure>
+<h4 id="5-docker常用命令："><a href="#5-docker常用命令：" class="headerlink" title="5. docker常用命令："></a>5. docker常用命令：</h4><ul>
+<li><p>docker pull 拉取或者更新指定镜像</p>
+</li>
+<li><p>docker push 将镜像推送至远程仓库</p>
+</li>
+<li><p>docker rm 删除容器</p>
+</li>
+<li><p>docker rmi 删除镜像</p>
+</li>
+<li><p>docker images 列出所有镜像</p>
+</li>
+<li><p>docker ps 列出所有容器</p>
+</li>
+</ul>
+<h4 id="6-容器与主机之间的数据拷贝命令"><a href="#6-容器与主机之间的数据拷贝命令" class="headerlink" title="6.容器与主机之间的数据拷贝命令"></a>6.容器与主机之间的数据拷贝命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker cp /www 96f7f14e99ab:/www/ #主机到容器</span><br><span class="line">docker cp 96f7f14e99ab:/www /tmp/ #容器到主机</span><br></pre></td></tr></table></figure>
+<h4 id="7-启动nginx容器"><a href="#7-启动nginx容器" class="headerlink" title="7. 启动nginx容器"></a>7. 启动nginx容器</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run </span><br><span class="line">-d # 后台运行返回容器ID</span><br><span class="line">-P # 随机端口</span><br><span class="line">-p # 宿主机:容器</span><br><span class="line">--name nginx2 </span><br><span class="line">-v /home/nginx:/usr/share/nginx/html #宿主机:容器</span><br><span class="line">nginx</span><br></pre></td></tr></table></figure>
+<h4 id="8-解释一下Dockerfile的ONBUILD指令"><a href="#8-解释一下Dockerfile的ONBUILD指令" class="headerlink" title="8. 解释一下Dockerfile的ONBUILD指令"></a>8. 解释一下Dockerfile的ONBUILD指令</h4><p>以当前镜像为parent 镜像时触发</p>
+<h4 id="9-Docker-Swarm"><a href="#9-Docker-Swarm" class="headerlink" title="9. Docker Swarm"></a>9. Docker Swarm</h4><p>将一群Docker宿主机变成一个单一的虚拟主机，通过raft协议选举manager。</p>
+<p><img src="/images/2021年春招准备-Docker篇/9.png" alt="img"></p>
+<p>分布式架构中有一个基础的CAP理论，也就是我们的系统最多只能满足数据一致性(Consistency)、可用性(Availability)和网络分区容忍(Partition Tolerance)三个特性中的两个</p>
 <ol>
-<li>什么是Docker？</li>
+<li>如何在生产中监控Docker<br>Docker提供docker stats和docker事件等工具来监控生产中的Docker。我们可以使用这些命令获取重要统计数据的报告。<br>Docker统计数据：当我们使用容器ID调用docker stats时，我们获得容器的CPU，内存使用情况等。它类似于Linux中的top命令。<br>Docker事件：Docker事件是一个命令，用于查看Docker守护程序中正在进行的活动流。<br>一些常见的Docker事件是：attach，commit，die，detach，rename，destroy等。我们还可以使用各种选项来限制或过滤我们感兴趣的事件</li>
+<li>Docker如何在非Linux系统中运行容器<br>通过添加到Linux内核版本2.6.24的名称空间功能，可以实现容器的概念。容器将其ID添加到每个进程，并向每个系统调用添加新的访问控制检查。它由clone（）系统调用访问，该调用允许创建先前全局命名空间的单独实例。<br>如果由于Linux内核中可用的功能而可以使用容器，那么显而易见的问题是非Linux系统如何运行容器。Docker for Mac和Windows都使用Linux VM来运行容器。Docker Toolbox用于在Virtual Box VM中运行容器。但是，最新的Docker在Windows中使用Hyper-V，在Mac中使用Hypervisor.framework。</li>
 </ol>
-<p>虚拟化的工具，Docker、虚拟机</p>
-<ol start="2">
-<li>Docker与虚拟机的区别：</li>
-</ol>
-<p>虚拟机是在硬件的基础上虚拟出多个操作系统。传统虚拟机技术是虚拟出一套硬件后，在其上运行一个完整操作系统。</p>
-<p>Docker容器没有自己的内核，在操作系统之上虚拟了一份文件系统，更加轻便。</p>
-<p><img src="/images/2021年春招准备-Docker篇/docker-vm.png" alt="title"></p>
-<p><img src="file:////Users/zhangfuli/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image001.png" alt="img"></p>
-<p>\3. Docker容器有几种状态：运行、已暂停、重新启动、已退出</p>
-<p>docker ps -a</p>
-<p><img src="file:////Users/zhangfuli/Library/Group%20Containers/UBF8T346G9.Office/TemporaryItems/msohtmlclip/clip_image002.png" alt="img"></p>
-<p>4．Dockerfile中最常见的指令是什么</p>
-<p>FROM node:8-slim  # 指定基础镜像</p>
-<p>RUN apt-get update &amp;&amp; apt-get install -y nginx # 运行指定的命令</p>
-<p>WORKDIR /var/www/html</p>
-<p>COPY ./build/ ./</p>
-<p>RUN ls</p>
-<p>EXPOSE 80</p>
-<p>CMD [“nginx”,”-g”,”daemon off;”] # 容器启动时要运行的命令</p>
-<p>\5. docker常用命令：</p>
-<p>-  docker pull 拉取或者更新指定镜像</p>
-<p>-  docker push 将镜像推送至远程仓库</p>
-<p>-  docker rm 删除容器</p>
-<p>-  docker rmi 删除镜像</p>
-<p>-  docker images 列出所有镜像</p>
-<p>-  docker ps 列出所有容器</p>
 
       
     </div>
@@ -491,6 +496,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2021/02/03/Paxos算法/" rel="prev" title="Paxos算法">
+                Paxos算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -548,8 +557,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -568,7 +586,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-count">142</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -636,6 +654,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-什么是Docker？"><span class="nav-number">1.</span> <span class="nav-text">1. 什么是Docker？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Docker与虚拟机的区别"><span class="nav-number">2.</span> <span class="nav-text">2. Docker与虚拟机的区别:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Docker容器有几种状态"><span class="nav-number">3.</span> <span class="nav-text">3. Docker容器有几种状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4．Dockerfile中最常见的指令是什么"><span class="nav-number">4.</span> <span class="nav-text">4．Dockerfile中最常见的指令是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-docker常用命令："><span class="nav-number">5.</span> <span class="nav-text">5. docker常用命令：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-容器与主机之间的数据拷贝命令"><span class="nav-number">6.</span> <span class="nav-text">6.容器与主机之间的数据拷贝命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-启动nginx容器"><span class="nav-number">7.</span> <span class="nav-text">7. 启动nginx容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-解释一下Dockerfile的ONBUILD指令"><span class="nav-number">8.</span> <span class="nav-text">8. 解释一下Dockerfile的ONBUILD指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-Docker-Swarm"><span class="nav-number">9.</span> <span class="nav-text">9. Docker Swarm</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
