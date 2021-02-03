@@ -91,7 +91,7 @@
 <meta property="og:image" content="/images/2021年春招准备-Docker篇/2.png">
 <meta property="og:image" content="/images/2021年春招准备-Docker篇/3.png">
 <meta property="og:image" content="/images/2021年春招准备-Docker篇/9.png">
-<meta property="og:updated_time" content="2021-02-03T11:48:14.847Z">
+<meta property="og:updated_time" content="2021-02-03T11:58:00.338Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2021年春招准备-Docker篇">
 <meta name="twitter:description" content="熟悉 Java、Golang 或 C++至少一⻔语言。 有良好的计算机基础，基本功扎实：熟悉常用的算法、数据结构，熟悉操作系统、网络等基础知识。 加分项(任一即可)： • 熟悉微服务领域相关技术或产品，如 gRPC，Dubbo，Spring Cloud，RocketMQ等。 • 熟悉容器相关技术或产品，如 Docker, Kubernetes, Istio/Envoy 等。 • 熟悉监控领域相关">
@@ -428,7 +428,6 @@
 <h4 id="8-解释一下Dockerfile的ONBUILD指令"><a href="#8-解释一下Dockerfile的ONBUILD指令" class="headerlink" title="8. 解释一下Dockerfile的ONBUILD指令"></a>8. 解释一下Dockerfile的ONBUILD指令</h4><p>以当前镜像为parent 镜像时触发</p>
 <h4 id="9-Docker-Swarm"><a href="#9-Docker-Swarm" class="headerlink" title="9. Docker Swarm"></a>9. Docker Swarm</h4><p>将一群Docker宿主机变成一个单一的虚拟主机，通过raft协议选举manager。</p>
 <p><img src="/images/2021年春招准备-Docker篇/9.png" alt="img"></p>
-<p>分布式架构中有一个基础的CAP理论，也就是我们的系统最多只能满足数据一致性(Consistency)、可用性(Availability)和网络分区容忍(Partition Tolerance)三个特性中的两个</p>
 <ol>
 <li>如何在生产中监控Docker<br>Docker提供docker stats和docker事件等工具来监控生产中的Docker。我们可以使用这些命令获取重要统计数据的报告。<br>Docker统计数据：当我们使用容器ID调用docker stats时，我们获得容器的CPU，内存使用情况等。它类似于Linux中的top命令。<br>Docker事件：Docker事件是一个命令，用于查看Docker守护程序中正在进行的活动流。<br>一些常见的Docker事件是：attach，commit，die，detach，rename，destroy等。我们还可以使用各种选项来限制或过滤我们感兴趣的事件</li>
 <li>Docker如何在非Linux系统中运行容器<br>通过添加到Linux内核版本2.6.24的名称空间功能，可以实现容器的概念。容器将其ID添加到每个进程，并向每个系统调用添加新的访问控制检查。它由clone（）系统调用访问，该调用允许创建先前全局命名空间的单独实例。<br>如果由于Linux内核中可用的功能而可以使用容器，那么显而易见的问题是非Linux系统如何运行容器。Docker for Mac和Windows都使用Linux VM来运行容器。Docker Toolbox用于在Virtual Box VM中运行容器。但是，最新的Docker在Windows中使用Hyper-V，在Mac中使用Hypervisor.framework。</li>
@@ -586,7 +585,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">142</span>
+                  <span class="site-state-item-count">143</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

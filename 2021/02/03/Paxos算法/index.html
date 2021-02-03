@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="1、CAP理论分布式架构中有一个基础的CAP理论，也就是我们的系统最多只能满足数据一致性(Consistency)、可用性(Availability)和网络分区容忍(Partition Tolerance)三个特性中的两个 2、Paxos不考虑拜占庭将军问题（Leslie Lamport） 一组拜占庭将军分别各率领一支军队共同围困一座城市。为了简化问题，将各支军队的行动策略限定为进攻或撤离两种。因">
+<meta name="description" content="1、CAP理论分布式架构中有一个基础的CAP理论，也就是我们的系统最多只能满足数据一致性(Consistency)、可用性(Availability)和网络分区容忍(Partition Tolerance)三个特性中的两个  一致性: 所有节点在同一时间的数据完全一致  一致性是在并发读写时才会出现的问题，因此在理解一致性的问题时，一定要注意结合考虑并发读写的场景。   可用性: 用户访问数据时，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Paxos算法">
 <meta property="og:url" content="zhangfuli.github.io/2021/02/03/Paxos算法/index.html">
 <meta property="og:site_name" content="Hello, ZhangFuli">
-<meta property="og:description" content="1、CAP理论分布式架构中有一个基础的CAP理论，也就是我们的系统最多只能满足数据一致性(Consistency)、可用性(Availability)和网络分区容忍(Partition Tolerance)三个特性中的两个 2、Paxos不考虑拜占庭将军问题（Leslie Lamport） 一组拜占庭将军分别各率领一支军队共同围困一座城市。为了简化问题，将各支军队的行动策略限定为进攻或撤离两种。因">
+<meta property="og:description" content="1、CAP理论分布式架构中有一个基础的CAP理论，也就是我们的系统最多只能满足数据一致性(Consistency)、可用性(Availability)和网络分区容忍(Partition Tolerance)三个特性中的两个  一致性: 所有节点在同一时间的数据完全一致  一致性是在并发读写时才会出现的问题，因此在理解一致性的问题时，一定要注意结合考虑并发读写的场景。   可用性: 用户访问数据时，">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/Paxos算法/1.png">
-<meta property="og:updated_time" content="2021-02-03T11:32:10.902Z">
+<meta property="og:updated_time" content="2021-02-03T11:57:49.305Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Paxos算法">
-<meta name="twitter:description" content="1、CAP理论分布式架构中有一个基础的CAP理论，也就是我们的系统最多只能满足数据一致性(Consistency)、可用性(Availability)和网络分区容忍(Partition Tolerance)三个特性中的两个 2、Paxos不考虑拜占庭将军问题（Leslie Lamport） 一组拜占庭将军分别各率领一支军队共同围困一座城市。为了简化问题，将各支军队的行动策略限定为进攻或撤离两种。因">
+<meta name="twitter:description" content="1、CAP理论分布式架构中有一个基础的CAP理论，也就是我们的系统最多只能满足数据一致性(Consistency)、可用性(Availability)和网络分区容忍(Partition Tolerance)三个特性中的两个  一致性: 所有节点在同一时间的数据完全一致  一致性是在并发读写时才会出现的问题，因此在理解一致性的问题时，一定要注意结合考虑并发读写的场景。   可用性: 用户访问数据时，">
 <meta name="twitter:image" content="/images/Paxos算法/1.png">
 
 
@@ -388,6 +388,17 @@
 
       
         <h4 id="1、CAP理论"><a href="#1、CAP理论" class="headerlink" title="1、CAP理论"></a>1、CAP理论</h4><p>分布式架构中有一个基础的CAP理论，也就是我们的系统最多只能满足数据一致性(Consistency)、可用性(Availability)和网络分区容忍(Partition Tolerance)三个特性中的两个</p>
+<ul>
+<li><p>一致性: 所有节点在同一时间的数据完全一致</p>
+<ul>
+<li>一致性是在并发读写时才会出现的问题，因此在理解一致性的问题时，一定要注意结合考虑并发读写的场景。</li>
+</ul>
+</li>
+<li><p>可用性: 用户访问数据时，系统是否能在正常响应时间返回结果</p>
+</li>
+<li><p>分区容错性：分布式系统在遇到某节点或网络分区故障的时候，仍然能够对外提供满足一致性和可用性的服务</p>
+</li>
+</ul>
 <h4 id="2、Paxos不考虑拜占庭将军问题（Leslie-Lamport）"><a href="#2、Paxos不考虑拜占庭将军问题（Leslie-Lamport）" class="headerlink" title="2、Paxos不考虑拜占庭将军问题（Leslie Lamport）"></a>2、Paxos不考虑拜占庭将军问题（Leslie Lamport）</h4><blockquote>
 <p>一组<a href="https://zh.wikipedia.org/wiki/拜占庭帝國" target="_blank" rel="noopener">拜占庭</a>将军分别各率领一支军队共同围困一座城市。为了简化问题，将各支军队的行动策略限定为进攻或撤离两种。因为部分军队进攻部分军队撤离可能会造成灾难性后果，因此各位将军必须通过投票来达成一致策略，即所有军队一起进攻或所有军队一起撤离。因为各位将军分处城市不同方向，他们只能通过信使互相联系。在投票过程中每位将军都将自己投票给进攻还是撤退的信息通过信使分别通知其他所有将军，这样一来每位将军根据自己的投票和其他所有将军送来的信息就可以知道共同的投票结果而决定行动策略。</p>
 </blockquote>
@@ -506,6 +517,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2021/02/03/大数据基础/" rel="prev" title="大数据基础">
+                大数据基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -592,7 +607,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">142</span>
+                  <span class="site-state-item-count">143</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
