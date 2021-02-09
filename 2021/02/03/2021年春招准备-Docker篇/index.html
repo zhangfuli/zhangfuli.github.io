@@ -91,7 +91,9 @@
 <meta property="og:image" content="/images/2021年春招准备-Docker篇/2.png">
 <meta property="og:image" content="/images/2021年春招准备-Docker篇/3.png">
 <meta property="og:image" content="/images/2021年春招准备-Docker篇/9.png">
-<meta property="og:updated_time" content="2021-02-03T11:58:00.338Z">
+<meta property="og:image" content="/images/2021年春招准备-Docker篇/11.jpg">
+<meta property="og:image" content="/images/2021年春招准备-Docker篇/12.gif">
+<meta property="og:updated_time" content="2021-02-09T07:03:45.231Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2021年春招准备-Docker篇">
 <meta name="twitter:description" content="熟悉 Java、Golang 或 C++至少一⻔语言。 有良好的计算机基础，基本功扎实：熟悉常用的算法、数据结构，熟悉操作系统、网络等基础知识。 加分项(任一即可)： • 熟悉微服务领域相关技术或产品，如 gRPC，Dubbo，Spring Cloud，RocketMQ等。 • 熟悉容器相关技术或产品，如 Docker, Kubernetes, Istio/Envoy 等。 • 熟悉监控领域相关">
@@ -410,28 +412,82 @@
 <p><img src="/images/2021年春招准备-Docker篇/3.png" alt="title"></p>
 <h4 id="4．Dockerfile中最常见的指令是什么"><a href="#4．Dockerfile中最常见的指令是什么" class="headerlink" title="4．Dockerfile中最常见的指令是什么"></a>4．Dockerfile中最常见的指令是什么</h4><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> node:<span class="number">8</span>-slim  <span class="comment"># 指定基础镜像</span></span><br><span class="line"><span class="keyword">RUN</span> apt-get update &amp;&amp; apt-get install -y nginx # 运行指定的命令</span><br><span class="line">WORKDIR /var/www/html</span><br><span class="line">COPY ./build/ ./</span><br><span class="line">RUN ls</span><br><span class="line">EXPOSE 80</span><br><span class="line">CMD ["nginx","-g","daemon off;"] # 容器启动时要运行的命令</span><br></pre></td></tr></table></figure>
 <h4 id="5-docker常用命令："><a href="#5-docker常用命令：" class="headerlink" title="5. docker常用命令："></a>5. docker常用命令：</h4><ul>
-<li><p>docker pull 拉取或者更新指定镜像</p>
-</li>
-<li><p>docker push 将镜像推送至远程仓库</p>
-</li>
-<li><p>docker rm 删除容器</p>
-</li>
-<li><p>docker rmi 删除镜像</p>
-</li>
-<li><p>docker images 列出所有镜像</p>
-</li>
-<li><p>docker ps 列出所有容器</p>
-</li>
+<li>docker pull 拉取或者更新指定镜像</li>
+<li>docker push 将镜像推送至远程仓库</li>
+<li>docker rm 删除容器</li>
+<li>docker rmi 删除镜像</li>
+<li>docker images 列出所有镜像</li>
+<li>docker ps 列出所有容器</li>
+<li>docker logs</li>
 </ul>
 <h4 id="6-容器与主机之间的数据拷贝命令"><a href="#6-容器与主机之间的数据拷贝命令" class="headerlink" title="6.容器与主机之间的数据拷贝命令"></a>6.容器与主机之间的数据拷贝命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker cp /www 96f7f14e99ab:/www/ #主机到容器</span><br><span class="line">docker cp 96f7f14e99ab:/www /tmp/ #容器到主机</span><br></pre></td></tr></table></figure>
-<h4 id="7-启动nginx容器"><a href="#7-启动nginx容器" class="headerlink" title="7. 启动nginx容器"></a>7. 启动nginx容器</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run </span><br><span class="line">-d # 后台运行返回容器ID</span><br><span class="line">-P # 随机端口</span><br><span class="line">-p # 宿主机:容器</span><br><span class="line">--name nginx2 </span><br><span class="line">-v /home/nginx:/usr/share/nginx/html #宿主机:容器</span><br><span class="line">nginx</span><br></pre></td></tr></table></figure>
+<h4 id="7-启动nginx容器"><a href="#7-启动nginx容器" class="headerlink" title="7. 启动nginx容器"></a>7. 启动nginx容器</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run </span><br><span class="line">-d # 后台运行返回容器ID</span><br><span class="line">-P # 随机端口</span><br><span class="line">-p # 宿主机:容器</span><br><span class="line">--name nginx2 </span><br><span class="line">-v /home/nginx:/usr/share/nginx/html #宿主机:容器   -v后边加“：ro” 限制容器的写入权限；</span><br><span class="line">--rm # 退出时自动清理</span><br><span class="line">nginx</span><br></pre></td></tr></table></figure>
 <h4 id="8-解释一下Dockerfile的ONBUILD指令"><a href="#8-解释一下Dockerfile的ONBUILD指令" class="headerlink" title="8. 解释一下Dockerfile的ONBUILD指令"></a>8. 解释一下Dockerfile的ONBUILD指令</h4><p>以当前镜像为parent 镜像时触发</p>
-<h4 id="9-Docker-Swarm"><a href="#9-Docker-Swarm" class="headerlink" title="9. Docker Swarm"></a>9. Docker Swarm</h4><p>将一群Docker宿主机变成一个单一的虚拟主机，通过raft协议选举manager。</p>
+<ul>
+<li><p>ADD/COPY区别：</p>
+<blockquote>
+<p>相同将本机文件拷贝到容器</p>
+</blockquote>
+<ul>
+<li><p>COPY: 仅仅是把本地的文件拷贝到容器镜像中，COPY 命令是最合适不过; 使用 COPY 命令把前一阶段构建的产物拷贝到另一个镜像中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">FROM golang:1.7.3</span><br><span class="line">WORKDIR /go/src/github.com/sparkdevo/href-counter/</span><br><span class="line">RUN go get -d -v golang.org/x/net/html</span><br><span class="line">COPY app.go    .</span><br><span class="line">RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .</span><br><span class="line"></span><br><span class="line">FROM alpine:latest</span><br><span class="line">RUN apk --no-cache add ca-certificates</span><br><span class="line">WORKDIR /root/</span><br><span class="line">COPY --from=0 /go/src/github.com/sparkdevo/href-counter/app .</span><br><span class="line">CMD ["./app"]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ADD: </p>
+<ul>
+<li>解压压缩文件并把它们添加到镜像中</li>
+<li>从 url 拷贝文件到镜像中<h4 id="9-Docker-Swarm"><a href="#9-Docker-Swarm" class="headerlink" title="9. Docker Swarm"></a>9. Docker Swarm</h4></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>将一群Docker宿主机变成一个单一的虚拟主机，通过raft协议选举manager。</p>
 <p><img src="/images/2021年春招准备-Docker篇/9.png" alt="img"></p>
-<ol>
-<li>如何在生产中监控Docker<br>Docker提供docker stats和docker事件等工具来监控生产中的Docker。我们可以使用这些命令获取重要统计数据的报告。<br>Docker统计数据：当我们使用容器ID调用docker stats时，我们获得容器的CPU，内存使用情况等。它类似于Linux中的top命令。<br>Docker事件：Docker事件是一个命令，用于查看Docker守护程序中正在进行的活动流。<br>一些常见的Docker事件是：attach，commit，die，detach，rename，destroy等。我们还可以使用各种选项来限制或过滤我们感兴趣的事件</li>
-<li>Docker如何在非Linux系统中运行容器<br>通过添加到Linux内核版本2.6.24的名称空间功能，可以实现容器的概念。容器将其ID添加到每个进程，并向每个系统调用添加新的访问控制检查。它由clone（）系统调用访问，该调用允许创建先前全局命名空间的单独实例。<br>如果由于Linux内核中可用的功能而可以使用容器，那么显而易见的问题是非Linux系统如何运行容器。Docker for Mac和Windows都使用Linux VM来运行容器。Docker Toolbox用于在Virtual Box VM中运行容器。但是，最新的Docker在Windows中使用Hyper-V，在Mac中使用Hypervisor.framework。</li>
-</ol>
+<h4 id="10-监控Docker"><a href="#10-监控Docker" class="headerlink" title="10. 监控Docker"></a>10. 监控Docker</h4><ul>
+<li>Docker统计数据：当我们使用容器ID调用docker stats时，我们获得容器的CPU，内存使用情况等。它类似于Linux中的top命令</li>
+<li>Docker events：Docker events是一个命令，用于查看Docker守护程序中正在进行的任务。</li>
+</ul>
+<h4 id="11-Docker镜像和层有什么区别"><a href="#11-Docker镜像和层有什么区别" class="headerlink" title="11. Docker镜像和层有什么区别"></a>11. Docker镜像和层有什么区别</h4><ul>
+<li><p>镜像：Docker镜像是由一些列只读层构建的；</p>
+</li>
+<li><p>层：每个层代表镜像Dockerfile中的一条指令；</p>
+</li>
+</ul>
+<p>Docker的镜像由一层一层的文件系统组成，这种层级的文件系统就是UnionFS(OverlayFS)统一文件系统（union file system，升级版为AUFS). UnionFS是一种分层、轻量级并且高性能的文件系统。能够将不同的层整合成一个文件系统，为这些层提供了一个统一的视角，</p>
+<p>联合加载会把各层文件系统叠加起来，这样最终的文件系统会包含所有底层的文件和目录。</p>
+<blockquote>
+<p>docker info</p>
+</blockquote>
+<p><strong>运行态容器</strong>为由一个可读写的文件系统「静态容器」+ 隔离的进程空间和其中的进程构成。</p>
+<p><img src="/images/2021年春招准备-Docker篇/11.jpg" alt="img"></p>
+<h4 id="12-Docker默认的网络类型"><a href="#12-Docker默认的网络类型" class="headerlink" title="12. Docker默认的网络类型"></a>12. Docker默认的网络类型</h4><ul>
+<li><p><strong>host模式：</strong>直接使用docker宿主机的网络。如IP地址、网卡类型等；</p>
+</li>
+<li><p><strong>none模式：</strong>不会给容器进行任何网络配置。也就是说，使用这种模式的容器没有IP地址（只有一个回环地址）；</p>
+</li>
+<li><p><strong>bridge模式：</strong>docker默认的网络配置，此模式会为每一个容器分配名称空间，可以设置IP，但是要与docker host主机的虚拟网络在同一网段；通过虚拟网卡与外界通信；</p>
+</li>
+<li><p><strong>container模式：</strong>这种模式与已经存在的容器共有同一个IP地址；</p>
+</li>
+<li><p><strong>Network：</strong>自定义网络。可以自行创建并且可以注定多种网络驱动，如bridge、overlay等；</p>
+</li>
+</ul>
+<h4 id="13-如何控制容器占用系统资源（CPU，内存）的份额？"><a href="#13-如何控制容器占用系统资源（CPU，内存）的份额？" class="headerlink" title="13. 如何控制容器占用系统资源（CPU，内存）的份额？"></a>13. 如何控制容器占用系统资源（CPU，内存）的份额？</h4><p>在使用docker create命令创建容器或使用docker run 创建并运行容器的时候，可以使用-c|–cpu-shares[=0]参数来调整同期使用CPU的权重，使用-m|–memory参数来调整容器使用内存的大小。</p>
+<h4 id="14-仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？"><a href="#14-仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？" class="headerlink" title="14. 仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？"></a>14. 仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？</h4><p>首先，仓库是存放一组关联镜像的集合，比如同一个应用的不同版本的镜像，注册服务器是存放实际的镜像的地方，注册索引则负责维护用户的账号，权限，搜索，标签等管理。注册服务器利用注册索引来实现认证等管理。</p>
+<h4 id="15、Docker如何做资源隔离"><a href="#15、Docker如何做资源隔离" class="headerlink" title="15、Docker如何做资源隔离"></a>15、Docker如何做资源隔离</h4><ul>
+<li>Namespace 技术，Linux中的PID是唯一且独立的，在正常情况下，用户不会看见重复的PID。然而在Docker采用了Namespace，从而令相同的PID可于不同的Namespace中独立存在<ul>
+<li>缺点：隔离不彻底</li>
+</ul>
+</li>
+<li>Cgroups可以限制、记录任务组所使用的物理资源（包括CPU，Memory，IO等）</li>
+</ul>
+<h4 id="16、Docker、Runc、Shim、Containerd、Daemon之间的关系"><a href="#16、Docker、Runc、Shim、Containerd、Daemon之间的关系" class="headerlink" title="16、Docker、Runc、Shim、Containerd、Daemon之间的关系"></a>16、Docker、Runc、Shim、Containerd、Daemon之间的关系</h4><p><img src="/images/2021年春招准备-Docker篇/12.gif" alt="img"></p>
+<ul>
+<li>runc ：生来只有一个作用——创建容器，这一点它非常拿手，速度很快！runc 是 开放容器计划（OCI）容器运行时标准的参考实现</li>
+<li>shim：允许runC在启动容器之后退出</li>
+<li>containerd：所有的容器执行逻辑，它的主要任务是容器的生命周期管理——start | stop | pause | rm</li>
+<li>daemon 的主要功能包括镜像管理、镜像构建、REST API、身份验证、安全、核心网络以及编排</li>
+</ul>
 
       
     </div>
@@ -585,7 +641,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">143</span>
+                  <span class="site-state-item-count">146</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -663,7 +719,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-什么是Docker？"><span class="nav-number">1.</span> <span class="nav-text">1. 什么是Docker？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Docker与虚拟机的区别"><span class="nav-number">2.</span> <span class="nav-text">2. Docker与虚拟机的区别:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Docker容器有几种状态"><span class="nav-number">3.</span> <span class="nav-text">3. Docker容器有几种状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4．Dockerfile中最常见的指令是什么"><span class="nav-number">4.</span> <span class="nav-text">4．Dockerfile中最常见的指令是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-docker常用命令："><span class="nav-number">5.</span> <span class="nav-text">5. docker常用命令：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-容器与主机之间的数据拷贝命令"><span class="nav-number">6.</span> <span class="nav-text">6.容器与主机之间的数据拷贝命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-启动nginx容器"><span class="nav-number">7.</span> <span class="nav-text">7. 启动nginx容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-解释一下Dockerfile的ONBUILD指令"><span class="nav-number">8.</span> <span class="nav-text">8. 解释一下Dockerfile的ONBUILD指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-Docker-Swarm"><span class="nav-number">9.</span> <span class="nav-text">9. Docker Swarm</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-什么是Docker？"><span class="nav-number">1.</span> <span class="nav-text">1. 什么是Docker？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Docker与虚拟机的区别"><span class="nav-number">2.</span> <span class="nav-text">2. Docker与虚拟机的区别:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Docker容器有几种状态"><span class="nav-number">3.</span> <span class="nav-text">3. Docker容器有几种状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4．Dockerfile中最常见的指令是什么"><span class="nav-number">4.</span> <span class="nav-text">4．Dockerfile中最常见的指令是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-docker常用命令："><span class="nav-number">5.</span> <span class="nav-text">5. docker常用命令：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-容器与主机之间的数据拷贝命令"><span class="nav-number">6.</span> <span class="nav-text">6.容器与主机之间的数据拷贝命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-启动nginx容器"><span class="nav-number">7.</span> <span class="nav-text">7. 启动nginx容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-解释一下Dockerfile的ONBUILD指令"><span class="nav-number">8.</span> <span class="nav-text">8. 解释一下Dockerfile的ONBUILD指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-Docker-Swarm"><span class="nav-number">9.</span> <span class="nav-text">9. Docker Swarm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-监控Docker"><span class="nav-number">10.</span> <span class="nav-text">10. 监控Docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-Docker镜像和层有什么区别"><span class="nav-number">11.</span> <span class="nav-text">11. Docker镜像和层有什么区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-Docker默认的网络类型"><span class="nav-number">12.</span> <span class="nav-text">12. Docker默认的网络类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-如何控制容器占用系统资源（CPU，内存）的份额？"><span class="nav-number">13.</span> <span class="nav-text">13. 如何控制容器占用系统资源（CPU，内存）的份额？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？"><span class="nav-number">14.</span> <span class="nav-text">14. 仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15、Docker如何做资源隔离"><span class="nav-number">15.</span> <span class="nav-text">15、Docker如何做资源隔离</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#16、Docker、Runc、Shim、Containerd、Daemon之间的关系"><span class="nav-number">16.</span> <span class="nav-text">16、Docker、Runc、Shim、Containerd、Daemon之间的关系</span></a></li></ol></div>
             
 
           </div>
