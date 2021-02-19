@@ -88,10 +88,15 @@
 <meta property="og:site_name" content="Hello, ZhangFuli">
 <meta property="og:description" content="1、OSI七层与TCP/IP五层网络架构 应用层: 文件传输，电子邮件，文件服务，虚拟终端 TFTP，HTTP，SNMP，FTP，SMTP，DNS，Telnet  表示层:数据格式化，代码转换，数据加密 没有协议  会话层: 解除或建立与别的接点的联系 没有协议  传输层: 提供端对端的接口 TCP，UDP  网络层: 传输数据包选择路由 IP，ICMP，RIP，OSPF，BGP，IGMP，ARP">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-02-09T10:09:17.595Z">
+<meta property="og:image" content="/images/2021春招准备-网络篇/1.jpg">
+<meta property="og:image" content="/images/2021春招准备-网络篇/2.png">
+<meta property="og:image" content="/images/2021春招准备-网络篇/3.png">
+<meta property="og:image" content="/images/2021春招准备-网络篇/4.png">
+<meta property="og:updated_time" content="2021-02-18T13:59:38.869Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2021春招准备-网络篇">
 <meta name="twitter:description" content="1、OSI七层与TCP/IP五层网络架构 应用层: 文件传输，电子邮件，文件服务，虚拟终端 TFTP，HTTP，SNMP，FTP，SMTP，DNS，Telnet  表示层:数据格式化，代码转换，数据加密 没有协议  会话层: 解除或建立与别的接点的联系 没有协议  传输层: 提供端对端的接口 TCP，UDP  网络层: 传输数据包选择路由 IP，ICMP，RIP，OSPF，BGP，IGMP，ARP">
+<meta name="twitter:image" content="/images/2021春招准备-网络篇/1.jpg">
 
 
 
@@ -413,7 +418,82 @@
 </li>
 <li>IPv6协议具有128位（16字节）地址长度；冒分十六进制</li>
 </ul>
-<h4 id="3、TCP三次握手四次挥手"><a href="#3、TCP三次握手四次挥手" class="headerlink" title="3、TCP三次握手四次挥手"></a>3、TCP三次握手四次挥手</h4>
+<h4 id="3、TCP三次握手四次挥手"><a href="#3、TCP三次握手四次挥手" class="headerlink" title="3、TCP三次握手四次挥手"></a>3、TCP三次握手四次挥手</h4><p><strong>数据格式:</strong></p>
+<p><img src="/images/2021春招准备-网络篇/1.jpg" alt="title"></p>
+<ul>
+<li>seq：序列号，TCP把连接中发送的所有数据字节都编上一个序号，第一个字节的编号由本地随机产生；给字节编上序号后，就给每一个报文段指派一个序号；序列号seq就是这个报文段中的第一个字节的数据编号</li>
+<li>ack：确认号，待收到对方下一个报文段的第一个数据字节的序号</li>
+<li>确认ACK标志位：ACK=1时，确认号字段才有效</li>
+<li>同步SYN标志位：连接建立时用于同步序号。当SYN=1，ACK=0时表示连接请求报文段。若同意连接，则在响应报文段中使得SYN=1，ACK=1。SYN这个标志位只有在TCP建产连接时才会被置1，握手完成后SYN标志位被置0。</li>
+<li>终止FIN标志位：用来释放一个连接。FIN=1表示此报文段的发送方的数据已经发送完毕，并释放连接。</li>
+</ul>
+<p><strong>三次握手过程:</strong></p>
+<p><img src="/images/2021春招准备-网络篇/2.png" alt="title"></p>
+<ul>
+<li><p>发送方: 打开SYN=1，自带序列号seq-x希望建立链接</p>
+</li>
+<li><p>接收方：打开SYN=1，自带序列号seq-y。并且确认接收到了seq-x，并希望收到ack=seq-(x+1)，ACK=1时，ack才有效</p>
+</li>
+<li><p>发送方：自带序列号seq-(x+1)。确认接收到了seq-y，并希望收到ack=seq-(y+1)，ACK=1时，ack才有效</p>
+</li>
+</ul>
+<p><strong>四次挥手过程</strong></p>
+<p><img src="/images/2021春招准备-网络篇/3.png" alt="title"></p>
+<ul>
+<li><p>发送方：FIN=1，自带序列号seq-u。进入FIN-WAIT-1（终止等待1）状态。FIN报文段即使不携带数据，也要消耗一个序号。</p>
+</li>
+<li><p>接收方：自带序列号seq-v，确认接收到了seq-u, 并希望收到ack=seq-(u+1)，ACK=1时，ack才有效。服务端就入了CLOSE-WAIT（关闭等待）状态。发送方收到变为FIN-WAIT-2</p>
+</li>
+<li><p><em>接收方将数据发送完成</em></p>
+</li>
+<li><p>接收方：FIN=1，自带序列号seq-w，确认接收到了seq-u, 并希望收到ack=seq-(u+1)，ACK=1时，ack才有效。变为LAST-ACK（最后确认）状态</p>
+</li>
+<li><p>发送方：自带序列号seq-(u+1)，确认接收到了seq-w, 并希望收到ack=seq-(w+1)，ACK=1时，ack才有效</p>
+</li>
+</ul>
+<p><strong>问题1:</strong> 为什么连接的时候是三次握手，关闭的时候却是四次握手？</p>
+<blockquote>
+<p>因为当Server端收到Client端的SYN连接请求报文后，可以直接发送SYN+ACK报文。其中ACK报文是用来应答的，SYN报文是用来同步的。<strong>我收到了，你发数据吧</strong></p>
+<p>关闭连接时，当Server端收到FIN报文时，很可能并不会立即关闭，所以只能先回复一个ACK报文，告诉Client端，”你发的FIN报文我收到了”。只有等到我Server端所有的报文都发送完了，我才能发送FIN报文+ACK。故需要四步握手。<strong>我收到了，等我发完数据，我关闭了</strong></p>
+</blockquote>
+<p><strong>问题2:</strong> 为什么不能用两次握手进行连接？</p>
+<blockquote>
+<p>3次握手完成两个重要的功能，既要双方做好发送数据的准备工作(双方都知道彼此已准备好)，也要允许双方就初始序列号进行协商，这个序列号在握手过程中被发送和确认。</p>
+<p>两次握手，死锁是可能发生的。作为例子，考虑计算机S和C之间的通信，假定C给S发送一个连接请求分组，S收到了这个分组，并发 送了确认应答分组。按照两次握手的协定，S认为连接已经成功地建立了，<strong>C甚至怀疑S是否收到自己的连接请求分组</strong>。在这种情况下，C认为连接还未建立成功，将忽略S发来的任何数据分组，只等待连接确认应答分组。而S在发出的分组超时后，重复发送同样的分组。这样就形成了死锁。</p>
+</blockquote>
+<h4 id="4、HTTP请求全部过程"><a href="#4、HTTP请求全部过程" class="headerlink" title="4、HTTP请求全部过程"></a>4、HTTP请求全部过程</h4><blockquote>
+<p>HTTP协议是超文本传输协议（默认端口80）</p>
+</blockquote>
+<p><strong>HTTP特点:</strong> </p>
+<ul>
+<li>无状态(无连接)：HTTP 是一个无状态协议，这意味着每个请求都是独立的。<ul>
+<li>请求时建连接、请求完释放连接，以尽快将资源释放出来服务其他客户端。但每次都要建立TCP请求，效率低</li>
+<li>Keep-Alive 被提出用来解决这效率低的问题。就是长连接。</li>
+</ul>
+</li>
+</ul>
+<p><strong>请求过程:</strong></p>
+<ul>
+<li>浏览器发送url-http请求，根据域名解析出IP（浏览器缓冲-&gt;本机-&gt;DNS服务器）</li>
+<li>浏览器与WEB服务器建立TCP请求，发起http请求，解析那个路径下那个资源</li>
+<li>WEB服务器响应HTTP请求，80端口，返回html代码</li>
+<li>浏览器解析html代码，关闭TCP连接</li>
+</ul>
+<p><strong>响应码:</strong></p>
+<p><img src="/images/2021春招准备-网络篇/4.png" alt="title"></p>
+<p><a href="http://www.cyc2018.xyz/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/HTTP/HTTP.html#%E4%B8%80-%E3%80%81%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5" target="_blank" rel="noopener"> HTTP</a></p>
+<h4 id="5、常见端口"><a href="#5、常见端口" class="headerlink" title="5、常见端口"></a>5、常见端口</h4><ul>
+<li>21端口：FTP 文件传输服务</li>
+<li>22端口：SSH 端口</li>
+<li>23端口：TELNET 终端仿真服务</li>
+<li>25端口：SMTP 简单邮件传输服务</li>
+<li>53端口：DNS 域名解析服务</li>
+<li>80端口：HTTP 超文本传输服务</li>
+<li>110端口：POP3 “邮局协议版本3”使用的端口</li>
+<li>443端口：HTTPS 加密的超文本传输服务</li>
+<li>3306端口：MYSQL 默认端口号</li>
+</ul>
+
       
     </div>
     
@@ -566,7 +646,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">147</span>
+                  <span class="site-state-item-count">148</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -644,7 +724,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、OSI七层与TCP-IP五层网络架构"><span class="nav-number">1.</span> <span class="nav-text">1、OSI七层与TCP/IP五层网络架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、IPv4与IPv6的区别"><span class="nav-number">2.</span> <span class="nav-text">2、IPv4与IPv6的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、TCP三次握手四次挥手"><span class="nav-number">3.</span> <span class="nav-text">3、TCP三次握手四次挥手</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、OSI七层与TCP-IP五层网络架构"><span class="nav-number">1.</span> <span class="nav-text">1、OSI七层与TCP/IP五层网络架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、IPv4与IPv6的区别"><span class="nav-number">2.</span> <span class="nav-text">2、IPv4与IPv6的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、TCP三次握手四次挥手"><span class="nav-number">3.</span> <span class="nav-text">3、TCP三次握手四次挥手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、HTTP请求全部过程"><span class="nav-number">4.</span> <span class="nav-text">4、HTTP请求全部过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、常见端口"><span class="nav-number">5.</span> <span class="nav-text">5、常见端口</span></a></li></ol></div>
             
 
           </div>
