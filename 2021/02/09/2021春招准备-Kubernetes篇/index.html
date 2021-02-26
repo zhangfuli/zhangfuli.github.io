@@ -95,7 +95,7 @@
 <meta property="og:image" content="/images/2021年春招准备-Kubernetes篇/5.png">
 <meta property="og:image" content="/images/2021年春招准备-Kubernetes篇/6.jpg">
 <meta property="og:image" content="/images/2021年春招准备-Kubernetes篇/7.png">
-<meta property="og:updated_time" content="2021-02-09T07:00:09.164Z">
+<meta property="og:updated_time" content="2021-02-19T01:59:18.865Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2021春招准备-Kubernetes篇">
 <meta name="twitter:description" content="1、Kubernetes架构Kubernetes是一个轻便的和可扩展的开源平台，用于管理容器化应用和服务。通过Kubernetes能够进行应用的自动化部署和扩缩容。   Master Node：作为控制节点，对集群进行调度管理  API Server主要用来处理REST的操作，并执行相关业务逻辑，以及更新etcd中的相关对象。相关结果状态将被保存在etcd中。 REST语义，监控，持久化和一致性保">
@@ -486,6 +486,15 @@
 <li><p><code>LoadBalancer</code>: Service上定义 公有云上</p>
 </li>
 <li><p><code>Ingress</code>:  Ingress 简单的理解就是你原来需要改 Nginx 配置，然后配置各种域名对应哪个 Service，现在把这个动作抽象出来，变成一个 Ingress 对象，你可以用 yaml 创建，每次不要去改 Nginx 了，直接改 yaml 然后创建/更新就行了</p>
+<ul>
+<li>①下载Ingress-controller相关的YAML文件，并给Ingress-controller创建独立的名称空间；</li>
+</ul>
+</li>
+<li>②部署后端的服务，如myapp，并通过service进行暴露；<ul>
+<li>③部署Ingress-controller的service，以实现接入集群外部流量；</li>
+</ul>
+</li>
+<li><p>④部署Ingress，进行定义规则，使Ingress-controller和后端服务的Pod组进行关联。</p>
 <p><img src="/images/2021年春招准备-Kubernetes篇/2.png" alt="title"></p>
 <p><img src="/images/2021年春招准备-Kubernetes篇/3.png" alt="title"></p>
 <p><img src="/images/2021年春招准备-Kubernetes篇/4.png" alt="title"></p>
@@ -688,7 +697,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">148</span>
+                  <span class="site-state-item-count">150</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

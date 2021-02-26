@@ -91,8 +91,9 @@
 <meta property="og:image" content="/images/2021春招准备-网络篇/1.jpg">
 <meta property="og:image" content="/images/2021春招准备-网络篇/2.png">
 <meta property="og:image" content="/images/2021春招准备-网络篇/3.png">
+<meta property="og:image" content="/images/2021春招准备-网络篇/5.png">
 <meta property="og:image" content="/images/2021春招准备-网络篇/4.png">
-<meta property="og:updated_time" content="2021-02-18T13:59:38.869Z">
+<meta property="og:updated_time" content="2021-02-26T09:07:03.686Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2021春招准备-网络篇">
 <meta name="twitter:description" content="1、OSI七层与TCP/IP五层网络架构 应用层: 文件传输，电子邮件，文件服务，虚拟终端 TFTP，HTTP，SNMP，FTP，SMTP，DNS，Telnet  表示层:数据格式化，代码转换，数据加密 没有协议  会话层: 解除或建立与别的接点的联系 没有协议  传输层: 提供端对端的接口 TCP，UDP  网络层: 传输数据包选择路由 IP，ICMP，RIP，OSPF，BGP，IGMP，ARP">
@@ -448,9 +449,10 @@
 </li>
 <li><p>接收方：FIN=1，自带序列号seq-w，确认接收到了seq-u, 并希望收到ack=seq-(u+1)，ACK=1时，ack才有效。变为LAST-ACK（最后确认）状态</p>
 </li>
-<li><p>发送方：自带序列号seq-(u+1)，确认接收到了seq-w, 并希望收到ack=seq-(w+1)，ACK=1时，ack才有效</p>
+<li><p>发送方：自带序列号seq-(u+1)，确认接收到了seq-w, 并希望收到ack=seq-(w+1)，ACK=1时，ack才有效。发送方变为TIME_WAIT状态</p>
 </li>
 </ul>
+<p><img src="/images/2021春招准备-网络篇/5.png" alt="title"></p>
 <p><strong>问题1:</strong> 为什么连接的时候是三次握手，关闭的时候却是四次握手？</p>
 <blockquote>
 <p>因为当Server端收到Client端的SYN连接请求报文后，可以直接发送SYN+ACK报文。其中ACK报文是用来应答的，SYN报文是用来同步的。<strong>我收到了，你发数据吧</strong></p>
@@ -460,6 +462,23 @@
 <blockquote>
 <p>3次握手完成两个重要的功能，既要双方做好发送数据的准备工作(双方都知道彼此已准备好)，也要允许双方就初始序列号进行协商，这个序列号在握手过程中被发送和确认。</p>
 <p>两次握手，死锁是可能发生的。作为例子，考虑计算机S和C之间的通信，假定C给S发送一个连接请求分组，S收到了这个分组，并发 送了确认应答分组。按照两次握手的协定，S认为连接已经成功地建立了，<strong>C甚至怀疑S是否收到自己的连接请求分组</strong>。在这种情况下，C认为连接还未建立成功，将忽略S发来的任何数据分组，只等待连接确认应答分组。而S在发出的分组超时后，重复发送同样的分组。这样就形成了死锁。</p>
+</blockquote>
+<p><strong>问题3:</strong> 为什么TIME_WAIT状态需要经过2MSL(最大报文段生存时间)才能返回到CLOSE？</p>
+<blockquote>
+<p>为了保证A发送的最后一个ACK报文段能够到达B </p>
+<p>防止已经断开的连接1中在链路中残留的FIN包终止掉新的连接2 </p>
+<p>防止链路上已经关闭的连接的残余数据包干扰正常的数据包，造成数据流不正常</p>
+<p>可以看出：接收方结束TCP连接的时间比发送方早一点，因为接收方收到确认就断开连接了，而A还得等待2MSL。</p>
+</blockquote>
+<p><strong>问题4:</strong> TIME_WAIT会带来哪些问题？</p>
+<blockquote>
+<p>(1) 作为服务器，短时间内关闭了大量的Client连接，就会造成服务器上出现大量的TIME_WAIT连接，占据大量的tuple，严重消耗着服务器的资源；<br>(2) 作为客户端，短时间内大量的短连接，会大量消耗Client机器的端口，毕竟端口只有65535个，端口被耗尽了，后续就无法再发起新的连接了</p>
+</blockquote>
+<p><strong>问题5: </strong>服务端time_wait过多的处理办法</p>
+<blockquote>
+<p>net.ipv4.tcp_tw_reuse=1  （/etc/sysctl.conf）<br>表示开启重用。允许将TIME-WAIT sockets重新用于新的TCP连接，默认为0，表示关闭；该文件表示是否允许重新应用处于TIME-WAIT状态的socket用于新的TCP连接(这个对快速重启动某些服务,而启动后提示端口已经被使用的情形非常有帮助)</p>
+<p>net.ipv4.tcp_tw_recycle=1<br>表示开启TCP连接中TIME-WAIT sockets的快速回收，默认为0，表示关闭</p>
+<p>net.ipv4.tcp_timestamps=1  表示开启TCP连接中TIME-WAIT sockets的快速回收，默认为0，表示关闭。</p>
 </blockquote>
 <h4 id="4、HTTP请求全部过程"><a href="#4、HTTP请求全部过程" class="headerlink" title="4、HTTP请求全部过程"></a>4、HTTP请求全部过程</h4><blockquote>
 <p>HTTP协议是超文本传输协议（默认端口80）</p>
@@ -646,7 +665,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">148</span>
+                  <span class="site-state-item-count">150</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

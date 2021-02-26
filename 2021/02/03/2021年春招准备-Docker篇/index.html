@@ -93,7 +93,7 @@
 <meta property="og:image" content="/images/2021年春招准备-Docker篇/9.png">
 <meta property="og:image" content="/images/2021年春招准备-Docker篇/11.jpg">
 <meta property="og:image" content="/images/2021年春招准备-Docker篇/12.gif">
-<meta property="og:updated_time" content="2021-02-09T07:03:45.231Z">
+<meta property="og:updated_time" content="2021-02-26T09:29:45.374Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2021年春招准备-Docker篇">
 <meta name="twitter:description" content="熟悉 Java、Golang 或 C++至少一⻔语言。 有良好的计算机基础，基本功扎实：熟悉常用的算法、数据结构，熟悉操作系统、网络等基础知识。 加分项(任一即可)： • 熟悉微服务领域相关技术或产品，如 gRPC，Dubbo，Spring Cloud，RocketMQ等。 • 熟悉容器相关技术或产品，如 Docker, Kubernetes, Istio/Envoy 等。 • 熟悉监控领域相关">
@@ -488,6 +488,22 @@
 <li>containerd：所有的容器执行逻辑，它的主要任务是容器的生命周期管理——start | stop | pause | rm</li>
 <li>daemon 的主要功能包括镜像管理、镜像构建、REST API、身份验证、安全、核心网络以及编排</li>
 </ul>
+<h4 id="17、Dockerfile减少构建镜像大小的方法"><a href="#17、Dockerfile减少构建镜像大小的方法" class="headerlink" title="17、Dockerfile减少构建镜像大小的方法"></a>17、Dockerfile减少构建镜像大小的方法</h4><blockquote>
+<p>通过Dockerfile构建镜像时，很容易把镜像构建得很大。从通俗得原来上来说，一次RUN形成新的一层，如果没有在同一层删除，无论文件是否最后删除，都会带到下一层。</p>
+</blockquote>
+<ul>
+<li>尽量在同一层运行更多的命令，比如:</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RUN cp /usr/local/aa.tar.gz /opt</span><br><span class="line">RUN tar xvf /opt/aa.tar.gz</span><br><span class="line">RUN rm -rf /opt/aa.tar.gz</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RUN cp /usr/local/aa.tar.gz /opt &amp;&amp; \</span><br><span class="line">       tar xvf /opt/aa.tar.gz &amp;&amp; \</span><br><span class="line">       rm -rf /opt/aa.tar.gz</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>如果在镜像中通过yum安装软件包，尽量在一行装完，不要多行，同样安装完后运行, yum clean all</p>
+</li>
+<li><p>不下载非必要依赖</p>
+</li>
+<li>将非运行环境删除，删除非运行环境时，需要与构建该环境在同一个RUN中，否则非运行环境仍然会被带入镜像中（以其中某一层的方式存在）</li>
+<li>在 Docker 17.05 以上版本中，你可以使用 多阶段构建 来减少所构建镜像的大小</li>
+</ul>
 
       
     </div>
@@ -641,7 +657,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">148</span>
+                  <span class="site-state-item-count">150</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -719,7 +735,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-什么是Docker？"><span class="nav-number">1.</span> <span class="nav-text">1. 什么是Docker？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Docker与虚拟机的区别"><span class="nav-number">2.</span> <span class="nav-text">2. Docker与虚拟机的区别:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Docker容器有几种状态"><span class="nav-number">3.</span> <span class="nav-text">3. Docker容器有几种状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4．Dockerfile中最常见的指令是什么"><span class="nav-number">4.</span> <span class="nav-text">4．Dockerfile中最常见的指令是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-docker常用命令："><span class="nav-number">5.</span> <span class="nav-text">5. docker常用命令：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-容器与主机之间的数据拷贝命令"><span class="nav-number">6.</span> <span class="nav-text">6.容器与主机之间的数据拷贝命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-启动nginx容器"><span class="nav-number">7.</span> <span class="nav-text">7. 启动nginx容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-解释一下Dockerfile的ONBUILD指令"><span class="nav-number">8.</span> <span class="nav-text">8. 解释一下Dockerfile的ONBUILD指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-Docker-Swarm"><span class="nav-number">9.</span> <span class="nav-text">9. Docker Swarm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-监控Docker"><span class="nav-number">10.</span> <span class="nav-text">10. 监控Docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-Docker镜像和层有什么区别"><span class="nav-number">11.</span> <span class="nav-text">11. Docker镜像和层有什么区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-Docker默认的网络类型"><span class="nav-number">12.</span> <span class="nav-text">12. Docker默认的网络类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-如何控制容器占用系统资源（CPU，内存）的份额？"><span class="nav-number">13.</span> <span class="nav-text">13. 如何控制容器占用系统资源（CPU，内存）的份额？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？"><span class="nav-number">14.</span> <span class="nav-text">14. 仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15、Docker如何做资源隔离"><span class="nav-number">15.</span> <span class="nav-text">15、Docker如何做资源隔离</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#16、Docker、Runc、Shim、Containerd、Daemon之间的关系"><span class="nav-number">16.</span> <span class="nav-text">16、Docker、Runc、Shim、Containerd、Daemon之间的关系</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-什么是Docker？"><span class="nav-number">1.</span> <span class="nav-text">1. 什么是Docker？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Docker与虚拟机的区别"><span class="nav-number">2.</span> <span class="nav-text">2. Docker与虚拟机的区别:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Docker容器有几种状态"><span class="nav-number">3.</span> <span class="nav-text">3. Docker容器有几种状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4．Dockerfile中最常见的指令是什么"><span class="nav-number">4.</span> <span class="nav-text">4．Dockerfile中最常见的指令是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-docker常用命令："><span class="nav-number">5.</span> <span class="nav-text">5. docker常用命令：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-容器与主机之间的数据拷贝命令"><span class="nav-number">6.</span> <span class="nav-text">6.容器与主机之间的数据拷贝命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-启动nginx容器"><span class="nav-number">7.</span> <span class="nav-text">7. 启动nginx容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-解释一下Dockerfile的ONBUILD指令"><span class="nav-number">8.</span> <span class="nav-text">8. 解释一下Dockerfile的ONBUILD指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-Docker-Swarm"><span class="nav-number">9.</span> <span class="nav-text">9. Docker Swarm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-监控Docker"><span class="nav-number">10.</span> <span class="nav-text">10. 监控Docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-Docker镜像和层有什么区别"><span class="nav-number">11.</span> <span class="nav-text">11. Docker镜像和层有什么区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-Docker默认的网络类型"><span class="nav-number">12.</span> <span class="nav-text">12. Docker默认的网络类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-如何控制容器占用系统资源（CPU，内存）的份额？"><span class="nav-number">13.</span> <span class="nav-text">13. 如何控制容器占用系统资源（CPU，内存）的份额？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？"><span class="nav-number">14.</span> <span class="nav-text">14. 仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15、Docker如何做资源隔离"><span class="nav-number">15.</span> <span class="nav-text">15、Docker如何做资源隔离</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#16、Docker、Runc、Shim、Containerd、Daemon之间的关系"><span class="nav-number">16.</span> <span class="nav-text">16、Docker、Runc、Shim、Containerd、Daemon之间的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#17、Dockerfile减少构建镜像大小的方法"><span class="nav-number">17.</span> <span class="nav-text">17、Dockerfile减少构建镜像大小的方法</span></a></li></ol></div>
             
 
           </div>
