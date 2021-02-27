@@ -92,7 +92,16 @@
 <meta property="og:image" content="/images/2021年春招准备-课程知识篇/2.png">
 <meta property="og:image" content="/images/2021年春招准备-课程知识篇/3.png">
 <meta property="og:image" content="/images/2021年春招准备-课程知识篇/4.png">
-<meta property="og:updated_time" content="2021-02-26T09:20:45.807Z">
+<meta property="og:image" content="/images/2021年春招准备-课程知识篇/10.jpg">
+<meta property="og:image" content="/images/2021年春招准备-课程知识篇/11.jpg">
+<meta property="og:image" content="/images/2021年春招准备-课程知识篇/12.jpg">
+<meta property="og:image" content="/images/2021年春招准备-课程知识篇/13.jpg">
+<meta property="og:image" content="/images/2021年春招准备-课程知识篇/5.png">
+<meta property="og:image" content="/images/2021年春招准备-课程知识篇/6.jpg">
+<meta property="og:image" content="/images/2021年春招准备-课程知识篇/7.jpg">
+<meta property="og:image" content="/images/2021年春招准备-课程知识篇/8.jpg">
+<meta property="og:image" content="/images/2021年春招准备-课程知识篇/9.jpg">
+<meta property="og:updated_time" content="2021-02-27T10:15:44.740Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2021春招准备-课程知识篇">
 <meta name="twitter:description" content="1、Hash原理 Hash算法较多的应用在数据存储和查找领域，最经典的就是Hash表，它的查询效率非常高，如果哈希算法设计的好，那么Hash表的数据查询时间复杂度可以接近于O(1)  Hash算法使用示例  提供一组数据1，5，7，6，3，4，8，对这组数据进行存储，然后随便给定一个数n，请你判断n是否存在于刚才的数据集中？   顺序查找法：这种方式就是通过循环来完成，比较原始，效率也不高 二分查">
@@ -437,6 +446,38 @@
 <li>Mysql分库分表</li>
 <li>Nginx负载均衡</li>
 </ul>
+<h4 id="2、一致性Hash"><a href="#2、一致性Hash" class="headerlink" title="2、一致性Hash"></a>2、一致性Hash</h4><p><strong>原因</strong>: hash一般是将一个大数字分散到不同的桶里面，如果两个桶则%2。若扩容新桶所有的数字都需要%3，所有的数字分布都变了，即hash表每次扩容或收缩都会导致所有条目重新计算。</p>
+<p><img src="/images/2021年春招准备-课程知识篇/10.jpg" alt="title"></p>
+<p><strong>方案:</strong> 一致性hash中假想有很多桶，比如 7 个，但一开始真实还是只有两个桶，编号是 3 和 6。哈希算法还是同样的取模，只不过现在分桶分到的很可能是不存在的桶，那么就往下找找到第一个真实存在的桶放进去。这样 2 和 3 都被分到了编号为 3 的桶， 4 和 5 被分到了编号为 6 的桶。</p>
+<p><img src="/images/2021年春招准备-课程知识篇/11.jpg" alt="title"></p>
+<p>这时候再添加一个新的桶，编号是 4，取模方法不变还是模 7。因为 3 号桶里都是取模小于等于 3 的，4 号桶只需要从 6 号桶里拿走属于它的数字就可以了，这种情况下只需要调整一个桶的数字就可分成了重新分布。</p>
+<p><img src="/images/2021年春招准备-课程知识篇/12.jpg" alt="title"></p>
+<p><strong>升级:</strong> 这里还有个小问题要是编号为 6 的机桶下线了，它没有后一个桶了，数据该咋办？为了解决这个问题，实现上通常把哈希空间做成环状，</p>
+<p><strong>时间复杂度: </strong></p>
+<ul>
+<li>普通的哈希查询一次哈希计算就可以找到对应的桶了，算法时间复杂度是 O(1)，</li>
+<li>一致性哈希需要将排好序的桶组成一个链表，然后一路找下去，k 个桶查询时间复杂度是 O(k)。可以用跳转表进行一个快速的跳转实现 O(logk) 的时间复杂度。</li>
+</ul>
+<p><img src="/images/2021年春招准备-课程知识篇/13.jpg" alt="title"></p>
+<p>在这个跳转表中，每个桶记录距离自己 1，2，4 距离的数字所存的桶，这样不管查询落在哪个节点上，对整个哈希环上任意的查询一次都可以至少跳过一半的查询空间，这样递归下去很快就可以定位到数据是存在哪个桶上。</p>
+<h4 id="3、bit单位换算"><a href="#3、bit单位换算" class="headerlink" title="3、bit单位换算"></a>3、bit单位换算</h4><ul>
+<li>1B=1字节=8bit（比特）。</li>
+<li>1KB=1024B（KB：千节字，也写作“K”，可读作“K”）。</li>
+<li>1MB（1M）=1024KB（MB：兆字节，也可写作“M”，读作“兆”）。</li>
+<li>1GB（1G）=1024MB=1024兆(GB：吉字节，也可写作“G”，读作“G”或“吉”)。</li>
+<li>1TB=1024GB（TB：万亿字节，读作“TB”或“千吉”）。</li>
+</ul>
+<h4 id="4、常见排序算法的空间时间复杂度"><a href="#4、常见排序算法的空间时间复杂度" class="headerlink" title="4、常见排序算法的空间时间复杂度"></a>4、常见排序算法的空间时间复杂度</h4><p><img src="/images/2021年春招准备-课程知识篇/5.png" alt="title"></p>
+<ul>
+<li>希尔排序又叫“缩小增量排序”，先取一个小于n的整数d1作为第一个增量，把文件的全部记录分成d1个组。所有距离为d1的倍数的记录放在同一个组中。先在各组内进行直接插入排序，然后取第二个增量d2。其是插入排序改良的算法，希尔排序步长从大到小调整，第一次循环后面元素逐个和前面元素按间隔步长进行比较并交换，直至步长为1，步长选择是关键。</li>
+</ul>
+<h4 id="5、哈夫曼编码"><a href="#5、哈夫曼编码" class="headerlink" title="5、哈夫曼编码"></a>5、哈夫曼编码</h4><blockquote>
+<p>数据压缩技术，编码思想：根据字符出现的概率大小进行编码，出现概率高的字符使用较短的编码，出现概率低的字符使用较长的编码。</p>
+</blockquote>
+<p><img src="/images/2021年春招准备-课程知识篇/6.jpg" alt="title"></p>
+<p><img src="/images/2021年春招准备-课程知识篇/7.jpg" alt="title"></p>
+<p><img src="/images/2021年春招准备-课程知识篇/8.jpg" alt="title"></p>
+<p><img src="/images/2021年春招准备-课程知识篇/9.jpg" alt="title"></p>
 
       
     </div>
@@ -590,7 +631,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">150</span>
+                  <span class="site-state-item-count">152</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -668,7 +709,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、Hash原理"><span class="nav-number">1.</span> <span class="nav-text">1、Hash原理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、Hash原理"><span class="nav-number">1.</span> <span class="nav-text">1、Hash原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、一致性Hash"><span class="nav-number">2.</span> <span class="nav-text">2、一致性Hash</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、bit单位换算"><span class="nav-number">3.</span> <span class="nav-text">3、bit单位换算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、常见排序算法的空间时间复杂度"><span class="nav-number">4.</span> <span class="nav-text">4、常见排序算法的空间时间复杂度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、哈夫曼编码"><span class="nav-number">5.</span> <span class="nav-text">5、哈夫曼编码</span></a></li></ol></div>
             
 
           </div>

@@ -81,22 +81,26 @@
 
 
 
-<meta name="description" content="1、OSI七层与TCP/IP五层网络架构 应用层: 文件传输，电子邮件，文件服务，虚拟终端 TFTP，HTTP，SNMP，FTP，SMTP，DNS，Telnet  表示层:数据格式化，代码转换，数据加密 没有协议  会话层: 解除或建立与别的接点的联系 没有协议  传输层: 提供端对端的接口 TCP，UDP  网络层: 传输数据包选择路由 IP，ICMP，RIP，OSPF，BGP，IGMP，ARP">
+<meta name="description" content="1、OSI七层与TCP/IP五层网络架构 应用层: 文件传输，电子邮件，文件服务，虚拟终端 TFTP，HTTP，SNMP，FTP，SMTP，DNS，Telnet 表示层:数据格式化，代码转换，数据加密 没有协议 会话层: 解除或建立与别的接点的联系 没有协议 传输层: 提供端对端的接口 TCP，UDP 网络层: 传输数据包选择路由 IP，ICMP，RIP，OSPF，BGP，IGMP，ARP(IP-">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2021春招准备-网络篇">
 <meta property="og:url" content="zhangfuli.github.io/2021/02/09/2021春招准备-网络篇/index.html">
 <meta property="og:site_name" content="Hello, ZhangFuli">
-<meta property="og:description" content="1、OSI七层与TCP/IP五层网络架构 应用层: 文件传输，电子邮件，文件服务，虚拟终端 TFTP，HTTP，SNMP，FTP，SMTP，DNS，Telnet  表示层:数据格式化，代码转换，数据加密 没有协议  会话层: 解除或建立与别的接点的联系 没有协议  传输层: 提供端对端的接口 TCP，UDP  网络层: 传输数据包选择路由 IP，ICMP，RIP，OSPF，BGP，IGMP，ARP">
+<meta property="og:description" content="1、OSI七层与TCP/IP五层网络架构 应用层: 文件传输，电子邮件，文件服务，虚拟终端 TFTP，HTTP，SNMP，FTP，SMTP，DNS，Telnet 表示层:数据格式化，代码转换，数据加密 没有协议 会话层: 解除或建立与别的接点的联系 没有协议 传输层: 提供端对端的接口 TCP，UDP 网络层: 传输数据包选择路由 IP，ICMP，RIP，OSPF，BGP，IGMP，ARP(IP-">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/2021春招准备-网络篇/1.jpg">
 <meta property="og:image" content="/images/2021春招准备-网络篇/2.png">
 <meta property="og:image" content="/images/2021春招准备-网络篇/3.png">
 <meta property="og:image" content="/images/2021春招准备-网络篇/5.png">
 <meta property="og:image" content="/images/2021春招准备-网络篇/4.png">
-<meta property="og:updated_time" content="2021-02-26T09:07:03.686Z">
+<meta property="og:image" content="/images/2021春招准备-网络篇/6.jpg">
+<meta property="og:image" content="/images/2021春招准备-网络篇/7.jpg">
+<meta property="og:image" content="/images/2021春招准备-网络篇/8.jpg">
+<meta property="og:image" content="/images/2021春招准备-网络篇/9.png">
+<meta property="og:updated_time" content="2021-02-27T09:43:30.387Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2021春招准备-网络篇">
-<meta name="twitter:description" content="1、OSI七层与TCP/IP五层网络架构 应用层: 文件传输，电子邮件，文件服务，虚拟终端 TFTP，HTTP，SNMP，FTP，SMTP，DNS，Telnet  表示层:数据格式化，代码转换，数据加密 没有协议  会话层: 解除或建立与别的接点的联系 没有协议  传输层: 提供端对端的接口 TCP，UDP  网络层: 传输数据包选择路由 IP，ICMP，RIP，OSPF，BGP，IGMP，ARP">
+<meta name="twitter:description" content="1、OSI七层与TCP/IP五层网络架构 应用层: 文件传输，电子邮件，文件服务，虚拟终端 TFTP，HTTP，SNMP，FTP，SMTP，DNS，Telnet 表示层:数据格式化，代码转换，数据加密 没有协议 会话层: 解除或建立与别的接点的联系 没有协议 传输层: 提供端对端的接口 TCP，UDP 网络层: 传输数据包选择路由 IP，ICMP，RIP，OSPF，BGP，IGMP，ARP(IP-">
 <meta name="twitter:image" content="/images/2021春招准备-网络篇/1.jpg">
 
 
@@ -392,20 +396,14 @@
 
       
         <h4 id="1、OSI七层与TCP-IP五层网络架构"><a href="#1、OSI七层与TCP-IP五层网络架构" class="headerlink" title="1、OSI七层与TCP/IP五层网络架构"></a>1、OSI七层与TCP/IP五层网络架构</h4><ul>
-<li><p>应用层: 文件传输，电子邮件，文件服务，虚拟终端 TFTP，HTTP，SNMP，FTP，SMTP，DNS，Telnet</p>
-</li>
-<li><p>表示层:数据格式化，代码转换，数据加密 没有协议</p>
-</li>
-<li><p>会话层: 解除或建立与别的接点的联系 没有协议</p>
-</li>
-<li><p>传输层: 提供端对端的接口 TCP，UDP</p>
-</li>
-<li><p>网络层: 传输数据包选择路由 IP，ICMP，RIP，OSPF，BGP，IGMP，ARP(IP-&gt;MAC)，RAPR</p>
-</li>
-<li><p>数据链路层: 传输数据帧 SLIP，CSLIP，PPP，ARP，RARP，MTU</p>
-</li>
-<li><p>物理层: 二进制比特位的传输    ISO2110，IEEE802，IEEE802.2</p>
-</li>
+<li>应用层: 文件传输，电子邮件，文件服务，虚拟终端 TFTP，HTTP，SNMP，FTP，SMTP，DNS，Telnet</li>
+<li>表示层:数据格式化，代码转换，数据加密 没有协议</li>
+<li>会话层: 解除或建立与别的接点的联系 没有协议</li>
+<li>传输层: 提供端对端的接口 TCP，UDP</li>
+<li>网络层: 传输数据包选择路由 IP，ICMP，RIP，OSPF，BGP，IGMP，ARP(IP-&gt;MAC)，RAPR</li>
+<li>ICMP协议主要用来检测网络通信故障和实现链路追踪，最典型的应用就是PING和tracerooute。</li>
+<li>数据链路层: 传输数据帧 SLIP，CSLIP，PPP，ARP，RARP，MTU</li>
+<li>物理层: 二进制比特位的传输    ISO2110，IEEE802，IEEE802.2</li>
 </ul>
 <h4 id="2、IPv4与IPv6的区别"><a href="#2、IPv4与IPv6的区别" class="headerlink" title="2、IPv4与IPv6的区别"></a>2、IPv4与IPv6的区别</h4><ul>
 <li>IPv4协议具有32位（4字节）地址长度；点分十进制<ul>
@@ -511,6 +509,69 @@
 <li>110端口：POP3 “邮局协议版本3”使用的端口</li>
 <li>443端口：HTTPS 加密的超文本传输服务</li>
 <li>3306端口：MYSQL 默认端口号</li>
+</ul>
+<h4 id="6、IP字段"><a href="#6、IP字段" class="headerlink" title="6、IP字段"></a>6、IP字段</h4><p><img src="/images/2021春招准备-网络篇/6.jpg" alt="title"></p>
+<ul>
+<li><p>版本：L3协议版本号，IPv4或IPv6</p>
+</li>
+<li><p>首部长度：单位为4字节</p>
+</li>
+<li><p>标识：每一个IP封包都有一个16位的唯一识别码｡当程序产生的数据要通过网络传送时都会被拆散成封包形式发送,当封包要进行重组的时候这个ID就是依据了｡占16位｡</p>
+</li>
+<li><p>协议：L4协议类型</p>
+</li>
+<li><p>TTL生存时间字段设置了数据报可以经过的最多路由器数。一旦经过一个处理它的路由器，它的值就减1。当该字段值为0时，数据报就被丢弃，并发送ICMP报文通知源主机。</p>
+</li>
+<li><p>首部校验和(Header checksum): 这个数值用来检错用的,用以确保封包被正确无误的接收到｡当封包开始进行传送后,接收端主机会利用这个检验值会来检验余下的封包,如果一切无误就会发出确认信息表示接收正常｡与UDP和TCP协议包头中的校验和作用是一样的｡占16位｡</p>
+<p>首部检验和字段是根据IP首部计算的检验和码,不对首部后面的数据进行计算</p>
+</li>
+</ul>
+<h4 id="7、TCP字段"><a href="#7、TCP字段" class="headerlink" title="7、TCP字段"></a>7、TCP字段</h4><p><img src="/images/2021春招准备-网络篇/7.jpg" alt="title"></p>
+<ul>
+<li>滑动窗口协议（Sliding Window Protocol）<ul>
+<li>属于TCP协议的一种应用，用于网络数据传输时的流量控制，以避免拥塞的发生。该协议允许发送方在停止并等待确认前发送多个数据分组。由于发送方不必每发一个分组就停下来等待确认，因此该协议可以加速数据的传输，提高网络吞吐量。</li>
+<li>滑动窗口，可以理解成接收端所能提供的缓冲区大小。TCP利用一个滑动的窗口来告诉发送端对它所发送的数据能提供多大的缓 冲区。由于窗口由16位bit所定义，所以接收端TCP 能最大提供65535个字节的缓冲。由此，可以利用窗口大小和第一个数据的序列号计算出最大可接收的数据序列号。</li>
+<li>滑动窗口本质上是描述接受方的TCP数据报缓冲区大小的数据，发送方根据这个数据来计算自己最多能发送多长的数据。如果发送方收到接受方的窗口大小为0的TCP数据报，那么发送方将停止发送数据，等到接受方发送窗口大小不为0的数据报的到来。 </li>
+</ul>
+</li>
+<li><p>字段flag</p>
+<ul>
+<li>URG：紧急指针有效</li>
+<li>ACK：确认号有效</li>
+<li>PSH：接收方应该尽快将这个报文段交给应用层</li>
+<li>RST：重建连接</li>
+<li>SYN：同步序号用来发起一个连接</li>
+</ul>
+</li>
+<li><p>校验和字段 16bit：</p>
+<ul>
+<li>这个校验和是针对首部和数据两部分的。</li>
+</ul>
+</li>
+</ul>
+<h4 id="8、UDP字段"><a href="#8、UDP字段" class="headerlink" title="8、UDP字段"></a>8、UDP字段</h4><p><img src="/images/2021春招准备-网络篇/8.jpg" alt="title"></p>
+<ul>
+<li><strong>校验和字段</strong><ul>
+<li>是指整个UDP报文头和UDP所带的数据的校验和（也包括伪报文头）。伪报文头不包括在真正的UDP报文头中，但是它可以保证UDP数据被正确的主机收到了。因在校验和中加入了伪头标，故ICMP除能防止单纯数据差错之外，对IP分组也具有保护作用。</li>
+</ul>
+</li>
+</ul>
+<h4 id="9、TCP拥塞控制如何实现"><a href="#9、TCP拥塞控制如何实现" class="headerlink" title="9、TCP拥塞控制如何实现"></a>9、TCP拥塞控制如何实现</h4><p><img src="/images/2021春招准备-网络篇/9.png" alt="title"></p>
+<p><strong>名词：</strong></p>
+<ul>
+<li>cwnd: 拥塞窗口</li>
+<li>ssthresh: 门限</li>
+</ul>
+<p><strong>过程:</strong></p>
+<ul>
+<li>慢开始: 初始化拥塞窗口为1，发送 1 2 4 8个报文段</li>
+<li>拥塞控制：当拥塞窗口增长到慢开始的门限制时改为拥塞避免，加法增大</li>
+<li>快重传:<ul>
+<li>使发送方尽快进行重传，而不是等待重传计时器超时再重传</li>
+<li>发送方一段收到三个重复确认就立刻重传</li>
+</ul>
+</li>
+<li>快恢复：门限制为当前窗口的一半，cwnd为奇数一般向下取整</li>
 </ul>
 
       
@@ -665,7 +726,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">150</span>
+                  <span class="site-state-item-count">152</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -743,7 +804,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、OSI七层与TCP-IP五层网络架构"><span class="nav-number">1.</span> <span class="nav-text">1、OSI七层与TCP/IP五层网络架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、IPv4与IPv6的区别"><span class="nav-number">2.</span> <span class="nav-text">2、IPv4与IPv6的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、TCP三次握手四次挥手"><span class="nav-number">3.</span> <span class="nav-text">3、TCP三次握手四次挥手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、HTTP请求全部过程"><span class="nav-number">4.</span> <span class="nav-text">4、HTTP请求全部过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、常见端口"><span class="nav-number">5.</span> <span class="nav-text">5、常见端口</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、OSI七层与TCP-IP五层网络架构"><span class="nav-number">1.</span> <span class="nav-text">1、OSI七层与TCP/IP五层网络架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、IPv4与IPv6的区别"><span class="nav-number">2.</span> <span class="nav-text">2、IPv4与IPv6的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、TCP三次握手四次挥手"><span class="nav-number">3.</span> <span class="nav-text">3、TCP三次握手四次挥手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、HTTP请求全部过程"><span class="nav-number">4.</span> <span class="nav-text">4、HTTP请求全部过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、常见端口"><span class="nav-number">5.</span> <span class="nav-text">5、常见端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6、IP字段"><span class="nav-number">6.</span> <span class="nav-text">6、IP字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7、TCP字段"><span class="nav-number">7.</span> <span class="nav-text">7、TCP字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8、UDP字段"><span class="nav-number">8.</span> <span class="nav-text">8、UDP字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9、TCP拥塞控制如何实现"><span class="nav-number">9.</span> <span class="nav-text">9、TCP拥塞控制如何实现</span></a></li></ol></div>
             
 
           </div>
