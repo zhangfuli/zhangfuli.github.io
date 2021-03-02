@@ -81,17 +81,21 @@
 
 
 
-<meta name="description" content="Do myself,Believe myself,Try my best">
+<meta name="description" content="动画演示 1、复制状态机一个分布式的复制状态机系统由多个复制单元组成，每个复制单元均是一个状态机，它的状态保存在一组状态变量中，状态机的变量只能通过外部命令来改变。 简单理解的话，可以想象成是一组服务器，每个服务器是一个状态机，服务器的运行状态只能通过一行行的命令来改变。每一个状态机存储一个包含一系列指令的日志，严格按照顺序逐条执行日志中的指令，如果所有的状态机都能按照相同的日志执行指令，那么它们">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Raft原理">
-<meta property="og:url" content="zhangfuli.github.io/2021/02/03/Raft原理/index.html">
+<meta property="og:title" content="2021年春招准备-Raft原理">
+<meta property="og:url" content="zhangfuli.github.io/2021/02/03/2021年春招准备-Raft原理/index.html">
 <meta property="og:site_name" content="Hello, ZhangFuli">
-<meta property="og:description" content="Do myself,Believe myself,Try my best">
+<meta property="og:description" content="动画演示 1、复制状态机一个分布式的复制状态机系统由多个复制单元组成，每个复制单元均是一个状态机，它的状态保存在一组状态变量中，状态机的变量只能通过外部命令来改变。 简单理解的话，可以想象成是一组服务器，每个服务器是一个状态机，服务器的运行状态只能通过一行行的命令来改变。每一个状态机存储一个包含一系列指令的日志，严格按照顺序逐条执行日志中的指令，如果所有的状态机都能按照相同的日志执行指令，那么它们">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-02-03T12:11:00.145Z">
+<meta property="og:image" content="/images/2021年春招准备-Raft算法/2.jpg">
+<meta property="og:image" content="/images/2021年春招准备-Raft算法/1.png">
+<meta property="og:image" content="/images/2021年春招准备-Raft算法/3.png">
+<meta property="og:updated_time" content="2021-03-02T13:51:29.414Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Raft原理">
-<meta name="twitter:description" content="Do myself,Believe myself,Try my best">
+<meta name="twitter:title" content="2021年春招准备-Raft原理">
+<meta name="twitter:description" content="动画演示 1、复制状态机一个分布式的复制状态机系统由多个复制单元组成，每个复制单元均是一个状态机，它的状态保存在一组状态变量中，状态机的变量只能通过外部命令来改变。 简单理解的话，可以想象成是一组服务器，每个服务器是一个状态机，服务器的运行状态只能通过一行行的命令来改变。每一个状态机存储一个包含一系列指令的日志，严格按照顺序逐条执行日志中的指令，如果所有的状态机都能按照相同的日志执行指令，那么它们">
+<meta name="twitter:image" content="/images/2021年春招准备-Raft算法/2.jpg">
 
 
 
@@ -121,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="zhangfuli.github.io/2021/02/03/Raft原理/"/>
+  <link rel="canonical" href="zhangfuli.github.io/2021/02/03/2021年春招准备-Raft原理/"/>
 
 
 
 
 
-  <title>Raft原理 | Hello, ZhangFuli</title>
+  <title>2021年春招准备-Raft原理 | Hello, ZhangFuli</title>
   
 
 
@@ -308,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2021/02/03/Raft原理/">
+    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2021/02/03/2021年春招准备-Raft原理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhangfuli">
@@ -325,7 +329,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Raft原理</h1>
+          <h1 class="post-title" itemprop="name headline">2021年春招准备-Raft原理</h1>
         
 
         <div class="post-meta">
@@ -356,8 +360,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/02/03/Raft原理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2021/02/03/Raft原理/" itemprop="commentsCount"></span>
+                <a href="/2021/02/03/2021年春招准备-Raft原理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2021/02/03/2021年春招准备-Raft原理/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -385,7 +389,52 @@
       
 
       
-        
+        <p><a href="http://thesecretlivesofdata.com/raft/#replication" target="_blank" rel="noopener">动画演示</a></p>
+<h4 id="1、复制状态机"><a href="#1、复制状态机" class="headerlink" title="1、复制状态机"></a>1、复制状态机</h4><p>一个分布式的复制状态机系统由多个复制单元组成，每个复制单元均是一个状态机，它的状态保存在一组状态变量中，状态机的变量只能通过外部命令来改变。</p>
+<p>简单理解的话，可以想象成是一组服务器，每个服务器是一个状态机，服务器的运行状态只能通过一行行的命令来改变。每一个状态机存储一个包含一系列指令的日志，严格按照顺序逐条执行日志中的指令，如果所有的状态机都能按照相同的日志执行指令，那么它们最终将达到相同的状态。</p>
+<p>在复制状态机模型下，只要保证了操作日志的一致性，我们就能保证该分布式系统状态的一致性</p>
+<h4 id="2、选举过程"><a href="#2、选举过程" class="headerlink" title="2、选举过程"></a>2、选举过程</h4><h5 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h5><p>在Raft协议中，将时间分成了一些任意长度的时间片，称为term，term使用连续递增的编号的进行识别，每一个term都从新的选举开始，candidate们会努力争取称为leader。如下图所示：</p>
+<p><img src="/images/2021年春招准备-Raft算法/2.jpg" alt="title"></p>
+<h5 id="节点状态"><a href="#节点状态" class="headerlink" title="节点状态"></a>节点状态</h5><ul>
+<li>follower：所有结点都以follower的状态开始。如果没收到leader消息则会变成candidate状态</li>
+<li>candidate：会向其他结点“拉选票”，如果得到大部分的票则成为leader。这个过程就叫做Leader选举(Leader Election)</li>
+<li>leader：所有对系统的修改都会先经过leader。每个修改都会写一条日志(log entry)。leader收到修改请求后的过程如下，这个过程叫做日志复制(Log Replication)：<ul>
+<li>复制日志到所有follower结点(replicate entry)</li>
+<li>大部分结点响应时才提交日志</li>
+<li>通知所有follower结点日志已提交</li>
+<li>所有follower也提交日志</li>
+<li>现在整个系统处于一致的状态</li>
+</ul>
+</li>
+</ul>
+<h5 id="选举"><a href="#选举" class="headerlink" title="选举"></a>选举</h5><ul>
+<li><p>当follower在选举超时时间(election timeout)内未收到leader的心跳消息(append entries)，则变成candidate状态。为了避免选举冲突，这个超时时间是一个150~300ms之间的随机数。</p>
+</li>
+<li><p>成为candidate的结点发起新的选举期(election term)去“拉选票”</p>
+</li>
+<li><p>重置自己的计时器，投自己一票，发送 Request Vote消息</p>
+</li>
+<li>如果接收结点在新term内没有投过票那它就会投给此candidate，并重置它自己的选举超时时间。</li>
+<li>candidate拉到大部分选票就会成为leader，并定时发送心跳——Append Entries消息，去重置各个follower的计时器。当前Term会继续直到某个follower接收不到心跳并成为candidate。</li>
+</ul>
+<p><img src="/images/2021年春招准备-Raft算法/1.png" alt="title"></p>
+<h4 id="3、Log-Replication-日志复制"><a href="#3、Log-Replication-日志复制" class="headerlink" title="3、Log Replication(日志复制)"></a>3、Log Replication(日志复制)</h4><blockquote>
+<p>这是通过使用用于心跳的相同的附加条目消息来实现的。</p>
+</blockquote>
+<ul>
+<li>客户端发送一条change到leader</li>
+<li>change记录到leader的日志中</li>
+<li>leader在下一个心跳中将change发给follwer(AppendEntries RPC用以复制命令)</li>
+<li>一旦大多数follower承认一个条目，leader提交命令并将执行结果返回客户端</li>
+<li>leader将给client发送一条response</li>
+</ul>
+<p><strong>当存在多leader冲突时，所有的提交都会以最新的term的leader为主</strong></p>
+<p><img src="/images/2021年春招准备-Raft算法/3.png" alt="title"></p>
+<h4 id="4、日志压缩"><a href="#4、日志压缩" class="headerlink" title="4、日志压缩"></a>4、日志压缩</h4><p>随着日志大小的增长，会占用更多的内存空间，处理起来也会耗费更多的时间，对系统的可用性造成影响。</p>
+<p>Snapshotting是最简单的压缩方法，系统的全部状态会写入一个snapshot保存起来，然后丢弃截止到snapshot时间点之前的所有日志。</p>
+<p>每一个server都有自己的snapshot，它只保存当前状态，如上图中的当前状态为x=0,y=9，而last included index和last included term代表snapshot之前最新的命令，用于AppendEntries的状态检查。</p>
+<p>虽然每一个server都保存有自己的snapshot，但是当follower严重落后于leader时，leader需要把自己的snapshot发送给follower加快同步，此时用到了一个新的RPC：InstallSnapshot RPC</p>
+
       
     </div>
     
@@ -509,8 +558,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -597,6 +655,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、复制状态机"><span class="nav-number">1.</span> <span class="nav-text">1、复制状态机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、选举过程"><span class="nav-number">2.</span> <span class="nav-text">2、选举过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#基本概念"><span class="nav-number">2.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#节点状态"><span class="nav-number">2.2.</span> <span class="nav-text">节点状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#选举"><span class="nav-number">2.3.</span> <span class="nav-text">选举</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、Log-Replication-日志复制"><span class="nav-number">3.</span> <span class="nav-text">3、Log Replication(日志复制)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、日志压缩"><span class="nav-number">4.</span> <span class="nav-text">4、日志压缩</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
