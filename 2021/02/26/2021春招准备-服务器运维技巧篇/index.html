@@ -81,17 +81,20 @@
 
 
 
-<meta name="description" content="1、机器的磁盘满了，删日志没有反应，可能是什么问题？在Linux或者Unix系统中，通过rm或者文件管理器删除文件将会从文件系统的目录结构上解除链接(unlink) 然而如果文件是被打开的（有一个进程正在使用），那么进程将仍然可以读取该文件，磁盘空间也一直被占用。 使用命令：/usr/sbin/lsof|grep deleted  确认删除文件是否被占用 kill -9 pid值 杀掉进程">
+<meta name="description" content="1、机器的磁盘满了，删日志没有反应，可能是什么问题？在Linux或者Unix系统中，通过rm或者文件管理器删除文件将会从文件系统的目录结构上解除链接(unlink) 然而如果文件是被打开的（有一个进程正在使用），那么进程将仍然可以读取该文件，磁盘空间也一直被占用。 使用命令：/usr/sbin/lsof|grep deleted  确认删除文件是否被占用 kill -9 pid值 杀掉进程 2、秒">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2021春招准备-服务器运维技巧篇">
 <meta property="og:url" content="zhangfuli.github.io/2021/02/26/2021春招准备-服务器运维技巧篇/index.html">
 <meta property="og:site_name" content="Hello, ZhangFuli">
-<meta property="og:description" content="1、机器的磁盘满了，删日志没有反应，可能是什么问题？在Linux或者Unix系统中，通过rm或者文件管理器删除文件将会从文件系统的目录结构上解除链接(unlink) 然而如果文件是被打开的（有一个进程正在使用），那么进程将仍然可以读取该文件，磁盘空间也一直被占用。 使用命令：/usr/sbin/lsof|grep deleted  确认删除文件是否被占用 kill -9 pid值 杀掉进程">
+<meta property="og:description" content="1、机器的磁盘满了，删日志没有反应，可能是什么问题？在Linux或者Unix系统中，通过rm或者文件管理器删除文件将会从文件系统的目录结构上解除链接(unlink) 然而如果文件是被打开的（有一个进程正在使用），那么进程将仍然可以读取该文件，磁盘空间也一直被占用。 使用命令：/usr/sbin/lsof|grep deleted  确认删除文件是否被占用 kill -9 pid值 杀掉进程 2、秒">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-02-26T08:51:37.815Z">
+<meta property="og:image" content="/images/2021春招准备-服务器运维技巧篇/1.png">
+<meta property="og:image" content="/images/2021春招准备-服务器运维技巧篇/2.png">
+<meta property="og:updated_time" content="2021-03-02T04:14:48.453Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2021春招准备-服务器运维技巧篇">
-<meta name="twitter:description" content="1、机器的磁盘满了，删日志没有反应，可能是什么问题？在Linux或者Unix系统中，通过rm或者文件管理器删除文件将会从文件系统的目录结构上解除链接(unlink) 然而如果文件是被打开的（有一个进程正在使用），那么进程将仍然可以读取该文件，磁盘空间也一直被占用。 使用命令：/usr/sbin/lsof|grep deleted  确认删除文件是否被占用 kill -9 pid值 杀掉进程">
+<meta name="twitter:description" content="1、机器的磁盘满了，删日志没有反应，可能是什么问题？在Linux或者Unix系统中，通过rm或者文件管理器删除文件将会从文件系统的目录结构上解除链接(unlink) 然而如果文件是被打开的（有一个进程正在使用），那么进程将仍然可以读取该文件，磁盘空间也一直被占用。 使用命令：/usr/sbin/lsof|grep deleted  确认删除文件是否被占用 kill -9 pid值 杀掉进程 2、秒">
+<meta name="twitter:image" content="/images/2021春招准备-服务器运维技巧篇/1.png">
 
 
 
@@ -390,6 +393,53 @@
 <p>使用命令：<strong>/usr/sbin/lsof|grep deleted</strong> </p>
 <p>确认删除文件是否被占用</p>
 <p>kill -9 pid值 杀掉进程</p>
+<h4 id="2、秒杀场景"><a href="#2、秒杀场景" class="headerlink" title="2、秒杀场景"></a>2、秒杀场景</h4><p><img src="/images/2021春招准备-服务器运维技巧篇/1.png" alt="title"></p>
+<p><strong>隔离</strong>:</p>
+<ul>
+<li><p><strong>系统隔离。</strong>系统隔离更多是运行时的隔离，可以通过分组部署的方式和另外99%分开。秒杀还申请了单独的域名，目的也是让请求落到不同的集群中。</p>
+</li>
+<li><p><strong>数据隔离。</strong>秒杀所调用的数据大部分都是热数据，比如会启用单独cache集群或MySQL数据库来放热点数据，目前也是不想0.01%的数据影响另外99.99%</p>
+</li>
+</ul>
+<p><strong>动静分离:</strong></p>
+<p><img src="/images/2021春招准备-服务器运维技巧篇/2.png" alt="title"></p>
+<ul>
+<li>把整个页面Cache在用户浏览器</li>
+<li>如果强制刷新整个页面，也会请求到CDN</li>
+<li>实际有效请求只是“刷新抢宝”按钮</li>
+</ul>
+<p>秒杀的动态数据和普通的详情页面的动态数据相比更少，性能也比普通的详情提升3倍以上。所以“刷新抢宝”这种设计思路很好地解决了不刷新页面就能请求到服务端最新的动态数据。</p>
+<p><strong>基于时间分片削峰：</strong>不让流量同时涌入，把峰值的下单请求给拉长了</p>
+<ul>
+<li>前端答题、验证码</li>
+<li>服务端通过锁或者队列来控制瞬间请求</li>
+</ul>
+<p><strong>限流</strong>:</p>
+<ul>
+<li><p>Nginx限流</p>
+<p>Nginx官方版本限制IP的连接和并发分别有两个模块：</p>
+<ul>
+<li>limit_req_zone： 用来限制单位时间内的请求数，即速率限制,采用的漏桶算法。</li>
+<li>limit_req_conn： 用来限制同一时间连接数，即并发限制。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>站点层限流<ul>
+<li>单个部署实例的每秒最大请求数，每个用户每秒的最大请求或者通过Redis记录和限制单个用户只能请求一次。</li>
+</ul>
+</li>
+<li>拒绝：当连接数过大，cpu负载达到90%，就拒绝请求</li>
+</ul>
+<p><strong>不要超卖</strong></p>
+<ul>
+<li><p>下单减库存：一定不会出现超卖情况，但是有些人下单完不付款会影响其他人。</p>
+</li>
+<li><p>付款减库款：付款减库存，可能会因为并发高导致付款时已经卖光，付不了款。</p>
+</li>
+<li><p>预扣库存：最常用，如下单后扣库存，保留十分钟，在十分钟内未付款就不保留。如果付款时发现库存不足则不允许付款。</p>
+</li>
+</ul>
 
       
     </div>
@@ -621,7 +671,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、机器的磁盘满了，删日志没有反应，可能是什么问题？"><span class="nav-number">1.</span> <span class="nav-text">1、机器的磁盘满了，删日志没有反应，可能是什么问题？</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、机器的磁盘满了，删日志没有反应，可能是什么问题？"><span class="nav-number">1.</span> <span class="nav-text">1、机器的磁盘满了，删日志没有反应，可能是什么问题？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、秒杀场景"><span class="nav-number">2.</span> <span class="nav-text">2、秒杀场景</span></a></li></ol></div>
             
 
           </div>
