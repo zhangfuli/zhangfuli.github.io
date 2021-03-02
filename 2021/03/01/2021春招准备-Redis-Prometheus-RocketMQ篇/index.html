@@ -90,7 +90,10 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/2021年春招准备-redis-prometheus-rocketmq篇/1.png">
 <meta property="og:image" content="/images/2021年春招准备-redis-prometheus-rocketmq篇/2.png">
-<meta property="og:updated_time" content="2021-03-01T15:08:44.486Z">
+<meta property="og:image" content="/images/2021年春招准备-redis-prometheus-rocketmq篇/3.jpg">
+<meta property="og:image" content="/images/2021年春招准备-redis-prometheus-rocketmq篇/4.jpg">
+<meta property="og:image" content="/images/2021年春招准备-redis-prometheus-rocketmq篇/5.png">
+<meta property="og:updated_time" content="2021-03-02T02:44:52.046Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2021春招准备-Redis&#x2F;Prometheus&#x2F;RocketMQ篇">
 <meta name="twitter:description" content="1、Redis 一个高性能的key-value非关系型数据库  数据类型 String List Set Hash ZSet: 有序集合  过期策略以及内存淘汰机制 定期删除: 定时删除,用一个定时器来负责监视key,过期则自动删除。虽然内存及时释放，但是十分消耗CPU资源。在大并发请求下，CPU要将时间应用在处理请求，而不是删除key,因此没有采用这一策略. 定期删除+惰性删除 定期删除: re">
@@ -550,10 +553,13 @@
 </ul>
 <h5 id="什么是metrics"><a href="#什么是metrics" class="headerlink" title="什么是metrics"></a>什么是metrics</h5><ul>
 <li>metrics是对采集过来的数据的一种统称</li>
+<li>类型:<ul>
 <li>Gauges: 最简单的度量指标，只有一个简单的返回值，或者叫做瞬时状态</li>
 <li>Counters: Counters就是计数器</li>
 <li>Histograms：柱状图，用于观察结果采样</li>
 <li>Summary：类似Histogram，用于表示一段时间内数据采样结果</li>
+</ul>
+</li>
 </ul>
 <h5 id="什么是node-exporter"><a href="#什么是node-exporter" class="headerlink" title="什么是node-exporter"></a>什么是node-exporter</h5><blockquote>
 <p>Prometheus为了支持各种中间件以及第三方的监控提供了exporter，监控适配器，将不同指标类型和格式的数据统一转化为Prometheus能够识别的指标类型。他们将这些异构的数据转化为标准的Prometheus格式，并提供HTTP查询接口。 </p>
@@ -585,6 +591,68 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pushgateway_http_requests_total&#123;instance=~"pushgateway",method='get'&#125; offset 1d</span><br></pre></td></tr></table></figure>
 <p><strong>聚合查询</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 查询昨天1天内pushgeteway中get的请求总量之和</span><br><span class="line">sum(pushgateway_http_requests_total&#123;instance=~"pushgateway",method='get'&#125; offset 1d)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 按照mode计算主机CPU的平均使用时间</span><br><span class="line">avg(node_cpu_seconds_total)by(mode)</span><br></pre></td></tr></table></figure>
+<h4 id="RocketMQ"><a href="#RocketMQ" class="headerlink" title="RocketMQ"></a>RocketMQ</h4><h5 id="MQ选型"><a href="#MQ选型" class="headerlink" title="MQ选型"></a>MQ选型</h5><ul>
+<li>RabbitMQ: 当大量消息积压的时候，会导致 RabbitMQ 的性能急剧下降。每秒钟可以处理几万到十几万条消息。</li>
+<li>RocketMQ: java开发，对在线业务的响应时延做了很多的优化，大多数情况下可以做到毫秒级的响应，每秒钟大概能处理几十万条消息</li>
+<li>Kafka: 每秒钟消息数量没有那么多的时候，Kafka 的时延反而会比较高。所以，Kafka 不太适合在线业务场景。日志消息队列</li>
+<li>调研组件技术性能，开源社区活跃程度等。大型的软件公司，OLTP场景下都会倾向于使用RocketMQ</li>
+</ul>
+<h5 id="MQ作用"><a href="#MQ作用" class="headerlink" title="MQ作用"></a>MQ作用</h5><ul>
+<li>解耦：系统耦合度降低，没有强依赖关系</li>
+<li>异步：不需要同步执行的远程调用可以有效提高响应时间</li>
+<li>削峰：请求达到峰值后，后端service还可以保持固定消费速率消费，不会被压垮</li>
+</ul>
+<h5 id="架构-1"><a href="#架构-1" class="headerlink" title="架构"></a>架构</h5><p><img src="/images/2021年春招准备-redis-prometheus-rocketmq篇/3.jpg" alt="title"></p>
+<p><img src="/images/2021年春招准备-redis-prometheus-rocketmq篇/4.jpg" alt="title"></p>
+<p>消息先发到Topic，然后消费者去Topic拿消息。只是Topic在这里只是个概念，实际上Message是在每个Broker上以Queue的形式记录。</p>
+<ul>
+<li>消费者发送的Message会在Broker中的Queue队列中记录</li>
+<li>一个Topic的数据可能会存在多个Broker中</li>
+<li>一个Broker存在多个Queue</li>
+<li>单个的Queue也可能存储多个Topic的消息</li>
+<li>每个逻辑队列保存一部分消息数据，但是保存的消息数据实际上不是真正的消息数据，而是指向commit log的消息索引</li>
+<li>Queue不是真正存储Message的地方，真正存储Message的地方是在CommitLog</li>
+</ul>
+<h5 id="部署模型"><a href="#部署模型" class="headerlink" title="部署模型"></a>部署模型</h5><p><img src="/images/2021年春招准备-redis-prometheus-rocketmq篇/5.png" alt="title"></p>
+<ul>
+<li>NameServer: NameServer相当于集群管理服务，主要用于管理整个集群的元数据以及对集群进行管理的</li>
+<li>Broker: 单个节点负责数据的读写的，Broker在部署的时候，一般是分为主备角色的</li>
+<li>Producer</li>
+<li>Consumer</li>
+</ul>
+<p><strong>工作流程</strong>:</p>
+<ul>
+<li>启动NameServer，接着启动Broker</li>
+<li>Broker启动之后就会跟每一个NameServer建立长连接，每隔一段时间(30s)发送心跳包过去，心跳包里需要包含自己当前存储的数据信息，让NameServer感知到各个Broker的情况</li>
+<li>创建 Topic，创建 Topic 的时候就会决定这个 Topic 的数据会放在哪些Broker上</li>
+<li>Broker在进行心跳的时候，上报自己当前存储的Topic相关的数据信息给NameServer</li>
+<li>NameServer就保存了整个集群的元数据</li>
+<li>Producer在生产消息到Topic的时候，先得找NameServer问一下Topic存放在哪些Broker上，然后就可以跟那些Broker建立连接发送消息过去了</li>
+<li>Consumer要从Topic消费消息，也会找NameServer问一下可以从哪些Broker上消费消息，接着同样会跟Broker建立连接并且开始消费，Consumer在多台机器上，默认也会把Topic下的多个队列的数据均匀的分配给各个Consumer实例来进行消费</li>
+</ul>
+<h5 id="RocketMQ-Broker中的消息被消费后会立即删除吗"><a href="#RocketMQ-Broker中的消息被消费后会立即删除吗" class="headerlink" title="RocketMQ Broker中的消息被消费后会立即删除吗"></a>RocketMQ Broker中的消息被消费后会立即删除吗</h5><ul>
+<li><p>每条消息都会持久化到CommitLog中，每个Consumer连接到Broker后会维持消费进度信息，当有消息消费后只是<strong>当前Consumer的消费进度（CommitLog的offset）更新</strong>了</p>
+</li>
+<li><p>4.6版本默认48小时后会删除不再使用的CommitLog文件</p>
+</li>
+</ul>
+<h5 id="RocketMQ消费模式有几种"><a href="#RocketMQ消费模式有几种" class="headerlink" title="RocketMQ消费模式有几种"></a>RocketMQ消费模式有几种</h5><ul>
+<li>集群消费<ul>
+<li>一条消息只会被同Group中的一个Consumer消费</li>
+<li>多个Group同时消费一个Topic时，每个Group都会有一个Consumer消费到数据</li>
+</ul>
+</li>
+<li>广播消费<ul>
+<li>消息将对一个Consumer Group 下的各个 Consumer 实例都消费一遍</li>
+</ul>
+</li>
+</ul>
+<h5 id="消费消息是push还是pull"><a href="#消费消息是push还是pull" class="headerlink" title="消费消息是push还是pull"></a>消费消息是push还是pull</h5><p>pull，broker主动推送消息的话有可能push速度快，消费速度慢的情况，那么就会造成消息在consumer端堆积过多</p>
+<p><strong>08.RocketMq如何负载均衡？</strong></p>
+<p><strong>09.RocketMq的存储机制了解吗？</strong></p>
+<p><strong>10.RocketMq的存储结构是怎样的？</strong></p>
+<p><strong>11.RocketMq如何进行消息的去重？</strong></p>
+<p><strong>12.RocketMq性能比较高的原因？</strong></p>
 
       
     </div>
@@ -816,7 +884,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、Redis"><span class="nav-number">1.</span> <span class="nav-text">1、Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数据类型"><span class="nav-number">1.1.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#过期策略以及内存淘汰机制"><span class="nav-number">1.2.</span> <span class="nav-text">过期策略以及内存淘汰机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#redis和数据库双写一致性问题"><span class="nav-number">1.3.</span> <span class="nav-text">redis和数据库双写一致性问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如何应对缓存穿透和缓存雪崩问题"><span class="nav-number">1.4.</span> <span class="nav-text">如何应对缓存穿透和缓存雪崩问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如何解决redis的并发竞争key问题"><span class="nav-number">1.5.</span> <span class="nav-text">如何解决redis的并发竞争key问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#redis分布式锁"><span class="nav-number">1.6.</span> <span class="nav-text">redis分布式锁</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#redis持久化"><span class="nav-number">1.7.</span> <span class="nav-text">redis持久化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#redis中支持事务吗？"><span class="nav-number">1.8.</span> <span class="nav-text">redis中支持事务吗？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#redis发布订阅"><span class="nav-number">1.9.</span> <span class="nav-text">redis发布订阅</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么redis使用跳表而不是用红黑树"><span class="nav-number">1.10.</span> <span class="nav-text">为什么redis使用跳表而不是用红黑树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#应用场景"><span class="nav-number">1.11.</span> <span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、Prometheus"><span class="nav-number">2.</span> <span class="nav-text">2、Prometheus</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#架构"><span class="nav-number">2.1.</span> <span class="nav-text">架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Prometheus如何存储数据"><span class="nav-number">2.2.</span> <span class="nav-text">Prometheus如何存储数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据采集的方式"><span class="nav-number">2.3.</span> <span class="nav-text">数据采集的方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是metrics"><span class="nav-number">2.4.</span> <span class="nav-text">什么是metrics</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是node-exporter"><span class="nav-number">2.5.</span> <span class="nav-text">什么是node-exporter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PromQL"><span class="nav-number">2.6.</span> <span class="nav-text">PromQL</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、Redis"><span class="nav-number">1.</span> <span class="nav-text">1、Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数据类型"><span class="nav-number">1.1.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#过期策略以及内存淘汰机制"><span class="nav-number">1.2.</span> <span class="nav-text">过期策略以及内存淘汰机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#redis和数据库双写一致性问题"><span class="nav-number">1.3.</span> <span class="nav-text">redis和数据库双写一致性问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如何应对缓存穿透和缓存雪崩问题"><span class="nav-number">1.4.</span> <span class="nav-text">如何应对缓存穿透和缓存雪崩问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如何解决redis的并发竞争key问题"><span class="nav-number">1.5.</span> <span class="nav-text">如何解决redis的并发竞争key问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#redis分布式锁"><span class="nav-number">1.6.</span> <span class="nav-text">redis分布式锁</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#redis持久化"><span class="nav-number">1.7.</span> <span class="nav-text">redis持久化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#redis中支持事务吗？"><span class="nav-number">1.8.</span> <span class="nav-text">redis中支持事务吗？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#redis发布订阅"><span class="nav-number">1.9.</span> <span class="nav-text">redis发布订阅</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么redis使用跳表而不是用红黑树"><span class="nav-number">1.10.</span> <span class="nav-text">为什么redis使用跳表而不是用红黑树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#应用场景"><span class="nav-number">1.11.</span> <span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、Prometheus"><span class="nav-number">2.</span> <span class="nav-text">2、Prometheus</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#架构"><span class="nav-number">2.1.</span> <span class="nav-text">架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Prometheus如何存储数据"><span class="nav-number">2.2.</span> <span class="nav-text">Prometheus如何存储数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据采集的方式"><span class="nav-number">2.3.</span> <span class="nav-text">数据采集的方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是metrics"><span class="nav-number">2.4.</span> <span class="nav-text">什么是metrics</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是node-exporter"><span class="nav-number">2.5.</span> <span class="nav-text">什么是node-exporter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PromQL"><span class="nav-number">2.6.</span> <span class="nav-text">PromQL</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RocketMQ"><span class="nav-number">3.</span> <span class="nav-text">RocketMQ</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#MQ选型"><span class="nav-number">3.1.</span> <span class="nav-text">MQ选型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MQ作用"><span class="nav-number">3.2.</span> <span class="nav-text">MQ作用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#架构-1"><span class="nav-number">3.3.</span> <span class="nav-text">架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#部署模型"><span class="nav-number">3.4.</span> <span class="nav-text">部署模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RocketMQ-Broker中的消息被消费后会立即删除吗"><span class="nav-number">3.5.</span> <span class="nav-text">RocketMQ Broker中的消息被消费后会立即删除吗</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RocketMQ消费模式有几种"><span class="nav-number">3.6.</span> <span class="nav-text">RocketMQ消费模式有几种</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#消费消息是push还是pull"><span class="nav-number">3.7.</span> <span class="nav-text">消费消息是push还是pull</span></a></li></ol></li></ol></div>
             
 
           </div>
