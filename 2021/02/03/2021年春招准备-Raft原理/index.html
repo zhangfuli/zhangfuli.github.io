@@ -81,20 +81,20 @@
 
 
 
-<meta name="description" content="动画演示 1、复制状态机一个分布式的复制状态机系统由多个复制单元组成，每个复制单元均是一个状态机，它的状态保存在一组状态变量中，状态机的变量只能通过外部命令来改变。 简单理解的话，可以想象成是一组服务器，每个服务器是一个状态机，服务器的运行状态只能通过一行行的命令来改变。每一个状态机存储一个包含一系列指令的日志，严格按照顺序逐条执行日志中的指令，如果所有的状态机都能按照相同的日志执行指令，那么它们">
+<meta name="description" content="分布式一致性算法: zookeeper 动画演示  1、复制状态机一个分布式的复制状态机系统由多个复制单元组成，每个复制单元均是一个状态机，它的状态保存在一组状态变量中，状态机的变量只能通过外部命令来改变。 简单理解的话，可以想象成是一组服务器，每个服务器是一个状态机，服务器的运行状态只能通过一行行的命令来改变。每一个状态机存储一个包含一系列指令的日志，严格按照顺序逐条执行日志中的指令，如果所有">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2021年春招准备-Raft原理">
 <meta property="og:url" content="zhangfuli.github.io/2021/02/03/2021年春招准备-Raft原理/index.html">
 <meta property="og:site_name" content="Hello, ZhangFuli">
-<meta property="og:description" content="动画演示 1、复制状态机一个分布式的复制状态机系统由多个复制单元组成，每个复制单元均是一个状态机，它的状态保存在一组状态变量中，状态机的变量只能通过外部命令来改变。 简单理解的话，可以想象成是一组服务器，每个服务器是一个状态机，服务器的运行状态只能通过一行行的命令来改变。每一个状态机存储一个包含一系列指令的日志，严格按照顺序逐条执行日志中的指令，如果所有的状态机都能按照相同的日志执行指令，那么它们">
+<meta property="og:description" content="分布式一致性算法: zookeeper 动画演示  1、复制状态机一个分布式的复制状态机系统由多个复制单元组成，每个复制单元均是一个状态机，它的状态保存在一组状态变量中，状态机的变量只能通过外部命令来改变。 简单理解的话，可以想象成是一组服务器，每个服务器是一个状态机，服务器的运行状态只能通过一行行的命令来改变。每一个状态机存储一个包含一系列指令的日志，严格按照顺序逐条执行日志中的指令，如果所有">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/2021年春招准备-Raft算法/2.jpg">
 <meta property="og:image" content="/images/2021年春招准备-Raft算法/1.png">
 <meta property="og:image" content="/images/2021年春招准备-Raft算法/3.png">
-<meta property="og:updated_time" content="2021-03-02T13:51:29.414Z">
+<meta property="og:updated_time" content="2021-03-02T13:52:50.861Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2021年春招准备-Raft原理">
-<meta name="twitter:description" content="动画演示 1、复制状态机一个分布式的复制状态机系统由多个复制单元组成，每个复制单元均是一个状态机，它的状态保存在一组状态变量中，状态机的变量只能通过外部命令来改变。 简单理解的话，可以想象成是一组服务器，每个服务器是一个状态机，服务器的运行状态只能通过一行行的命令来改变。每一个状态机存储一个包含一系列指令的日志，严格按照顺序逐条执行日志中的指令，如果所有的状态机都能按照相同的日志执行指令，那么它们">
+<meta name="twitter:description" content="分布式一致性算法: zookeeper 动画演示  1、复制状态机一个分布式的复制状态机系统由多个复制单元组成，每个复制单元均是一个状态机，它的状态保存在一组状态变量中，状态机的变量只能通过外部命令来改变。 简单理解的话，可以想象成是一组服务器，每个服务器是一个状态机，服务器的运行状态只能通过一行行的命令来改变。每一个状态机存储一个包含一系列指令的日志，严格按照顺序逐条执行日志中的指令，如果所有">
 <meta name="twitter:image" content="/images/2021年春招准备-Raft算法/2.jpg">
 
 
@@ -389,7 +389,10 @@
       
 
       
-        <p><a href="http://thesecretlivesofdata.com/raft/#replication" target="_blank" rel="noopener">动画演示</a></p>
+        <ul>
+<li>分布式一致性算法: zookeeper</li>
+<li><a href="http://thesecretlivesofdata.com/raft/#replication" target="_blank" rel="noopener">动画演示</a></li>
+</ul>
 <h4 id="1、复制状态机"><a href="#1、复制状态机" class="headerlink" title="1、复制状态机"></a>1、复制状态机</h4><p>一个分布式的复制状态机系统由多个复制单元组成，每个复制单元均是一个状态机，它的状态保存在一组状态变量中，状态机的变量只能通过外部命令来改变。</p>
 <p>简单理解的话，可以想象成是一组服务器，每个服务器是一个状态机，服务器的运行状态只能通过一行行的命令来改变。每一个状态机存储一个包含一系列指令的日志，严格按照顺序逐条执行日志中的指令，如果所有的状态机都能按照相同的日志执行指令，那么它们最终将达到相同的状态。</p>
 <p>在复制状态机模型下，只要保证了操作日志的一致性，我们就能保证该分布式系统状态的一致性</p>
