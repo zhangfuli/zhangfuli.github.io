@@ -83,7 +83,7 @@
 
 <meta name="description" content="熟悉 Java、Golang 或 C++至少一⻔语言。 有良好的计算机基础，基本功扎实：熟悉常用的算法、数据结构，熟悉操作系统、网络等基础知识。 加分项(任一即可)： • 熟悉微服务领域相关技术或产品，如 gRPC，Dubbo，Spring Cloud，RocketMQ等。 • 熟悉容器相关技术或产品，如 Docker, Kubernetes, Istio/Envoy 等。 • 熟悉监控领域相关">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2021年春招准备-Docker篇">
+<meta property="og:title" content="Docker篇-2021年春招准备">
 <meta property="og:url" content="zhangfuli.github.io/2021/02/03/2021年春招准备-Docker篇/index.html">
 <meta property="og:site_name" content="Hello, ZhangFuli">
 <meta property="og:description" content="熟悉 Java、Golang 或 C++至少一⻔语言。 有良好的计算机基础，基本功扎实：熟悉常用的算法、数据结构，熟悉操作系统、网络等基础知识。 加分项(任一即可)： • 熟悉微服务领域相关技术或产品，如 gRPC，Dubbo，Spring Cloud，RocketMQ等。 • 熟悉容器相关技术或产品，如 Docker, Kubernetes, Istio/Envoy 等。 • 熟悉监控领域相关">
@@ -93,9 +93,9 @@
 <meta property="og:image" content="/images/2021年春招准备-Docker篇/9.png">
 <meta property="og:image" content="/images/2021年春招准备-Docker篇/11.jpg">
 <meta property="og:image" content="/images/2021年春招准备-Docker篇/12.gif">
-<meta property="og:updated_time" content="2021-02-26T09:29:45.374Z">
+<meta property="og:updated_time" content="2021-03-04T05:44:54.507Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2021年春招准备-Docker篇">
+<meta name="twitter:title" content="Docker篇-2021年春招准备">
 <meta name="twitter:description" content="熟悉 Java、Golang 或 C++至少一⻔语言。 有良好的计算机基础，基本功扎实：熟悉常用的算法、数据结构，熟悉操作系统、网络等基础知识。 加分项(任一即可)： • 熟悉微服务领域相关技术或产品，如 gRPC，Dubbo，Spring Cloud，RocketMQ等。 • 熟悉容器相关技术或产品，如 Docker, Kubernetes, Istio/Envoy 等。 • 熟悉监控领域相关">
 <meta name="twitter:image" content="/images/2021年春招准备-Docker篇/2.png">
 
@@ -133,7 +133,7 @@
 
 
 
-  <title>2021年春招准备-Docker篇 | Hello, ZhangFuli</title>
+  <title>Docker篇-2021年春招准备 | Hello, ZhangFuli</title>
   
 
 
@@ -331,7 +331,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">2021年春招准备-Docker篇</h1>
+          <h1 class="post-title" itemprop="name headline">Docker篇-2021年春招准备</h1>
         
 
         <div class="post-meta">
@@ -423,8 +423,7 @@
 <h4 id="6-容器与主机之间的数据拷贝命令"><a href="#6-容器与主机之间的数据拷贝命令" class="headerlink" title="6.容器与主机之间的数据拷贝命令"></a>6.容器与主机之间的数据拷贝命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker cp /www 96f7f14e99ab:/www/ #主机到容器</span><br><span class="line">docker cp 96f7f14e99ab:/www /tmp/ #容器到主机</span><br></pre></td></tr></table></figure>
 <h4 id="7-启动nginx容器"><a href="#7-启动nginx容器" class="headerlink" title="7. 启动nginx容器"></a>7. 启动nginx容器</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run </span><br><span class="line">-d # 后台运行返回容器ID</span><br><span class="line">-P # 随机端口</span><br><span class="line">-p # 宿主机:容器</span><br><span class="line">--name nginx2 </span><br><span class="line">-v /home/nginx:/usr/share/nginx/html #宿主机:容器   -v后边加“：ro” 限制容器的写入权限；</span><br><span class="line">--rm # 退出时自动清理</span><br><span class="line">nginx</span><br></pre></td></tr></table></figure>
 <h4 id="8-解释一下Dockerfile的ONBUILD指令"><a href="#8-解释一下Dockerfile的ONBUILD指令" class="headerlink" title="8. 解释一下Dockerfile的ONBUILD指令"></a>8. 解释一下Dockerfile的ONBUILD指令</h4><p>以当前镜像为parent 镜像时触发</p>
-<ul>
-<li><p>ADD/COPY区别：</p>
+<p><strong>ADD/COPY区别</strong>：</p>
 <blockquote>
 <p>相同将本机文件拷贝到容器</p>
 </blockquote>
@@ -435,13 +434,11 @@
 <li><p>ADD: </p>
 <ul>
 <li>解压压缩文件并把它们添加到镜像中</li>
-<li>从 url 拷贝文件到镜像中<h4 id="9-Docker-Swarm"><a href="#9-Docker-Swarm" class="headerlink" title="9. Docker Swarm"></a>9. Docker Swarm</h4></li>
+<li>从 url 拷贝文件到镜像中</li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-<p>将一群Docker宿主机变成一个单一的虚拟主机，通过raft协议选举manager。</p>
+<h4 id="9-Docker-Swarm"><a href="#9-Docker-Swarm" class="headerlink" title="9. Docker Swarm"></a>9. Docker Swarm</h4><p>将一群Docker宿主机变成一个单一的虚拟主机，通过raft协议选举manager。</p>
 <p><img src="/images/2021年春招准备-Docker篇/9.png" alt="img"></p>
 <h4 id="10-监控Docker"><a href="#10-监控Docker" class="headerlink" title="10. 监控Docker"></a>10. 监控Docker</h4><ul>
 <li>Docker统计数据：当我们使用容器ID调用docker stats时，我们获得容器的CPU，内存使用情况等。它类似于Linux中的top命令</li>
@@ -480,6 +477,7 @@
 </ul>
 </li>
 <li>Cgroups可以限制、记录任务组所使用的物理资源（包括CPU，Memory，IO等）</li>
+<li>Rootfs做文件系统</li>
 </ul>
 <h4 id="16、Docker、Runc、Shim、Containerd、Daemon之间的关系"><a href="#16、Docker、Runc、Shim、Containerd、Daemon之间的关系" class="headerlink" title="16、Docker、Runc、Shim、Containerd、Daemon之间的关系"></a>16、Docker、Runc、Shim、Containerd、Daemon之间的关系</h4><p><img src="/images/2021年春招准备-Docker篇/12.gif" alt="img"></p>
 <ul>

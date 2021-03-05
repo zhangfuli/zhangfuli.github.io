@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="1、Vue的生命周期">
+<meta name="description" content="1、前端Vue生命周期 2、数据库事务 原子性（ Atomicity ）、一致性（ Consistency ）、隔离性（ Isolation ）和持久性（ Durability ）。这四个特性简称为 ACID 特性   原子性: 事务是数据库的逻辑工作单位，不可分割，事务中包含的各操作要么都做，要么都不做 一致性: 事务执行的结果必须是使数据库从一个一致性状态变到另一个一致性状态 隔离性: 一个事">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2021春招准备-前端篇">
-<meta property="og:url" content="zhangfuli.github.io/2021/03/01/2021春招准备-前端篇/index.html">
+<meta property="og:title" content="前端-数据库篇-2021春招准备">
+<meta property="og:url" content="zhangfuli.github.io/2021/03/01/2021春招准备-前端-数据库篇/index.html">
 <meta property="og:site_name" content="Hello, ZhangFuli">
-<meta property="og:description" content="1、Vue的生命周期">
+<meta property="og:description" content="1、前端Vue生命周期 2、数据库事务 原子性（ Atomicity ）、一致性（ Consistency ）、隔离性（ Isolation ）和持久性（ Durability ）。这四个特性简称为 ACID 特性   原子性: 事务是数据库的逻辑工作单位，不可分割，事务中包含的各操作要么都做，要么都不做 一致性: 事务执行的结果必须是使数据库从一个一致性状态变到另一个一致性状态 隔离性: 一个事">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/2021春招准备-前端篇/1.png">
-<meta property="og:updated_time" content="2021-03-01T09:18:27.735Z">
+<meta property="og:updated_time" content="2021-03-04T07:59:09.346Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2021春招准备-前端篇">
-<meta name="twitter:description" content="1、Vue的生命周期">
+<meta name="twitter:title" content="前端-数据库篇-2021春招准备">
+<meta name="twitter:description" content="1、前端Vue生命周期 2、数据库事务 原子性（ Atomicity ）、一致性（ Consistency ）、隔离性（ Isolation ）和持久性（ Durability ）。这四个特性简称为 ACID 特性   原子性: 事务是数据库的逻辑工作单位，不可分割，事务中包含的各操作要么都做，要么都不做 一致性: 事务执行的结果必须是使数据库从一个一致性状态变到另一个一致性状态 隔离性: 一个事">
 <meta name="twitter:image" content="/images/2021春招准备-前端篇/1.png">
 
 
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="zhangfuli.github.io/2021/03/01/2021春招准备-前端篇/"/>
+  <link rel="canonical" href="zhangfuli.github.io/2021/03/01/2021春招准备-前端-数据库篇/"/>
 
 
 
 
 
-  <title>2021春招准备-前端篇 | Hello, ZhangFuli</title>
+  <title>前端-数据库篇-2021春招准备 | Hello, ZhangFuli</title>
   
 
 
@@ -310,7 +310,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2021/03/01/2021春招准备-前端篇/">
+    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2021/03/01/2021春招准备-前端-数据库篇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhangfuli">
@@ -327,7 +327,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">2021春招准备-前端篇</h1>
+          <h1 class="post-title" itemprop="name headline">前端-数据库篇-2021春招准备</h1>
         
 
         <div class="post-meta">
@@ -358,8 +358,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/03/01/2021春招准备-前端篇/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2021/03/01/2021春招准备-前端篇/" itemprop="commentsCount"></span>
+                <a href="/2021/03/01/2021春招准备-前端-数据库篇/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2021/03/01/2021春招准备-前端-数据库篇/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -387,7 +387,16 @@
       
 
       
-        <h4 id="1、Vue的生命周期"><a href="#1、Vue的生命周期" class="headerlink" title="1、Vue的生命周期"></a>1、Vue的生命周期</h4><p><img src="/images/2021春招准备-前端篇/1.png" alt="title"></p>
+        <h4 id="1、前端"><a href="#1、前端" class="headerlink" title="1、前端"></a>1、前端</h4><h5 id="Vue生命周期"><a href="#Vue生命周期" class="headerlink" title="Vue生命周期"></a>Vue生命周期</h5><p><img src="/images/2021春招准备-前端篇/1.png" alt="title"></p>
+<h4 id="2、数据库"><a href="#2、数据库" class="headerlink" title="2、数据库"></a>2、数据库</h4><h5 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h5><blockquote>
+<p>原子性（ Atomicity ）、一致性（ Consistency ）、隔离性（ Isolation ）和持久性（ Durability ）。这四个特性简称为 ACID 特性</p>
+</blockquote>
+<ul>
+<li>原子性: 事务是数据库的逻辑工作单位，不可分割，事务中包含的各操作要么都做，要么都不做</li>
+<li>一致性: 事务执行的结果必须是使数据库从一个一致性状态变到另一个一致性状态</li>
+<li>隔离性: 一个事务的执行不能其它事务干扰</li>
+<li>持续性: 也称永久性，指一个事务一旦提交，它对数据库中的数据的改变就应该是永久性的，不能回滚</li>
+</ul>
 
       
     </div>
@@ -441,8 +450,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/01/2021春招准备-Redis-Prometheus-RocketMQ篇/" rel="next" title="2021春招准备-Redis/Prometheus/RocketMQ篇">
-                <i class="fa fa-chevron-left"></i> 2021春招准备-Redis/Prometheus/RocketMQ篇
+              <a href="/2021/03/01/2021春招准备-Redis-Prometheus-RocketMQ篇/" rel="next" title="Redis/Prometheus/RocketMQ篇-2021春招准备">
+                <i class="fa fa-chevron-left"></i> Redis/Prometheus/RocketMQ篇-2021春招准备
               </a>
             
           </div>
@@ -615,7 +624,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、Vue的生命周期"><span class="nav-number">1.</span> <span class="nav-text">1、Vue的生命周期</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、前端"><span class="nav-number">1.</span> <span class="nav-text">1、前端</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Vue生命周期"><span class="nav-number">1.1.</span> <span class="nav-text">Vue生命周期</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、数据库"><span class="nav-number">2.</span> <span class="nav-text">2、数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#事务"><span class="nav-number">2.1.</span> <span class="nav-text">事务</span></a></li></ol></li></ol></div>
             
 
           </div>

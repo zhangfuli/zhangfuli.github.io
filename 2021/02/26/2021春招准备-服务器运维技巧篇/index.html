@@ -83,16 +83,17 @@
 
 <meta name="description" content="1、机器的磁盘满了，删日志没有反应，可能是什么问题？在Linux或者Unix系统中，通过rm或者文件管理器删除文件将会从文件系统的目录结构上解除链接(unlink) 然而如果文件是被打开的（有一个进程正在使用），那么进程将仍然可以读取该文件，磁盘空间也一直被占用。 使用命令：/usr/sbin/lsof|grep deleted  确认删除文件是否被占用 kill -9 pid值 杀掉进程 2、秒">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2021春招准备-服务器运维技巧篇">
+<meta property="og:title" content="服务器运维技巧篇-2021春招准备">
 <meta property="og:url" content="zhangfuli.github.io/2021/02/26/2021春招准备-服务器运维技巧篇/index.html">
 <meta property="og:site_name" content="Hello, ZhangFuli">
 <meta property="og:description" content="1、机器的磁盘满了，删日志没有反应，可能是什么问题？在Linux或者Unix系统中，通过rm或者文件管理器删除文件将会从文件系统的目录结构上解除链接(unlink) 然而如果文件是被打开的（有一个进程正在使用），那么进程将仍然可以读取该文件，磁盘空间也一直被占用。 使用命令：/usr/sbin/lsof|grep deleted  确认删除文件是否被占用 kill -9 pid值 杀掉进程 2、秒">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/2021春招准备-服务器运维技巧篇/1.png">
 <meta property="og:image" content="/images/2021春招准备-服务器运维技巧篇/2.png">
-<meta property="og:updated_time" content="2021-03-02T04:14:48.453Z">
+<meta property="og:image" content="/images/2021春招准备-服务器运维技巧篇/3.png">
+<meta property="og:updated_time" content="2021-03-04T07:54:32.758Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2021春招准备-服务器运维技巧篇">
+<meta name="twitter:title" content="服务器运维技巧篇-2021春招准备">
 <meta name="twitter:description" content="1、机器的磁盘满了，删日志没有反应，可能是什么问题？在Linux或者Unix系统中，通过rm或者文件管理器删除文件将会从文件系统的目录结构上解除链接(unlink) 然而如果文件是被打开的（有一个进程正在使用），那么进程将仍然可以读取该文件，磁盘空间也一直被占用。 使用命令：/usr/sbin/lsof|grep deleted  确认删除文件是否被占用 kill -9 pid值 杀掉进程 2、秒">
 <meta name="twitter:image" content="/images/2021春招准备-服务器运维技巧篇/1.png">
 
@@ -130,7 +131,7 @@
 
 
 
-  <title>2021春招准备-服务器运维技巧篇 | Hello, ZhangFuli</title>
+  <title>服务器运维技巧篇-2021春招准备 | Hello, ZhangFuli</title>
   
 
 
@@ -328,7 +329,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">2021春招准备-服务器运维技巧篇</h1>
+          <h1 class="post-title" itemprop="name headline">服务器运维技巧篇-2021春招准备</h1>
         
 
         <div class="post-meta">
@@ -440,6 +441,44 @@
 <li><p>预扣库存：最常用，如下单后扣库存，保留十分钟，在十分钟内未付款就不保留。如果付款时发现库存不足则不允许付款。</p>
 </li>
 </ul>
+<h5 id="高并发系统"><a href="#高并发系统" class="headerlink" title="高并发系统"></a>高并发系统</h5><p>可以分为以下 6 点：</p>
+<ul>
+<li>系统拆分</li>
+<li>缓存: redis</li>
+<li>MQ：Redis 来承载写那肯定不行，人家是缓存，数据随时就被 LRU 了，数据格式还无比简单，没有事务支持</li>
+<li>分库分表：将一个数据库拆分为多个库，多个库来扛更高的并发；然后将一个表拆分为多个表，每个表的数据量保持少一点，提高 sql 跑的性能</li>
+<li>读写分离：大部分时候数据库可能也是读多写少，没必要所有请求都集中在一个库上吧，可以搞个主从架构，主库写入，从库读取，搞一个读写分离。读流量太多的时候，还可以加更多的从库。</li>
+<li>ElasticSearch：es 是分布式的，可以随便扩容，分布式天然就可以支撑高并发，因为动不动就可以扩容加机器来扛更高的并发。那么一些比较简单的查询、统计类的操作，可以考虑用 es 来承载，还有一些全文搜索类的操作，也可以考虑用 es 来承载</li>
+</ul>
+<h4 id="3、服务注册与服务发现机制"><a href="#3、服务注册与服务发现机制" class="headerlink" title="3、服务注册与服务发现机制"></a>3、服务注册与服务发现机制</h4><h5 id="为什么需要服务注册与发现机制"><a href="#为什么需要服务注册与发现机制" class="headerlink" title="为什么需要服务注册与发现机制"></a>为什么需要服务注册与发现机制</h5><p>将一个大的单应用拆解成多个独立自治的小服务，如果在没有服务发现的机制下</p>
+<h5 id="服务发现"><a href="#服务发现" class="headerlink" title="服务发现"></a>服务发现</h5><p>服务的消费者就需要有一个强大的服务发现机制，服务消费者使用这个机制获取服务提供者的网络信息。即使服务提供者的信息发生变化，服务消费者也无须修改配置文件。</p>
+<p>在各个服务在启动时，<strong>将自己的网络地址等信息注册到服务发现组件</strong>中，服务发现组件会存储这些信息。<br>服务消费者可从服务发现组件中查询提供者到网络地址，并使用该地址调用服务提供者的接口。</p>
+<p>各个服务与服务发现组件使用一定机制（例如<strong>心跳机制</strong>）通信。服务发现组件如果长时间无法与某微服务实例通信，就会注销该实例。<br>微服务网络地址发生变更时，会重新注册到微服务发现组件。</p>
+<h5 id="Eureka"><a href="#Eureka" class="headerlink" title="Eureka"></a>Eureka</h5><blockquote>
+<p>保证AP，Zookeeper是CP</p>
+</blockquote>
+<p><strong>组成</strong></p>
+<ul>
+<li><p>Eureka Server提供服务注册服务，各个节点启动后，会在Eureka Server中进行注册，这样EurekaServer中的服务<strong>注册表</strong>中将会存储所有可用服务节点的信息，服务节点的信息可以在界面中直观的看到。</p>
+</li>
+<li><p>Eureka Client是一个java客户端，用于简化与Eureka Server的交互，客户端同时也就是一个内置的、使用轮询(round-robin)负载算法的负载均衡器。</p>
+</li>
+</ul>
+<p><strong>原理</strong></p>
+<ul>
+<li>Eureka Server 提供服务发现的能力，各个微服务启动时，会向 Eureka Server 注册自己的信息，Eureka Server 会存储这些信息</li>
+<li>Eureka Client 是一个 Java 客户端，用于简化与 Eureka Server 的交互</li>
+<li>微服务启动后会周期性（默认30秒）的向 Eureka Server 发送心跳以续约自己的“租期“</li>
+<li>如果 Eureka Server 在一定时间内没有接收到某个服务实例到心跳，那么会注销该实例</li>
+<li>默认情况下，Eureka Server 同时也是 Eureka Client，多个 Eureka Server 实例之间是通过复制的方式来实现服务注册表中数据的同步</li>
+<li>Eureka Client 会缓存注册表中的信息。无须微服务每次请求都查询 Eureka Server</li>
+</ul>
+<p><img src="/images/2021春招准备-服务器运维技巧篇/3.png" alt="title"></p>
+<h4 id="4、前后端分离，解决登陆问题"><a href="#4、前后端分离，解决登陆问题" class="headerlink" title="4、前后端分离，解决登陆问题"></a>4、前后端分离，解决登陆问题</h4><ul>
+<li>前端把account和password，提交到服务端的登录api</li>
+<li>服务端验证正确后，生成一个token，并把token和userId，存在缓存里（推荐redis数据库），然后把token返回给前端</li>
+<li>前端每次的请求头中带token，这样就能够轻松的实现</li>
+</ul>
 
       
     </div>
@@ -493,8 +532,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/02/26/2021春招准备-Nginx篇/" rel="next" title="2021春招准备-Nginx篇">
-                <i class="fa fa-chevron-left"></i> 2021春招准备-Nginx篇
+              <a href="/2021/02/26/2021春招准备-Nginx篇/" rel="next" title="Nginx篇-2021春招准备">
+                <i class="fa fa-chevron-left"></i> Nginx篇-2021春招准备
               </a>
             
           </div>
@@ -503,8 +542,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/02/27/2021春招准备-Python篇/" rel="prev" title="2021春招准备-Python篇">
-                2021春招准备-Python篇 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/02/27/2021春招准备-Python篇/" rel="prev" title="Python篇-2021春招准备">
+                Python篇-2021春招准备 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -671,7 +710,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、机器的磁盘满了，删日志没有反应，可能是什么问题？"><span class="nav-number">1.</span> <span class="nav-text">1、机器的磁盘满了，删日志没有反应，可能是什么问题？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、秒杀场景"><span class="nav-number">2.</span> <span class="nav-text">2、秒杀场景</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、机器的磁盘满了，删日志没有反应，可能是什么问题？"><span class="nav-number">1.</span> <span class="nav-text">1、机器的磁盘满了，删日志没有反应，可能是什么问题？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、秒杀场景"><span class="nav-number">2.</span> <span class="nav-text">2、秒杀场景</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#高并发系统"><span class="nav-number">2.1.</span> <span class="nav-text">高并发系统</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、服务注册与服务发现机制"><span class="nav-number">3.</span> <span class="nav-text">3、服务注册与服务发现机制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么需要服务注册与发现机制"><span class="nav-number">3.1.</span> <span class="nav-text">为什么需要服务注册与发现机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#服务发现"><span class="nav-number">3.2.</span> <span class="nav-text">服务发现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Eureka"><span class="nav-number">3.3.</span> <span class="nav-text">Eureka</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、前后端分离，解决登陆问题"><span class="nav-number">4.</span> <span class="nav-text">4、前后端分离，解决登陆问题</span></a></li></ol></div>
             
 
           </div>
