@@ -88,7 +88,7 @@
 <meta property="og:site_name" content="Hello, ZhangFuli">
 <meta property="og:description" content="1、理解linux下的loadload average数据是每隔5秒钟检查一次活跃的进程数，然后按特定算法计算出的数值，然后用这个值和当前机器的cpu核数进行相除，得到的值 12load = process/total_cpu_cores load average: 0.09, 0.05, 0.01 负载的好和坏： 需要根据机器当前的进程数与CPU总核数的比值（process_cores_valu">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-03-04T07:48:31.106Z">
+<meta property="og:updated_time" content="2021-03-05T09:20:47.752Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux篇-2021春招准备">
 <meta name="twitter:description" content="1、理解linux下的loadload average数据是每隔5秒钟检查一次活跃的进程数，然后按特定算法计算出的数值，然后用这个值和当前机器的cpu核数进行相除，得到的值 12load = process/total_cpu_cores load average: 0.09, 0.05, 0.01 负载的好和坏： 需要根据机器当前的进程数与CPU总核数的比值（process_cores_valu">
@@ -397,8 +397,89 @@
 </ul>
 <p>在我们执行<strong>top</strong>或者<strong>uptime</strong>的时候会有3个load的值，那我们根据哪个值做为我们判断依据呢？</p>
 <p>着眼5分钟和15分钟的load值比较合适，因为1分钟的值有可能是个瞬间值，而5分钟或者15分钟的值是平均值，长时间负载高，机器肯定是需要排查问题的。</p>
+<h5 id="top-字段：按f-可以选择相关参数-按d标示是否显示-按q标示退出-t切换CPU"><a href="#top-字段：按f-可以选择相关参数-按d标示是否显示-按q标示退出-t切换CPU" class="headerlink" title="top 字段：按f, 可以选择相关参数; 按d标示是否显示; 按q标示退出; t切换CPU"></a>top 字段：按f, 可以选择相关参数; 按d标示是否显示; 按q标示退出; t切换CPU</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">top - 15:47:18 up 86 days,  1:07,  2 users,  load average: 0.43, 0.38, 0.39</span><br><span class="line"></span><br><span class="line">Tasks: 157 total,   1 running, 156 sleeping,   0 stopped,   0 zombie</span><br><span class="line">(进程数: 运行中、睡眠、停止、僵尸进程)</span><br><span class="line"></span><br><span class="line"><span class="meta">%</span>Cpu(s):  4.5 us,  6.3 sy,  0.0 ni, 88.4 id,  0.6 wa,  0.0 hi,  0.2 si,  0.0 st</span><br><span class="line"><span class="meta">%</span>CPU：自从上一次更新时到现在任务所使用的CPU时间百分比。</span><br><span class="line"></span><br><span class="line">KiB Mem :  8009184 total,   439224 free,  2005724 used,  5564236 buff/cache</span><br><span class="line">KiB Swap:        0 total,        0 free,        0 used.  5448920 avail Mem</span><br><span class="line"><span class="meta">%</span>MEM：进程使用的可用物理内存百分比。</span><br></pre></td></tr></table></figure>
+<ul>
+<li>PID：Process ID    PPID(Parent Process ID)</li>
+<li>USER</li>
+<li>PR: 优先级</li>
+<li>NI: Nice Value</li>
+<li>S: Process Status<ul>
+<li>D - 不可中断的睡眠态。</li>
+<li>R – 运行态</li>
+<li>S – 睡眠态</li>
+<li>T – 被跟踪或已停止</li>
+<li>Z – 僵尸态</li>
+</ul>
+</li>
+</ul>
+<h5 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h5><ul>
+<li>线程: <code>top -p PID -H</code></li>
+<li>监控Java线程数: <code>ps -eLf | grep java | wc -l</code></li>
+<li>监控网络客户连接数: <code>netstat -n | grep tcp | grep 侦听端口 | wc -l</code></li>
+</ul>
 <h4 id="2、常见命令"><a href="#2、常见命令" class="headerlink" title="2、常见命令"></a>2、常见命令</h4><ul>
 <li>创建多级目录:  <code>makedir -p</code></li>
+<li>查看线程: <code>top -H</code></li>
+<li><p>命令用于计算字数: <code>wc</code></p>
+</li>
+<li><p>查看堆栈: <code>pstack PID</code> + <code>gdb</code>调试死锁</p>
+</li>
+<li><code>vim</code>: 命令模式、插入模式、尾行命令模式<ul>
+<li>命令模式下:<ul>
+<li>yy-复制</li>
+<li>p-粘贴</li>
+<li>0-行首</li>
+<li>1G-文章首行 2G 3G</li>
+<li>GG-文章末行</li>
+<li>/查找的字符   n下一个;N上一个</li>
+</ul>
+</li>
+<li>尾行命令模式<ul>
+<li>:%s/str1/str2/g 替换全局所有str1为str2</li>
+<li>:s/str1/str2 </li>
+<li>:n,s/str1/str2某行的str1替换为str2</li>
+<li>:wq</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="3、服务器响应变慢排查"><a href="#3、服务器响应变慢排查" class="headerlink" title="3、服务器响应变慢排查"></a>3、服务器响应变慢排查</h4><ul>
+<li>第一步: 查看系统资源是否达到上限<ul>
+<li>查看一下CPU占比比较高的进程</li>
+<li>使用jstack命令生成进程的堆栈信息</li>
+<li>若频繁发生FULL GC，需要看一下内存快照，分析一下内存情况（可以使用java自带的或第三方工具）<ul>
+<li>jmap -dump:live,format=b,file=m.hprof PID</li>
+<li>MAT分析工具</li>
+</ul>
+</li>
+<li>如果是磁盘空间满了，及时清理磁盘</li>
+<li>如果是带宽满了，联系网络工程师解决</li>
+</ul>
+</li>
+<li><p>第二步: </p>
+<ul>
+<li>检查应用服务器（Jboss/Tomcat）的线程池配置是否合理</li>
+<li>看一下请求的排队现象是否严重</li>
+<li>如果严重则需要重新设置合理的线程池</li>
+<li>检查一下数据库的连接池设置是否合理，增大连接池设置</li>
+<li>检查一下是否有慢sql，如果有慢sql，则进行优化（优化方案是查看执行计划，设置合理的索引等）</li>
+</ul>
+</li>
+<li><p>第三步：查看访问慢的服务的调用链</p>
+<ul>
+<li>查看一下调用链中的每一步响应时间是否合理</li>
+<li>如果不合理，则联系相关系统的负责人进行排查和解决</li>
+</ul>
+</li>
+<li>第四步：检查web服务器的请求日志<ul>
+<li>看一下是否存在Doss攻击<ul>
+<li>分布式拒绝服务, 用肉鸡对目标网站在短时间内发送大量请求</li>
+<li>如果有Doss攻击，则将攻击者的IP添加到防火墙的黑名单里。</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
       
@@ -631,7 +712,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、理解linux下的load"><span class="nav-number">1.</span> <span class="nav-text">1、理解linux下的load</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、常见命令"><span class="nav-number">2.</span> <span class="nav-text">2、常见命令</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、理解linux下的load"><span class="nav-number">1.</span> <span class="nav-text">1、理解linux下的load</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#top-字段：按f-可以选择相关参数-按d标示是否显示-按q标示退出-t切换CPU"><span class="nav-number">1.1.</span> <span class="nav-text">top 字段：按f, 可以选择相关参数; 按d标示是否显示; 按q标示退出; t切换CPU</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他："><span class="nav-number">1.2.</span> <span class="nav-text">其他：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、常见命令"><span class="nav-number">2.</span> <span class="nav-text">2、常见命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、服务器响应变慢排查"><span class="nav-number">3.</span> <span class="nav-text">3、服务器响应变慢排查</span></a></li></ol></div>
             
 
           </div>

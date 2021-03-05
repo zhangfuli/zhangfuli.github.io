@@ -93,7 +93,7 @@
 <meta property="og:image" content="/images/2021年春招准备-redis-prometheus-rocketmq篇/3.jpg">
 <meta property="og:image" content="/images/2021年春招准备-redis-prometheus-rocketmq篇/4.jpg">
 <meta property="og:image" content="/images/2021年春招准备-redis-prometheus-rocketmq篇/5.png">
-<meta property="og:updated_time" content="2021-03-03T02:09:55.358Z">
+<meta property="og:updated_time" content="2021-03-05T08:01:48.420Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis&#x2F;Prometheus&#x2F;RocketMQ篇-2021春招准备">
 <meta name="twitter:description" content="1、Redis 一个高性能的key-value非关系型数据库  数据类型 String List Set Hash ZSet: 有序集合  过期策略以及内存淘汰机制 定期删除: 定时删除,用一个定时器来负责监视key,过期则自动删除。虽然内存及时释放，但是十分消耗CPU资源。在大并发请求下，CPU要将时间应用在处理请求，而不是删除key,因此没有采用这一策略. 定期删除+惰性删除 定期删除: re">
@@ -418,6 +418,8 @@
 <h5 id="redis和数据库双写一致性问题"><a href="#redis和数据库双写一致性问题" class="headerlink" title="redis和数据库双写一致性问题"></a>redis和数据库双写一致性问题</h5><p>一致性问题是分布式常见问题，还可以再分为最终一致性和强一致性。数据库和缓存双写，就必然会存在不一致的问题。如果对数据有强一致性要求，不能放缓存。</p>
 <p>采取正确更新策略，先更新数据库，再删缓存。其次，因为可能存在删除缓存失败的问题，提供一个补偿措施即可，例如利用消息队列</p>
 <h5 id="如何应对缓存穿透和缓存雪崩问题"><a href="#如何应对缓存穿透和缓存雪崩问题" class="headerlink" title="如何应对缓存穿透和缓存雪崩问题"></a>如何应对缓存穿透和缓存雪崩问题</h5><ul>
+<li><p>缓存击穿: 存的数据过期</p>
+</li>
 <li><p>缓存穿透：即黑客故意去请求缓存中不存在的数据，导致所有的请求都怼到数据库上，从而数据库连接异常。</p>
 <ul>
 <li>解决方案:<ul>
