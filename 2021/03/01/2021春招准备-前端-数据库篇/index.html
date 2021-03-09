@@ -81,18 +81,20 @@
 
 
 
-<meta name="description" content="1、前端Vue生命周期 2、数据库事务 原子性（ Atomicity ）、一致性（ Consistency ）、隔离性（ Isolation ）和持久性（ Durability ）。这四个特性简称为 ACID 特性   原子性: 事务是数据库的逻辑工作单位，不可分割，事务中包含的各操作要么都做，要么都不做 一致性: 事务执行的结果必须是使数据库从一个一致性状态变到另一个一致性状态 隔离性: 一个事">
+<meta name="description" content="1、前端Vue生命周期 2、数据库事务 原子性（ Atomicity ）: 事务是数据库的逻辑工作单位，不可分割，事务中包含的各操作要么都做，要么都不做 一致性（ Consistency ）: 事务执行的结果必须是使数据库从一个一致性状态变到另一个一致性状态 隔离性（ Isolation ）: 一个事务的执行不能其它事务干扰 持续性（ Durability ）: 也称永久性，指一个事务一旦提交，它">
 <meta property="og:type" content="article">
-<meta property="og:title" content="前端-数据库篇-2021春招准备">
+<meta property="og:title" content="前端&#x2F;数据库&#x2F;Spring&#x2F;Java-2021春招准备">
 <meta property="og:url" content="zhangfuli.github.io/2021/03/01/2021春招准备-前端-数据库篇/index.html">
 <meta property="og:site_name" content="Hello, ZhangFuli">
-<meta property="og:description" content="1、前端Vue生命周期 2、数据库事务 原子性（ Atomicity ）、一致性（ Consistency ）、隔离性（ Isolation ）和持久性（ Durability ）。这四个特性简称为 ACID 特性   原子性: 事务是数据库的逻辑工作单位，不可分割，事务中包含的各操作要么都做，要么都不做 一致性: 事务执行的结果必须是使数据库从一个一致性状态变到另一个一致性状态 隔离性: 一个事">
+<meta property="og:description" content="1、前端Vue生命周期 2、数据库事务 原子性（ Atomicity ）: 事务是数据库的逻辑工作单位，不可分割，事务中包含的各操作要么都做，要么都不做 一致性（ Consistency ）: 事务执行的结果必须是使数据库从一个一致性状态变到另一个一致性状态 隔离性（ Isolation ）: 一个事务的执行不能其它事务干扰 持续性（ Durability ）: 也称永久性，指一个事务一旦提交，它">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/2021春招准备-前端篇/1.png">
-<meta property="og:updated_time" content="2021-03-05T08:25:33.004Z">
+<meta property="og:image" content="/images/2021春招准备-前端篇/2.png">
+<meta property="og:image" content="/images/2021春招准备-前端篇/3.png">
+<meta property="og:updated_time" content="2021-03-09T02:36:39.974Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="前端-数据库篇-2021春招准备">
-<meta name="twitter:description" content="1、前端Vue生命周期 2、数据库事务 原子性（ Atomicity ）、一致性（ Consistency ）、隔离性（ Isolation ）和持久性（ Durability ）。这四个特性简称为 ACID 特性   原子性: 事务是数据库的逻辑工作单位，不可分割，事务中包含的各操作要么都做，要么都不做 一致性: 事务执行的结果必须是使数据库从一个一致性状态变到另一个一致性状态 隔离性: 一个事">
+<meta name="twitter:title" content="前端&#x2F;数据库&#x2F;Spring&#x2F;Java-2021春招准备">
+<meta name="twitter:description" content="1、前端Vue生命周期 2、数据库事务 原子性（ Atomicity ）: 事务是数据库的逻辑工作单位，不可分割，事务中包含的各操作要么都做，要么都不做 一致性（ Consistency ）: 事务执行的结果必须是使数据库从一个一致性状态变到另一个一致性状态 隔离性（ Isolation ）: 一个事务的执行不能其它事务干扰 持续性（ Durability ）: 也称永久性，指一个事务一旦提交，它">
 <meta name="twitter:image" content="/images/2021春招准备-前端篇/1.png">
 
 
@@ -129,7 +131,7 @@
 
 
 
-  <title>前端-数据库篇-2021春招准备 | Hello, ZhangFuli</title>
+  <title>前端/数据库/Spring/Java-2021春招准备 | Hello, ZhangFuli</title>
   
 
 
@@ -327,7 +329,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">前端-数据库篇-2021春招准备</h1>
+          <h1 class="post-title" itemprop="name headline">前端/数据库/Spring/Java-2021春招准备</h1>
         
 
         <div class="post-meta">
@@ -388,19 +390,82 @@
 
       
         <h4 id="1、前端"><a href="#1、前端" class="headerlink" title="1、前端"></a>1、前端</h4><h5 id="Vue生命周期"><a href="#Vue生命周期" class="headerlink" title="Vue生命周期"></a>Vue生命周期</h5><p><img src="/images/2021春招准备-前端篇/1.png" alt="title"></p>
-<h4 id="2、数据库"><a href="#2、数据库" class="headerlink" title="2、数据库"></a>2、数据库</h4><h5 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h5><blockquote>
-<p>原子性（ Atomicity ）、一致性（ Consistency ）、隔离性（ Isolation ）和持久性（ Durability ）。这四个特性简称为 ACID 特性</p>
+<h4 id="2、数据库"><a href="#2、数据库" class="headerlink" title="2、数据库"></a>2、数据库</h4><h5 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h5><ul>
+<li>原子性（ Atomicity ）: 事务是数据库的逻辑工作单位，不可分割，事务中包含的各操作要么都做，要么都不做</li>
+<li>一致性（ Consistency ）: 事务执行的结果必须是使数据库从一个一致性状态变到另一个一致性状态</li>
+<li>隔离性（ Isolation ）: 一个事务的执行不能其它事务干扰</li>
+<li>持续性（ Durability ）: 也称永久性，指一个事务一旦提交，它对数据库中的数据的改变就应该是永久性的，不能回滚</li>
+</ul>
+<h5 id="索引"><a href="#索引" class="headerlink" title="索引:"></a>索引:</h5><p><strong>类型</strong></p>
+<ul>
+<li><p>唯一索引：索引的每一个索引值只对应唯一的数据记录</p>
+</li>
+<li><p>主键索引：在数据库关系图中为表定义主键将自动创建主键索引，主键索引是唯一索引的特定类型</p>
+</li>
+<li>聚集索引：表中行的物理顺序与键值的逻辑（索引）顺序相同。一个表只能包含一个聚集索引。 如果某索引不是聚集索引，则表中行的物理顺序与键值的逻辑顺序不匹配。与非聚集索引相比，聚集索引通常提供更快的数据访问速度。</li>
+</ul>
+<p><strong>实现方式</strong></p>
+<ul>
+<li><p>B+树：</p>
+<ul>
+<li>为了尽量保持树的平衡，当然红黑树是二叉树，但B+树就不是二叉树了，B+树一般来说比较矮胖，而红黑树就比较瘦高了</li>
+<li>如果经常需要同时对两个字段进行AND查询,那么使用两个单独索引不如建立一个复合索引，因为两个单独索引通常数据库只能使用其中一个，而使用复合索引因为索引本身就对应到两个字段上的，效率会有很大提高。</li>
+</ul>
+</li>
+<li><p>散列(Hash)索引:</p>
+<ul>
+<li>通过散列函数来定位的一种索引，不过很少有单独使用散列索引的，反而是散列文件组织用的比较多</li>
+<li>散列文件组织就是根据一个键通过散列计算把对应的记录都放到同一个桶中，这样的话相同的键值对应的记录就一定是放在同一个文件里了，也就减少了文件读取的次数，提高了效率。</li>
+</ul>
+</li>
+<li><p>位图索引:</p>
+<ul>
+<li>位图索引是一种针对多个字段的简单查询设计一种特殊的索引，只适用于字段值固定并且值的种类很少的情况，比如性别，只能有男和女，或者级别，状态等等，并且只有在同时对多个这样的字段查询时才能体现出位图的优势</li>
+<li>位图的基本思想就是对每一个条件都用0或者1来表示，如有5条记录，性别分别是男，女，男，男，女，那么如果使用位图索引就会建立两个位图，对应男的10110和对应女的01001,这样做有什么好处呢，就是如果同时对多个这种类型的字段进行and或or查询时，可以使用按位与和按位或来直接得到结果了</li>
+</ul>
+</li>
+</ul>
+<p><strong>查看是否命中索引</strong></p>
+<p>用到explain这个命令来查看一个这些SQL语句的执行计划</p>
+<h5 id="数据库隔离级别："><a href="#数据库隔离级别：" class="headerlink" title="数据库隔离级别："></a>数据库隔离级别：</h5><p><strong>事务并发可能出现的情况</strong></p>
+<ul>
+<li>脏读：一个事务读到了另一个未提交事务修改过的数据</li>
+<li>不可重复读（Non-Repeatable Read）：一个事务只能读到另一个已经提交的事务修改过的数据，并且其他事务每对该数据进行一次修改并提交后，该事务都能查询得到最新值。</li>
+<li>幻读（Phantom）：一个事务先根据某些条件查询出一些记录，之后另一个事务又向表中插入了符合这些条件的记录，原先的事务再次按照该条件查询时，能把另一个事务插入的记录也读出来</li>
+</ul>
+<p><img src="/images/2021春招准备-前端篇/2.png" alt="title"></p>
+<p><strong>隔离级别</strong></p>
+<blockquote>
+<p>隔离级别比较：可串行化&gt;可重复读&gt;读已提交&gt;读未提交</p>
 </blockquote>
 <ul>
-<li>原子性: 事务是数据库的逻辑工作单位，不可分割，事务中包含的各操作要么都做，要么都不做</li>
-<li>一致性: 事务执行的结果必须是使数据库从一个一致性状态变到另一个一致性状态</li>
-<li>隔离性: 一个事务的执行不能其它事务干扰</li>
-<li>持续性: 也称永久性，指一个事务一旦提交，它对数据库中的数据的改变就应该是永久性的，不能回滚</li>
+<li>读未提交: 事务A可以读取到事务B修改过但未提交的数据<ul>
+<li>可能发生脏读、不可重复读和幻读问题</li>
 </ul>
-<p>隔离级别</p>
-<p>如何判断SQL有没有命中索引</p>
+</li>
+<li>读已提交: 事务B只能在事务A修改过并且已提交后才能读取到事务B修改的数据<ul>
+<li>解决了脏读的问题，但可能发生不可重复读和幻读问题</li>
+</ul>
+</li>
+<li>可重复读: 在可重复读隔离级别下，事务B只能在事务A修改过数据并提交后，自己也提交事务后，才能读取到事务B修改的数据<ul>
+<li>解决了脏读和不可重复读的问题，但可能发生幻读问题</li>
+</ul>
+</li>
+<li>可串行化: <ul>
+<li>通过加锁实现（读锁和写锁）</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/2021春招准备-前端篇/3.png" alt="title"></p>
+<h4 id="3、Spring"><a href="#3、Spring" class="headerlink" title="3、Spring"></a>3、Spring</h4><h4 id="启动过程"><a href="#启动过程" class="headerlink" title="启动过程"></a>启动过程</h4><ul>
+<li>new了一个SpringApplication对象，使用SPI技术加载spring.factories文件中ApplicationContextInitializer、ApplicationListener 接口实例</li>
+<li>调用SpringApplication.run() 方法</li>
+<li>调用createApplicationContext()方法创建上下文对象，创建上下文对象同时会注册spring的核心组件类（ConfigurationClassPostProcessor 、AutowiredAnnotationBeanPostProcessor 等）</li>
+<li>调用refreshContext() 方法启动Spring容器和内置的Servlet容器</li>
+</ul>
 <p>设计索引的技巧</p>
 <p>乐观锁、悲观锁</p>
+<p>Java 锁 多线程</p>
 
       
     </div>
@@ -628,7 +693,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、前端"><span class="nav-number">1.</span> <span class="nav-text">1、前端</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Vue生命周期"><span class="nav-number">1.1.</span> <span class="nav-text">Vue生命周期</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、数据库"><span class="nav-number">2.</span> <span class="nav-text">2、数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#事务"><span class="nav-number">2.1.</span> <span class="nav-text">事务</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、前端"><span class="nav-number">1.</span> <span class="nav-text">1、前端</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Vue生命周期"><span class="nav-number">1.1.</span> <span class="nav-text">Vue生命周期</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、数据库"><span class="nav-number">2.</span> <span class="nav-text">2、数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#事务"><span class="nav-number">2.1.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#索引"><span class="nav-number">2.2.</span> <span class="nav-text">索引:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据库隔离级别："><span class="nav-number">2.3.</span> <span class="nav-text">数据库隔离级别：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、Spring"><span class="nav-number">3.</span> <span class="nav-text">3、Spring</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动过程"><span class="nav-number">4.</span> <span class="nav-text">启动过程</span></a></li></ol></div>
             
 
           </div>

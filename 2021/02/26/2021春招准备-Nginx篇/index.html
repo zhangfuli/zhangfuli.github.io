@@ -81,19 +81,22 @@
 
 
 
-<meta name="description" content="1、Nginx模块化设计  核心模块  提供错误日志记录、配置文件解析、事件驱动机制、进程管理等核心功能。  标准 HTTP 模块 HTTP 协议解析相关的功能，如：端口配置、网页编码设置、HTTP 响应头设置等。  可选 HTTP 模块   主要用于扩展标准的 HTTP 功能，让 Nginx 能处理一些特殊的服务，如：Flash 多媒体传输、解析 GeoIP 请求、SSL 支持等。  邮件服务模">
+<meta name="description" content="1、Nginx1、Nginx模块化设计  核心模块  提供错误日志记录、配置文件解析、事件驱动机制、进程管理等核心功能。  标准 HTTP 模块 HTTP 协议解析相关的功能，如：端口配置、网页编码设置、HTTP 响应头设置等。  可选 HTTP 模块   主要用于扩展标准的 HTTP 功能，让 Nginx 能处理一些特殊的服务，如：Flash 多媒体传输、解析 GeoIP 请求、SSL 支持等。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nginx篇-2021春招准备">
 <meta property="og:url" content="zhangfuli.github.io/2021/02/26/2021春招准备-Nginx篇/index.html">
 <meta property="og:site_name" content="Hello, ZhangFuli">
-<meta property="og:description" content="1、Nginx模块化设计  核心模块  提供错误日志记录、配置文件解析、事件驱动机制、进程管理等核心功能。  标准 HTTP 模块 HTTP 协议解析相关的功能，如：端口配置、网页编码设置、HTTP 响应头设置等。  可选 HTTP 模块   主要用于扩展标准的 HTTP 功能，让 Nginx 能处理一些特殊的服务，如：Flash 多媒体传输、解析 GeoIP 请求、SSL 支持等。  邮件服务模">
+<meta property="og:description" content="1、Nginx1、Nginx模块化设计  核心模块  提供错误日志记录、配置文件解析、事件驱动机制、进程管理等核心功能。  标准 HTTP 模块 HTTP 协议解析相关的功能，如：端口配置、网页编码设置、HTTP 响应头设置等。  可选 HTTP 模块   主要用于扩展标准的 HTTP 功能，让 Nginx 能处理一些特殊的服务，如：Flash 多媒体传输、解析 GeoIP 请求、SSL 支持等。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/2021年春招准备-Nginx篇/1.png">
 <meta property="og:image" content="/images/2021年春招准备-Nginx篇/2.png">
-<meta property="og:updated_time" content="2021-03-03T02:09:38.519Z">
+<meta property="og:image" content="/images/2021春招准备-服务器运维技巧篇/3.png">
+<meta property="og:image" content="/images/2021年春招准备-Nginx篇/3.png">
+<meta property="og:image" content="/images/2021年春招准备-Nginx篇/4.png">
+<meta property="og:updated_time" content="2021-03-09T01:34:53.621Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx篇-2021春招准备">
-<meta name="twitter:description" content="1、Nginx模块化设计  核心模块  提供错误日志记录、配置文件解析、事件驱动机制、进程管理等核心功能。  标准 HTTP 模块 HTTP 协议解析相关的功能，如：端口配置、网页编码设置、HTTP 响应头设置等。  可选 HTTP 模块   主要用于扩展标准的 HTTP 功能，让 Nginx 能处理一些特殊的服务，如：Flash 多媒体传输、解析 GeoIP 请求、SSL 支持等。  邮件服务模">
+<meta name="twitter:description" content="1、Nginx1、Nginx模块化设计  核心模块  提供错误日志记录、配置文件解析、事件驱动机制、进程管理等核心功能。  标准 HTTP 模块 HTTP 协议解析相关的功能，如：端口配置、网页编码设置、HTTP 响应头设置等。  可选 HTTP 模块   主要用于扩展标准的 HTTP 功能，让 Nginx 能处理一些特殊的服务，如：Flash 多媒体传输、解析 GeoIP 请求、SSL 支持等。">
 <meta name="twitter:image" content="/images/2021年春招准备-Nginx篇/1.png">
 
 
@@ -388,7 +391,7 @@
       
 
       
-        <h4 id="1、Nginx模块化设计"><a href="#1、Nginx模块化设计" class="headerlink" title="1、Nginx模块化设计"></a>1、Nginx模块化设计</h4><p><img src="/images/2021年春招准备-Nginx篇/1.png" alt="title"></p>
+        <h4 id="1、Nginx"><a href="#1、Nginx" class="headerlink" title="1、Nginx"></a>1、Nginx</h4><h5 id="1、Nginx模块化设计"><a href="#1、Nginx模块化设计" class="headerlink" title="1、Nginx模块化设计"></a>1、Nginx模块化设计</h5><p><img src="/images/2021年春招准备-Nginx篇/1.png" alt="title"></p>
 <ul>
 <li><strong>核心模块</strong></li>
 </ul>
@@ -409,16 +412,16 @@
 <li><strong>第三方模块</strong></li>
 </ul>
 <p>扩展 Nginx 服务器应用，完成开发者自定义功能，如：Json 支持、Lua 支持等。</p>
-<h4 id="2、Nginx架构"><a href="#2、Nginx架构" class="headerlink" title="2、Nginx架构"></a>2、Nginx架构</h4><p><img src="/images/2021年春招准备-Nginx篇/2.png" alt="title"></p>
+<h5 id="2、Nginx架构"><a href="#2、Nginx架构" class="headerlink" title="2、Nginx架构"></a>2、Nginx架构</h5><p><img src="/images/2021年春招准备-Nginx篇/2.png" alt="title"></p>
 <ul>
 <li>Nginx默认采用多进程工作方式，Nginx启动后，会运行一个master进程和多个worker进程</li>
 <li>一般来说，当一个连接进来后，所有worker都会收到通知，但是只有一个进程可以接受这个连接请求，其它的都失败，这是所谓的惊群现象。</li>
 <li>nginx提供了一个accept_mutex（互斥锁），有了这把锁之后，同一时刻，就只会有一个进程在accpet连接，这样就不会有惊群问题了。</li>
 <li>每个worker进程都有一个独立的连接池</li>
 </ul>
-<h4 id="3、反向代理"><a href="#3、反向代理" class="headerlink" title="3、反向代理"></a>3、反向代理</h4><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="attribute">upstream</span> cluster &#123;</span><br><span class="line">        <span class="attribute">server</span> srv1;</span><br><span class="line">        <span class="attribute">server</span> srv2;</span><br><span class="line">        <span class="attribute">server</span> srv3;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line"> </span><br><span class="line">        <span class="attribute">location</span> / &#123;</span><br><span class="line">            <span class="attribute">proxy_pass</span> http://cluster;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="3、反向代理"><a href="#3、反向代理" class="headerlink" title="3、反向代理"></a>3、反向代理</h5><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="attribute">upstream</span> cluster &#123;</span><br><span class="line">        <span class="attribute">server</span> srv1;</span><br><span class="line">        <span class="attribute">server</span> srv2;</span><br><span class="line">        <span class="attribute">server</span> srv3;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line"> </span><br><span class="line">        <span class="attribute">location</span> / &#123;</span><br><span class="line">            <span class="attribute">proxy_pass</span> http://cluster;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>默认的HTTP负载均衡算法 - 加权轮询</p>
-<h4 id="4、Nginx调度算法"><a href="#4、Nginx调度算法" class="headerlink" title="4、Nginx调度算法"></a>4、Nginx调度算法</h4><ul>
+<h5 id="4、Nginx调度算法"><a href="#4、Nginx调度算法" class="headerlink" title="4、Nginx调度算法"></a>4、Nginx调度算法</h5><ul>
 <li><strong>轮询:</strong> 按时间顺序逐一分配到不同的后端服务器</li>
 </ul>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">upstream</span> lb_demo &#123;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">172.16.255.194:9001</span>;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">172.16.255.195:9001</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -450,17 +453,17 @@
 <li><strong>url_hash</strong>: 按访问的url的hash结果分配请求，是每个url定向到同一后端服务器上</li>
 </ul>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">upstream</span> lb_demo &#123;</span><br><span class="line">        url_hash;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">172.16.255.194:9001</span>;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">172.16.255.195:9001</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h4 id="5、nginx配置证书"><a href="#5、nginx配置证书" class="headerlink" title="5、nginx配置证书"></a>5、nginx配置证书</h4><blockquote>
+<h5 id="5、nginx配置证书"><a href="#5、nginx配置证书" class="headerlink" title="5、nginx配置证书"></a>5、nginx配置证书</h5><blockquote>
 <p>使用openssl生成证书</p>
 </blockquote>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">	<span class="attribute">listen</span> <span class="number">443</span> ssl;</span><br><span class="line">	<span class="attribute">server_name</span> www.yourdomain.com;</span><br><span class="line">	<span class="attribute">ssl_certificate</span> /usr/local/ssl/nginx.crt;</span><br><span class="line">	<span class="attribute">ssl_certificate_key</span> /usr/local/ssl/nginx.key;</span><br><span class="line">	<span class="attribute">ssl_session_cache</span>    shared:SSL:<span class="number">1m</span>;</span><br><span class="line">	<span class="attribute">ssl_session_timeout</span>  <span class="number">5m</span>;</span><br><span class="line">	<span class="comment">#禁止在header中出现服务器版本，防止黑客利用版本漏洞攻击</span></span><br><span class="line">	<span class="attribute">server_tokens</span> <span class="literal">off</span>;</span><br><span class="line">	<span class="comment">#如果是全站 HTTPS 并且不考虑 HTTP 的话，可以加入 HSTS 告诉你的浏览器本网站全站加密，并且强制用 HTTPS 访问</span></span><br><span class="line">	<span class="attribute">fastcgi_param</span>   HTTPS               <span class="literal">on</span>;</span><br><span class="line">	<span class="attribute">fastcgi_param</span>   HTTP_SCHEME         https;</span><br><span class="line">	<span class="attribute">access_log</span> /usr/local/nginx/logs/httpsaccess.log;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="6、SSL加密的过程"><a href="#6、SSL加密的过程" class="headerlink" title="6、SSL加密的过程"></a>6、SSL加密的过程</h4><ul>
+<h5 id="6、SSL加密的过程"><a href="#6、SSL加密的过程" class="headerlink" title="6、SSL加密的过程"></a>6、SSL加密的过程</h5><ul>
 <li>对称加密: 使用相同的密钥进行加密解密，效率高</li>
 <li>非对称加密: 客户端(公钥)加密，服务器(私钥)解密，安全</li>
 <li>非对称加密+对称加密: 非对称加密过程保护对称密钥的交换，然后采用对称密钥进行加密通信</li>
 <li>CA认证: 在SSL加密过程，客户端必须能够验证自己收到的公钥的正确性(防止被第三方进行通信劫持)，而这个验证通过CA认证，数字证书认证机构处于客户端与服务器双方都可信赖的第三方机构的立场上</li>
 </ul>
-<h4 id="7、nginx到upstream这个网络出现问题出现502-Bad-Gateway-比较多，如何解决？"><a href="#7、nginx到upstream这个网络出现问题出现502-Bad-Gateway-比较多，如何解决？" class="headerlink" title="7、nginx到upstream这个网络出现问题出现502(Bad Gateway)比较多，如何解决？"></a>7、nginx到upstream这个网络出现问题出现502(Bad Gateway)比较多，如何解决？</h4><ul>
+<h5 id="7、nginx到upstream这个网络出现问题出现502-Bad-Gateway-比较多，如何解决？"><a href="#7、nginx到upstream这个网络出现问题出现502-Bad-Gateway-比较多，如何解决？" class="headerlink" title="7、nginx到upstream这个网络出现问题出现502(Bad Gateway)比较多，如何解决？"></a>7、nginx到upstream这个网络出现问题出现502(Bad Gateway)比较多，如何解决？</h5><ul>
 <li>php-fpm的进程是否启动 ,没启动肯定报这个错误</li>
 <li><p>tcp连接数超过了fpm的进程数<code>netstat -altupn|grep EST|grep php|wc -l</code></p>
 </li>
@@ -486,9 +489,9 @@
 </ul>
 </li>
 </ul>
-<h4 id="8、nginx-504错误排查"><a href="#8、nginx-504错误排查" class="headerlink" title="8、nginx 504错误排查"></a>8、nginx 504错误排查</h4><p>504 Gateway Time-out的含义是所请求的网关没有请求到，简单来说就是没有请求到可以执行的PHP-CGI。</p>
+<h5 id="8、nginx-504错误排查"><a href="#8、nginx-504错误排查" class="headerlink" title="8、nginx 504错误排查"></a>8、nginx 504错误排查</h5><p>504 Gateway Time-out的含义是所请求的网关没有请求到，简单来说就是没有请求到可以执行的PHP-CGI。</p>
 <p>一般来说Nginx 502 Bad Gateway和php-fpm.conf的设置有关，而Nginx 504 Gateway Time-out则是与nginx.conf的设置有关</p>
-<h4 id="9、nginx-400-错误排查"><a href="#9、nginx-400-错误排查" class="headerlink" title="9、nginx 400 错误排查"></a>9、nginx 400 错误排查</h4><blockquote>
+<h5 id="9、nginx-400-错误排查"><a href="#9、nginx-400-错误排查" class="headerlink" title="9、nginx 400 错误排查"></a>9、nginx 400 错误排查</h5><blockquote>
 <p>由于request header过大</p>
 </blockquote>
 <ul>
@@ -500,12 +503,12 @@
 </ul>
 </li>
 </ul>
-<h4 id="10、事件驱动模型"><a href="#10、事件驱动模型" class="headerlink" title="10、事件驱动模型"></a>10、<strong>事件驱动模型</strong></h4><ul>
+<h5 id="10、事件驱动模型"><a href="#10、事件驱动模型" class="headerlink" title="10、事件驱动模型"></a>10、<strong>事件驱动模型</strong></h5><ul>
 <li>select模型</li>
 <li>poll模型</li>
 <li>epoll模型。</li>
 </ul>
-<h4 id="11、nginx与apache的区别"><a href="#11、nginx与apache的区别" class="headerlink" title="11、nginx与apache的区别"></a>11、nginx与apache的区别</h4><ul>
+<h5 id="11、nginx与apache的区别"><a href="#11、nginx与apache的区别" class="headerlink" title="11、nginx与apache的区别"></a>11、nginx与apache的区别</h5><ul>
 <li>nginx<ul>
 <li>轻量级，采用C进行编写，同样的web服务，会占用更少的内存及资源</li>
 <li>抗并发</li>
@@ -523,6 +526,53 @@
 <li>超稳定，一个进程死掉时，会影响到多个用户的使用，稳定性差</li>
 <li>在处理动态请求有优势，nginx在这方面是鸡肋，一般动态请求要apache去做，nginx适合静态和反向</li>
 </ul>
+</li>
+</ul>
+<h4 id="2、服务注册与服务发现机制"><a href="#2、服务注册与服务发现机制" class="headerlink" title="2、服务注册与服务发现机制"></a>2、服务注册与服务发现机制</h4><h5 id="为什么需要服务注册与发现机制"><a href="#为什么需要服务注册与发现机制" class="headerlink" title="为什么需要服务注册与发现机制"></a>为什么需要服务注册与发现机制</h5><p>将一个大的单应用拆解成多个独立自治的小服务，如果在没有服务发现的机制下</p>
+<h5 id="服务发现"><a href="#服务发现" class="headerlink" title="服务发现"></a>服务发现</h5><p>服务的消费者就需要有一个强大的服务发现机制，服务消费者使用这个机制获取服务提供者的网络信息。即使服务提供者的信息发生变化，服务消费者也无须修改配置文件。</p>
+<p>在各个服务在启动时，<strong>将自己的网络地址等信息注册到服务发现组件</strong>中，服务发现组件会存储这些信息。<br>服务消费者可从服务发现组件中查询提供者到网络地址，并使用该地址调用服务提供者的接口。</p>
+<p>各个服务与服务发现组件使用一定机制（例如<strong>心跳机制</strong>）通信。服务发现组件如果长时间无法与某微服务实例通信，就会注销该实例。<br>微服务网络地址发生变更时，会重新注册到微服务发现组件。</p>
+<h4 id="3、Eureka"><a href="#3、Eureka" class="headerlink" title="3、Eureka"></a>3、Eureka</h4><blockquote>
+<p>保证AP，Zookeeper是CP</p>
+</blockquote>
+<p><strong>组成</strong></p>
+<ul>
+<li><p>Eureka Server提供服务注册服务，各个节点启动后，会在Eureka Server中进行注册，这样EurekaServer中的服务<strong>注册表</strong>中将会存储所有可用服务节点的信息，服务节点的信息可以在界面中直观的看到。</p>
+</li>
+<li><p>Eureka Client是一个java客户端，用于简化与Eureka Server的交互，客户端同时也就是一个内置的、使用轮询(round-robin)负载算法的负载均衡器。</p>
+</li>
+</ul>
+<p><strong>原理</strong></p>
+<ul>
+<li>Eureka Server 提供服务发现的能力，各个微服务启动时，会向 Eureka Server 注册自己的信息，Eureka Server 会存储这些信息</li>
+<li>Eureka Client 是一个 Java 客户端，用于简化与 Eureka Server 的交互</li>
+<li>微服务启动后会周期性（默认30秒）的向 Eureka Server 发送心跳以续约自己的“租期“</li>
+<li>如果 Eureka Server 在一定时间内没有接收到某个服务实例到心跳，那么会注销该实例</li>
+<li>默认情况下，Eureka Server 同时也是 Eureka Client，多个 Eureka Server 实例之间是通过复制的方式来实现服务注册表中数据的同步</li>
+<li>Eureka Client 会缓存注册表中的信息。无须微服务每次请求都查询 Eureka Server</li>
+</ul>
+<p><img src="/images/2021春招准备-服务器运维技巧篇/3.png" alt="title"></p>
+<h4 id="ServiceMesh"><a href="#ServiceMesh" class="headerlink" title="ServiceMesh"></a>ServiceMesh</h4><blockquote>
+<p>微服务化、多语言和容器化发展的趋势，企业迫切需要一种轻量级的服务发现机制</p>
+<p>Nginx(重)、Eureka(只适合单语言)</p>
+</blockquote>
+<ul>
+<li>业务代码进程(相当于主驾驶)共享一个代理(相当于边车)</li>
+<li>代理负责服务发现和负载均衡，还负责动态路由、容错限流、监控度量和安全日志等功能，这些功能是具体业务无关的，属于跨横切面关注点(Cross-Cutting Concerns)范畴</li>
+<li>ServiceMesh比较正式的术语也叫数据面板(DataPlane)，</li>
+<li>数据面板对应的还有一个独立部署的控制面板(ControlPlane)，用来集中配置和管理数据面板，也可以对接各种服务发现机制(如K8S服务发现)</li>
+</ul>
+<p><img src="/images/2021年春招准备-Nginx篇/3.png" alt="title"></p>
+<p><strong>Istio</strong></p>
+<p><img src="/images/2021年春招准备-Nginx篇/4.png" alt="title"></p>
+<ul>
+<li><p>Istio-Manager：负责服务发现，路由分流，熔断限流等配置数据的管理和下发</p>
+</li>
+<li><p>Mixer：负责收集代理上采集的度量数据，进行集中监控</p>
+</li>
+<li><p>Istio-Auth：负责安全控制数据的管理和下发</p>
+</li>
+<li><p>Envoy是目前Istio主力支持的数据面板代理，其它主流代理如nginx/kong等也正在陆续加入这个阵营</p>
 </li>
 </ul>
 
@@ -756,7 +806,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、Nginx模块化设计"><span class="nav-number">1.</span> <span class="nav-text">1、Nginx模块化设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、Nginx架构"><span class="nav-number">2.</span> <span class="nav-text">2、Nginx架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、反向代理"><span class="nav-number">3.</span> <span class="nav-text">3、反向代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、Nginx调度算法"><span class="nav-number">4.</span> <span class="nav-text">4、Nginx调度算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、nginx配置证书"><span class="nav-number">5.</span> <span class="nav-text">5、nginx配置证书</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6、SSL加密的过程"><span class="nav-number">6.</span> <span class="nav-text">6、SSL加密的过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7、nginx到upstream这个网络出现问题出现502-Bad-Gateway-比较多，如何解决？"><span class="nav-number">7.</span> <span class="nav-text">7、nginx到upstream这个网络出现问题出现502(Bad Gateway)比较多，如何解决？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8、nginx-504错误排查"><span class="nav-number">8.</span> <span class="nav-text">8、nginx 504错误排查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9、nginx-400-错误排查"><span class="nav-number">9.</span> <span class="nav-text">9、nginx 400 错误排查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10、事件驱动模型"><span class="nav-number">10.</span> <span class="nav-text">10、事件驱动模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11、nginx与apache的区别"><span class="nav-number">11.</span> <span class="nav-text">11、nginx与apache的区别</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、Nginx"><span class="nav-number">1.</span> <span class="nav-text">1、Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、Nginx模块化设计"><span class="nav-number">1.1.</span> <span class="nav-text">1、Nginx模块化设计</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、Nginx架构"><span class="nav-number">1.2.</span> <span class="nav-text">2、Nginx架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、反向代理"><span class="nav-number">1.3.</span> <span class="nav-text">3、反向代理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4、Nginx调度算法"><span class="nav-number">1.4.</span> <span class="nav-text">4、Nginx调度算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5、nginx配置证书"><span class="nav-number">1.5.</span> <span class="nav-text">5、nginx配置证书</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6、SSL加密的过程"><span class="nav-number">1.6.</span> <span class="nav-text">6、SSL加密的过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7、nginx到upstream这个网络出现问题出现502-Bad-Gateway-比较多，如何解决？"><span class="nav-number">1.7.</span> <span class="nav-text">7、nginx到upstream这个网络出现问题出现502(Bad Gateway)比较多，如何解决？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8、nginx-504错误排查"><span class="nav-number">1.8.</span> <span class="nav-text">8、nginx 504错误排查</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9、nginx-400-错误排查"><span class="nav-number">1.9.</span> <span class="nav-text">9、nginx 400 错误排查</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10、事件驱动模型"><span class="nav-number">1.10.</span> <span class="nav-text">10、事件驱动模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11、nginx与apache的区别"><span class="nav-number">1.11.</span> <span class="nav-text">11、nginx与apache的区别</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、服务注册与服务发现机制"><span class="nav-number">2.</span> <span class="nav-text">2、服务注册与服务发现机制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么需要服务注册与发现机制"><span class="nav-number">2.1.</span> <span class="nav-text">为什么需要服务注册与发现机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#服务发现"><span class="nav-number">2.2.</span> <span class="nav-text">服务发现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、Eureka"><span class="nav-number">3.</span> <span class="nav-text">3、Eureka</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ServiceMesh"><span class="nav-number">4.</span> <span class="nav-text">ServiceMesh</span></a></li></ol></div>
             
 
           </div>
