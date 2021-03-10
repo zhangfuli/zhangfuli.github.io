@@ -88,7 +88,7 @@
 <meta property="og:site_name" content="Hello, ZhangFuli">
 <meta property="og:description" content="1、理解linux下的loadload average数据是每隔5秒钟检查一次活跃的进程数，然后按特定算法计算出的数值，然后用这个值和当前机器的cpu核数进行相除，得到的值 12load = process/total_cpu_cores load average: 0.09, 0.05, 0.01 负载的好和坏： 需要根据机器当前的进程数与CPU总核数的比值（process_cores_valu">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-03-06T09:04:25.517Z">
+<meta property="og:updated_time" content="2021-03-09T11:09:02.935Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux篇-2021春招准备">
 <meta name="twitter:description" content="1、理解linux下的loadload average数据是每隔5秒钟检查一次活跃的进程数，然后按特定算法计算出的数值，然后用这个值和当前机器的cpu核数进行相除，得到的值 12load = process/total_cpu_cores load average: 0.09, 0.05, 0.01 负载的好和坏： 需要根据机器当前的进程数与CPU总核数的比值（process_cores_valu">
@@ -481,6 +481,11 @@
 </ul>
 </li>
 </ul>
+<h4 id="4、机器的磁盘满了，删日志没有反应，可能是什么问题？"><a href="#4、机器的磁盘满了，删日志没有反应，可能是什么问题？" class="headerlink" title="4、机器的磁盘满了，删日志没有反应，可能是什么问题？"></a>4、机器的磁盘满了，删日志没有反应，可能是什么问题？</h4><p>在Linux或者Unix系统中，通过rm或者文件管理器删除文件将会从文件系统的目录结构上解除链接(unlink)</p>
+<p>然而如果文件是被打开的（有一个进程正在使用），那么进程将仍然可以读取该文件，磁盘空间也一直被占用。</p>
+<p>使用命令：<strong>/usr/sbin/lsof|grep deleted</strong> </p>
+<p>确认删除文件是否被占用</p>
+<p>kill -9 pid值 杀掉进程</p>
 
       
     </div>
@@ -712,7 +717,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、理解linux下的load"><span class="nav-number">1.</span> <span class="nav-text">1、理解linux下的load</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#top-字段：按f-可以选择相关参数-按d标示是否显示-按q标示退出-t切换CPU"><span class="nav-number">1.1.</span> <span class="nav-text">top 字段：按f, 可以选择相关参数; 按d标示是否显示; 按q标示退出; t切换CPU</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他："><span class="nav-number">1.2.</span> <span class="nav-text">其他：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、常见命令"><span class="nav-number">2.</span> <span class="nav-text">2、常见命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、服务器响应变慢排查"><span class="nav-number">3.</span> <span class="nav-text">3、服务器响应变慢排查</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、理解linux下的load"><span class="nav-number">1.</span> <span class="nav-text">1、理解linux下的load</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#top-字段：按f-可以选择相关参数-按d标示是否显示-按q标示退出-t切换CPU"><span class="nav-number">1.1.</span> <span class="nav-text">top 字段：按f, 可以选择相关参数; 按d标示是否显示; 按q标示退出; t切换CPU</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他："><span class="nav-number">1.2.</span> <span class="nav-text">其他：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、常见命令"><span class="nav-number">2.</span> <span class="nav-text">2、常见命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、服务器响应变慢排查"><span class="nav-number">3.</span> <span class="nav-text">3、服务器响应变慢排查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、机器的磁盘满了，删日志没有反应，可能是什么问题？"><span class="nav-number">4.</span> <span class="nav-text">4、机器的磁盘满了，删日志没有反应，可能是什么问题？</span></a></li></ol></div>
             
 
           </div>

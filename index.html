@@ -963,7 +963,7 @@ for循环从列表[1,2,3]中取元素，这种遍历过程就被称作迭代
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2021/02/26/2021春招准备-服务器运维技巧篇/">
+    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2021/02/26/2021春招准备-设计模式篇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhangfuli">
@@ -982,7 +982,7 @@ for循环从列表[1,2,3]中取元素，这种遍历过程就被称作迭代
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/02/26/2021春招准备-服务器运维技巧篇/" itemprop="url">服务器运维技巧篇-2021春招准备</a></h1>
+                <a class="post-title-link" href="/2021/02/26/2021春招准备-设计模式篇/" itemprop="url">设计模式篇-2021春招准备</a></h1>
         
 
         <div class="post-meta">
@@ -1034,13 +1034,16 @@ for循环从列表[1,2,3]中取元素，这种遍历过程就被称作迭代
       
         
           
-          1、机器的磁盘满了，删日志没有反应，可能是什么问题？在Linux或者Unix系统中，通过rm或者文件管理器删除文件将会从文件系统的目录结构上解除链接(unlink)
-然而如果文件是被打开的（有一个进程正在使用），那么进程将仍然可以读取该文件，磁盘空间也一直被占用。
-使用命令：/usr/sbin/ls
+          1、秒杀场景
+隔离:
+
+系统隔离。系统隔离更多是运行时的隔离，可以通过分组部署的方式和另外99%分开。秒杀还申请了单独的域名，目的也是让请求落到不同的集群中。
+
+数据隔离。秒杀所调用的数据大部分都是热数据，比如会启用单独cache集群或MySQL数据库来放热点数据，目前也是不想0.01%的数据影响另
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/02/26/2021春招准备-服务器运维技巧篇/#more" rel="contents">
+            <a class="btn" href="/2021/02/26/2021春招准备-设计模式篇/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

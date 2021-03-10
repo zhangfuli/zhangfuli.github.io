@@ -90,8 +90,9 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/2021春招准备-前端篇/1.png">
 <meta property="og:image" content="/images/2021春招准备-前端篇/2.png">
+<meta property="og:image" content="/images/2021春招准备-前端篇/4.png">
 <meta property="og:image" content="/images/2021春招准备-前端篇/3.png">
-<meta property="og:updated_time" content="2021-03-09T02:36:39.974Z">
+<meta property="og:updated_time" content="2021-03-09T11:34:15.276Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端&#x2F;数据库&#x2F;Spring&#x2F;Java-2021春招准备">
 <meta name="twitter:description" content="1、前端Vue生命周期 2、数据库事务 原子性（ Atomicity ）: 事务是数据库的逻辑工作单位，不可分割，事务中包含的各操作要么都做，要么都不做 一致性（ Consistency ）: 事务执行的结果必须是使数据库从一个一致性状态变到另一个一致性状态 隔离性（ Isolation ）: 一个事务的执行不能其它事务干扰 持续性（ Durability ）: 也称永久性，指一个事务一旦提交，它">
@@ -396,7 +397,10 @@
 <li>隔离性（ Isolation ）: 一个事务的执行不能其它事务干扰</li>
 <li>持续性（ Durability ）: 也称永久性，指一个事务一旦提交，它对数据库中的数据的改变就应该是永久性的，不能回滚</li>
 </ul>
-<h5 id="索引"><a href="#索引" class="headerlink" title="索引:"></a>索引:</h5><p><strong>类型</strong></p>
+<h5 id="索引"><a href="#索引" class="headerlink" title="索引:"></a>索引:</h5><blockquote>
+<p>索引可以加快数据库的检索速度，但是会降低新增、修改、删除操作的速度</p>
+</blockquote>
+<p><strong>类型</strong></p>
 <ul>
 <li><p>唯一索引：索引的每一个索引值只对应唯一的数据记录</p>
 </li>
@@ -434,6 +438,55 @@
 <li>幻读（Phantom）：一个事务先根据某些条件查询出一些记录，之后另一个事务又向表中插入了符合这些条件的记录，原先的事务再次按照该条件查询时，能把另一个事务插入的记录也读出来</li>
 </ul>
 <p><img src="/images/2021春招准备-前端篇/2.png" alt="title"></p>
+<h5 id="数据库两种引擎"><a href="#数据库两种引擎" class="headerlink" title="数据库两种引擎"></a>数据库两种引擎</h5><p><img src="/images/2021春招准备-前端篇/4.png" alt="title"></p>
+<ul>
+<li><p>Innodb引擎</p>
+<ul>
+<li>Innodb引擎提供了对数据库ACID事务的支持，并且实现了SQL标准的四种隔离级别</li>
+<li>该引擎提供了行级锁和外键约束，它的设计目标是处理大容量数据库系统，它本身其实就是基于MySQL后台的完整数据库系统，MySQL运行时Innodb会在内存中建立缓冲池，用于缓冲数据和索引。</li>
+<li>该引擎不支持FULLTEXT类型的索引，而且它没有保存表的行数，当<code>SELECT COUNT(*) FROM TABLE</code>时需要扫描全表。</li>
+<li>由于锁的粒度更小，写操作不会锁定全表，所以在并发较高时，使用Innodb引擎会提升效率。但是使用行级锁也不是绝对的，如果在执行一个SQL语句时MySQL不能确定要扫描的范围，InnoDB表同样会锁全表。</li>
+</ul>
+</li>
+<li><p>MyISAM引擎</p>
+<ul>
+<li>MyISAM是MySQL默认的引擎，但是它没有提供对数据库事务的支持，</li>
+<li>不支持行级锁和外键，因此当<code>INSERT(插入)</code>或<code>UPDATE(更新)</code>数据时即写操作需要锁定整个表，效率便会低一些。</li>
+<li>MyISAM中存储了表的行数，<code>SELECT COUNT(*) FROM TABLE</code>时只需要直接读取已经保存好的值而不需要进行全表扫描</li>
+<li>如果表的读操作远远多于写操作且不需要数据库事务的支持，那么MyISAM也是很好的选择。</li>
+</ul>
+</li>
+</ul>
+<p><strong>主要区别</strong></p>
+<ul>
+<li><p>MyISAM是非事务安全的，而InnoDB是事务安全的</p>
+</li>
+<li><p>MyISAM锁的粒度是表级的，而InnoDB支持行级锁</p>
+</li>
+<li><p>MyISAM支持全文类型索引，而InnoDB不支持全文索引</p>
+</li>
+<li><p>MyISAM相对简单，效率上要优于InnoDB，小型应用可以考虑使用MyISAM</p>
+</li>
+<li><p>MyISAM表保存成文件形式，跨平台使用更加方便</p>
+</li>
+</ul>
+<p><strong>选择</strong></p>
+<ul>
+<li><p>InnoDB</p>
+<ul>
+<li>支持事务处理，支持外键，支持崩溃修复能力和并发控制</li>
+<li>需要对事务的完整性要求比较高（比如银行），要求实现并发控制（比如售票），那选择InnoDB有很大的优势</li>
+<li>需要频繁的更新、删除操作的数据库，也可以选择InnoDB，因为支持事务的提交（commit）和回滚（rollback）。 </li>
+</ul>
+</li>
+<li><p>MyISAM</p>
+<ul>
+<li>插入数据快，空间和内存使用比较低</li>
+<li>主要是用于插入新记录和读出记录，那么选择MyISAM能实现处理高效率。</li>
+<li>应用的完整性、并发性要求比较低，也可以使用</li>
+</ul>
+</li>
+</ul>
 <p><strong>隔离级别</strong></p>
 <blockquote>
 <p>隔离级别比较：可串行化&gt;可重复读&gt;读已提交&gt;读未提交</p>
@@ -457,15 +510,16 @@
 </li>
 </ul>
 <p><img src="/images/2021春招准备-前端篇/3.png" alt="title"></p>
-<h4 id="3、Spring"><a href="#3、Spring" class="headerlink" title="3、Spring"></a>3、Spring</h4><h4 id="启动过程"><a href="#启动过程" class="headerlink" title="启动过程"></a>启动过程</h4><ul>
+<h4 id="3、Spring"><a href="#3、Spring" class="headerlink" title="3、Spring"></a>3、Spring</h4><h5 id="启动过程"><a href="#启动过程" class="headerlink" title="启动过程"></a>启动过程</h5><ul>
 <li>new了一个SpringApplication对象，使用SPI技术加载spring.factories文件中ApplicationContextInitializer、ApplicationListener 接口实例</li>
 <li>调用SpringApplication.run() 方法</li>
 <li>调用createApplicationContext()方法创建上下文对象，创建上下文对象同时会注册spring的核心组件类（ConfigurationClassPostProcessor 、AutowiredAnnotationBeanPostProcessor 等）</li>
 <li>调用refreshContext() 方法启动Spring容器和内置的Servlet容器</li>
 </ul>
-<p>设计索引的技巧</p>
-<p>乐观锁、悲观锁</p>
-<p>Java 锁 多线程</p>
+<h5 id="Java程序启动过程"><a href="#Java程序启动过程" class="headerlink" title="Java程序启动过程"></a>Java程序启动过程</h5><ul>
+<li>将java源码(.java文件)通过编译器(javac.exe)编译成JVM文件(.class文件)</li>
+<li>将JVM文件通过java.exe执行，输出结果</li>
+</ul>
 
       
     </div>
@@ -693,7 +747,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、前端"><span class="nav-number">1.</span> <span class="nav-text">1、前端</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Vue生命周期"><span class="nav-number">1.1.</span> <span class="nav-text">Vue生命周期</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、数据库"><span class="nav-number">2.</span> <span class="nav-text">2、数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#事务"><span class="nav-number">2.1.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#索引"><span class="nav-number">2.2.</span> <span class="nav-text">索引:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据库隔离级别："><span class="nav-number">2.3.</span> <span class="nav-text">数据库隔离级别：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、Spring"><span class="nav-number">3.</span> <span class="nav-text">3、Spring</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动过程"><span class="nav-number">4.</span> <span class="nav-text">启动过程</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、前端"><span class="nav-number">1.</span> <span class="nav-text">1、前端</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Vue生命周期"><span class="nav-number">1.1.</span> <span class="nav-text">Vue生命周期</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、数据库"><span class="nav-number">2.</span> <span class="nav-text">2、数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#事务"><span class="nav-number">2.1.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#索引"><span class="nav-number">2.2.</span> <span class="nav-text">索引:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据库隔离级别："><span class="nav-number">2.3.</span> <span class="nav-text">数据库隔离级别：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据库两种引擎"><span class="nav-number">2.4.</span> <span class="nav-text">数据库两种引擎</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、Spring"><span class="nav-number">3.</span> <span class="nav-text">3、Spring</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#启动过程"><span class="nav-number">3.1.</span> <span class="nav-text">启动过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Java程序启动过程"><span class="nav-number">3.2.</span> <span class="nav-text">Java程序启动过程</span></a></li></ol></li></ol></div>
             
 
           </div>
