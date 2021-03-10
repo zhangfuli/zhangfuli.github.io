@@ -97,7 +97,7 @@
 <meta property="og:image" content="/images/2021春招准备-网络篇/7.jpg">
 <meta property="og:image" content="/images/2021春招准备-网络篇/8.jpg">
 <meta property="og:image" content="/images/2021春招准备-网络篇/9.png">
-<meta property="og:updated_time" content="2021-03-05T08:15:31.606Z">
+<meta property="og:updated_time" content="2021-03-10T04:04:38.865Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络篇-2021春招准备">
 <meta name="twitter:description" content="1、OSI七层与TCP/IP五层网络架构 应用层: 文件传输，电子邮件，文件服务，虚拟终端 TFTP，HTTP，SNMP，FTP，SMTP，DNS，Telnet 表示层:数据格式化，代码转换，数据加密 没有协议 会话层: 解除或建立与别的接点的联系 没有协议 传输层: 提供端对端的接口 TCP，UDP 网络层: 传输数据包选择路由 IP，ICMP，RIP，OSPF，BGP，IGMP，ARP(IP-">
@@ -478,27 +478,72 @@
 <p>net.ipv4.tcp_tw_recycle=1<br>表示开启TCP连接中TIME-WAIT sockets的快速回收，默认为0，表示关闭</p>
 <p>net.ipv4.tcp_timestamps=1  表示开启TCP连接中TIME-WAIT sockets的快速回收，默认为0，表示关闭。</p>
 </blockquote>
-<h4 id="4、HTTP请求全部过程"><a href="#4、HTTP请求全部过程" class="headerlink" title="4、HTTP请求全部过程"></a>4、HTTP请求全部过程</h4><blockquote>
+<h4 id="4、HTTP"><a href="#4、HTTP" class="headerlink" title="4、HTTP"></a>4、HTTP</h4><blockquote>
 <p>HTTP协议是超文本传输协议（默认端口80）</p>
 </blockquote>
-<p><strong>HTTP特点:</strong> </p>
-<ul>
+<h5 id="HTTP特点"><a href="#HTTP特点" class="headerlink" title="HTTP特点:"></a><strong>HTTP特点:</strong></h5><ul>
 <li>无状态(无连接)：HTTP 是一个无状态协议，这意味着每个请求都是独立的。<ul>
 <li>请求时建连接、请求完释放连接，以尽快将资源释放出来服务其他客户端。但每次都要建立TCP请求，效率低</li>
 <li>Keep-Alive 被提出用来解决这效率低的问题。就是长连接。</li>
 </ul>
 </li>
 </ul>
-<p><strong>请求过程:</strong></p>
-<ul>
+<h5 id="请求过程"><a href="#请求过程" class="headerlink" title="请求过程:"></a><strong>请求过程:</strong></h5><ul>
 <li>浏览器发送url-http请求，根据域名解析出IP（浏览器缓冲-&gt;本机-&gt;DNS服务器）</li>
 <li>浏览器与WEB服务器建立TCP请求，发起http请求，解析那个路径下那个资源</li>
 <li>WEB服务器响应HTTP请求，80端口，返回html代码</li>
 <li>浏览器解析html代码，关闭TCP连接</li>
 </ul>
-<p><strong>响应码:</strong></p>
-<p><img src="/images/2021春招准备-网络篇/4.png" alt="title"></p>
+<h5 id="响应码"><a href="#响应码" class="headerlink" title="响应码:"></a><strong>响应码:</strong></h5><p><img src="/images/2021春招准备-网络篇/4.png" alt="title"></p>
 <p><a href="http://www.cyc2018.xyz/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/HTTP/HTTP.html#%E4%B8%80-%E3%80%81%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5" target="_blank" rel="noopener"> HTTP</a></p>
+<h5 id="URI与URL"><a href="#URI与URL" class="headerlink" title="URI与URL"></a>URI与URL</h5><p>HTTP使用统一资源标识符（Uniform Resource Identifiers, URI）来传输数据和建立连接。</p>
+<ul>
+<li>URI：Uniform Resource Identifier 统一资源<strong>标识</strong>符</li>
+<li>URL：Uniform Resource Location 统一资源<strong>定位</strong>符</li>
+</ul>
+<p>URI 是用来标示 一个具体的资源的，我们可以通过 URI 知道一个资源是什么</p>
+<p>URL 则是用来定位具体的资源的，标示了一个具体的资源位置。互联网上的每个文件都有一个唯一的URL</p>
+<h5 id="HTTP报文组成"><a href="#HTTP报文组成" class="headerlink" title="HTTP报文组成:"></a>HTTP报文组成:</h5><ul>
+<li><p>请求头</p>
+<ul>
+<li>请求行：包括请求方法、URL、协议/版本</li>
+<li>请求头(Request Header)<ul>
+<li>Connection</li>
+<li>Origin</li>
+<li>User-Agent</li>
+<li>cookie</li>
+<li>content-type</li>
+</ul>
+</li>
+<li>请求正文</li>
+</ul>
+</li>
+<li><p>响应报文</p>
+<ul>
+<li>状态行</li>
+<li>响应头<ul>
+<li>Date</li>
+<li>Connect-Type</li>
+<li>Connection</li>
+</ul>
+</li>
+<li>响应正文</li>
+</ul>
+</li>
+</ul>
+<h5 id="常见方法"><a href="#常见方法" class="headerlink" title="常见方法"></a>常见方法</h5><ul>
+<li>get</li>
+<li>post</li>
+<li>put</li>
+<li>delete</li>
+</ul>
+<p><strong>get post区别</strong></p>
+<ul>
+<li>都包含请求头请求行，post多了请求body。</li>
+<li>get多用来查询，请求参数放在url中，不会对服务器上的内容产生作用。post用来提交，如把账号密码放入body中。</li>
+<li>GET是直接添加到URL后面的，直接就可以在URL中看到内容，而POST是放在报文内部的，用户无法直接看到。</li>
+<li>GET提交的数据长度是有限制的，因为URL长度有限制，具体的长度限制视浏览器而定。而POST没有。</li>
+</ul>
 <h4 id="5、常见端口"><a href="#5、常见端口" class="headerlink" title="5、常见端口"></a>5、常见端口</h4><ul>
 <li>21端口：FTP 文件传输服务</li>
 <li>22端口：SSH 端口</li>
@@ -804,7 +849,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、OSI七层与TCP-IP五层网络架构"><span class="nav-number">1.</span> <span class="nav-text">1、OSI七层与TCP/IP五层网络架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、IPv4与IPv6的区别"><span class="nav-number">2.</span> <span class="nav-text">2、IPv4与IPv6的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、TCP三次握手四次挥手"><span class="nav-number">3.</span> <span class="nav-text">3、TCP三次握手四次挥手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、HTTP请求全部过程"><span class="nav-number">4.</span> <span class="nav-text">4、HTTP请求全部过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、常见端口"><span class="nav-number">5.</span> <span class="nav-text">5、常见端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6、IP字段"><span class="nav-number">6.</span> <span class="nav-text">6、IP字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7、TCP字段"><span class="nav-number">7.</span> <span class="nav-text">7、TCP字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8、UDP字段"><span class="nav-number">8.</span> <span class="nav-text">8、UDP字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9、TCP拥塞控制如何实现"><span class="nav-number">9.</span> <span class="nav-text">9、TCP拥塞控制如何实现</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、OSI七层与TCP-IP五层网络架构"><span class="nav-number">1.</span> <span class="nav-text">1、OSI七层与TCP/IP五层网络架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、IPv4与IPv6的区别"><span class="nav-number">2.</span> <span class="nav-text">2、IPv4与IPv6的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、TCP三次握手四次挥手"><span class="nav-number">3.</span> <span class="nav-text">3、TCP三次握手四次挥手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、HTTP"><span class="nav-number">4.</span> <span class="nav-text">4、HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#HTTP特点"><span class="nav-number">4.1.</span> <span class="nav-text">HTTP特点:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#请求过程"><span class="nav-number">4.2.</span> <span class="nav-text">请求过程:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#响应码"><span class="nav-number">4.3.</span> <span class="nav-text">响应码:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#URI与URL"><span class="nav-number">4.4.</span> <span class="nav-text">URI与URL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HTTP报文组成"><span class="nav-number">4.5.</span> <span class="nav-text">HTTP报文组成:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常见方法"><span class="nav-number">4.6.</span> <span class="nav-text">常见方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、常见端口"><span class="nav-number">5.</span> <span class="nav-text">5、常见端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6、IP字段"><span class="nav-number">6.</span> <span class="nav-text">6、IP字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7、TCP字段"><span class="nav-number">7.</span> <span class="nav-text">7、TCP字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8、UDP字段"><span class="nav-number">8.</span> <span class="nav-text">8、UDP字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9、TCP拥塞控制如何实现"><span class="nav-number">9.</span> <span class="nav-text">9、TCP拥塞控制如何实现</span></a></li></ol></div>
             
 
           </div>

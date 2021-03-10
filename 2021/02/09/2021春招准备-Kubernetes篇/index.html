@@ -81,24 +81,31 @@
 
 
 
-<meta name="description" content="1、Kubernetes架构Kubernetes是一个轻便的和可扩展的开源平台，用于管理容器化应用和服务。通过Kubernetes能够进行应用的自动化部署和扩缩容。   Master Node：作为控制节点，对集群进行调度管理  API Server主要用来处理REST的操作，并执行相关业务逻辑，以及更新etcd中的相关对象。相关结果状态将被保存在etcd中。 REST语义，监控，持久化和一致性保">
+<meta name="description" content="1、Kubernetes架构Kubernetes是一个轻便的和可扩展的开源平台，用于管理容器化应用和服务。通过Kubernetes能够进行应用的自动化部署和扩缩容   Master Node：作为控制节点，对集群进行调度管理  API Server主要用来处理REST的操作，并执行相关业务逻辑，以及更新etcd中的相关对象。相关结果状态将被保存在etcd中。 REST语义，监控，持久化和一致性保证">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kubernetes篇-2021春招准备">
 <meta property="og:url" content="zhangfuli.github.io/2021/02/09/2021春招准备-Kubernetes篇/index.html">
 <meta property="og:site_name" content="Hello, ZhangFuli">
-<meta property="og:description" content="1、Kubernetes架构Kubernetes是一个轻便的和可扩展的开源平台，用于管理容器化应用和服务。通过Kubernetes能够进行应用的自动化部署和扩缩容。   Master Node：作为控制节点，对集群进行调度管理  API Server主要用来处理REST的操作，并执行相关业务逻辑，以及更新etcd中的相关对象。相关结果状态将被保存在etcd中。 REST语义，监控，持久化和一致性保">
+<meta property="og:description" content="1、Kubernetes架构Kubernetes是一个轻便的和可扩展的开源平台，用于管理容器化应用和服务。通过Kubernetes能够进行应用的自动化部署和扩缩容   Master Node：作为控制节点，对集群进行调度管理  API Server主要用来处理REST的操作，并执行相关业务逻辑，以及更新etcd中的相关对象。相关结果状态将被保存在etcd中。 REST语义，监控，持久化和一致性保证">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/2021年春招准备-Kubernetes篇/1.png">
+<meta property="og:image" content="/images/2021年春招准备-Kubernetes篇/9.png">
+<meta property="og:image" content="/images/2021年春招准备-Kubernetes篇/10.png">
 <meta property="og:image" content="/images/2021年春招准备-Kubernetes篇/2.png">
 <meta property="og:image" content="/images/2021年春招准备-Kubernetes篇/3.png">
 <meta property="og:image" content="/images/2021年春招准备-Kubernetes篇/4.png">
 <meta property="og:image" content="/images/2021年春招准备-Kubernetes篇/5.png">
 <meta property="og:image" content="/images/2021年春招准备-Kubernetes篇/6.jpg">
 <meta property="og:image" content="/images/2021年春招准备-Kubernetes篇/7.png">
-<meta property="og:updated_time" content="2021-03-03T08:58:09.047Z">
+<meta property="og:image" content="/images/2021年春招准备-Kubernetes篇/11.png">
+<meta property="og:image" content="/images/2021年春招准备-Kubernetes篇/12.png">
+<meta property="og:image" content="/images/2021年春招准备-Kubernetes篇/13.png">
+<meta property="og:image" content="/images/2021年春招准备-Kubernetes篇/14.png">
+<meta property="og:image" content="/images/2021年春招准备-Kubernetes篇/8.png">
+<meta property="og:updated_time" content="2021-03-10T14:30:19.210Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kubernetes篇-2021春招准备">
-<meta name="twitter:description" content="1、Kubernetes架构Kubernetes是一个轻便的和可扩展的开源平台，用于管理容器化应用和服务。通过Kubernetes能够进行应用的自动化部署和扩缩容。   Master Node：作为控制节点，对集群进行调度管理  API Server主要用来处理REST的操作，并执行相关业务逻辑，以及更新etcd中的相关对象。相关结果状态将被保存在etcd中。 REST语义，监控，持久化和一致性保">
+<meta name="twitter:description" content="1、Kubernetes架构Kubernetes是一个轻便的和可扩展的开源平台，用于管理容器化应用和服务。通过Kubernetes能够进行应用的自动化部署和扩缩容   Master Node：作为控制节点，对集群进行调度管理  API Server主要用来处理REST的操作，并执行相关业务逻辑，以及更新etcd中的相关对象。相关结果状态将被保存在etcd中。 REST语义，监控，持久化和一致性保证">
 <meta name="twitter:image" content="/images/2021年春招准备-Kubernetes篇/1.png">
 
 
@@ -393,7 +400,7 @@
       
 
       
-        <h4 id="1、Kubernetes架构"><a href="#1、Kubernetes架构" class="headerlink" title="1、Kubernetes架构"></a>1、Kubernetes架构</h4><p>Kubernetes是一个轻便的和可扩展的开源平台，用于管理容器化应用和服务。通过Kubernetes能够进行应用的自动化部署和扩缩容。</p>
+        <h4 id="1、Kubernetes架构"><a href="#1、Kubernetes架构" class="headerlink" title="1、Kubernetes架构"></a>1、Kubernetes架构</h4><p>Kubernetes是一个轻便的和可扩展的开源平台，用于管理容器化应用和服务。通过Kubernetes能够进行应用的自动化部署和扩缩容</p>
 <p><img src="/images/2021年春招准备-Kubernetes篇/1.png" alt="title"></p>
 <ul>
 <li><p>Master Node：作为控制节点，对集群进行调度管理</p>
@@ -415,7 +422,7 @@
 </li>
 <li><p>Service Controller</p>
 </li>
-<li><p>Endpoints Controller: Endpoints Controller监听Pod、Service的add,update,delete变化，并处理</p>
+<li><p>Endpoints Controller: Endpoints Controller监听Service的Pod对应的副本变化add,update,delete变化，并处理</p>
 </li>
 <li><p>Persistent Controller</p>
 </li>
@@ -430,8 +437,7 @@
 </li>
 </ul>
 </li>
-<li><p>Worker Node：作为真正的工作节点，运行业务应用的容器；Worker Node包含kubelet、kube proxy和Container Runtime；</p>
-<ul>
+<li>Worker Node：作为真正的工作节点，运行业务应用的容器；Worker Node包含kubelet、kube proxy和Container Runtime；<ul>
 <li>Kubelet：使用cAdvisor进行资源监控，Kubelet才是Pod是否能够运行在特定Node上的最终裁决者，而不是scheduler或者DaemonSet<ul>
 <li>负责node节点上pod的创建、修改、监控、删除等生命周期的管理</li>
 <li>定时上报本node的状态信息给kube-apiserver</li>
@@ -441,9 +447,12 @@
 </ul>
 </li>
 <li>Container Runtime：每一个Node都会运行一个Container Runtime，其负责下载镜像和运行容器。</li>
+<li>kube proxy：<ul>
+<li>负责为Pod创建代理服务；引到访问至服务；并实现服务到Pod的路由和转发，以及通过应用的负载均衡</li>
+<li><code>kube-proxy</code>负责为<code>Services</code>以外的类型实现一种虚拟IP形式<a href="https://kubernetes.io/docs/concepts/services-networking/service/#externalname" target="_blank" rel="noopener"><code>ExternalName</code></a></li>
 </ul>
 </li>
-<li><p>kube proxy：负责为Pod创建代理服务；引到访问至服务；并实现服务到Pod的路由和转发，以及通过应用的负载均衡。</p>
+</ul>
 </li>
 <li><p>Add-on：是对Kubernetes核心功能的扩展，例如增加网络和网络策略等能力</p>
 <ul>
@@ -468,6 +477,14 @@
 <li><p>StatefulSet(有状态应用)：对于RC和RS中的Pod，一般不挂载存储或者挂载共享存储。对于StatefulSet中的Pod，每个Pod挂载自己独立的存储，如果一个Pod出现故障，从其他节点启动一个同样名字的Pod，要挂载上原来Pod的存储继续以它的状态提供服务。适合于StatefulSet的业务包括数据库服务MySQL和PostgreSQL</p>
 </li>
 <li><p>Service: 定义了一组Pod的策略抽象，这些被标记的Pod都是通过label Selector决定的。Service提供了外部服务访问Pod的入口</p>
+<ul>
+<li><strong>Endpoint</strong>是可被访问的服务端点，即一个状态为running的pod，它是service访问的落点，只有service关联的pod才可能成为endpoint</li>
+</ul>
+<p><img src="/images/2021年春招准备-Kubernetes篇/9.png" alt="title"></p>
+<ul>
+<li><strong>Endpoints</strong>表示一个Service对应的所有Pod副本的访问地址。Node上的Kube-proxy进程获取每个Service的Endpoints，实现Service的负载均衡功能</li>
+</ul>
+<p><img src="/images/2021年春招准备-Kubernetes篇/10.png" alt="title"></p>
 </li>
 <li><p>namespace</p>
 </li>
@@ -593,8 +610,138 @@
 </li>
 </ul>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">goproxy</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line"><span class="attr">    app:</span> <span class="string">goproxy</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  containers:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">goproxy</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">k8s.gcr.io/goproxy:0.1</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="attr">    - containerPort:</span> <span class="number">8080</span></span><br><span class="line"><span class="attr">    readinessProbe:</span></span><br><span class="line"><span class="attr">      tcpSocket:</span></span><br><span class="line"><span class="attr">        port:</span> <span class="number">8080</span></span><br><span class="line"><span class="attr">      initialDelaySeconds:</span> <span class="number">5</span></span><br><span class="line"><span class="attr">      periodSeconds:</span> <span class="number">10</span></span><br><span class="line"><span class="attr">    livenessProbe:</span></span><br><span class="line"><span class="attr">      tcpSocket:</span></span><br><span class="line"><span class="attr">        port:</span> <span class="number">8080</span></span><br><span class="line"><span class="attr">      initialDelaySeconds:</span> <span class="number">15</span></span><br><span class="line"><span class="attr">      periodSeconds:</span> <span class="number">20</span></span><br></pre></td></tr></table></figure>
-<h4 id="11、失效-Pod-的垃圾收集"><a href="#11、失效-Pod-的垃圾收集" class="headerlink" title="11、失效 Pod 的垃圾收集"></a>11、失效 Pod 的垃圾收集</h4><p>对于已失败的 Pod 而言，对应的 API 对象仍然会保留在集群的 API 服务器上，直到 用户或者控制器进程显式地 将其删除。</p>
-<p>控制面组件会在 Pod 个数超出所配置的阈值 （根据 kube-controller-manager 的 terminated-pod-gc-threshold 设置）时 删除已终止的 Pod（阶段值为 Succeeded 或 Failed）。 这一行为会避免随着时间演进不断创建和终止 Pod 而引起的资源泄露问题。</p>
+<h4 id="11、失效-Pod-的垃圾收集"><a href="#11、失效-Pod-的垃圾收集" class="headerlink" title="11、失效 Pod 的垃圾收集"></a>11、失效 Pod 的垃圾收集</h4><p>对于已失败的 Pod 而言，对应的 API 对象仍然会保留在集群的 API 服务器上，直到用户或者控制器进程显式地将其删除。</p>
+<p>控制面组件会在 Pod 个数超出所配置的阈值 （根据 kube-controller-manager 的 terminated-pod-gc-threshold 设置）时删除已终止的 Pod（阶段值为 Succeeded 或 Failed）。 这一行为会避免随着时间演进不断创建和终止 Pod 而引起的资源泄露问题</p>
+<h4 id="12、三种IP"><a href="#12、三种IP" class="headerlink" title="12、三种IP"></a>12、三种IP</h4><ul>
+<li>Node IP：Node节点的IP地址，即物理网卡的IP地址</li>
+<li>Pod IP：Pod的IP地址，即docker容器的IP地址，Docker Engine根据docker网桥的IP地址段进行分配的，此为虚拟IP地址，虚拟的二层网络<ul>
+<li>同Service下的pod可以直接根据PodIP相互通信</li>
+<li>不同Service下的pod在集群间pod通信要借助于 cluster ip</li>
+<li>pod和集群外通信，要借助于node ip</li>
+</ul>
+</li>
+<li>Cluster IP：Service的IP地址，此为虚拟IP地址<ul>
+<li>Cluster IP仅仅作用于Kubernetes Service这个对象，并由Kubernetes管理和分配IP地址</li>
+<li>Cluster IP无法被ping，没有一个“实体网络对象”来响应</li>
+<li>Cluster IP只能结合Service Port组成一个具体的通信端口，单独的Cluster IP不具备通信的基础，并且他们属于Kubernetes集群这样一个封闭的空间。</li>
+<li>在不同Service下的pod节点在集群间相互访问可以通过Cluster IP</li>
+</ul>
+</li>
+</ul>
+<h4 id="12、Kube-Proxy代理模式"><a href="#12、Kube-Proxy代理模式" class="headerlink" title="12、Kube-Proxy代理模式"></a>12、Kube-Proxy代理模式</h4><h5 id="用户空间代理模式-User-space-proxy-mode"><a href="#用户空间代理模式-User-space-proxy-mode" class="headerlink" title="用户空间代理模式(User space proxy mode):"></a>用户空间代理模式(User space proxy mode):</h5><p><img src="/images/2021年春招准备-Kubernetes篇/11.png" alt="title"></p>
+<p><img src="/images/2021年春招准备-Kubernetes篇/12.png" alt="title"></p>
+<ul>
+<li>为每个service在node上打开一个随机端口（代理端口）</li>
+<li>建立iptables规则，将clusterip的请求重定向到代理端口</li>
+<li>到达代理端口（用户空间）的请求再由kubeproxy转发到后端pod</li>
+<li>若与第一个Pod连接失败，Kube-Proxy将检测到与第一个Pod的连接已失败，并会自动尝试使用其他Pod进行重试</li>
+</ul>
+<blockquote>
+<p>这里为什么需要建iptables规则，因为kube-proxy 监听的端口在用户空间，所以需要一层 iptables 把访问服务的连接重定向给 kube-proxy 服务，这里就存在内核态到用户态的切换，代价很大，因此就有了iptables</p>
+<p>iptables处理流量具有较低的系统开销，因为流量由<strong>Linux netfilter</strong>处理，而无需在用户空间和内核空间之间切换。这种方法也可能更可靠</p>
+</blockquote>
+<h5 id="iptables-代理模式"><a href="#iptables-代理模式" class="headerlink" title="iptables 代理模式"></a><code>iptables</code> 代理模式</h5><p><img src="/images/2021年春招准备-Kubernetes篇/13.png" alt="title"></p>
+<ul>
+<li><p>每个Service，都安装iptables规则，该规则捕获到服务<code>clusterIP</code>和的<code>port</code>流量，并将该流量重定向到Service</p>
+</li>
+<li><p>每个Endpoint对象，它将安装iptables规则，该规则选择一个Pod</p>
+</li>
+<li>若所选的第一个Pod没有响应，则连接失败，使用Pod探针来验证后端Pod正常运行</li>
+<li><strong>讨论:</strong> kube-proxy不再负责转发，数据包的走向完全由iptables规则决定，效率明显会高很多。但是随着service的增加，iptables规则会不断增加，导致内核十分繁忙（等于在读一张很大的没建索引的表）</li>
+</ul>
+<h5 id="IPVS代理模式"><a href="#IPVS代理模式" class="headerlink" title="IPVS代理模式"></a><code>IPVS</code>代理模式</h5><blockquote>
+<p> Kubernetes v1.11 [stable]</p>
+</blockquote>
+<p><img src="/images/2021年春招准备-Kubernetes篇/14.png" alt="title"></p>
+<ul>
+<li>kube-proxy监视Kubernetes的Service和Endpoint，调用<code>netlink</code>接口以相应地创建IPVS规则，</li>
+<li><p>定期将IPVS规则与Kubernetes服务和端点同步，该控制循环可确保IPVS状态与所需状态匹配。访问服务时，IPVS将流量定向到Pod之一。</p>
+</li>
+<li><p>IPVS代理模式基于类似于iptables模式的netfilter挂钩函数，但是使用<strong>哈希表</strong>作为基础数据结构，并且在内核空间中工作。与iptables模式下的kube-proxy相比，IPVS模式下的kube-proxy可以<strong>以更低的延迟来重定向流量</strong>，从而在同步代理规则时具有更好的性能。与其他代理模式相比，IPVS模式还<strong>支持更高的网络流量吞吐量</strong></p>
+</li>
+<li>IPVS提供了更多选项来平衡后端Pod的流量<ul>
+<li><code>rr</code>：轮循</li>
+<li><code>lc</code>：连接最少（打开的连接最少）</li>
+<li><code>dh</code>：目标哈希</li>
+<li><code>sh</code>：源哈希</li>
+<li><code>sed</code>：最短的预期延迟</li>
+<li><code>nq</code>：永不排队</li>
+</ul>
+</li>
+</ul>
+<p>####13、Kubernetes调度机制</p>
+<p>亲和性和反亲和性是运行时调度策略，主要包括<code>nodeAffinity（主机亲和性）</code>、<code>podAffinity（pod亲和性）</code>、<code>podAntiAffinity（pod反亲和性）</code>三类。</p>
+<ul>
+<li>nodeAffinity：用于规定pod可以部署在哪个node或者不能部署在哪个节点上。解决pod和主机的问题。</li>
+<li>podAffinity：用于规定pod可以和哪些pod部署在同一拓扑结构下。</li>
+<li>podAntiAffinity：<ul>
+<li>用于规定pod不可以和哪些pod部署在同一拓扑结构下，与podAffinity一起解决pod和pod之间的关系。</li>
+<li>当应用的采用多副本部署时，有必要采用反亲和性让各个应用实例打散分布在各个node上，以提高HA(高可用)</li>
+</ul>
+</li>
+</ul>
+<p>三种Affinity使用时都有三种规则可以设定：</p>
+<ul>
+<li><p><code>requiredDuringSchedulingIgnoredDuringExecution</code>:</p>
+<ul>
+<li><p>hard，严格执行，满足规则调度，否则不调度，在预选阶段执行，所以违反hard约定一定不会调度到</p>
+</li>
+<li><p>在首次调度时一定要满足相应的Affinity规则，如果没有满足条件的node将不会进行调度。在pod运行过程中如果不再满足相应的Affinity规则，会进行重新调度。</p>
+</li>
+</ul>
+</li>
+<li><p><code>preferredDuringSchedulingIgnoredDuringExecution</code>: </p>
+<ul>
+<li>soft，尽力执行，优先满足规则调度，在优选阶段执行，</li>
+<li>在首次调度时需要满足相应的Affinity规则，如果没有满足条件的node将不会进行调度。在后续pod的运行过程中不在检查这些规则是否满足。</li>
+</ul>
+</li>
+<li><p><code>requiredDuringSchedulingRequiredDuringExecution</code>: </p>
+<ul>
+<li>未实现，与之前类似，只是后缀不同，代表如果labels发生改变，kubelet将驱逐不满足规则的pod</li>
+<li>在首次调度时尽量满足相应的Affinity规则，如果没有满足要求的node也会进行调度。后续pod的运行过程中不再检查是否满足</li>
+</ul>
+</li>
+</ul>
+<p><strong>对称性</strong></p>
+<blockquote>
+<p>对称性，pod1设定了的同时pod2也设定</p>
+</blockquote>
+<p>考虑一个场景，两个应用S1和S2。现在<strong>严格</strong>要求S1 pod不能与S2 pod运行在一个node，如果仅设置S1的hard反亲和性是不够的，必须同时给S2设置对应的hard反亲和性。即调度S1 pod时，考虑node没有S2 pod，同时需要在调度S2 pod时，考虑node上没有S1 pod。</p>
+<p>考虑下面两种情况：</p>
+<ol>
+<li>先调度S2，后调度S1，可以满足反亲和性，</li>
+<li>先调度S1，后调度S2，违反S1的反亲和性规则，因为S2没有反亲和性规则，所以在<strong>schedule-time</strong>可以与S1调度在一个拓扑下。</li>
+</ol>
+<p>这就是对称性，即S1设置了与S2相关的hard反亲和性规则，就必须<strong>对称地</strong>给S2设置与S1相关的hard反亲和性规则，以达到调度预期。</p>
+<p><strong>Note：</strong></p>
+<ul>
+<li>反亲和性（soft/hard）具备对称性，上面已经举过例子了</li>
+<li>hard亲和性不具备对称性，例如期望S1、S2亲和，那么调度S2的时候没有必要node上一定要有S1，但是有一个隐含规则，node上有S1更好</li>
+<li>soft亲和性具备对称性，不是很理解，遗留</li>
+</ul>
+<h4 id="14、Kubernetes-主节点高可用"><a href="#14、Kubernetes-主节点高可用" class="headerlink" title="14、Kubernetes 主节点高可用"></a>14、Kubernetes 主节点高可用</h4><p><img src="/images/2021年春招准备-Kubernetes篇/8.png" alt="title"></p>
+<ul>
+<li>所有管理节点都部署kube-apiserver，kube-controller-manager，kube-scheduler，以及etcd等组件</li>
+<li>kube-apiserver均与本地的etcd进行通信，etcd在三个节点间同步数据；</li>
+<li><p>kube-controller-manager和kube-scheduler也只与本地的kube-apiserver进行通信(或者通过LB访问)，基于<a href="https://github.com/kubernetes/client-go/tree/master/examples/leader-election" target="_blank" rel="noopener">Leader Election Mechanism</a>实现了高可用</p>
+</li>
+<li><p>kube-apiserver前面顶一个LoadBalancer(LB)；work节点kubelet以及kube-proxy组件对接LB访问apiserver</p>
+</li>
+<li><p>work node工作节点上部署应用，应用按照<strong><a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#more-practical-use-cases" target="_blank" rel="noopener">反亲和</a></strong>部署多个副本，使副本调度在不同的work node上，这样如果其中一个副本所在的母机宕机了，理论上通过Kubernetes service可以把请求切换到另外副本上，使服务依旧可用</p>
+</li>
+</ul>
+<p><strong>节点宕机对网络层面的影响</strong></p>
+<blockquote>
+<p>集群中还部署了依赖nginx服务的应用A，如果某个时刻work node1宕机了，此时应用A访问nginx service会有问题吗？</p>
+</blockquote>
+<p>有问题</p>
+<p>因为service不会马上剔除掉宕机上对应的nginx pod，同时由于service常用的<a href="https://kubernetes.io/docs/concepts/services-networking/service/#proxy-mode-iptables" target="_blank" rel="noopener">iptables代理模式</a>没有实现<a href="https://kubernetes.io/docs/concepts/services-networking/service/#proxy-mode-iptables" target="_blank" rel="noopener">retry with another backend</a>特性，所以在一段时间内访问会出现间歇性问题(如果请求轮询到挂掉的nginx pod上)，也就是说会<strong>存在一个访问失败间隔期</strong></p>
+<p>这个间隔期取决于service对应的endpoint什么时候踢掉宕机的pod。之后，kube-proxy会watch到endpoint变化，然后更新对应的iptables规则，使service访问后端列表恢复正常(也就是踢掉该pod)</p>
+<p>每个node在kube-node-lease namespace下会对应一个Lease object，kubelet每隔node-status-update-frequency时间(默认10s)会更新对应node的Lease object</p>
+<p>node-controller会每隔node-monitor-period时间(默认5s)检查Lease object是否更新，如果超过node-monitor-grace-period时间(默认40s)没有发生过更新，则认为这个node不健康，会更新NodeStatus(ConditionUnknown)。如果这样的状态在这之后持续了一段时间(默认5mins)，则会驱逐(evict)该node上的pod</p>
+<p>对于母机宕机的场景，node controller在node-monitor-grace-period时间段没有观察到心跳的情况下，会更新NodeStatus(ConditionUnknown)，之后endpoint controller会从endpoint backend中踢掉该母机上的所有pod，最终服务访问正常，请求不会落在挂掉的pod上</p>
+<p>也就是说在母机宕机后，在node-monitor-grace-period间隔内访问service会有间歇性问题，我们可以通过调整相关参数来缩小这个窗口期，</p>
 
       
     </div>
@@ -826,7 +973,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、Kubernetes架构"><span class="nav-number">1.</span> <span class="nav-text">1、Kubernetes架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、Kubernetes核心资源"><span class="nav-number">2.</span> <span class="nav-text">2、Kubernetes核心资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、访问Pod的方式"><span class="nav-number">3.</span> <span class="nav-text">3、访问Pod的方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、Pod与Docker的区别"><span class="nav-number">4.</span> <span class="nav-text">4、Pod与Docker的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么要设计Pod"><span class="nav-number">4.1.</span> <span class="nav-text">为什么要设计Pod</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#区别"><span class="nav-number">4.2.</span> <span class="nav-text">区别</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、Kubernetes常见的开源项目"><span class="nav-number">5.</span> <span class="nav-text">5、Kubernetes常见的开源项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6、Flannel与Calico的区别"><span class="nav-number">6.</span> <span class="nav-text">6、Flannel与Calico的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7、Swarm与Kubernetes的区别"><span class="nav-number">7.</span> <span class="nav-text">7、Swarm与Kubernetes的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8、挖矿"><span class="nav-number">8.</span> <span class="nav-text">8、挖矿</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9、Kubenetes弃用Docker"><span class="nav-number">9.</span> <span class="nav-text">9、Kubenetes弃用Docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10、容器探针"><span class="nav-number">10.</span> <span class="nav-text">10、容器探针</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Pod生命周期"><span class="nav-number">10.1.</span> <span class="nav-text">Pod生命周期</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#容器探针"><span class="nav-number">10.2.</span> <span class="nav-text">容器探针</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11、失效-Pod-的垃圾收集"><span class="nav-number">11.</span> <span class="nav-text">11、失效 Pod 的垃圾收集</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、Kubernetes架构"><span class="nav-number">1.</span> <span class="nav-text">1、Kubernetes架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、Kubernetes核心资源"><span class="nav-number">2.</span> <span class="nav-text">2、Kubernetes核心资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、访问Pod的方式"><span class="nav-number">3.</span> <span class="nav-text">3、访问Pod的方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、Pod与Docker的区别"><span class="nav-number">4.</span> <span class="nav-text">4、Pod与Docker的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么要设计Pod"><span class="nav-number">4.1.</span> <span class="nav-text">为什么要设计Pod</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#区别"><span class="nav-number">4.2.</span> <span class="nav-text">区别</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、Kubernetes常见的开源项目"><span class="nav-number">5.</span> <span class="nav-text">5、Kubernetes常见的开源项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6、Flannel与Calico的区别"><span class="nav-number">6.</span> <span class="nav-text">6、Flannel与Calico的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7、Swarm与Kubernetes的区别"><span class="nav-number">7.</span> <span class="nav-text">7、Swarm与Kubernetes的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8、挖矿"><span class="nav-number">8.</span> <span class="nav-text">8、挖矿</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9、Kubenetes弃用Docker"><span class="nav-number">9.</span> <span class="nav-text">9、Kubenetes弃用Docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10、容器探针"><span class="nav-number">10.</span> <span class="nav-text">10、容器探针</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Pod生命周期"><span class="nav-number">10.1.</span> <span class="nav-text">Pod生命周期</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#容器探针"><span class="nav-number">10.2.</span> <span class="nav-text">容器探针</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11、失效-Pod-的垃圾收集"><span class="nav-number">11.</span> <span class="nav-text">11、失效 Pod 的垃圾收集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12、三种IP"><span class="nav-number">12.</span> <span class="nav-text">12、三种IP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12、Kube-Proxy代理模式"><span class="nav-number">13.</span> <span class="nav-text">12、Kube-Proxy代理模式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#用户空间代理模式-User-space-proxy-mode"><span class="nav-number">13.1.</span> <span class="nav-text">用户空间代理模式(User space proxy mode):</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#iptables-代理模式"><span class="nav-number">13.2.</span> <span class="nav-text">iptables 代理模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#IPVS代理模式"><span class="nav-number">13.3.</span> <span class="nav-text">IPVS代理模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14、Kubernetes-主节点高可用"><span class="nav-number">14.</span> <span class="nav-text">14、Kubernetes 主节点高可用</span></a></li></ol></div>
             
 
           </div>
