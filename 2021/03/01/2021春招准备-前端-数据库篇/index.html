@@ -90,9 +90,9 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="/images/2021春招准备-前端篇/1.png">
 <meta property="og:image" content="/images/2021春招准备-前端篇/2.png">
-<meta property="og:image" content="/images/2021春招准备-前端篇/4.png">
 <meta property="og:image" content="/images/2021春招准备-前端篇/3.png">
-<meta property="og:updated_time" content="2021-03-09T11:34:15.276Z">
+<meta property="og:image" content="/images/2021春招准备-前端篇/4.png">
+<meta property="og:updated_time" content="2021-03-11T02:06:54.592Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端&#x2F;数据库&#x2F;Spring&#x2F;Java-2021春招准备">
 <meta name="twitter:description" content="1、前端Vue生命周期 2、数据库事务 原子性（ Atomicity ）: 事务是数据库的逻辑工作单位，不可分割，事务中包含的各操作要么都做，要么都不做 一致性（ Consistency ）: 事务执行的结果必须是使数据库从一个一致性状态变到另一个一致性状态 隔离性（ Isolation ）: 一个事务的执行不能其它事务干扰 持续性（ Durability ）: 也称永久性，指一个事务一旦提交，它">
@@ -438,6 +438,40 @@
 <li>幻读（Phantom）：一个事务先根据某些条件查询出一些记录，之后另一个事务又向表中插入了符合这些条件的记录，原先的事务再次按照该条件查询时，能把另一个事务插入的记录也读出来</li>
 </ul>
 <p><img src="/images/2021春招准备-前端篇/2.png" alt="title"></p>
+<p><strong>隔离级别</strong></p>
+<blockquote>
+<p>隔离级别比较：可串行化&gt;可重复读&gt;读已提交&gt;读未提交</p>
+</blockquote>
+<ul>
+<li>读未提交: 事务A可以读取到事务B修改过但未提交的数据<ul>
+<li>可能发生脏读、不可重复读和幻读问题</li>
+</ul>
+</li>
+<li>读已提交: 事务B只能在事务A修改过并且已提交后才能读取到事务B修改的数据<ul>
+<li>解决了脏读的问题，但可能发生不可重复读和幻读问题</li>
+</ul>
+</li>
+<li>可重复读: 在可重复读隔离级别下，事务B只能在事务A修改过数据并提交后，自己也提交事务后，才能读取到事务B修改的数据<ul>
+<li>解决了脏读和不可重复读的问题，但可能发生幻读问题</li>
+</ul>
+</li>
+<li>可串行化: <ul>
+<li>通过加锁实现（读锁和写锁）</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/2021春招准备-前端篇/3.png" alt="title"></p>
+<p><strong>乐观锁与悲观锁</strong></p>
+<blockquote>
+<p>乐观锁比较适用于读多写少的情况(多读场景)</p>
+<p>悲观锁比较适用于写多读少的情况(多写场景)</p>
+</blockquote>
+<ul>
+<li><p>悲观锁: 悲观锁中的<strong>共享资源每次只给一个线程使用，其它线程阻塞</strong>，用完后再把资源转让给其它线程</p>
+</li>
+<li><p>乐观锁: 很乐观，每次去拿数据的时候都<strong>认为别人不会修改</strong>。所以不会上锁，但是如果想要更新数据，则会在<strong>更新前检查在读取至更新这段时间别人有没有修改过这个数据</strong>。如果修改过，则重新读取，再次尝试更新，循环上述步骤直到更新成功（当然也允许更新失败的线程放弃操作）</p>
+</li>
+</ul>
 <h5 id="数据库两种引擎"><a href="#数据库两种引擎" class="headerlink" title="数据库两种引擎"></a>数据库两种引擎</h5><p><img src="/images/2021春招准备-前端篇/4.png" alt="title"></p>
 <ul>
 <li><p>Innodb引擎</p>
@@ -487,29 +521,6 @@
 </ul>
 </li>
 </ul>
-<p><strong>隔离级别</strong></p>
-<blockquote>
-<p>隔离级别比较：可串行化&gt;可重复读&gt;读已提交&gt;读未提交</p>
-</blockquote>
-<ul>
-<li>读未提交: 事务A可以读取到事务B修改过但未提交的数据<ul>
-<li>可能发生脏读、不可重复读和幻读问题</li>
-</ul>
-</li>
-<li>读已提交: 事务B只能在事务A修改过并且已提交后才能读取到事务B修改的数据<ul>
-<li>解决了脏读的问题，但可能发生不可重复读和幻读问题</li>
-</ul>
-</li>
-<li>可重复读: 在可重复读隔离级别下，事务B只能在事务A修改过数据并提交后，自己也提交事务后，才能读取到事务B修改的数据<ul>
-<li>解决了脏读和不可重复读的问题，但可能发生幻读问题</li>
-</ul>
-</li>
-<li>可串行化: <ul>
-<li>通过加锁实现（读锁和写锁）</li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/2021春招准备-前端篇/3.png" alt="title"></p>
 <h4 id="3、Spring"><a href="#3、Spring" class="headerlink" title="3、Spring"></a>3、Spring</h4><h5 id="启动过程"><a href="#启动过程" class="headerlink" title="启动过程"></a>启动过程</h5><ul>
 <li>new了一个SpringApplication对象，使用SPI技术加载spring.factories文件中ApplicationContextInitializer、ApplicationListener 接口实例</li>
 <li>调用SpringApplication.run() 方法</li>
