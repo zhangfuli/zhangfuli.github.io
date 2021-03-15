@@ -88,10 +88,19 @@
 <meta property="og:site_name" content="Hello, ZhangFuli">
 <meta property="og:description" content="1、理解linux下的loadload average数据是每隔5秒钟检查一次活跃的进程数，然后按特定算法计算出的数值，然后用这个值和当前机器的cpu核数进行相除，得到的值 12load = process/total_cpu_cores load average: 0.09, 0.05, 0.01 负载的好和坏： 需要根据机器当前的进程数与CPU总核数的比值（process_cores_valu">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-03-09T11:09:02.935Z">
+<meta property="og:image" content="/images/2021年春招准备-Linux篇/1.png">
+<meta property="og:image" content="/images/2021年春招准备-Linux篇/2.png">
+<meta property="og:image" content="/images/2021年春招准备-Linux篇/3.png">
+<meta property="og:image" content="/images/2021年春招准备-Linux篇/4.jpeg">
+<meta property="og:image" content="/images/2021年春招准备-Linux篇/5.jpeg">
+<meta property="og:image" content="/images/2021年春招准备-Linux篇/6.png">
+<meta property="og:image" content="/images/2021年春招准备-Linux篇/7.png">
+<meta property="og:image" content="/images/2021年春招准备-Linux篇/8.png">
+<meta property="og:updated_time" content="2021-03-15T07:57:22.897Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux篇-2021春招准备">
 <meta name="twitter:description" content="1、理解linux下的loadload average数据是每隔5秒钟检查一次活跃的进程数，然后按特定算法计算出的数值，然后用这个值和当前机器的cpu核数进行相除，得到的值 12load = process/total_cpu_cores load average: 0.09, 0.05, 0.01 负载的好和坏： 需要根据机器当前的进程数与CPU总核数的比值（process_cores_valu">
+<meta name="twitter:image" content="/images/2021年春招准备-Linux篇/1.png">
 
 
 
@@ -418,13 +427,16 @@
 <li>监控网络客户连接数: <code>netstat -n | grep tcp | grep 侦听端口 | wc -l</code></li>
 </ul>
 <h4 id="2、常见命令"><a href="#2、常见命令" class="headerlink" title="2、常见命令"></a>2、常见命令</h4><ul>
-<li>创建多级目录:  <code>makedir -p</code></li>
-<li>查看线程: <code>top -H</code></li>
+<li><p>创建多级目录:  <code>makedir -p</code></p>
+</li>
+<li><p>查看线程: <code>top -H</code></p>
+</li>
 <li><p>命令用于计算字数: <code>wc</code></p>
 </li>
 <li><p>查看堆栈: <code>pstack PID</code> + <code>gdb</code>调试死锁</p>
 </li>
-<li><code>vim</code>: 命令模式、插入模式、尾行命令模式<ul>
+<li><p><code>vim</code>: 命令模式、插入模式、尾行命令模式</p>
+<ul>
 <li>命令模式下:<ul>
 <li>yy-复制</li>
 <li>p-粘贴</li>
@@ -440,6 +452,12 @@
 <li>:n,s/str1/str2某行的str1替换为str2</li>
 <li>:wq</li>
 </ul>
+</li>
+</ul>
+</li>
+<li><p>tcpdump: linux抓包工具</p>
+<ul>
+<li><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tcpdump -i eth1 src host 192.168.1.1  # 源地址</span><br><span class="line">tcpdump -i eth1 dst host 192.168.1.1  # 目标</span><br><span class="line">tcpdump -i eth1 src/dst port 25  # 端口</span><br><span class="line">tcpdump -i eth1 arp # 协议过滤</span><br><span class="line">tcpdump -i eth1 net 192.168 # 网络过滤</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -486,6 +504,84 @@
 <p>使用命令：<strong>/usr/sbin/lsof|grep deleted</strong> </p>
 <p>确认删除文件是否被占用</p>
 <p>kill -9 pid值 杀掉进程</p>
+<h4 id="5、Linux文件系统"><a href="#5、Linux文件系统" class="headerlink" title="5、Linux文件系统"></a>5、Linux文件系统</h4><p><img src="/images/2021年春招准备-Linux篇/1.png" alt="title"></p>
+<ul>
+<li><p><code>bin/sbin</code>：<code>bin</code> 是 <code>Binary</code> 的缩写，存放着可执行文件或可执行文件的链接（类似快捷方式），命令的存放地址</p>
+</li>
+<li><p><code>boot</code>: 这里是系统启动需要的文件，你可以看到 <code>grub</code> 文件夹，它是常见的开机引导程序。我们不应该乱动这里的文件</p>
+</li>
+<li><p><code>/dev</code>：<code>dev</code> 是 <code>device</code> 的缩写，这里存放这所有的设备文件。在 Linux 中，所有东西都是以文件的形式存在的，包括硬件设备。鼠标、键盘等等设备也都可以在这里找到。</p>
+</li>
+<li><p><code>/etc</code>: 存放很多程序的配置信息，比如包管理工具 apt</p>
+</li>
+<li><p><code>lib</code>:<code>lib</code> 是 Library 的缩写，类似于 Windows 系统中存放 <code>dll</code> 文件的库，包含 bin 和 sbin 中可执行文件的依赖。也可能出现 <code>lib32</code> 或 <code>lib64</code> 这样的目录，和 <code>lib</code> 差不多，只是操作系统位数不同而已</p>
+</li>
+<li><p><code>/media</code>: 这里会有一个以你用户名命名的文件夹，里面是自动挂载的设备，比如 U 盘，移动硬盘，网络设备等</p>
+</li>
+<li><p><code>/mnt</code>: 这也是和设备挂载相关的一个文件夹，一般是空文件夹。<code>media</code> 文件夹是系统自动挂载设备的地方，这里是你手动挂载设备的地方</p>
+</li>
+<li><p><code>/opt</code>: <code>opt</code> 是 Option 的缩写，这个文件夹的使用比较随意，一般来说我们自己在浏览器上下载的软件，安装在这里比较好</p>
+</li>
+<li><p><code>proc</code> :<code>proc</code> 是 <code>process</code> 的缩写，这里存放的是全部正在运行程序的状态信息</p>
+</li>
+<li><p><code>/root</code>: 这是 root 用户的家目录，普通用户需要授权才能访问</p>
+</li>
+<li><p><code>/run 和 /sys</code>用来存储某些程序的运行时信息和系统需要的一些信息。比如说这个文件：里面存储着一个数字，是你的显卡亮度，你修改这个数字就可以修改屏幕亮度</p>
+<ul>
+<li>这两个位置的数据都存储在内存中，所以一旦重启，<code>/run</code> 和 <code>/sys</code> 目录的信息就会丢失</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-eDP-1/intel_backlight/brightness</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>/srv</code>：srv 是 service 的缩写，主要用来存放服务数据</p>
+</li>
+<li><p><code>/tmp</code>: tmp 是 temporary 的缩写，存储一些程序的临时文件</p>
+</li>
+<li><p><code>/usr</code>： usr 是 Universal System Resource 的缩写，这里存放的是一些非系统必须的资源，比如用户安装的应用程序</p>
+</li>
+<li><p><code>/var</code>: var 是 variable 的缩写，这个名字是历史遗留的，现在该目录最主要的作用是存储日志（log）信息，比如说程序崩溃，防火墙检测到异常等等信息都会记录在这里</p>
+</li>
+<li><p><code>/home</code>: 这是普通用户的家目录</p>
+</li>
+</ul>
+<h4 id="6、CGroups"><a href="#6、CGroups" class="headerlink" title="6、CGroups"></a>6、CGroups</h4><blockquote>
+<p>CGroup 是 Control Groups 的缩写，将任意进程进行分组化管理的 Linux 内核功能</p>
+</blockquote>
+<h5 id="概念解释"><a href="#概念解释" class="headerlink" title="概念解释"></a>概念解释</h5><ul>
+<li><p>任务（task）。在 cgroups 中，任务就是系统的一个进程；</p>
+</li>
+<li><p>控制族群（control group）。控制族群就是一组按照某种标准划分的进程</p>
+<ul>
+<li>Cgroups 中的资源控制都是以控制族群为单位实现</li>
+<li>一个进程可以加入到某个控制族群，也从一个进程组迁移到另一个控制族群</li>
+<li>一个进程组的进程可以使用 cgroups 以控制族群为单位分配的资源，同时受到 cgroups 以控制族群为单位设定的限制；</li>
+</ul>
+</li>
+<li><p>层级（hierarchy）。控制族群可以组织成 hierarchical 的形式，既一颗控制族群树。控制族群树上的子节点控制族群是父节点控制族群的孩子，继承父控制族群的特定的属性；</p>
+</li>
+<li><p>子系统（subsystem）。<strong>一个子系统就是一个资源控制器</strong>，比如 cpu 子系统就是控制 cpu 时间分配的一个控制器。子系统必须附加（attach）到一个层级上才能起作用，一个子系统附加到某个层级以后，这个层级上的所有控制族群都受到这个子系统的控制。</p>
+</li>
+</ul>
+<h5 id="Cgroups提供了以下功能："><a href="#Cgroups提供了以下功能：" class="headerlink" title="Cgroups提供了以下功能："></a>Cgroups提供了以下功能：</h5><ul>
+<li>限制进程组可以使用的资源数量（Resource limiting ）。比如：memory子系统可以为进程组设定一个memory使用上限，一旦进程组使用的内存达到限额再申请内存，就会出发OOM（out of memory）</li>
+<li>进程组的优先级控制（Prioritization ）。比如：可以使用cpu子系统为某个进程组分配特定cpu share。</li>
+<li>记录进程组使用的资源数量（Accounting ）。比如：可以使用cpuacct子系统记录某个进程组使用的cpu时间</li>
+<li>进程组隔离（Isolation）。比如：使用namespace子系统可以使不同的进程组使用不同的namespace，以达到隔离的目的，不同的进程组有各自的进程、网络、文件系统挂载空间。</li>
+<li>进程组控制（Control）。比如：使用freezer子系统可以将进程组挂起和恢复。</li>
+</ul>
+<p><img src="/images/2021年春招准备-Linux篇/2.png" alt="title"></p>
+<p><img src="/images/2021年春招准备-Linux篇/3.png" alt="title"></p>
+<p>CGroup 层级关系显示，CPU 和 Memory 两个子系统有自己独立的层级系统。CGroup 技术可以被用来在操作系统底层限制物理资源，起到 Container 的作用</p>
+<h4 id="7、进程、线程、文件描述符"><a href="#7、进程、线程、文件描述符" class="headerlink" title="7、进程、线程、文件描述符"></a>7、进程、线程、文件描述符</h4><h5 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h5><p><img src="/images/2021年春招准备-Linux篇/4.jpeg" alt="title"></p>
+<p>对于系统而言，进程就是一个数据结构</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> &#123;</span></span><br><span class="line">    <span class="comment">// 进程状态</span></span><br><span class="line">    <span class="keyword">long</span>              state;</span><br><span class="line">    <span class="comment">// 虚拟内存结构体</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">mm_struct</span>  *<span class="title">mm</span>;</span></span><br><span class="line">    <span class="comment">// 进程号</span></span><br><span class="line">    <span class="keyword">pid_t</span>              pid;</span><br><span class="line">    <span class="comment">// 指向父进程的指针</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> __<span class="title">rcu</span>  *<span class="title">parent</span>;</span></span><br><span class="line">    <span class="comment">// 子进程列表</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">list_head</span>        <span class="title">children</span>;</span></span><br><span class="line">    <span class="comment">// 存放文件系统信息的指针</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">fs_struct</span>        *<span class="title">fs</span>;</span></span><br><span class="line">    <span class="comment">// 一个数组，包含该进程打开的文件指针</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">files_struct</span>        *<span class="title">files</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h5 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h5><p><img src="/images/2021年春招准备-Linux篇/5.jpeg" alt="title"></p>
+<p><code>files</code>，它是一个文件指针数组。一般来说，一个进程会从<code>files[0]</code>读取输入，将输出写入<code>files[1]</code>，将错误信息写入<code>files[2]</code></p>
+<p><strong>每个进程被创建时，<code>files</code>的前三位被填入默认值，分别指向标准输入流、标准输出流、标准错误流。我们常说的「文件描述符」就是指这个文件指针数组的索引</strong>，所以程序的文件描述符默认情况下 0 是输入，1 是输出，2 是错误</p>
+<p>Linux 中一切都被抽象成文件，设备也是文件，可以进行读和写。如果我们写的程序需要其他资源，比如打开一个文件进行读写，这也很简单，进行系统调用，让内核把文件打开，这个文件就会被放到<code>files</code>的第 4 个位置</p>
+<p><strong>应用</strong></p>
+<p><img src="/images/2021年春招准备-Linux篇/6.png" alt="title"></p>
+<h5 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h5><p><img src="/images/2021年春招准备-Linux篇/7.png" alt="title"></p>
+<p><img src="/images/2021年春招准备-Linux篇/8.png" alt="title"></p>
 
       
     </div>
@@ -717,7 +813,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、理解linux下的load"><span class="nav-number">1.</span> <span class="nav-text">1、理解linux下的load</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#top-字段：按f-可以选择相关参数-按d标示是否显示-按q标示退出-t切换CPU"><span class="nav-number">1.1.</span> <span class="nav-text">top 字段：按f, 可以选择相关参数; 按d标示是否显示; 按q标示退出; t切换CPU</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他："><span class="nav-number">1.2.</span> <span class="nav-text">其他：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、常见命令"><span class="nav-number">2.</span> <span class="nav-text">2、常见命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、服务器响应变慢排查"><span class="nav-number">3.</span> <span class="nav-text">3、服务器响应变慢排查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、机器的磁盘满了，删日志没有反应，可能是什么问题？"><span class="nav-number">4.</span> <span class="nav-text">4、机器的磁盘满了，删日志没有反应，可能是什么问题？</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、理解linux下的load"><span class="nav-number">1.</span> <span class="nav-text">1、理解linux下的load</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#top-字段：按f-可以选择相关参数-按d标示是否显示-按q标示退出-t切换CPU"><span class="nav-number">1.1.</span> <span class="nav-text">top 字段：按f, 可以选择相关参数; 按d标示是否显示; 按q标示退出; t切换CPU</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他："><span class="nav-number">1.2.</span> <span class="nav-text">其他：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、常见命令"><span class="nav-number">2.</span> <span class="nav-text">2、常见命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、服务器响应变慢排查"><span class="nav-number">3.</span> <span class="nav-text">3、服务器响应变慢排查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、机器的磁盘满了，删日志没有反应，可能是什么问题？"><span class="nav-number">4.</span> <span class="nav-text">4、机器的磁盘满了，删日志没有反应，可能是什么问题？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、Linux文件系统"><span class="nav-number">5.</span> <span class="nav-text">5、Linux文件系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6、CGroups"><span class="nav-number">6.</span> <span class="nav-text">6、CGroups</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#概念解释"><span class="nav-number">6.1.</span> <span class="nav-text">概念解释</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Cgroups提供了以下功能："><span class="nav-number">6.2.</span> <span class="nav-text">Cgroups提供了以下功能：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7、进程、线程、文件描述符"><span class="nav-number">7.</span> <span class="nav-text">7、进程、线程、文件描述符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#进程"><span class="nav-number">7.1.</span> <span class="nav-text">进程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件描述符"><span class="nav-number">7.2.</span> <span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线程"><span class="nav-number">7.3.</span> <span class="nav-text">线程</span></a></li></ol></li></ol></div>
             
 
           </div>
