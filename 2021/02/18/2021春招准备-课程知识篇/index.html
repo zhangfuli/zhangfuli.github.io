@@ -110,8 +110,15 @@
 <meta property="og:image" content="/images/2021年春招准备-课程知识篇/20.png">
 <meta property="og:image" content="/images/2021年春招准备-课程知识篇/23.png">
 <meta property="og:image" content="/images/2021年春招准备-课程知识篇/21.png">
+<meta property="og:image" content="/images/2021年春招准备-课程知识篇/25.png">
+<meta property="og:image" content="/images/2021年春招准备-课程知识篇/26.png">
 <meta property="og:image" content="/images/2021年春招准备-课程知识篇/22.jpg">
-<meta property="og:updated_time" content="2021-03-10T03:05:48.032Z">
+<meta property="og:image" content="/images/2021年春招准备-课程知识篇/27.png">
+<meta property="og:image" content="/images/2021年春招准备-课程知识篇/30.png">
+<meta property="og:image" content="/images/2021年春招准备-课程知识篇/28.png">
+<meta property="og:image" content="/images/2021年春招准备-课程知识篇/29.png">
+<meta property="og:image" content="/images/2021年春招准备-课程知识篇/24.jpeg">
+<meta property="og:updated_time" content="2021-03-16T04:40:23.637Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="课程知识篇-2021春招准备">
 <meta name="twitter:description" content="1、Hash原理 Hash算法较多的应用在数据存储和查找领域，最经典的就是Hash表，它的查询效率非常高，如果哈希算法设计的好，那么Hash表的数据查询时间复杂度可以接近于O(1)  Hash算法使用示例  提供一组数据1，5，7，6，3，4，8，对这组数据进行存储，然后随便给定一个数n，请你判断n是否存在于刚才的数据集中？   顺序查找法：这种方式就是通过循环来完成，比较原始，效率也不高 二分查">
@@ -578,14 +585,17 @@
 </ul>
 </li>
 </ul>
+<p><img src="/images/2021年春招准备-课程知识篇/25.png" alt="title"></p>
 <h5 id="非阻塞IO"><a href="#非阻塞IO" class="headerlink" title="非阻塞IO"></a>非阻塞IO</h5><ul>
 <li><strong>描述：</strong><ul>
-<li>当用户进程发出read操作时，进程并没有被阻塞，内核马上返回给进程响应，如果数据还没准备好，此时会返回一个error。进程在返回之后，可以干点别的事情，然后再发起recvform系统调用。</li>
-<li>重复上面的过程，循环往复的进行recvform系统调用。这个过程通常被称之为轮询。<strong>轮询检查内核数据，直到数据准备好，再拷贝数据到进程，进行数据处理</strong>。需要注意，拷贝数据整个过程，进程仍然是属于阻塞的状态。</li>
+<li>当用户进程发出read操作时，进程并没有被阻塞，内核马上返回给进程响应，如果数据还没准备好，此时会返回一个error。进程在返回之后，可以干点别的事情，然后再发起recvfrom系统调用。</li>
+<li>重复上面的过程，循环往复的进行recvfrom系统调用。这个过程通常被称之为轮询。<strong>轮询检查内核数据，直到数据准备好，再拷贝数据到进程，进行数据处理</strong>。需要注意，拷贝数据整个过程，进程仍然是属于阻塞的状态。</li>
 </ul>
 </li>
 </ul>
+<p><img src="/images/2021年春招准备-课程知识篇/26.png" alt="title"></p>
 <h5 id="多路复用IO"><a href="#多路复用IO" class="headerlink" title="多路复用IO"></a>多路复用IO</h5><p><img src="/images/2021年春招准备-课程知识篇/22.jpg" alt="title"></p>
+<p><img src="/images/2021年春招准备-课程知识篇/27.png" alt="title"></p>
 <ul>
 <li><strong>描述:</strong> <ul>
 <li>select/epoll这个函数会不断的轮询所负责的所有socket，当某个socket有数据到达了，就通知用户进程 ，select/epoll的好处就在于单个线程/进程，就可以同时处理多个网络连接的IO</li>
@@ -595,19 +605,40 @@
 <li><strong>与阻塞IO区别</strong>:<ul>
 <li>多路复用需要使用两个系统调用：select和recvfrom，而阻塞IO只调用了一个系统调用(recvfrom)。但是，用select的优势在于它可以同时处理多个connection</li>
 <li>如果处理的连接数不是很高的话，使用select/epoll的web server不一定比使用多线程 + blocking IO的web server性能更好，可能延迟还更大。select/epoll的优势并不是对于单个连接能处理得更快，而是在于能<strong>处理更多的连接</strong>。</li>
-<li>在多路复用模型中，对于每一个socket，一般都设置成为non-blocking，但是，整个用户的process其实是一直被阻塞的。只不过process是被select这个函数阻塞的，而不是被socket IO给阻塞。</li>
+<li>在多路复用模型中，对于每一个socket，一般都设置成为non-blocking，但是，整个用户的process其实是一直被阻塞的。只不过process是被select这个函数阻塞的，而不是被socket IO给阻塞</li>
 </ul>
+</li>
+</ul>
+<p><img src="/images/2021年春招准备-课程知识篇/30.png" alt="title"></p>
+<p>在选择select，poll，epoll时要根据具体的使用场合以及这三种方式的自身特点</p>
+<ul>
+<li>表面上看epoll的性能最好，但是在连接数少并且连接都十分活跃的情况下，select和poll的性能可能比epoll好，毕竟epoll的通知机制需要很多函数回调</li>
+<li><p><strong>poll没有最大文件描述符数量的限制</strong></p>
+</li>
+<li><p>select低效是因为每次它都需要轮询。但低效也是相对的，视情况而定，也可通过良好的设计改善 </p>
 </li>
 </ul>
 <h5 id="信号驱动IO"><a href="#信号驱动IO" class="headerlink" title="信号驱动IO"></a>信号驱动IO</h5><ul>
 <li><strong>描述：</strong>允许套接口进行信号驱动I/O, 并安装信号处理函数，进程继续运行并不阻塞。当数据准备好时，进程会收到一个SIGIO信号，可以在信号处理函数中调用I/O操作函数处理数据。当数据报准备好读取时，内核就为该进程产生一个SIGIO信号。我们随后既可以在信号处理函数中调用recvfrom读取数据报，并通知主循环数据已准备好待处理，也可以立即通知主循环，让它来读取数据报。无论如何处理SIGIO信号，这种模型的优势在于等待数据报到达(第一阶段)期间，进程可以继续执行，不被阻塞。免去了select的阻塞与轮询，当有活跃套接字时，由注册的handler处理。</li>
 </ul>
+<p><img src="/images/2021年春招准备-课程知识篇/28.png" alt="title"></p>
 <h5 id="异步IO"><a href="#异步IO" class="headerlink" title="异步IO"></a>异步IO</h5><ul>
 <li><strong>描述:</strong> <ul>
 <li>异步IO是真正非阻塞的，它不会对请求进程产生任何的阻塞，因此对高并发的网络服务器实现至关重要</li>
 <li>用户进程发起read操作之后，立刻就可以开始去做其它的事。而另一方面，从系统内核的角度，当它收到一个asynchronous（异步） read之后，首先它会立刻返回，所以不会对用户进程产生任何阻塞。</li>
-<li>系统内核会等待数据准备完成，然后将数据拷贝到用户内存，当这一切都完成之后，kernel系统内核会给用户进程发送一个signal，告诉它read操作完成了。</li>
+<li>系统内核会等待数据准备完成，然后将数据拷贝到用户内存，当这一切都完成之后，kernel系统内核会给用户进程发送一个signal，告诉它read操作完成了</li>
 </ul>
+</li>
+</ul>
+<p><img src="/images/2021年春招准备-课程知识篇/29.png" alt="title"></p>
+<p><strong>总结</strong></p>
+<p><img src="/images/2021年春招准备-课程知识篇/24.jpeg" alt="title"></p>
+<p>阻塞式I/O、非阻塞式I/O、I/O复用、信号驱动式I/O他们的第二阶段都相同，也就是都会阻塞到recvfrom调用上面就是图中“发起”的动作</p>
+<p>IO分两阶段：</p>
+<ul>
+<li><p>数据准备阶段</p>
+</li>
+<li><p>内核空间复制回用户进程缓冲区阶段</p>
 </li>
 </ul>
 <h5 id="举例："><a href="#举例：" class="headerlink" title="举例："></a>举例：</h5><ul>

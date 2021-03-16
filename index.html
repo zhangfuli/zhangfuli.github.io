@@ -380,10 +380,16 @@
         
           
           1、前端Vue生命周期
-2、数据库事务
-原子性（ Atomicity ）: 事务是数据库的逻辑工作单位，不可分割，事务中包含的各操作要么都做，要么都不做
-一致性（ Consistency ）: 事务执行的结果必须是使数据库从一个一致性状态变到另一个一致性状态
-隔离性（ Isolation ）: 一个
+MVC/MVP/MVVM
+
+View 传送指令到 Controller
+Controller 完成业务逻辑后，要求 Model 改变状态
+Model 将新的数据发送到 View，用户得到反馈
+
+
+
+各部分之间的通信，都是双向的
+View 与 Model 不发生联系，都通过 P
           ...
           <!--noindex-->
           <div class="post-button text-center">
