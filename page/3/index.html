@@ -308,7 +308,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2020/10/24/数据库操作-5/">
+    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2020/10/24/数据库操作-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhangfuli">
@@ -327,7 +327,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/10/24/数据库操作-5/" itemprop="url">数据库操作-5(多表查询)</a></h1>
+                <a class="post-title-link" href="/2020/10/24/数据库操作-2/" itemprop="url">数据库操作-2(生成随机数据)</a></h1>
         
 
         <div class="post-meta">
@@ -379,14 +379,14 @@
       
         
           
-          1、查询每门课的间接选修课:
-12SELECT d1.cno, d2.pcno FROM Course AS d1, Course AS d2 WHERE d1.pcno = d2.cno
-2、查询选课成绩在80分以上的男生姓名、课程名、成绩
-123456789SELECT sname, cname
+          1、SQL索引的建立:
+123456789CREATE INDEX age_indexON Student_2(age)DROP INDEX age_index on Student_2;--SELECT sno,sname FROM Student_2WHERE age=19;
+2、随机生成学生
+
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/10/24/数据库操作-5/#more" rel="contents">
+            <a class="btn" href="/2020/10/24/数据库操作-2/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -564,7 +564,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2020/10/24/数据库操作-3/">
+    <link itemprop="mainEntityOfPage" href="zhangfuli.github.io/2020/10/24/数据库操作-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhangfuli">
@@ -583,7 +583,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/10/24/数据库操作-3/" itemprop="url">数据库操作-3(单表查询)</a></h1>
+                <a class="post-title-link" href="/2020/10/24/数据库操作-1/" itemprop="url">数据库操作-1</a></h1>
         
 
         <div class="post-meta">
@@ -635,16 +635,15 @@
       
         
           
-          1、检索:
-12SELECT sno, sname, sex, age, dept FROM Student_2WHERE sex='F' and age = 18;
-2、去掉重复项:
-1SELECT DISTINCT age FROM Student_2;
-3、确定范围:
-12SELECT sno
+          1、SQL模式的定义与删除:
+1CREATE SCHEMA Teaching_DB;
+1DROP SCHEMA Teaching_DB;
+2、表的建立
+1234567CREATE TABLE Student(	sno char(5) not null UNIQUE,	sname char(8) no
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/10/24/数据库操作-3/#more" rel="contents">
+            <a class="btn" href="/2020/10/24/数据库操作-1/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

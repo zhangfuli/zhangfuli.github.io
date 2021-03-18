@@ -96,7 +96,7 @@
 <meta property="og:image" content="/images/2021年春招准备-Linux篇/6.png">
 <meta property="og:image" content="/images/2021年春招准备-Linux篇/7.png">
 <meta property="og:image" content="/images/2021年春招准备-Linux篇/8.png">
-<meta property="og:updated_time" content="2021-03-15T07:57:22.897Z">
+<meta property="og:updated_time" content="2021-03-18T06:21:46.153Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux篇-2021春招准备">
 <meta name="twitter:description" content="1、理解linux下的loadload average数据是每隔5秒钟检查一次活跃的进程数，然后按特定算法计算出的数值，然后用这个值和当前机器的cpu核数进行相除，得到的值 12load = process/total_cpu_cores load average: 0.09, 0.05, 0.01 负载的好和坏： 需要根据机器当前的进程数与CPU总核数的比值（process_cores_valu">
@@ -406,7 +406,7 @@
 </ul>
 <p>在我们执行<strong>top</strong>或者<strong>uptime</strong>的时候会有3个load的值，那我们根据哪个值做为我们判断依据呢？</p>
 <p>着眼5分钟和15分钟的load值比较合适，因为1分钟的值有可能是个瞬间值，而5分钟或者15分钟的值是平均值，长时间负载高，机器肯定是需要排查问题的。</p>
-<h5 id="top-字段：按f-可以选择相关参数-按d标示是否显示-按q标示退出-t切换CPU"><a href="#top-字段：按f-可以选择相关参数-按d标示是否显示-按q标示退出-t切换CPU" class="headerlink" title="top 字段：按f, 可以选择相关参数; 按d标示是否显示; 按q标示退出; t切换CPU"></a>top 字段：按f, 可以选择相关参数; 按d标示是否显示; 按q标示退出; t切换CPU</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">top - 15:47:18 up 86 days,  1:07,  2 users,  load average: 0.43, 0.38, 0.39</span><br><span class="line"></span><br><span class="line">Tasks: 157 total,   1 running, 156 sleeping,   0 stopped,   0 zombie</span><br><span class="line">(进程数: 运行中、睡眠、停止、僵尸进程)</span><br><span class="line"></span><br><span class="line"><span class="meta">%</span>Cpu(s):  4.5 us,  6.3 sy,  0.0 ni, 88.4 id,  0.6 wa,  0.0 hi,  0.2 si,  0.0 st</span><br><span class="line"><span class="meta">%</span>CPU：自从上一次更新时到现在任务所使用的CPU时间百分比。</span><br><span class="line"></span><br><span class="line">KiB Mem :  8009184 total,   439224 free,  2005724 used,  5564236 buff/cache</span><br><span class="line">KiB Swap:        0 total,        0 free,        0 used.  5448920 avail Mem</span><br><span class="line"><span class="meta">%</span>MEM：进程使用的可用物理内存百分比。</span><br></pre></td></tr></table></figure>
+<h5 id="top-字段：按f-可以选择相关参数-按d标示是否显示-按q标示退出-t切换CPU"><a href="#top-字段：按f-可以选择相关参数-按d标示是否显示-按q标示退出-t切换CPU" class="headerlink" title="top 字段：按f, 可以选择相关参数; 按d标示是否显示; 按q标示退出; t切换CPU"></a>top 字段：按f, 可以选择相关参数; 按d标示是否显示; 按q标示退出; t切换CPU</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">top - 15:47:18 up 86 days,  1:07,  2 users,  load average: 0.43, 0.38, 0.39</span><br><span class="line"></span><br><span class="line">Tasks: 157 total,   1 running, 156 sleeping,   0 stopped,   0 zombie</span><br><span class="line">(进程数: 运行中、睡眠、停止、僵尸进程)</span><br><span class="line"></span><br><span class="line"><span class="meta">%</span><span class="bash">Cpu(s):  4.5 us,  6.3 sy,  0.0 ni, 88.4 id,  0.6 wa,  0.0 hi,  0.2 si,  0.0 st</span></span><br><span class="line"><span class="meta">%</span><span class="bash">CPU：自从上一次更新时到现在任务所使用的CPU时间百分比。</span></span><br><span class="line"></span><br><span class="line">KiB Mem :  8009184 total,   439224 free,  2005724 used,  5564236 buff/cache</span><br><span class="line">KiB Swap:        0 total,        0 free,        0 used.  5448920 avail Mem</span><br><span class="line"><span class="meta">%</span><span class="bash">MEM：进程使用的可用物理内存百分比。</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>PID：Process ID    PPID(Parent Process ID)</li>
 <li>USER</li>
@@ -434,6 +434,8 @@
 <li><p>命令用于计算字数: <code>wc</code></p>
 </li>
 <li><p>查看堆栈: <code>pstack PID</code> + <code>gdb</code>调试死锁</p>
+</li>
+<li><p>查看端口: <code>netstat</code></p>
 </li>
 <li><p><code>vim</code>: 命令模式、插入模式、尾行命令模式</p>
 <ul>
