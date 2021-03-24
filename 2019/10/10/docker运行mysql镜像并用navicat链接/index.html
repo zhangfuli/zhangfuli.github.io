@@ -390,7 +390,7 @@
 <p>2、查看已运行的容器，确保mysql镜像运行成功</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a |grep mysql</span><br></pre></td></tr></table></figure>
 <p>3、进入mysql镜像修改远程链接权限</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it mysql bash</span><br><span class="line">root@a42f31094df5:/# </span><br><span class="line">root@a42f31094df5:/# mysql -uroot -p</span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> ALTER user <span class="string">'root'</span>@<span class="string">'%'</span> IDENTIFIED WITH mysql_native_password BY <span class="string">'123456'</span>;  </span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> FLUSH PRIVILEGES;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it mysql bash</span><br><span class="line">root@a42f31094df5:/# </span><br><span class="line">root@a42f31094df5:/# mysql -uroot -p</span><br><span class="line"><span class="meta">mysql&gt;</span> ALTER user 'root'@'%' IDENTIFIED WITH mysql_native_password BY '123456';  </span><br><span class="line"><span class="meta">mysql&gt;</span> FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
 <p>4、可以测试远程访问啦</p>
 
       
@@ -536,7 +536,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">155</span>
+                  <span class="site-state-item-count">156</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -93,7 +93,7 @@
 <meta property="og:image" content="/images/2021年春招准备-Docker篇/9.png">
 <meta property="og:image" content="/images/2021年春招准备-Docker篇/11.jpg">
 <meta property="og:image" content="/images/2021年春招准备-Docker篇/12.gif">
-<meta property="og:updated_time" content="2021-03-18T06:20:22.295Z">
+<meta property="og:updated_time" content="2021-03-22T09:25:53.128Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker篇-2021年春招准备">
 <meta name="twitter:description" content="熟悉 Java、Golang 或 C++至少一⻔语言。 有良好的计算机基础，基本功扎实：熟悉常用的算法、数据结构，熟悉操作系统、网络等基础知识。 加分项(任一即可)： • 熟悉微服务领域相关技术或产品，如 gRPC，Dubbo，Spring Cloud，RocketMQ等。 • 熟悉容器相关技术或产品，如 Docker, Kubernetes, Istio/Envoy 等。 • 熟悉监控领域相关">
@@ -418,12 +418,26 @@
 <li>docker rmi 删除镜像</li>
 <li>docker images 列出所有镜像</li>
 <li>docker ps 列出所有容器</li>
-<li>docker logs</li>
+<li><p>docker logs</p>
+</li>
+<li><p>容器与主机之间的数据拷贝命令</p>
+</li>
 </ul>
-<h4 id="6-容器与主机之间的数据拷贝命令"><a href="#6-容器与主机之间的数据拷贝命令" class="headerlink" title="6.容器与主机之间的数据拷贝命令"></a>6.容器与主机之间的数据拷贝命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker cp /www 96f7f14e99ab:/www/ #主机到容器</span><br><span class="line">docker cp 96f7f14e99ab:/www /tmp/ #容器到主机</span><br></pre></td></tr></table></figure>
-<h4 id="7-启动nginx容器"><a href="#7-启动nginx容器" class="headerlink" title="7. 启动nginx容器"></a>7. 启动nginx容器</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run </span><br><span class="line">-d # 后台运行返回容器ID</span><br><span class="line">-P # 随机端口</span><br><span class="line">-p # 宿主机:容器</span><br><span class="line">--name nginx2 </span><br><span class="line">-v /home/nginx:/usr/share/nginx/html #宿主机:容器   -v后边加“：ro” 限制容器的写入权限；</span><br><span class="line">--rm # 退出时自动清理</span><br><span class="line">nginx</span><br></pre></td></tr></table></figure>
-<h4 id="8-解释一下Dockerfile的ONBUILD指令"><a href="#8-解释一下Dockerfile的ONBUILD指令" class="headerlink" title="8. 解释一下Dockerfile的ONBUILD指令"></a>8. 解释一下Dockerfile的ONBUILD指令</h4><p>以当前镜像为parent 镜像时触发</p>
-<h5 id="ADD-COPY区别："><a href="#ADD-COPY区别：" class="headerlink" title="ADD/COPY区别："></a><strong>ADD/COPY区别</strong>：</h5><blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker cp /www 96f7f14e99ab:/www/ #主机到容器</span><br><span class="line">docker cp 96f7f14e99ab:/www /tmp/ #容器到主机</span><br></pre></td></tr></table></figure>
+<ul>
+<li>启动nginx容器</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run </span><br><span class="line">-d # 后台运行返回容器ID</span><br><span class="line">-P # 随机端口</span><br><span class="line">-p # 宿主机:容器</span><br><span class="line">--name nginx2 </span><br><span class="line">-v /home/nginx:/usr/share/nginx/html #宿主机:容器   -v后边加“：ro” 限制容器的写入权限；</span><br><span class="line">--rm # 退出时自动清理</span><br><span class="line">nginx</span><br></pre></td></tr></table></figure>
+<ul>
+<li>docker commit</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker commit </span><br><span class="line">--author "Tao Wang &lt;twang2218@gmail.com&gt;" # --author 是指定修改的作者</span><br><span class="line">--message "修改了默认网页" # --message 则是记录本次修改的内容</span><br><span class="line">webserver # &lt;容器ID或容器名&gt;</span><br><span class="line">nginx:v2  # [&lt;仓库名&gt;[:&lt;标签&gt;]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>docker history 71fa7369f437   / dockviz 看树形结构</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">IMAGE          CREATED       CREATED BY                                      SIZE      COMMENT</span><br><span class="line">71fa7369f437   6 years ago   /bin/sh -c #(nop) CMD [/bin/sh]                 0B        </span><br><span class="line">&lt;missing&gt;      6 years ago   /bin/sh -c #(nop) ENV ENV=/root/.bashrc         0B        </span><br><span class="line">&lt;missing&gt;      6 years ago   /bin/sh -c #(nop) ENV HOME=/root                0B        </span><br><span class="line">&lt;missing&gt;      6 years ago   /bin/sh -c #(nop) ADD file:9775c32290ddfc3ef…   679B      </span><br><span class="line">&lt;missing&gt;      6 years ago   /bin/sh -c #(nop) ADD file:8af1e65661badcfdf…   4.23MB    </span><br><span class="line">&lt;missing&gt;      6 years ago   /bin/sh -c #(nop) MAINTAINER Brian Clements …   0B        </span><br><span class="line">&lt;missing&gt;      7 years ago                                                   0B        Imported from -</span><br></pre></td></tr></table></figure>
+<h4 id="6-解释一下Dockerfile的ONBUILD指令"><a href="#6-解释一下Dockerfile的ONBUILD指令" class="headerlink" title="6. 解释一下Dockerfile的ONBUILD指令"></a>6. 解释一下Dockerfile的ONBUILD指令</h4><p>以当前镜像为parent 镜像时触发</p>
+<h4 id="7、ADD-COPY区别："><a href="#7、ADD-COPY区别：" class="headerlink" title="7、ADD/COPY区别："></a>7、<strong>ADD/COPY区别</strong>：</h4><blockquote>
 <p>相同将本机文件拷贝到容器</p>
 </blockquote>
 <ul>
@@ -437,7 +451,7 @@
 </ul>
 </li>
 </ul>
-<h5 id="Docker镜像大小分析"><a href="#Docker镜像大小分析" class="headerlink" title="Docker镜像大小分析"></a>Docker镜像大小分析</h5><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu:<span class="number">14.04</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> compressed.tar /</span></span><br><span class="line"><span class="bash">RUN rm /compressed.tar</span></span><br><span class="line"><span class="bash">ADD compressed.tar /</span></span><br></pre></td></tr></table></figure>
+<h4 id="8、Docker镜像大小分析"><a href="#8、Docker镜像大小分析" class="headerlink" title="8、Docker镜像大小分析"></a>8、Docker镜像大小分析</h4><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu:<span class="number">14.04</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> compressed.tar /</span></span><br><span class="line"><span class="bash">RUN rm /compressed.tar</span></span><br><span class="line"><span class="bash">ADD compressed.tar /</span></span><br></pre></td></tr></table></figure>
 <ol>
 <li><strong><code>FROM ubuntu:14.04</code></strong>：镜像 <code>ubuntu:14.04</code> 的大小为 200 MB；</li>
 <li><strong><code>ADD compressed.tar /</code></strong>： <code>compressed.tar</code> 文件为 100 MB，因此当前镜像层的大小为 100 MB，镜像总大小为 300 MB；</li>
@@ -486,7 +500,7 @@
 </ul>
 <h4 id="13-如何控制容器占用系统资源（CPU，内存）的份额？"><a href="#13-如何控制容器占用系统资源（CPU，内存）的份额？" class="headerlink" title="13. 如何控制容器占用系统资源（CPU，内存）的份额？"></a>13. 如何控制容器占用系统资源（CPU，内存）的份额？</h4><p>在使用docker create命令创建容器或使用docker run 创建并运行容器的时候，可以使用-c|–cpu-shares[=0]参数来调整同期使用CPU的权重，使用-m|–memory参数来调整容器使用内存的大小。</p>
 <h4 id="14-仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？"><a href="#14-仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？" class="headerlink" title="14. 仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？"></a>14. 仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？</h4><p>首先，仓库是存放一组关联镜像的集合，比如同一个应用的不同版本的镜像，注册服务器是存放实际的镜像的地方，注册索引则负责维护用户的账号，权限，搜索，标签等管理。注册服务器利用注册索引来实现认证等管理。</p>
-<h4 id="15、Docker如何做资源隔离"><a href="#15、Docker如何做资源隔离" class="headerlink" title="15、Docker如何做资源隔离"></a>15、Docker如何做资源隔离</h4><ul>
+<h4 id="15-Docker如何做资源隔离"><a href="#15-Docker如何做资源隔离" class="headerlink" title="15. Docker如何做资源隔离"></a>15. Docker如何做资源隔离</h4><ul>
 <li>Namespace 技术，Linux中的PID是唯一且独立的，在正常情况下，用户不会看见重复的PID。然而在Docker采用了Namespace，从而令相同的PID可于不同的Namespace中独立存在<ul>
 <li>缺点：隔离不彻底</li>
 </ul>
@@ -494,14 +508,14 @@
 <li>Cgroups可以限制、记录任务组所使用的物理资源（包括CPU，Memory，IO等）</li>
 <li>Rootfs做文件系统</li>
 </ul>
-<h4 id="16、Docker、Runc、Shim、Containerd、Daemon之间的关系"><a href="#16、Docker、Runc、Shim、Containerd、Daemon之间的关系" class="headerlink" title="16、Docker、Runc、Shim、Containerd、Daemon之间的关系"></a>16、Docker、Runc、Shim、Containerd、Daemon之间的关系</h4><p><img src="/images/2021年春招准备-Docker篇/12.gif" alt="img"></p>
+<h4 id="16-Docker、Runc、Shim、Containerd、Daemon之间的关系"><a href="#16-Docker、Runc、Shim、Containerd、Daemon之间的关系" class="headerlink" title="16. Docker、Runc、Shim、Containerd、Daemon之间的关系"></a>16. Docker、Runc、Shim、Containerd、Daemon之间的关系</h4><p><img src="/images/2021年春招准备-Docker篇/12.gif" alt="img"></p>
 <ul>
 <li>runc ：生来只有一个作用——创建容器，这一点它非常拿手，速度很快！runc 是 开放容器计划（OCI）容器运行时标准的参考实现</li>
 <li>shim：允许runC在启动容器之后退出</li>
 <li>containerd：所有的容器执行逻辑，它的主要任务是容器的生命周期管理——start | stop | pause | rm</li>
 <li>daemon 的主要功能包括镜像管理、镜像构建、REST API、身份验证、安全、核心网络以及编排</li>
 </ul>
-<h4 id="17、Dockerfile减少构建镜像大小的方法"><a href="#17、Dockerfile减少构建镜像大小的方法" class="headerlink" title="17、Dockerfile减少构建镜像大小的方法"></a>17、Dockerfile减少构建镜像大小的方法</h4><blockquote>
+<h4 id="17-Dockerfile减少构建镜像大小的方法"><a href="#17-Dockerfile减少构建镜像大小的方法" class="headerlink" title="17. Dockerfile减少构建镜像大小的方法"></a>17. Dockerfile减少构建镜像大小的方法</h4><blockquote>
 <p>通过Dockerfile构建镜像时，很容易把镜像构建得很大。从通俗得原来上来说，一次RUN形成新的一层，如果没有在同一层删除，无论文件是否最后删除，都会带到下一层。</p>
 </blockquote>
 <ul>
@@ -515,7 +529,12 @@
 <li><p>不下载非必要依赖</p>
 </li>
 <li>将非运行环境删除，删除非运行环境时，需要与构建该环境在同一个RUN中，否则非运行环境仍然会被带入镜像中（以其中某一层的方式存在）</li>
-<li>在 Docker 17.05 以上版本中，你可以使用 多阶段构建 来减少所构建镜像的大小</li>
+<li>在 Docker 17.05 以上版本中，你可以使用 多阶段构建来减少所构建镜像的大小</li>
+</ul>
+<h4 id="18-docker-save和docker-export区别"><a href="#18-docker-save和docker-export区别" class="headerlink" title="18. docker save和docker export区别"></a>18. docker save和docker export区别</h4><ul>
+<li>docker save保存的是镜像（image，如果指定container背后的还是image），docker export保存的是容器（container）</li>
+<li>docker load用来载入镜像包，docker import用来载入容器包，但两者都会恢复为镜像</li>
+<li>docker load不能对载入的镜像重命名，而docker import可以为镜像指定新名称</li>
 </ul>
 
       
@@ -670,7 +689,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">155</span>
+                  <span class="site-state-item-count">156</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -748,7 +767,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-什么是Docker？"><span class="nav-number">1.</span> <span class="nav-text">1. 什么是Docker？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Docker与虚拟机的区别"><span class="nav-number">2.</span> <span class="nav-text">2. Docker与虚拟机的区别:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Docker容器有几种状态"><span class="nav-number">3.</span> <span class="nav-text">3. Docker容器有几种状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4．Dockerfile中最常见的指令是什么"><span class="nav-number">4.</span> <span class="nav-text">4．Dockerfile中最常见的指令是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-docker常用命令："><span class="nav-number">5.</span> <span class="nav-text">5. docker常用命令：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-容器与主机之间的数据拷贝命令"><span class="nav-number">6.</span> <span class="nav-text">6.容器与主机之间的数据拷贝命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-启动nginx容器"><span class="nav-number">7.</span> <span class="nav-text">7. 启动nginx容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-解释一下Dockerfile的ONBUILD指令"><span class="nav-number">8.</span> <span class="nav-text">8. 解释一下Dockerfile的ONBUILD指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ADD-COPY区别："><span class="nav-number">8.1.</span> <span class="nav-text">ADD/COPY区别：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Docker镜像大小分析"><span class="nav-number">8.2.</span> <span class="nav-text">Docker镜像大小分析</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-Docker-Swarm"><span class="nav-number">9.</span> <span class="nav-text">9. Docker Swarm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-监控Docker"><span class="nav-number">10.</span> <span class="nav-text">10. 监控Docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-Docker镜像和层有什么区别"><span class="nav-number">11.</span> <span class="nav-text">11. Docker镜像和层有什么区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-Docker默认的网络类型"><span class="nav-number">12.</span> <span class="nav-text">12. Docker默认的网络类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-如何控制容器占用系统资源（CPU，内存）的份额？"><span class="nav-number">13.</span> <span class="nav-text">13. 如何控制容器占用系统资源（CPU，内存）的份额？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？"><span class="nav-number">14.</span> <span class="nav-text">14. 仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15、Docker如何做资源隔离"><span class="nav-number">15.</span> <span class="nav-text">15、Docker如何做资源隔离</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#16、Docker、Runc、Shim、Containerd、Daemon之间的关系"><span class="nav-number">16.</span> <span class="nav-text">16、Docker、Runc、Shim、Containerd、Daemon之间的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#17、Dockerfile减少构建镜像大小的方法"><span class="nav-number">17.</span> <span class="nav-text">17、Dockerfile减少构建镜像大小的方法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-什么是Docker？"><span class="nav-number">1.</span> <span class="nav-text">1. 什么是Docker？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Docker与虚拟机的区别"><span class="nav-number">2.</span> <span class="nav-text">2. Docker与虚拟机的区别:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Docker容器有几种状态"><span class="nav-number">3.</span> <span class="nav-text">3. Docker容器有几种状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4．Dockerfile中最常见的指令是什么"><span class="nav-number">4.</span> <span class="nav-text">4．Dockerfile中最常见的指令是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-docker常用命令："><span class="nav-number">5.</span> <span class="nav-text">5. docker常用命令：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-解释一下Dockerfile的ONBUILD指令"><span class="nav-number">6.</span> <span class="nav-text">6. 解释一下Dockerfile的ONBUILD指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7、ADD-COPY区别："><span class="nav-number">7.</span> <span class="nav-text">7、ADD/COPY区别：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8、Docker镜像大小分析"><span class="nav-number">8.</span> <span class="nav-text">8、Docker镜像大小分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-Docker-Swarm"><span class="nav-number">9.</span> <span class="nav-text">9. Docker Swarm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-监控Docker"><span class="nav-number">10.</span> <span class="nav-text">10. 监控Docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-Docker镜像和层有什么区别"><span class="nav-number">11.</span> <span class="nav-text">11. Docker镜像和层有什么区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-Docker默认的网络类型"><span class="nav-number">12.</span> <span class="nav-text">12. Docker默认的网络类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-如何控制容器占用系统资源（CPU，内存）的份额？"><span class="nav-number">13.</span> <span class="nav-text">13. 如何控制容器占用系统资源（CPU，内存）的份额？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？"><span class="nav-number">14.</span> <span class="nav-text">14. 仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-Docker如何做资源隔离"><span class="nav-number">15.</span> <span class="nav-text">15. Docker如何做资源隔离</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#16-Docker、Runc、Shim、Containerd、Daemon之间的关系"><span class="nav-number">16.</span> <span class="nav-text">16. Docker、Runc、Shim、Containerd、Daemon之间的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#17-Dockerfile减少构建镜像大小的方法"><span class="nav-number">17.</span> <span class="nav-text">17. Dockerfile减少构建镜像大小的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#18-docker-save和docker-export区别"><span class="nav-number">18.</span> <span class="nav-text">18. docker save和docker export区别</span></a></li></ol></div>
             
 
           </div>

@@ -96,7 +96,7 @@
 <meta property="og:image" content="/images/2021年春招准备-Linux篇/6.png">
 <meta property="og:image" content="/images/2021年春招准备-Linux篇/7.png">
 <meta property="og:image" content="/images/2021年春招准备-Linux篇/8.png">
-<meta property="og:updated_time" content="2021-03-18T06:21:46.153Z">
+<meta property="og:updated_time" content="2021-03-22T08:10:07.549Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux篇-2021春招准备">
 <meta name="twitter:description" content="1、理解linux下的loadload average数据是每隔5秒钟检查一次活跃的进程数，然后按特定算法计算出的数值，然后用这个值和当前机器的cpu核数进行相除，得到的值 12load = process/total_cpu_cores load average: 0.09, 0.05, 0.01 负载的好和坏： 需要根据机器当前的进程数与CPU总核数的比值（process_cores_valu">
@@ -433,9 +433,11 @@
 </li>
 <li><p>命令用于计算字数: <code>wc</code></p>
 </li>
+<li><p>查看文件夹大小: <code>ls -lh</code></p>
+</li>
 <li><p>查看堆栈: <code>pstack PID</code> + <code>gdb</code>调试死锁</p>
 </li>
-<li><p>查看端口: <code>netstat</code></p>
+<li><p>查看端口: <code>netstat -anop</code></p>
 </li>
 <li><p><code>vim</code>: 命令模式、插入模式、尾行命令模式</p>
 <ul>
@@ -584,6 +586,23 @@
 <p><img src="/images/2021年春招准备-Linux篇/6.png" alt="title"></p>
 <h5 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h5><p><img src="/images/2021年春招准备-Linux篇/7.png" alt="title"></p>
 <p><img src="/images/2021年春招准备-Linux篇/8.png" alt="title"></p>
+<h4 id="8、Linux增加开机启动项"><a href="#8、Linux增加开机启动项" class="headerlink" title="8、Linux增加开机启动项"></a>8、Linux增加开机启动项</h4><ul>
+<li><p>编辑文件 <code>/etc/rc.local</code>，在文件末尾（exit 0之前）加上你开机需要启动的程序或执行的命令即可（执行的程序需要写绝对路径，添加到系统环境变量的除外）</p>
+</li>
+<li><p>自己写shell脚本，将写好的脚本（.sh文件）放到目录 <code>/etc/profile.d/</code>下，系统启动后就会自动执行该目录下的所有shell脚本</p>
+</li>
+<li><p>通过chkconfig命令设置</p>
+<ul>
+<li>将启动文件cp到 /etc/init.d/或者/etc/rc.d/init.d/（前者是后者的软连接）下</li>
+<li>vim 启动文件，文件前面务必添加如下三行代码，否侧会提示chkconfig不支持</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh 告诉系统使用的shell,所以的shell脚本都是这样</span></span><br><span class="line"><span class="meta">#</span><span class="bash">chkconfig: 35 20 80 分别代表运行级别，启动优先权，关闭优先权，此行代码必须</span></span><br><span class="line"><span class="meta">#</span><span class="bash">description: http server（自己随便发挥）//两行都注释掉！！！，此行代码必须</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>chkconfig –add 脚本文件名 操作后就已经添加了</li>
+<li><code>systemctl enable</code></li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -737,7 +756,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">155</span>
+                  <span class="site-state-item-count">156</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -815,7 +834,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、理解linux下的load"><span class="nav-number">1.</span> <span class="nav-text">1、理解linux下的load</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#top-字段：按f-可以选择相关参数-按d标示是否显示-按q标示退出-t切换CPU"><span class="nav-number">1.1.</span> <span class="nav-text">top 字段：按f, 可以选择相关参数; 按d标示是否显示; 按q标示退出; t切换CPU</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他："><span class="nav-number">1.2.</span> <span class="nav-text">其他：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、常见命令"><span class="nav-number">2.</span> <span class="nav-text">2、常见命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、服务器响应变慢排查"><span class="nav-number">3.</span> <span class="nav-text">3、服务器响应变慢排查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、机器的磁盘满了，删日志没有反应，可能是什么问题？"><span class="nav-number">4.</span> <span class="nav-text">4、机器的磁盘满了，删日志没有反应，可能是什么问题？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、Linux文件系统"><span class="nav-number">5.</span> <span class="nav-text">5、Linux文件系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6、CGroups"><span class="nav-number">6.</span> <span class="nav-text">6、CGroups</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#概念解释"><span class="nav-number">6.1.</span> <span class="nav-text">概念解释</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Cgroups提供了以下功能："><span class="nav-number">6.2.</span> <span class="nav-text">Cgroups提供了以下功能：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7、进程、线程、文件描述符"><span class="nav-number">7.</span> <span class="nav-text">7、进程、线程、文件描述符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#进程"><span class="nav-number">7.1.</span> <span class="nav-text">进程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件描述符"><span class="nav-number">7.2.</span> <span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线程"><span class="nav-number">7.3.</span> <span class="nav-text">线程</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、理解linux下的load"><span class="nav-number">1.</span> <span class="nav-text">1、理解linux下的load</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#top-字段：按f-可以选择相关参数-按d标示是否显示-按q标示退出-t切换CPU"><span class="nav-number">1.1.</span> <span class="nav-text">top 字段：按f, 可以选择相关参数; 按d标示是否显示; 按q标示退出; t切换CPU</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他："><span class="nav-number">1.2.</span> <span class="nav-text">其他：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、常见命令"><span class="nav-number">2.</span> <span class="nav-text">2、常见命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、服务器响应变慢排查"><span class="nav-number">3.</span> <span class="nav-text">3、服务器响应变慢排查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、机器的磁盘满了，删日志没有反应，可能是什么问题？"><span class="nav-number">4.</span> <span class="nav-text">4、机器的磁盘满了，删日志没有反应，可能是什么问题？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、Linux文件系统"><span class="nav-number">5.</span> <span class="nav-text">5、Linux文件系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6、CGroups"><span class="nav-number">6.</span> <span class="nav-text">6、CGroups</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#概念解释"><span class="nav-number">6.1.</span> <span class="nav-text">概念解释</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Cgroups提供了以下功能："><span class="nav-number">6.2.</span> <span class="nav-text">Cgroups提供了以下功能：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7、进程、线程、文件描述符"><span class="nav-number">7.</span> <span class="nav-text">7、进程、线程、文件描述符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#进程"><span class="nav-number">7.1.</span> <span class="nav-text">进程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件描述符"><span class="nav-number">7.2.</span> <span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线程"><span class="nav-number">7.3.</span> <span class="nav-text">线程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8、Linux增加开机启动项"><span class="nav-number">8.</span> <span class="nav-text">8、Linux增加开机启动项</span></a></li></ol></div>
             
 
           </div>
