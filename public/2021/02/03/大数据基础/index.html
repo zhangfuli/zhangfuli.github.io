@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>大数据基础 | Hexo</title>
+  <meta name="description" content="温故知新1、大数据的基本特征？  大数据技术：Hadoop和类Hadoop的分布式技术体系   数据规模巨大 数据类型多样 生成和处理速度极快 价值巨大但密度较低  2、Hadoop经历了几个发展阶段，各有什么特点？  前Hadoop时代 Google发表了《Google File System》论文 Google发表了《MapReduce》论文 Apache Hadoop项目启动，并支持MapR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大数据基础">
+<meta property="og:url" content="https://zhangfuli.github.io/2021/02/03/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Hello, Zhangfuli">
+<meta property="og:description" content="温故知新1、大数据的基本特征？  大数据技术：Hadoop和类Hadoop的分布式技术体系   数据规模巨大 数据类型多样 生成和处理速度极快 价值巨大但密度较低  2、Hadoop经历了几个发展阶段，各有什么特点？  前Hadoop时代 Google发表了《Google File System》论文 Google发表了《MapReduce》论文 Apache Hadoop项目启动，并支持MapR">
+<meta property="og:locale">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/66922275-52000780-f059-11e9-82bd-d71fb2140413.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/66923741-f7b47600-f05b-11e9-9179-fc17b6402b95.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/67069834-f8aaec00-f1b0-11e9-96ed-9bd5ffdbf205.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/67073283-580cfa00-f1b9-11e9-8265-24f486624ef1.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/67073342-77a42280-f1b9-11e9-87e0-132c6c914c73.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/66628792-7790a980-ec32-11e9-891b-2413534c07cd.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/66629236-ba06b600-ec33-11e9-8a90-1014b2a5ec18.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/66629801-6a28ee80-ec35-11e9-80e0-bed84a9e4c49.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/66630296-85e0c480-ec36-11e9-8303-7bd02a7be71e.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/66633466-787b0880-ec3d-11e9-968c-60cc64576b66.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/66638258-2c34c600-ec47-11e9-949f-fd5b888da2f2.jpeg">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/66638278-3656c480-ec47-11e9-9d9a-db39f6692c2e.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/66638296-3d7dd280-ec47-11e9-8126-5b17e4ee87f5.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/66638360-5c7c6480-ec47-11e9-87f7-eb6c292167e4.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/66637998-bfb9c700-ec46-11e9-82cd-26c072e9a878.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/67075670-35311480-f1be-11e9-9d5f-d83f13f2ae11.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/67075975-da4bed00-f1be-11e9-8959-cc924a4d0ac7.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/67076281-6bbb5f00-f1bf-11e9-8216-4be83b263469.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/67076291-74139a00-f1bf-11e9-9639-888bf11bea3e.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/67076313-7f66c580-f1bf-11e9-98b2-b481fb23b344.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/67071207-85a37480-f1b4-11e9-9f9c-63655d75adad.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/67071301-c0a5a800-f1b4-11e9-83db-14191e925f4c.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/67071336-d3b87800-f1b4-11e9-90aa-dd97dd057d6c.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/67073827-78898400-f1ba-11e9-9015-d542fc637db0.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/67074011-dae28480-f1ba-11e9-9a50-234995f56c70.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/67074046-ed5cbe00-f1ba-11e9-86e9-ae12f6c5df22.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/67074069-f77ebc80-f1ba-11e9-9603-a1c406dd0e76.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/67074089-fe0d3400-f1ba-11e9-839f-a80435d65a9b.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/67074196-2e54d280-f1bb-11e9-8557-024bc4523500.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/67074219-3c0a5800-f1bb-11e9-8285-b8928b96a3a5.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/67077808-978c1400-f1c2-11e9-8907-a72a61c8368a.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/68924282-63087980-07bb-11ea-959c-c7b04e806220.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/68924599-28531100-07bc-11ea-87fb-4e474f9e5442.png">
+<meta property="article:published_time" content="2021-02-03T12:08:31.000Z">
+<meta property="article:modified_time" content="2021-02-03T12:09:22.136Z">
+<meta property="article:author" content="张富利">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/17808702/66922275-52000780-f059-11e9-82bd-d71fb2140413.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://zhangfuli.github.io/2021/02/03/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%9F%BA%E7%A1%80/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hello, Zhangfuli" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/zhangfuli" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">张富利</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">学生</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> NanJing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTML-CSS/">HTML CSS</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/angularjs/">angularjs</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8E%A2%E7%A9%B6/">探究</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83/">环境</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A1%AC%E4%BB%B6/">硬件</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML-CSS/" rel="tag">HTML CSS</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angularjs/" rel="tag">angularjs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A2%E7%A9%B6/" rel="tag">探究</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83/" rel="tag">环境</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/HTML-CSS/" style="font-size: 13.63px;">HTML CSS</a> <a href="/tags/Linux/" style="font-size: 13.5px;">Linux</a> <a href="/tags/angularjs/" style="font-size: 13.5px;">angularjs</a> <a href="/tags/hexo/" style="font-size: 13.5px;">hexo</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/mongodb/" style="font-size: 13.38px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.38px;">nodejs</a> <a href="/tags/python/" style="font-size: 13.13px;">python</a> <a href="/tags/react/" style="font-size: 13px;">react</a> <a href="/tags/vue/" style="font-size: 13.25px;">vue</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.25px;">区块链</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 13px;">小程序</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 13px;">工具</a> <a href="/tags/%E6%8E%A2%E7%A9%B6/" style="font-size: 13.63px;">探究</a> <a href="/tags/%E7%8E%AF%E5%A2%83/" style="font-size: 13.75px;">环境</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 13.88px;">生活</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.13px;">硬件</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AF%87/" class="title">操作系统篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T11:07:17.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-golang%E7%AF%87/" class="title">golang篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T10:57:08.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/23/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Jenkins/" class="title">Jenkins-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-23T03:33:03.000Z" itemprop="datePublished">2021-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E5%89%8D%E7%AB%AF-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AF%87/" class="title">前端/数据库/Spring/Java-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:15:30.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Redis-Prometheus-RocketMQ%E7%AF%87/" class="title">Redis/Prometheus/RocketMQ篇-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:14:17.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-大数据基础" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      大数据基础
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/02/03/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%9F%BA%E7%A1%80/" class="article-date">
+	  <time datetime="2021-02-03T12:08:31.000Z" itemprop="datePublished">2021-02-03</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/02/03/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h3 id="温故知新"><a href="#温故知新" class="headerlink" title="温故知新"></a>温故知新</h3><p>1、大数据的基本特征？</p>
+<blockquote>
+<p>大数据技术：Hadoop和类Hadoop的分布式技术体系</p>
+</blockquote>
+<ul>
+<li>数据规模巨大</li>
+<li>数据类型多样</li>
+<li>生成和处理速度极快</li>
+<li>价值巨大但密度较低</li>
+</ul>
+<p>2、Hadoop经历了几个发展阶段，各有什么特点？</p>
+<ul>
+<li>前Hadoop时代<ul>
+<li>Google发表了《Google File System》论文</li>
+<li>Google发表了《MapReduce》论文</li>
+<li>Apache Hadoop项目启动，并支持MapReduce与HDF独立发展</li>
+<li>Google发表《BigTable》论文</li>
+</ul>
+</li>
+<li>Hadoop时代<ul>
+<li>Hadoop成为Apache顶级项目</li>
+<li>Hadoop顶级项目Cloudera成立</li>
+<li>Cloudera发布Hadoop发行版CDH，并开源</li>
+<li>HDFS NameNode HA加入Hadoop主版本</li>
+</ul>
+</li>
+</ul>
+<p>3、大数据技术体系大致分为几层？每层包括哪些技术？</p>
+<p><img src="https://user-images.githubusercontent.com/17808702/66922275-52000780-f059-11e9-82bd-d71fb2140413.png" alt="image"></p>
+<p>4、Apache Hadoop 项目包含哪些子项目？讲述一下他们的功能</p>
+<ul>
+<li>分布式文件系统-HDFS<ul>
+<li>一次写入，多次读取</li>
+</ul>
+</li>
+<li>批处理计算框架-MapReduce<ul>
+<li>面向批处理的分布式计算框架</li>
+</ul>
+</li>
+<li>高性能计算框架-Spark</li>
+<li>分布式资源管理系统-YARN<ul>
+<li>解决MapReduce1.X中的缺陷</li>
+</ul>
+</li>
+<li>容器技术-Docker<ul>
+<li>开源容器应用引擎</li>
+</ul>
+</li>
+<li>容器化集群操作系统-Kubernetes<ul>
+<li>开源容器化集群管理引擎</li>
+</ul>
+</li>
+<li>Hadoop数据仓库&amp;SQL引擎Hive</li>
+<li>分布式NoSQL数据库-HBase</li>
+<li>分布式搜索引擎-ElastisSearch</li>
+</ul>
+<p>5、Spark包含哪些组件？简述一下他们的功能</p>
+<ul>
+<li>Spark Core：基础计算卡框架（批处理、交互式分析）</li>
+<li>Spark SQL：SQL引擎（海量结构化数据的高性能查询）</li>
+<li>Spark Streaming：实时流处理（微批）</li>
+<li>Spark Mlib：机器学习</li>
+<li>Spark GraphX：图计算</li>
+</ul>
+<p>6、HDFS架构中包含哪些角色？各自承担什么功能？</p>
+<p><img src="https://user-images.githubusercontent.com/17808702/66923741-f7b47600-f05b-11e9-9179-fc17b6402b95.png" alt="image"></p>
+<ul>
+<li>Active NameNode<ul>
+<li>活动Master管理节点</li>
+<li>管理命名空间</li>
+<li>管理元数据：文件位置、所有者、权限、数据块</li>
+<li>管理Block副本（默认三个副本）</li>
+</ul>
+</li>
+<li>Standby NameNode<ul>
+<li>热备份Master节点</li>
+<li>Active宕机后成为新的Active</li>
+<li>同步元数据，周期性的下载edits日志，生成fsimage镜像检查点</li>
+</ul>
+</li>
+<li>NameNode元数据文件<ul>
+<li>编辑edit日志文件：保存了最新的检查点</li>
+<li>fsimage：元数据检查点镜像文件</li>
+</ul>
+</li>
+<li>DataNode<ul>
+<li>Slave工作节点</li>
+<li>存储Block和数据校验和</li>
+<li>执行客户端发送</li>
+</ul>
+</li>
+<li>Block数据块<ul>
+<li>HDFS最小存储单元</li>
+<li>文件写入HDFS会被切分成多个Block</li>
+<li>Block大小固定，默认为128M</li>
+<li>默认情况下，每个Block有3个副本</li>
+</ul>
+</li>
+<li>Client<ul>
+<li>将文件切分成Block</li>
+<li>与NameNode交互，获取文件访问计划和相关元数据</li>
+<li>与DataNode交互，读取或写入数据</li>
+<li>管理HDFS</li>
+</ul>
+</li>
+</ul>
+<p>7、为什么HDFS不适合存储大量的小文件？</p>
+<ul>
+<li>HDFS不适合大量小文件的存储，因namenode将文件系统的元数据存放在内存中，因此存储的文件数目受限于 namenode的内存大小。HDFS中每个文件、目录、数据块占用150Bytes。如果存放的文件数目过多的话会占用很大的内存</li>
+<li>放小文件与大文件占据的内存是相同的</li>
+<li>HDFS适用于高吞吐量，而不适合低时间延迟的访问。如果同时存入大量的小文件会花费很长的时间</li>
+</ul>
+<p>8、Block副本放置的策略是什么？如何理解？</p>
+<ul>
+<li>副本1:放在Client所在节点 -对于远程Client，系统会随机选择节点</li>
+<li>副本2:放在不同的机架节点上</li>
+<li>副本3:放在与第二个副本同一机架的不同节点上</li>
+<li>副本N:随机选择</li>
+<li>节点选择:同等条件下优先选择空闲节点</li>
+</ul>
+<img src="https://user-images.githubusercontent.com/17808702/67069834-f8aaec00-f1b0-11e9-96ed-9bd5ffdbf205.png" alt="image" style="zoom: 33%;" />
+
+<p>9、HDFS离开安全模式的条件是什么？</p>
+<blockquote>
+<p>安全模式下HDFS只读</p>
+</blockquote>
+<ul>
+<li>Block上报率:DataNode上报的可用Block个数 / NameNode元数据记录的Block个数</li>
+<li>当Block上报率 &gt;= 阈值时，HDFS才能离开安全模式，默认阈值为0.999 </li>
+<li>不建议手动强制退出安全模式</li>
+</ul>
+<p>10、HDFS是如何实现高可用的？</p>
+<ul>
+<li>Active NN与Standby NN的主备切换</li>
+<li>利用QJM实现元数据高可用<ul>
+<li>只要保证Quorum(法定人数)数量的操作成功，就认为这是一次最终成功的操作</li>
+<li>QJM共享存储系统<ul>
+<li>部署奇数(2N+1)个JournalNode</li>
+<li>JournalNode负责存储edits编辑日志</li>
+<li>写edits的时候，只要超过半数(N+1)的 JournalNode返回成功，就代表本次写入成功</li>
+<li>最多可容忍N个JournalNode宕机 </li>
+<li>基于Paxos算法实现</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>利用ZooKeeper实现Active节点选举</li>
+</ul>
+<img src="https://user-images.githubusercontent.com/17808702/67073283-580cfa00-f1b9-11e9-8265-24f486624ef1.png" alt="image" style="zoom: 67%;" />
+
+<p><img src="https://user-images.githubusercontent.com/17808702/67073342-77a42280-f1b9-11e9-87e0-132c6c914c73.png" alt="image"></p>
+<hr>
+<h3 id="分布式资源管理系统YARN"><a href="#分布式资源管理系统YARN" class="headerlink" title="分布式资源管理系统YARN"></a>分布式资源管理系统YARN</h3><h4 id="1、YARN简介"><a href="#1、YARN简介" class="headerlink" title="1、YARN简介"></a>1、YARN简介</h4><blockquote>
+<p>1、作业(job)分解后是task，运行task需要资源</p>
+<p>2、任务的调度，分析哪些任务是并行的串行的</p>
+</blockquote>
+<h5 id="1-1-MapReduce的缺陷（Hadoop-1-X）"><a href="#1-1-MapReduce的缺陷（Hadoop-1-X）" class="headerlink" title="1.1 MapReduce的缺陷（Hadoop 1.X）"></a>1.1 MapReduce的缺陷（Hadoop 1.X）</h5><ul>
+<li>身兼两个职能：计算架构+资源管理系统<ul>
+<li>Job Tracker<ul>
+<li>既做<strong>资源管理</strong>，又做<strong>任务调度</strong> </li>
+<li>任务太重，开销过大</li>
+<li>存在单点故障</li>
+</ul>
+</li>
+<li>Task Tracker</li>
+</ul>
+</li>
+</ul>
+<img src="https://user-images.githubusercontent.com/17808702/66628792-7790a980-ec32-11e9-891b-2413534c07cd.png" alt="image" style="zoom:33%;" />
+
+<h4 id="2、YARN原理"><a href="#2、YARN原理" class="headerlink" title="2、YARN原理"></a>2、YARN原理</h4><h5 id="2-1-系统架构"><a href="#2-1-系统架构" class="headerlink" title="2.1 系统架构"></a>2.1 系统架构</h5><blockquote>
+<p><strong>计算跟着数据走</strong>，用于计算的程序分配到YARN节点上，YARN找到DataNode的数据</p>
+</blockquote>
+<ul>
+<li>ResourceManager<ul>
+<li>知道哪儿有DataNode</li>
+<li>集群资源的统一管理和分配</li>
+<li><strong>资源管理</strong>，账本，目录</li>
+<li>将资源分配给应用（ApplicationMaster）</li>
+</ul>
+</li>
+<li>NodeManager<ul>
+<li>管理本机的资源即管理container（最小资源单位）</li>
+<li>container资源的生命周期</li>
+</ul>
+</li>
+<li>ApplicationMaster<ul>
+<li>管理作业，将作业分解为task，返回给RM</li>
+<li><strong>任务管理</strong></li>
+<li>特殊的管理进程，YARN提供MapReduce的ApplicationMaster实现</li>
+<li>支持MapReduce</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://user-images.githubusercontent.com/17808702/66629236-ba06b600-ec33-11e9-8a90-1014b2a5ec18.png" alt="image"></p>
+<p>工作机制：</p>
+<img src="https://user-images.githubusercontent.com/17808702/66629801-6a28ee80-ec35-11e9-80e0-bed84a9e4c49.png" alt="image" style="zoom: 33%;" />
+
+<h5 id="2-2-高可用"><a href="#2-2-高可用" class="headerlink" title="2.2 高可用"></a>2.2 高可用</h5><ul>
+<li>ResourceManager</li>
+</ul>
+<img src="https://user-images.githubusercontent.com/17808702/66630296-85e0c480-ec36-11e9-8303-7bd02a7be71e.png" alt="image" style="zoom:33%;" />
+
+<h4 id="YARN调度策略"><a href="#YARN调度策略" class="headerlink" title="YARN调度策略"></a>YARN调度策略</h4><blockquote>
+<p>分配container</p>
+</blockquote>
+<ul>
+<li>FIFO调度器（先进先出）</li>
+<li>容器调度器<ul>
+<li>核心思想：提前做预算，在预算指导下分享集群资源</li>
+</ul>
+</li>
+<li>公平调度器：见面分一半</li>
+</ul>
+<h4 id="YARN运维与监控"><a href="#YARN运维与监控" class="headerlink" title="YARN运维与监控"></a>YARN运维与监控</h4><ul>
+<li><strong>CTRL^C不能终止任务，只是停止其在控制台的信息输出，任务仍在集群中运行</strong></li>
+</ul>
+<hr>
+<h3 id="分布式计算框架"><a href="#分布式计算框架" class="headerlink" title="分布式计算框架"></a>分布式计算框架</h3><h4 id="MapReduce-简介"><a href="#MapReduce-简介" class="headerlink" title="MapReduce 简介"></a>MapReduce 简介</h4><h5 id="1-1-MR简介"><a href="#1-1-MR简介" class="headerlink" title="1.1 MR简介"></a>1.1 MR简介</h5><ul>
+<li>2004年10月 Google发表了MR论文</li>
+<li>MapReduce被分为Map（映射）阶段和Reduce（化简）阶段</li>
+<li>分而治之，并行计算</li>
+<li>移动计算，并非移动移动</li>
+<li>MapReduce是图纸，YARN是建造者</li>
+<li>场景：<ul>
+<li>网站的PV、UV统计</li>
+<li>搜索引擎构建索引，不需要时间，对时间要求低，不容易出错</li>
+<li>海量数据查询</li>
+</ul>
+</li>
+<li>不适用场景：<ul>
+<li>OLAP</li>
+<li>毫秒级、秒级查询</li>
+</ul>
+</li>
+</ul>
+<h5 id="1-2-MR原理"><a href="#1-2-MR原理" class="headerlink" title="1.2 MR原理"></a>1.2 MR原理</h5><blockquote>
+<p>Mapping 输出3份，Reducing输入4份，不对等，所以shuffling（洗牌），shuffling并不存在是虚拟的</p>
+<p>实践中，Map多，reduce少</p>
+</blockquote>
+<p><img src="https://user-images.githubusercontent.com/17808702/66633466-787b0880-ec3d-11e9-968c-60cc64576b66.png" alt="image"></p>
+<ul>
+<li>Job&amp;Task</li>
+<li>Split<ul>
+<li>逻辑概念，包含元数据信息，如数据的起始位置、长度、所在的节点等</li>
+<li>Split决定Map数量</li>
+<li>Split大小默认等于Block的大小</li>
+</ul>
+</li>
+<li>Map（映射）<ul>
+<li>key-value的形式&lt;a, 1&gt;</li>
+</ul>
+</li>
+<li>Reduce（化简）<ul>
+<li>先写Buffer，落盘（内存，硬盘）</li>
+</ul>
+</li>
+<li>Shuffle（混洗）优化的关键<ul>
+<li>Hash 取模–将一个数据集均匀随机打散<ul>
+<li>Key做Hash%reduce的数量</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://user-images.githubusercontent.com/17808702/66638258-2c34c600-ec47-11e9-949f-fd5b888da2f2.jpeg" alt="IMG_0A65EA191D8C-1"><br><img src="https://user-images.githubusercontent.com/17808702/66638278-3656c480-ec47-11e9-9d9a-db39f6692c2e.png" alt="image"><br><img src="https://user-images.githubusercontent.com/17808702/66638296-3d7dd280-ec47-11e9-8126-5b17e4ee87f5.png" alt="image" style="zoom: 50%;" /></p>
+<h4 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h4><h5 id="1-1-Spark简介"><a href="#1-1-Spark简介" class="headerlink" title="1.1 Spark简介"></a>1.1 Spark简介</h5><ul>
+<li>MapReduce存在缺陷</li>
+<li>计算框架种类多，选型难，学习成本高</li>
+<li>统一计算框架，简化技术选型<ul>
+<li>统一的框架下，实现批处理、流处理、交互式计算、机器学习</li>
+</ul>
+</li>
+<li>实时，对准确率要求相对较低，<strong>主要在内存中，实在躲不过去才落盘（放到磁盘）</strong></li>
+<li>大规模分布式通用计算引擎<ul>
+<li>Spark Core</li>
+<li>Spark SQL</li>
+<li>Spark Streaming</li>
+<li>Spark Mlib</li>
+<li>Spar图计算</li>
+</ul>
+</li>
+</ul>
+<h5 id="1-2-Spark原理：编程模型"><a href="#1-2-Spark原理：编程模型" class="headerlink" title="1.2 Spark原理：编程模型"></a>1.2 Spark原理：编程模型</h5><ul>
+<li><strong>RDD</strong>(弹性分布式数据集，大的表，分布式)<ul>
+<li>分布式</li>
+<li><strong>只读</strong></li>
+<li>弹性，不怕坏，转换操作（将坏的Partition重算）</li>
+</ul>
+</li>
+</ul>
+<img src="https://user-images.githubusercontent.com/17808702/66638360-5c7c6480-ec47-11e9-87f7-eb6c292167e4.png" alt="image" style="zoom:33%;" />
+
+<ul>
+<li>RDD操作：<ul>
+<li>Transformation（转换）<ul>
+<li>从无到有生成RDD</li>
+<li>从已有的RDD生成新的RDD</li>
+<li>惰性计算，只记录关系，最后落盘的时候计算</li>
+</ul>
+</li>
+<li>Action（动作）<ul>
+<li>算完了，落盘了</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>RDD依赖：<ul>
+<li>窄依赖（推荐）<ul>
+<li>父RDD的分区，最多被子RDD的和一个分区使用</li>
+<li>父分区与子分区个数对等</li>
+</ul>
+</li>
+<li>宽依赖（尽可能少用）<ul>
+<li>子RDD严重依赖父RDD的所有分区<ul>
+<li>分区就要排序，排序就要落盘，落盘就要shuffing，速度就慢了</li>
+</ul>
+</li>
+<li>父分区与子分区个数对等</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<img src="https://user-images.githubusercontent.com/17808702/66637998-bfb9c700-ec46-11e9-82cd-26c072e9a878.png" alt="image" style="zoom: 50%;" />
+![image](https://user-images.githubusercontent.com/17808702/66638044-d6601e00-ec46-11e9-8baa-4dcc45ca255f.png)
+
+<h5 id="1-3-Spark原理：运行模式"><a href="#1-3-Spark原理：运行模式" class="headerlink" title="1.3 Spark原理：运行模式"></a>1.3 Spark原理：运行模式</h5><ul>
+<li>抽象模式<ul>
+<li>Driver<ul>
+<li>一个Spark程序有一个Driver，一个Driver创建一个SparkContext，程序的main函数运行在Driver中</li>
+<li>负责解析Spark程序、划分Stage、调度任务到Executor上执行</li>
+</ul>
+</li>
+<li>SparkContext<ul>
+<li>负责加载配置信息，初始化运行环境，创建DAGScheduler和TaskScheduler</li>
+</ul>
+</li>
+<li>Executor<ul>
+<li>负责执行Driver分发的任务，一个节点可以启动多个Executor，每个Executor通过多线程运行多个任务 </li>
+<li>Task -Spark运行的基本单位，一个Task负责处理若干RDD分区的计算逻辑</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<img src="https://user-images.githubusercontent.com/17808702/67075670-35311480-f1be-11e9-9d5f-d83f13f2ae11.png" alt="image" style="zoom:40%;" />
+
+<ul>
+<li>Local模式</li>
+<li>Standalone模式</li>
+<li>YARN模式</li>
+</ul>
+<h5 id="1-4-Spark原理：运行过程"><a href="#1-4-Spark原理：运行过程" class="headerlink" title="1.4 Spark原理：运行过程"></a>1.4 Spark原理：运行过程</h5><blockquote>
+<p>DAG：生成有向无环图</p>
+</blockquote>
+<img src="https://user-images.githubusercontent.com/17808702/67075975-da4bed00-f1be-11e9-8959-cc924a4d0ac7.png" alt="image" style="zoom:40%;" />
+
+<ul>
+<li>生成逻辑计划</li>
+</ul>
+<img src="https://user-images.githubusercontent.com/17808702/67076281-6bbb5f00-f1bf-11e9-8216-4be83b263469.png" alt="image" style="zoom: 33%;" />
+
+<ul>
+<li>生成物理计划</li>
+</ul>
+<img src="https://user-images.githubusercontent.com/17808702/67076291-74139a00-f1bf-11e9-9639-888bf11bea3e.png" alt="image" style="zoom:33%;" />
+
+<ul>
+<li>任务调度与执行</li>
+</ul>
+<img src="https://user-images.githubusercontent.com/17808702/67076313-7f66c580-f1bf-11e9-98b2-b481fb23b344.png" alt="image" style="zoom:33%;" />
+
+
+
+
+
+<hr>
+<h3 id="分布式ETL工具Sqoop"><a href="#分布式ETL工具Sqoop" class="headerlink" title="分布式ETL工具Sqoop"></a>分布式ETL工具Sqoop</h3><blockquote>
+<p>将关系数据库里面的内容进行迁移</p>
+</blockquote>
+<h4 id="1-Sqoop简介"><a href="#1-Sqoop简介" class="headerlink" title="1. Sqoop简介"></a>1. Sqoop简介</h4><h5 id="1-1-Sqoop是什么"><a href="#1-1-Sqoop是什么" class="headerlink" title="1.1 Sqoop是什么"></a>1.1 Sqoop是什么</h5><ul>
+<li>Hadoop与关系数据库的主要的迁移工具</li>
+</ul>
+<h5 id="1-2-Sqoop版本"><a href="#1-2-Sqoop版本" class="headerlink" title="1.2 Sqoop版本"></a>1.2 Sqoop版本</h5><p><img src="https://user-images.githubusercontent.com/17808702/67071207-85a37480-f1b4-11e9-9f9c-63655d75adad.png" alt="image"></p>
+<h4 id="2-Sqoop原理"><a href="#2-Sqoop原理" class="headerlink" title="2.Sqoop原理"></a>2.Sqoop原理</h4><h5 id="2-1数据导入"><a href="#2-1数据导入" class="headerlink" title="2.1数据导入"></a>2.1数据导入</h5><img src="https://user-images.githubusercontent.com/17808702/67071301-c0a5a800-f1b4-11e9-83db-14191e925f4c.png" alt="image" style="zoom:33%;" />
+
+<h5 id="2-2数据导出"><a href="#2-2数据导出" class="headerlink" title="2.2数据导出"></a>2.2数据导出</h5><img src="https://user-images.githubusercontent.com/17808702/67071336-d3b87800-f1b4-11e9-90aa-dd97dd057d6c.png" alt="image" style="zoom:33%;" />
+
+<h4 id="3-Sqoop使用"><a href="#3-Sqoop使用" class="headerlink" title="3.Sqoop使用"></a>3.Sqoop使用</h4><hr>
+<h3 id="分布式数据采集工具Flume"><a href="#分布式数据采集工具Flume" class="headerlink" title="分布式数据采集工具Flume"></a>分布式数据采集工具Flume</h3><h4 id="1、Flume简介"><a href="#1、Flume简介" class="headerlink" title="1、Flume简介"></a>1、Flume简介</h4><h5 id="1-1-什么是Flume"><a href="#1-1-什么是Flume" class="headerlink" title="1.1 什么是Flume"></a>1.1 什么是Flume</h5><ul>
+<li>Flume是一个分布式海量数据采集、聚合和传输系统</li>
+<li>基于事件的海量数据采集 </li>
+<li>数据流模型:Source–&gt;Channel–&gt;Sink </li>
+<li>事务机制:支持重读重写，保证消息传递的可靠性</li>
+</ul>
+<h4 id="2、Flume原理"><a href="#2、Flume原理" class="headerlink" title="2、Flume原理"></a>2、Flume原理</h4><h5 id="2-1-基本概念"><a href="#2-1-基本概念" class="headerlink" title="2.1 基本概念"></a>2.1 基本概念</h5><ul>
+<li>Event:事件，最小数据传输单元，由Header和Body组成</li>
+<li>Agent:代理，JVM进程，最小运行单元，由Source、Channel、Sink三个基本组件构成，负责将外部数据源产生的数据以Event的形式传输到目的地</li>
+<li>Source:负责对接各种外部数据源，将采集到的数据封装成Event，然后写入Channel</li>
+<li>Channel:Event暂存容器，负责保存Source发送的Event，直至被Sink成功读取</li>
+<li>Sink:负责从Channel读取Event，然后将其写入外部存储，或传输给下一阶段的Agent</li>
+<li>映射关系:1个Source 多个Channel，1个Channel 多个Sink，1个Sink 1个Channel</li>
+</ul>
+<img src="https://user-images.githubusercontent.com/17808702/67073827-78898400-f1ba-11e9-9015-d542fc637db0.png" alt="image" style="zoom: 67%;" />
+
+<h5 id="2-2-Flume组件"><a href="#2-2-Flume组件" class="headerlink" title="2.2 Flume组件"></a>2.2 Flume组件</h5><ul>
+<li>Source组件</li>
+<li>Channel组件</li>
+<li>Sink组件</li>
+</ul>
+<img src="https://user-images.githubusercontent.com/17808702/67074011-dae28480-f1ba-11e9-9a50-234995f56c70.png" alt="image" style="zoom: 50%;" />
+<img src="https://user-images.githubusercontent.com/17808702/67074046-ed5cbe00-f1ba-11e9-86e9-ae12f6c5df22.png" alt="image" style="zoom:50%;" />
+<img src="https://user-images.githubusercontent.com/17808702/67074069-f77ebc80-f1ba-11e9-9603-a1c406dd0e76.png" alt="image" style="zoom:50%;" />
+<img src="https://user-images.githubusercontent.com/17808702/67074089-fe0d3400-f1ba-11e9-839f-a80435d65a9b.png" alt="image" style="zoom:50%;" />
+
+<h5 id="2-3-Flume数据流"><a href="#2-3-Flume数据流" class="headerlink" title="2.3 Flume数据流"></a>2.3 Flume数据流</h5><h5 id="2-4Flume架构"><a href="#2-4Flume架构" class="headerlink" title="2.4Flume架构"></a>2.4Flume架构</h5><ul>
+<li>单层架构</li>
+</ul>
+<img src="https://user-images.githubusercontent.com/17808702/67074196-2e54d280-f1bb-11e9-8557-024bc4523500.png" alt="image" style="zoom: 50%;" />
+
+<ul>
+<li>多层架构</li>
+</ul>
+<img src="https://user-images.githubusercontent.com/17808702/67074219-3c0a5800-f1bb-11e9-8285-b8928b96a3a5.png" alt="image" style="zoom:50%;" />
+
+<h4 id="3、Flume使用"><a href="#3、Flume使用" class="headerlink" title="3、Flume使用"></a>3、Flume使用</h4><hr>
+<h3 id="分布式消息队列KaFka"><a href="#分布式消息队列KaFka" class="headerlink" title="分布式消息队列KaFka"></a>分布式消息队列KaFka</h3><h4 id="1、Kafka简介"><a href="#1、Kafka简介" class="headerlink" title="1、Kafka简介"></a>1、Kafka简介</h4><h5 id="1-1-什么是Kafka"><a href="#1-1-什么是Kafka" class="headerlink" title="1.1 什么是Kafka"></a>1.1 什么是Kafka</h5><ul>
+<li>基于发布/订阅的分布式消息系统</li>
+<li>消息持久化:采用时间复杂度 的磁盘存储结构，即使级以上数据也能保证常数时间的访问速度</li>
+<li>高吞吐: 即使在廉价的商用机器上，也能达到单机每秒10万条消息的传输</li>
+<li>高容错:多分区多副本 • 易扩展:新增机器，集群无需停机，自动感知</li>
+<li>同时支持离线、实时数据处理</li>
+</ul>
+<h5 id="1-2-应用场景"><a href="#1-2-应用场景" class="headerlink" title="1.2 应用场景"></a>1.2 应用场景</h5><ul>
+<li>异步通信</li>
+<li>应用解耦</li>
+<li>峰值处理</li>
+</ul>
+<h4 id="2、Kafka原理"><a href="#2、Kafka原理" class="headerlink" title="2、Kafka原理"></a>2、Kafka原理</h4><h5 id="2-1-基本概念-1"><a href="#2-1-基本概念-1" class="headerlink" title="2.1 基本概念"></a>2.1 基本概念</h5><ul>
+<li>Broker(代理)<ul>
+<li>Kafka的一个实例或节点，一个或多个Broker组成一个Kafka集群</li>
+</ul>
+</li>
+<li>Topic(主题)<ul>
+<li>Topic是Kafka中同一类数据的集合，相当于数据库中的表</li>
+<li>Producer将同一类数据写入同一个Topic，Consumer从同一个Topic中读取同类数据 </li>
+<li>Topic是逻辑概念，用户只需指定Topic就可以生产或消费数据，不必关心数据存于何处 </li>
+</ul>
+</li>
+<li>Partition(分区)<ul>
+<li>分区是一个有序的、不可修改的消息队列，分区内消息有序存储</li>
+<li>一个Topic可分为多个分区，相当于把一个数据集分成多份，分别存储不同的分区中</li>
+<li>Parition是物理概念，每个分区对应一个文件夹，其中存储分区的数据和索引文件</li>
+</ul>
+</li>
+<li>Replication(副本) <ul>
+<li>一个分区可以设置多个副本，副本存储在不同的Broker中</li>
+</ul>
+</li>
+<li>Producer</li>
+<li>Consumer</li>
+<li>Consumer Group(CG 消费组)<ul>
+<li>一条消息可以发送给多个不同的CG，一个CG中只能有一个Consumer读取该消息</li>
+</ul>
+</li>
+<li>Zookeeper</li>
+</ul>
+<h5 id="2-2-工作机制"><a href="#2-2-工作机制" class="headerlink" title="2.2 工作机制"></a>2.2 工作机制</h5><ul>
+<li>消息在Broker中按Topic(主题)进行分类，相当于为每个消息打个标签</li>
+<li>一个Topic可划分为多个Partition(分区)</li>
+<li>每个Partition可以有多个Replication(副本)</li>
+<li>消息存储在Broker的某一Topic的某一Partition中，同时存在多个副本</li>
+</ul>
+<p><img src="https://user-images.githubusercontent.com/17808702/67077808-978c1400-f1c2-11e9-8907-a72a61c8368a.png" alt="image"></p>
+<h3 id="分区分桶要考"><a href="#分区分桶要考" class="headerlink" title="分区分桶要考"></a>分区分桶要考</h3><h2 id="Search"><a href="#Search" class="headerlink" title="Search"></a>Search</h2><h4 id="2、Search原理"><a href="#2、Search原理" class="headerlink" title="2、Search原理"></a>2、Search原理</h4><h5 id="2-1-数学模型"><a href="#2-1-数学模型" class="headerlink" title="2.1 数学模型"></a>2.1 数学模型</h5><ul>
+<li><p>index</p>
+</li>
+<li><p>type（分类）</p>
+</li>
+<li><p>文档</p>
+</li>
+<li><p>字段</p>
+</li>
+<li><p>映射(Mapping)</p>
+<ul>
+<li>json的格式</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-2-分词与索引"><a href="#2-2-分词与索引" class="headerlink" title="2.2 分词与索引"></a>2.2 分词与索引</h5><ul>
+<li>分词</li>
+<li>倒排索引</li>
+</ul>
+<h5 id="2-3-系统架构"><a href="#2-3-系统架构" class="headerlink" title="2.3 系统架构"></a>2.3 系统架构</h5><ul>
+<li>节点和集群<ul>
+<li>节点：一个ElasticSearch实例</li>
+<li>集群由一个或多个拥有相同claster.name配置的节点组成</li>
+</ul>
+</li>
+<li>主节点<ul>
+<li>负责管理集群内的所有变更</li>
+<li>整个集群所有的节点，都有可能被选为主节点</li>
+<li>配置一般</li>
+</ul>
+</li>
+<li>数据节点<ul>
+<li>开销很大</li>
+<li>负责存储数据</li>
+<li>硬件配置比较高</li>
+</ul>
+</li>
+<li>客户端节点<ul>
+<li>放了一张路由表</li>
+<li>负责路由转发请求</li>
+</ul>
+</li>
+<li>分片<ul>
+<li>Search的数据存储单元，数据的容器，Document（文档）存储在分片里面</li>
+</ul>
+</li>
+</ul>
+<h2 id="HyperBase"><a href="#HyperBase" class="headerlink" title="HyperBase"></a>HyperBase</h2><h4 id="1、HyperBase-简介"><a href="#1、HyperBase-简介" class="headerlink" title="1、HyperBase 简介"></a>1、HyperBase 简介</h4><h5 id="1-1-什么是HyperBase"><a href="#1-1-什么是HyperBase" class="headerlink" title="1.1 什么是HyperBase"></a>1.1 什么是HyperBase</h5><ul>
+<li>概念<ul>
+<li>高可靠、高性能、高并发、可伸缩、实时读写、面向列的分布式NewSql数据库</li>
+<li>基于HBase实现<ul>
+<li>四维表</li>
+</ul>
+</li>
+<li>NewSql数据库</li>
+<li>列式存储<ul>
+<li>适合放半结构化数据（xml，稀疏性）</li>
+</ul>
+</li>
+<li>Key-Value数据库</li>
+<li>HDFS为文件存储系统</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://user-images.githubusercontent.com/17808702/68924282-63087980-07bb-11ea-959c-c7b04e806220.png" alt="image"></p>
+<ul>
+<li>特点：<ul>
+<li>海量数据存储<ul>
+<li>高并发的简单查询</li>
+</ul>
+</li>
+<li>线性扩展</li>
+<li>高并发、高可用</li>
+<li>实时随机读写</li>
+<li>数据的<strong>强一致性</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="2、HyperBase原理"><a href="#2、HyperBase原理" class="headerlink" title="2、HyperBase原理"></a>2、HyperBase原理</h4><h5 id="2-1-数据模型"><a href="#2-1-数据模型" class="headerlink" title="2.1 数据模型"></a>2.1 数据模型</h5><p><img src="https://user-images.githubusercontent.com/17808702/68924599-28531100-07bc-11ea-87fb-4e474f9e5442.png" alt="image"></p>
+<ul>
+<li><p>rowkey：</p>
+<ul>
+<li>根据字典排序</li>
+</ul>
+</li>
+<li><p>列族：BasicInfo、CourseInfo</p>
+<ul>
+<li>有限</li>
+<li>下面的列无限（name、age、telephone）（course、score）</li>
+</ul>
+</li>
+<li><p>name：列限定符</p>
+<ul>
+<li>列族：列限定符—&gt;列</li>
+</ul>
+</li>
+<li><p>单元格</p>
+<ul>
+<li>由rowkey+列族+列限定符</li>
+</ul>
+</li>
+<li><p>timestamp：时间戳、数据的版本号；如：电话号码可以有多个，时间戳不同</p>
+</li>
+<li><p>key-value</p>
+<ul>
+<li>SF|</li>
+</ul>
+<p>aS re</p>
+</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://zhangfuli.github.io/2021/02/03/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%9F%BA%E7%A1%80/" title="大数据基础" target="_blank" rel="external">https://zhangfuli.github.io/2021/02/03/大数据基础/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangfuli" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangfuli" target="_blank"><span class="text-dark">张富利</span><small class="ml-1x">学生</small></a></h3>
+        <div>Do myself,Believe myself,Try my best</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/02/03/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Raft%E5%8E%9F%E7%90%86/" title="Raft原理-2021年春招准备"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/02/03/Paxos%E7%AE%97%E6%B3%95/" title="Paxos算法"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498969-6d12a800-deef-11e9-927a-89d5d0ce9e42.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498913-4fddd980-deef-11e9-9da1-56f86199713b.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'e0m4Aw9mFAjO1UuHuINbSEOm-gzGzoHsz',
+    appKey: 'VwY3lLrV5rMPSG6AFGO87omg',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

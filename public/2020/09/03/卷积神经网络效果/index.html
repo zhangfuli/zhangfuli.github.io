@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>卷积神经网络效果 | Hexo</title>
+  <meta name="description" content="构建卷积神经网络 卷积网络中的输入和层与传统神经网络有些区别，需重新设计，训练模块基本一致  12345678import torchimport torch.nn as nnimport torch.optim as optimimport torch.nn.functional as Ffrom torchvision import datasets,transforms import mat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="卷积神经网络效果">
+<meta property="og:url" content="https://zhangfuli.github.io/2020/09/03/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%95%88%E6%9E%9C/index.html">
+<meta property="og:site_name" content="Hello, Zhangfuli">
+<meta property="og:description" content="构建卷积神经网络 卷积网络中的输入和层与传统神经网络有些区别，需重新设计，训练模块基本一致  12345678import torchimport torch.nn as nnimport torch.optim as optimimport torch.nn.functional as Ffrom torchvision import datasets,transforms import mat">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-09-03T03:22:36.000Z">
+<meta property="article:modified_time" content="2020-09-03T03:22:55.480Z">
+<meta property="article:author" content="张富利">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://zhangfuli.github.io/2020/09/03/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%95%88%E6%9E%9C/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hello, Zhangfuli" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/zhangfuli" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">张富利</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">学生</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> NanJing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTML-CSS/">HTML CSS</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/angularjs/">angularjs</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8E%A2%E7%A9%B6/">探究</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83/">环境</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A1%AC%E4%BB%B6/">硬件</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML-CSS/" rel="tag">HTML CSS</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angularjs/" rel="tag">angularjs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A2%E7%A9%B6/" rel="tag">探究</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83/" rel="tag">环境</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/HTML-CSS/" style="font-size: 13.63px;">HTML CSS</a> <a href="/tags/Linux/" style="font-size: 13.5px;">Linux</a> <a href="/tags/angularjs/" style="font-size: 13.5px;">angularjs</a> <a href="/tags/hexo/" style="font-size: 13.5px;">hexo</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/mongodb/" style="font-size: 13.38px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.38px;">nodejs</a> <a href="/tags/python/" style="font-size: 13.13px;">python</a> <a href="/tags/react/" style="font-size: 13px;">react</a> <a href="/tags/vue/" style="font-size: 13.25px;">vue</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.25px;">区块链</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 13px;">小程序</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 13px;">工具</a> <a href="/tags/%E6%8E%A2%E7%A9%B6/" style="font-size: 13.63px;">探究</a> <a href="/tags/%E7%8E%AF%E5%A2%83/" style="font-size: 13.75px;">环境</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 13.88px;">生活</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.13px;">硬件</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AF%87/" class="title">操作系统篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T11:07:17.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-golang%E7%AF%87/" class="title">golang篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T10:57:08.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/23/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Jenkins/" class="title">Jenkins-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-23T03:33:03.000Z" itemprop="datePublished">2021-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E5%89%8D%E7%AB%AF-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AF%87/" class="title">前端/数据库/Spring/Java-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:15:30.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Redis-Prometheus-RocketMQ%E7%AF%87/" class="title">Redis/Prometheus/RocketMQ篇-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:14:17.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-卷积神经网络效果" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      卷积神经网络效果
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/09/03/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%95%88%E6%9E%9C/" class="article-date">
+	  <time datetime="2020-09-03T03:22:36.000Z" itemprop="datePublished">2020-09-03</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/09/03/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%95%88%E6%9E%9C/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h3 id="构建卷积神经网络"><a href="#构建卷积神经网络" class="headerlink" title="构建卷积神经网络"></a>构建卷积神经网络</h3><ul>
+<li>卷积网络中的输入和层与传统神经网络有些区别，需重新设计，训练模块基本一致</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> datasets,transforms </span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
+
+<h3 id="首先读取数据"><a href="#首先读取数据" class="headerlink" title="首先读取数据"></a>首先读取数据</h3><ul>
+<li>分别构建训练集和测试集（验证集）</li>
+<li>DataLoader来迭代取数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义超参数 </span></span><br><span class="line">input_size = <span class="number">28</span>  <span class="comment">#图像的总尺寸28*28</span></span><br><span class="line">num_classes = <span class="number">10</span>  <span class="comment">#标签的种类数</span></span><br><span class="line">num_epochs = <span class="number">3</span>  <span class="comment">#训练的总循环周期</span></span><br><span class="line">batch_size = <span class="number">64</span>  <span class="comment">#一个撮（批次）的大小，64张图片</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练集</span></span><br><span class="line">train_dataset = datasets.MNIST(root=<span class="string">&#x27;./data&#x27;</span>,  </span><br><span class="line">                            train=<span class="literal">True</span>,   </span><br><span class="line">                            transform=transforms.ToTensor(),  </span><br><span class="line">                            download=<span class="literal">True</span>) </span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试集</span></span><br><span class="line">test_dataset = datasets.MNIST(root=<span class="string">&#x27;./data&#x27;</span>, </span><br><span class="line">                           train=<span class="literal">False</span>, </span><br><span class="line">                           transform=transforms.ToTensor())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建batch数据</span></span><br><span class="line">train_loader = torch.utils.data.DataLoader(dataset=train_dataset, </span><br><span class="line">                                           batch_size=batch_size, </span><br><span class="line">                                           shuffle=<span class="literal">True</span>)</span><br><span class="line">test_loader = torch.utils.data.DataLoader(dataset=test_dataset, </span><br><span class="line">                                           batch_size=batch_size, </span><br><span class="line">                                           shuffle=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="卷积网络模块构建"><a href="#卷积网络模块构建" class="headerlink" title="卷积网络模块构建"></a>卷积网络模块构建</h3><ul>
+<li>一般卷积层，relu层，池化层可以写成一个套餐</li>
+<li>注意卷积最后结果还是一个特征图，需要把图转换成向量才能做分类或者回归任务</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CNN</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(CNN, self).__init__()</span><br><span class="line">        self.conv1 = nn.Sequential(         <span class="comment"># 输入大小 (1, 28, 28)</span></span><br><span class="line">            nn.Conv2d(</span><br><span class="line">                in_channels=<span class="number">1</span>,              <span class="comment"># 灰度图</span></span><br><span class="line">                out_channels=<span class="number">16</span>,            <span class="comment"># 要得到几多少个特征图</span></span><br><span class="line">                kernel_size=<span class="number">5</span>,              <span class="comment"># 卷积核大小</span></span><br><span class="line">                stride=<span class="number">1</span>,                   <span class="comment"># 步长</span></span><br><span class="line">                padding=<span class="number">2</span>,                  <span class="comment"># 如果希望卷积后大小跟原来一样，需要设置padding=(kernel_size-1)/2 if stride=1</span></span><br><span class="line">            ),                              <span class="comment"># 输出的特征图为 (16, 28, 28)</span></span><br><span class="line">            nn.ReLU(),                      <span class="comment"># relu层</span></span><br><span class="line">            nn.MaxPool2d(kernel_size=<span class="number">2</span>),    <span class="comment"># 进行池化操作（2x2 区域）, 输出结果为： (16, 14, 14)</span></span><br><span class="line">        )</span><br><span class="line">        self.conv2 = nn.Sequential(         <span class="comment"># 下一个套餐的输入 (16, 14, 14)</span></span><br><span class="line">            nn.Conv2d(<span class="number">16</span>, <span class="number">32</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">2</span>),     <span class="comment"># 输出 (32, 14, 14)</span></span><br><span class="line">            nn.ReLU(),                      <span class="comment"># relu层</span></span><br><span class="line">            nn.MaxPool2d(<span class="number">2</span>),                <span class="comment"># 输出 (32, 7, 7)</span></span><br><span class="line">        )</span><br><span class="line">        self.out = nn.Linear(<span class="number">32</span> * <span class="number">7</span> * <span class="number">7</span>, <span class="number">10</span>)   <span class="comment"># 全连接层得到的结果</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        x = self.conv1(x)</span><br><span class="line">        x = self.conv2(x)</span><br><span class="line">        x = x.view(x.size(<span class="number">0</span>), -<span class="number">1</span>)           <span class="comment"># flatten操作，结果为：(batch_size, 32 * 7 * 7)</span></span><br><span class="line">        output = self.out(x)</span><br><span class="line">        <span class="keyword">return</span> output</span><br></pre></td></tr></table></figure>
+
+<h3 id="准确率作为评估标准"><a href="#准确率作为评估标准" class="headerlink" title="准确率作为评估标准"></a>准确率作为评估标准</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">accuracy</span>(<span class="params">predictions, labels</span>):</span></span><br><span class="line">    pred = torch.<span class="built_in">max</span>(predictions.data, <span class="number">1</span>)[<span class="number">1</span>] </span><br><span class="line">    rights = pred.eq(labels.data.view_as(pred)).<span class="built_in">sum</span>() </span><br><span class="line">    <span class="keyword">return</span> rights, <span class="built_in">len</span>(labels) </span><br></pre></td></tr></table></figure>
+
+<h3 id="训练网络模型"><a href="#训练网络模型" class="headerlink" title="训练网络模型"></a>训练网络模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 实例化</span></span><br><span class="line">net = CNN() </span><br><span class="line"><span class="comment">#损失函数</span></span><br><span class="line">criterion = nn.CrossEntropyLoss() </span><br><span class="line"><span class="comment">#优化器</span></span><br><span class="line">optimizer = optim.Adam(net.parameters(), lr=<span class="number">0.001</span>) <span class="comment">#定义优化器，普通的随机梯度下降算法</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#开始训练循环</span></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(num_epochs):</span><br><span class="line">    <span class="comment">#当前epoch的结果保存下来</span></span><br><span class="line">    train_rights = [] </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> batch_idx, (data, target) <span class="keyword">in</span> <span class="built_in">enumerate</span>(train_loader):  <span class="comment">#针对容器中的每一个批进行循环</span></span><br><span class="line">        net.train()                             </span><br><span class="line">        output = net(data) </span><br><span class="line">        loss = criterion(output, target) </span><br><span class="line">        optimizer.zero_grad() </span><br><span class="line">        loss.backward() </span><br><span class="line">        optimizer.step() </span><br><span class="line">        right = accuracy(output, target) </span><br><span class="line">        train_rights.append(right) </span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">        <span class="keyword">if</span> batch_idx % <span class="number">100</span> == <span class="number">0</span>: </span><br><span class="line">            </span><br><span class="line">            net.<span class="built_in">eval</span>() </span><br><span class="line">            val_rights = [] </span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span> (data, target) <span class="keyword">in</span> test_loader:</span><br><span class="line">                output = net(data) </span><br><span class="line">                right = accuracy(output, target) </span><br><span class="line">                val_rights.append(right)</span><br><span class="line">                </span><br><span class="line">            <span class="comment">#准确率计算</span></span><br><span class="line">            train_r = (<span class="built_in">sum</span>([tup[<span class="number">0</span>] <span class="keyword">for</span> tup <span class="keyword">in</span> train_rights]), <span class="built_in">sum</span>([tup[<span class="number">1</span>] <span class="keyword">for</span> tup <span class="keyword">in</span> train_rights]))</span><br><span class="line">            val_r = (<span class="built_in">sum</span>([tup[<span class="number">0</span>] <span class="keyword">for</span> tup <span class="keyword">in</span> val_rights]), <span class="built_in">sum</span>([tup[<span class="number">1</span>] <span class="keyword">for</span> tup <span class="keyword">in</span> val_rights]))</span><br><span class="line"></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;当前epoch: &#123;&#125; [&#123;&#125;/&#123;&#125; (&#123;:.0f&#125;%)]\t损失: &#123;:.6f&#125;\t训练集准确率: &#123;:.2f&#125;%\t测试集正确率: &#123;:.2f&#125;%&#x27;</span>.<span class="built_in">format</span>(</span><br><span class="line">                epoch, batch_idx * batch_size, <span class="built_in">len</span>(train_loader.dataset),</span><br><span class="line">                <span class="number">100.</span> * batch_idx / <span class="built_in">len</span>(train_loader), </span><br><span class="line">                loss.data, </span><br><span class="line">                <span class="number">100.</span> * train_r[<span class="number">0</span>].numpy() / train_r[<span class="number">1</span>], </span><br><span class="line">                <span class="number">100.</span> * val_r[<span class="number">0</span>].numpy() / val_r[<span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
+
+<pre><code>当前epoch: 0 [0/60000 (0%)]    损失: 2.298275    训练集准确率: 18.75%    测试集正确率: 16.69%
+当前epoch: 0 [6400/60000 (11%)]    损失: 0.366936    训练集准确率: 77.09%    测试集正确率: 91.76%
+当前epoch: 0 [12800/60000 (21%)]    损失: 0.197412    训练集准确率: 85.04%    测试集正确率: 95.32%
+当前epoch: 0 [19200/60000 (32%)]    损失: 0.065437    训练集准确率: 88.57%    测试集正确率: 95.96%
+当前epoch: 0 [25600/60000 (43%)]    损失: 0.245751    训练集准确率: 90.43%    测试集正确率: 97.05%
+当前epoch: 0 [32000/60000 (53%)]    损失: 0.116508    训练集准确率: 91.65%    测试集正确率: 97.33%
+当前epoch: 0 [38400/60000 (64%)]    损失: 0.106026    训练集准确率: 92.51%    测试集正确率: 97.47%
+当前epoch: 0 [44800/60000 (75%)]    损失: 0.024781    训练集准确率: 93.20%    测试集正确率: 97.79%
+当前epoch: 0 [51200/60000 (85%)]    损失: 0.040254    训练集准确率: 93.77%    测试集正确率: 97.44%
+当前epoch: 0 [57600/60000 (96%)]    损失: 0.013604    训练集准确率: 94.19%    测试集正确率: 97.57%
+当前epoch: 1 [0/60000 (0%)]    损失: 0.038379    训练集准确率: 100.00%    测试集正确率: 97.90%
+当前epoch: 1 [6400/60000 (11%)]    损失: 0.091921    训练集准确率: 97.94%    测试集正确率: 98.26%
+当前epoch: 1 [12800/60000 (21%)]    损失: 0.082685    训练集准确率: 97.88%    测试集正确率: 98.12%
+当前epoch: 1 [19200/60000 (32%)]    损失: 0.030613    训练集准确率: 97.95%    测试集正确率: 98.53%
+当前epoch: 1 [25600/60000 (43%)]    损失: 0.098491    训练集准确率: 97.96%    测试集正确率: 98.30%
+当前epoch: 1 [32000/60000 (53%)]    损失: 0.078065    训练集准确率: 97.97%    测试集正确率: 98.50%
+当前epoch: 1 [38400/60000 (64%)]    损失: 0.013370    训练集准确率: 98.02%    测试集正确率: 98.55%
+当前epoch: 1 [44800/60000 (75%)]    损失: 0.065581    训练集准确率: 98.09%    测试集正确率: 98.65%
+当前epoch: 1 [51200/60000 (85%)]    损失: 0.077535    训练集准确率: 98.12%    测试集正确率: 98.23%
+当前epoch: 1 [57600/60000 (96%)]    损失: 0.007826    训练集准确率: 98.16%    测试集正确率: 98.65%
+当前epoch: 2 [0/60000 (0%)]    损失: 0.170131    训练集准确率: 98.44%    测试集正确率: 98.57%
+当前epoch: 2 [6400/60000 (11%)]    损失: 0.046841    训练集准确率: 98.64%    测试集正确率: 98.40%
+当前epoch: 2 [12800/60000 (21%)]    损失: 0.095354    训练集准确率: 98.50%    测试集正确率: 98.58%
+当前epoch: 2 [19200/60000 (32%)]    损失: 0.009594    训练集准确率: 98.58%    测试集正确率: 98.68%
+当前epoch: 2 [25600/60000 (43%)]    损失: 0.017973    训练集准确率: 98.62%    测试集正确率: 98.82%
+当前epoch: 2 [32000/60000 (53%)]    损失: 0.045781    训练集准确率: 98.66%    测试集正确率: 98.63%
+当前epoch: 2 [38400/60000 (64%)]    损失: 0.056535    训练集准确率: 98.65%    测试集正确率: 98.94%
+当前epoch: 2 [44800/60000 (75%)]    损失: 0.014779    训练集准确率: 98.66%    测试集正确率: 98.97%
+当前epoch: 2 [51200/60000 (85%)]    损失: 0.010532    训练集准确率: 98.71%    测试集正确率: 98.50%
+当前epoch: 2 [57600/60000 (96%)]    损失: 0.076463    训练集准确率: 98.68%    测试集正确率: 98.79%
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://zhangfuli.github.io/2020/09/03/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%95%88%E6%9E%9C/" title="卷积神经网络效果" target="_blank" rel="external">https://zhangfuli.github.io/2020/09/03/卷积神经网络效果/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangfuli" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangfuli" target="_blank"><span class="text-dark">张富利</span><small class="ml-1x">学生</small></a></h3>
+        <div>Do myself,Believe myself,Try my best</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/09/03/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB%E5%AE%9E%E6%88%98%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97%E8%A7%A3%E8%AF%BB/" title="图像识别实战常用模块解读"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2020/09/02/pytorch%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%88%86%E7%B1%BB/" title="pytorch神经网络分类"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498969-6d12a800-deef-11e9-927a-89d5d0ce9e42.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498913-4fddd980-deef-11e9-9da1-56f86199713b.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'e0m4Aw9mFAjO1UuHuINbSEOm-gzGzoHsz',
+    appKey: 'VwY3lLrV5rMPSG6AFGO87omg',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

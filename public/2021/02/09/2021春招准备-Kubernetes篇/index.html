@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Kubernetes篇-2021春招准备 | Hexo</title>
+  <meta name="description" content="1、Kubernetes架构Kubernetes是一个轻便的和可扩展的开源平台，用于管理容器化应用和服务。通过Kubernetes能够进行应用的自动化部署和扩缩容   Master Node：作为控制节点，对集群进行调度管理  API Server主要用来处理REST的操作，并执行相关业务逻辑，以及更新etcd中的相关对象。相关结果状态将被保存在etcd中。  REST语义，监控，持久化和一致性保">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes篇-2021春招准备">
+<meta property="og:url" content="https://zhangfuli.github.io/2021/02/09/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/index.html">
+<meta property="og:site_name" content="Hello, Zhangfuli">
+<meta property="og:description" content="1、Kubernetes架构Kubernetes是一个轻便的和可扩展的开源平台，用于管理容器化应用和服务。通过Kubernetes能够进行应用的自动化部署和扩缩容   Master Node：作为控制节点，对集群进行调度管理  API Server主要用来处理REST的操作，并执行相关业务逻辑，以及更新etcd中的相关对象。相关结果状态将被保存在etcd中。  REST语义，监控，持久化和一致性保">
+<meta property="og:locale">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/1.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/9.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/10.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/2.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/3.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/4.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/5.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/6.jpg">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/7.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/11.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/12.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/13.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/14.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/8.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/15.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/17.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/16.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/18.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/19.png">
+<meta property="article:published_time" content="2021-02-09T03:03:59.000Z">
+<meta property="article:modified_time" content="2021-08-10T11:25:57.858Z">
+<meta property="article:author" content="张富利">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/1.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://zhangfuli.github.io/2021/02/09/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hello, Zhangfuli" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/zhangfuli" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">张富利</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">学生</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> NanJing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTML-CSS/">HTML CSS</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/angularjs/">angularjs</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8E%A2%E7%A9%B6/">探究</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83/">环境</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A1%AC%E4%BB%B6/">硬件</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML-CSS/" rel="tag">HTML CSS</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angularjs/" rel="tag">angularjs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A2%E7%A9%B6/" rel="tag">探究</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83/" rel="tag">环境</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/HTML-CSS/" style="font-size: 13.63px;">HTML CSS</a> <a href="/tags/Linux/" style="font-size: 13.5px;">Linux</a> <a href="/tags/angularjs/" style="font-size: 13.5px;">angularjs</a> <a href="/tags/hexo/" style="font-size: 13.5px;">hexo</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/mongodb/" style="font-size: 13.38px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.38px;">nodejs</a> <a href="/tags/python/" style="font-size: 13.13px;">python</a> <a href="/tags/react/" style="font-size: 13px;">react</a> <a href="/tags/vue/" style="font-size: 13.25px;">vue</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.25px;">区块链</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 13px;">小程序</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 13px;">工具</a> <a href="/tags/%E6%8E%A2%E7%A9%B6/" style="font-size: 13.63px;">探究</a> <a href="/tags/%E7%8E%AF%E5%A2%83/" style="font-size: 13.75px;">环境</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 13.88px;">生活</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.13px;">硬件</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AF%87/" class="title">操作系统篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T11:07:17.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-golang%E7%AF%87/" class="title">golang篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T10:57:08.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/23/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Jenkins/" class="title">Jenkins-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-23T03:33:03.000Z" itemprop="datePublished">2021-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E5%89%8D%E7%AB%AF-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AF%87/" class="title">前端/数据库/Spring/Java-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:15:30.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Redis-Prometheus-RocketMQ%E7%AF%87/" class="title">Redis/Prometheus/RocketMQ篇-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:14:17.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-2021春招准备-Kubernetes篇" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Kubernetes篇-2021春招准备
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/02/09/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/" class="article-date">
+	  <time datetime="2021-02-09T03:03:59.000Z" itemprop="datePublished">2021-02-09</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/02/09/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h4 id="1、Kubernetes架构"><a href="#1、Kubernetes架构" class="headerlink" title="1、Kubernetes架构"></a>1、Kubernetes架构</h4><p>Kubernetes是一个轻便的和可扩展的开源平台，用于管理容器化应用和服务。通过Kubernetes能够进行应用的自动化部署和扩缩容</p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/1.png" alt="title"></p>
+<ul>
+<li><p>Master Node：作为控制节点，对集群进行调度管理</p>
+<ul>
+<li><p>API Server主要用来处理REST的操作，并执行相关业务逻辑，以及更新etcd中的相关对象。相关结果状态将被保存在etcd中。</p>
+<ul>
+<li>REST语义，监控，持久化和一致性保证，API 版本控制，放弃和生效</li>
+<li>内置准入控制语义，同步准入控制钩子，以及异步资源初始化</li>
+<li>API注册和发现</li>
+</ul>
+</li>
+<li><p>Cluster state store:  Kubernetes默认使用etcd作为集群整体存储，etcd是一个简单的、分布式的、一致的key-value存储，主要被用来共享配置和服务发现。</p>
+</li>
+<li><p>Controller-Manager Server：执行大部分的集群层次的功能，如命名空间创建和生命周期</p>
+<ul>
+<li><p>Replication Controller</p>
+</li>
+<li><p>Node Controller</p>
+</li>
+<li><p>Namespace Controller</p>
+</li>
+<li><p>Service Controller</p>
+</li>
+<li><p>Endpoints Controller: Endpoints Controller监听Service的Pod对应的副本变化add,update,delete变化，并处理</p>
+</li>
+<li><p>Persistent Controller</p>
+</li>
+<li><p>DaemonSet Controller</p>
+</li>
+</ul>
+</li>
+<li><p>Scheduler:  负责根据调度策略自动将Pod部署到合适Node中</p>
+<ul>
+<li>预选Node：遍历集群中所有的Node，按照具体的预选策略筛选出符合要求的Node列表。如没有Node符合预选策略规则，该Pod就会被挂起。</li>
+<li>优选Node：预选Node列表的基础上，按照优选策略为待选的Node进行打分和排序，从中获取最优Node。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Worker Node：作为真正的工作节点，运行业务应用的容器；Worker Node包含kubelet、kube proxy和Container Runtime；</p>
+<ul>
+<li>Kubelet：使用cAdvisor进行资源监控，Kubelet才是Pod是否能够运行在特定Node上的最终裁决者，而不是scheduler或者DaemonSet<ul>
+<li>负责node节点上pod的创建、修改、监控、删除等生命周期的管理</li>
+<li>定时上报本node的状态信息给kube-apiserver</li>
+<li>接收kube-apiserver下发的指令</li>
+<li>通过kube-apiserver简介与etcd集群交互，读取配置信息</li>
+<li><strong>CRI</strong>–一个能让kubelet无需编译就可以支持多种容器运行时的插件接口</li>
+</ul>
+</li>
+<li> Container Runtime：每一个Node都会运行一个Container Runtime，其负责下载镜像和运行容器。</li>
+<li>kube proxy：<ul>
+<li>负责为Pod创建代理服务；引到访问至服务；并实现服务到Pod的路由和转发，以及通过应用的负载均衡</li>
+<li><code>kube-proxy</code>负责为<code>Services</code>以外的类型实现一种虚拟IP形式<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/services-networking/service/#externalname"><code>ExternalName</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Add-on：是对Kubernetes核心功能的扩展，例如增加网络和网络策略等能力</p>
+<ul>
+<li>kube-dns负责为整个集群提供DNS服务</li>
+<li>Ingress Controller为服务提供外网入口</li>
+<li>Heapster提供资源监控</li>
+<li>Dashboard提供GUI</li>
+<li>Federation提供跨可用区的集群</li>
+<li>Fluentd-elasticsearch提供集群日志采集、存储与查询</li>
+</ul>
+</li>
+</ul>
+<h4 id="2、Kubernetes核心资源"><a href="#2、Kubernetes核心资源" class="headerlink" title="2、Kubernetes核心资源"></a>2、Kubernetes核心资源</h4><ul>
+<li><p>Pod: 所有业务类型的基础，它是一个或多个容器的组合。</p>
+</li>
+<li><p>Replication Controller(副本控制器，RC): kubernetes集群中最早的保证Pod高可用的API对象，通过监控运行中的Pod来保证集群中运行指定数目的Pod副本。</p>
+</li>
+<li><p>ReplicaSets: 下一代Replication Controller（selector）</p>
+</li>
+<li><p>Deployment(无状态应用)：Pod和ReplicaSet提供了一个声明式(declarative)方法</p>
+</li>
+<li><p>StatefulSet(有状态应用)：对于RC和RS中的Pod，一般不挂载存储或者挂载共享存储。对于StatefulSet中的Pod，每个Pod挂载自己独立的存储，如果一个Pod出现故障，从其他节点启动一个同样名字的Pod，要挂载上原来Pod的存储继续以它的状态提供服务。适合于StatefulSet的业务包括数据库服务MySQL和PostgreSQL</p>
+</li>
+<li><p>Service: 定义了一组Pod的策略抽象，这些被标记的Pod都是通过label Selector决定的。Service提供了外部服务访问Pod的入口</p>
+<ul>
+<li><strong>Endpoint</strong>是可被访问的服务端点，即一个状态为running的pod，它是service访问的落点，只有service关联的pod才可能成为endpoint</li>
+</ul>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/9.png" alt="title"></p>
+<ul>
+<li><strong>Endpoints</strong>表示一个Service对应的所有Pod副本的访问地址。Node上的Kube-proxy进程获取每个Service的Endpoints，实现Service的负载均衡功能</li>
+</ul>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/10.png" alt="title"></p>
+</li>
+<li><p>namespace</p>
+</li>
+<li><p>node</p>
+</li>
+</ul>
+<h4 id="3、访问Pod的方式"><a href="#3、访问Pod的方式" class="headerlink" title="3、访问Pod的方式"></a>3、访问Pod的方式</h4><ul>
+<li><p><code>hostNetwork: true</code>: Pod的字段</p>
+</li>
+<li><p><code>hostPort</code>是直接将容器的端口与所调度的节点上的端口路由，这样用户就可以通过宿主机的IP加上来访问Pod</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">influxdb</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">influxdb</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">influxdb</span></span><br><span class="line">      <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">8086</span></span><br><span class="line">          <span class="attr">hostPort:</span> <span class="number">8086</span></span><br></pre></td></tr></table></figure></li>
+<li><p>Service NodePort：接口转发映射范围30000-32767，在node节点上</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">      <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">NodePort</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">nodePort:</span> <span class="number">30000</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">nginx</span></span><br></pre></td></tr></table></figure></li>
+<li><p><code>LoadBalancer</code>: Service上定义 公有云上</p>
+</li>
+<li><p><code>Ingress</code>:  Ingress 简单的理解就是你原来需要改 Nginx 配置，然后配置各种域名对应哪个 Service，现在把这个动作抽象出来，变成一个 Ingress 对象，你可以用 yaml 创建，每次不要去改 Nginx 了，直接改 yaml 然后创建/更新就行了</p>
+<ul>
+<li>①下载Ingress-controller相关的YAML文件，并给Ingress-controller创建独立的名称空间；</li>
+</ul>
+</li>
+<li><p>②部署后端的服务，如myapp，并通过service进行暴露；</p>
+<ul>
+<li>③部署Ingress-controller的service，以实现接入集群外部流量；</li>
+</ul>
+</li>
+<li><p>④部署Ingress，进行定义规则，使Ingress-controller和后端服务的Pod组进行关联。</p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/2.png" alt="title"></p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/3.png" alt="title"></p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/4.png" alt="title"></p>
+</li>
+</ul>
+<h4 id="4、Pod与Docker的区别"><a href="#4、Pod与Docker的区别" class="headerlink" title="4、Pod与Docker的区别"></a>4、Pod与Docker的区别</h4><h5 id="为什么要设计Pod"><a href="#为什么要设计Pod" class="headerlink" title="为什么要设计Pod"></a><strong>为什么要设计Pod</strong></h5><p>在操作系统中，进程是以进程组的方式，”有原则的”组织到一起运行。 k8s 需要做的工作就是将 “进程组” 的概念映射到容器技术中。</p>
+<p>以 rsyslogd 为例子。已知 rsyslogd 有三个进程组成，一个 imklog 模块，一个 imuxsock 模块， 一个 rsyslogd 自己的 main 函数主进程。这三个进程一定要运行在同一台机器上，否则，他们之间基于 Socket 的通信和文件交换，都会出现问题。</p>
+<p>如果要将 rsyslogd 服务容器化，受限于容器的”单进程模式”，那么就需要制作三个不同的容器，最明显的问题，在调度的时候，这三个容器可能被调度到不同的 node 上。</p>
+<blockquote>
+<p>容器单进程模式：并不是指容器里只能运行”一个”进程而是指容器没有管理多进程的能力。这是因为容器里 PID=1 的进程就是应用本身，其他的进程都是 PID=1 进程的子进程。</p>
+</blockquote>
+<p>如果存在 Pod，想 imklog、imudock 和 main 函数主进程这样的三个容器，这是一个典型的由三个容器组成的 Pod。像这样容器间的紧密协作，我们可以称为 “超亲密关系”。 这些具有 “超亲密关系” 容器的典型特征包括但不限于：</p>
+<ul>
+<li>互相之间发生直接的文件交换</li>
+<li>使用 localhost 或者 Socket 文件进行本地通信</li>
+<li>会发生非常频繁的远程调用</li>
+<li>需要共性某些 Linux Namespace</li>
+</ul>
+<p>关于一个 Pod 最重要的事实是： <strong>它只是一个逻辑概念</strong>。</p>
+<p>也就是说，k8s 真正处理，还是宿主机操作系统上 Linux<br> 容器的 Namespace 和 Cgroups，而并不存在一个所谓的 Pod 的边界或者隔离环境。</p>
+<h5 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h5><ul>
+<li>Kubernetes并不是只支持Docker这一个容器运行时，Kubernetes通过CRI这个抽象层，支持除Docker之外的其他容器运行</li>
+<li>假设Kubernetes没有pod的概念，而是直接管理容器，那么一组容器作为一个单元，假设其中一个容器死亡了，此时这个单元的状态应该如何定义呢？应该理解成整体死亡，还是个别死亡。pod里都有一个Kubernetes系统自带的Infra容器(pause镜像)，代表pod的存亡；同时解除同一Pod内容器A与容器B的拓扑关系。</li>
+<li>每个pod都有唯一的IP地址，pod里所有的业务容器共享pause容器的IP地址，以及pause容器mount的Volume，通过这种设计，业务容器之间可以直接通信，文件也能够直接彼此共享</li>
+</ul>
+<h4 id="5、Kubernetes常见的开源项目"><a href="#5、Kubernetes常见的开源项目" class="headerlink" title="5、Kubernetes常见的开源项目"></a>5、Kubernetes常见的开源项目</h4><ul>
+<li>Helm：Helm是Kubernetes的包管理器</li>
+<li>Istio: Istio是现在最热门的Kubernetes容器网络工具。它基于“服务网格”模型。</li>
+<li>Prometheus</li>
+<li>OpenTracing</li>
+</ul>
+<h4 id="6、Flannel与Calico的区别"><a href="#6、Flannel与Calico的区别" class="headerlink" title="6、Flannel与Calico的区别"></a>6、Flannel与Calico的区别</h4><ul>
+<li><p>Flannel之所以可以搭建Kubernetes依赖的底层网络，是因为它能实现以下两点。</p>
+<p>Flannel首先创建了一个名为flannel0的网桥，而且这个网桥的一端连接docker0网桥，另一端连接一个叫作flanneld的服务进程。flanneld进程上连etcd，利用etcd来管理可分配的IP地址段资源，同时监控etcd中每个Pod的实际地址，并在内存中建立了一个Pod节点路由表；flanneld进程下连docker0和物理网络，使用内存中的Pod节点路由表，将docker0发给它的数据包包装起来，利用物理网络的连接将数据包投递到目标flanneld上，从而完成Pod到Pod之间的直接地址通信。</p>
+<ul>
+<li><p>它能协助Kubernetes，给每一个Node上的Docker容器都分配互相不冲突的IP地址。</p>
+</li>
+<li><p>它能在这些IP地址之间建立一个覆盖网络（Overlay Network），通过这个覆盖网络，将数据包原封不动地传递到目标容器内</p>
+</li>
+<li><p>flannel在进行路由转发的基础上进行了封包解包的操作</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/5.png" alt="title"></p>
+<ul>
+<li>Calico是一个基于BGP的纯三层的网络方案，根据iptables规则进行路由转发。源容器-宿主机-目标容器</li>
+</ul>
+<h4 id="7、Swarm与Kubernetes的区别"><a href="#7、Swarm与Kubernetes的区别" class="headerlink" title="7、Swarm与Kubernetes的区别"></a>7、Swarm与Kubernetes的区别</h4><ul>
+<li>Docker Swarm 是一款用来管理多主机上的Docker容器的工具，可以负责帮你启动容器，监控容器状态，如果容器的状态不正常它会帮你重新帮你启动一个新的容器，来提供服务，同时也提供服务之间的负载均衡</li>
+<li>Kubernetes它本身的角色定位是和Docker Swarm 是一样的，也就是说他们负责的工作在容器领域来说是相同的部分，都是一个跨主机的容器管理平台，当然也有自己一些不一样的特点，k8s是谷歌公司根据自身的多年的运维经验研发的一款容器管理平台。Docker Swarm则是由Docker 公司研发的</li>
+</ul>
+<h4 id="8、挖矿"><a href="#8、挖矿" class="headerlink" title="8、挖矿"></a>8、挖矿</h4><p>kubelet 10250溢出漏洞导致任意代码远程执行</p>
+<h4 id="9、Kubenetes弃用Docker"><a href="#9、Kubenetes弃用Docker" class="headerlink" title="9、Kubenetes弃用Docker"></a>9、Kubenetes弃用Docker</h4><p><strong>docker不支持CRI（docker公司不用google的标准）</strong></p>
+<p>Kubelet 之前使用的是一个名为 docker-shim 的模块，用以实现对 Docker 的 CRI 支持。但 Kubernetes 社区发现了与之相关的维护问题</p>
+<p>选择什么？选择社区推荐的containerd、CRI-O </p>
+<blockquote>
+<p>Docker 并不支持 CRI（容器运行时接口）这一 Kubernetes 运行时 API，而 Kubernetes 用户一直以来所使用的其实是名为“dockershim”的桥接服务。</p>
+<p>Dockershim 能够转换 Docker API 与 CRI，但在后续版本当中，Kubernetes 将不再提供这项桥接服务。</p>
+</blockquote>
+<p>Kubernetes 实际上需要保持在红框之内。Docker 网络与存储卷都被排除在外。而这些用不到的功能本身就可能带来安全隐患</p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/6.jpg" alt="title"></p>
+<p>原先的运行方式</p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/7.png" alt="title"></p>
+<h4 id="10、容器探针"><a href="#10、容器探针" class="headerlink" title="10、容器探针"></a>10、容器探针</h4><blockquote>
+<p>探针是由 kubelet对容器执行的定期诊断</p>
+</blockquote>
+<h5 id="Pod生命周期"><a href="#Pod生命周期" class="headerlink" title="Pod生命周期"></a>Pod生命周期</h5><ul>
+<li>Pending：表示集群系统正在创建Pod，但是Pod中的container还没有全部被创建，这其中也包含集群为container创建网络，或者下载镜像的时间；</li>
+<li>Running：表示pod已经运行在一个节点商量，并且所有的container都已经被创建。但是并不代表所有的container都运行，它仅仅代表至少有一个container是处于运行的状态或者进程出于启动中或者重启中；</li>
+<li>Succeeded：所有Pod中的container都已经终止成功，并且没有处于重启的container；</li>
+<li>Failed：所有的Pod中的container都已经终止了，但是至少还有一个container没有被正常的终止(其终止时的退出码不为0)</li>
+</ul>
+<h5 id="容器探针"><a href="#容器探针" class="headerlink" title="容器探针"></a>容器探针</h5><ul>
+<li>livenessProbe ：指示<strong>容器是否正在运行</strong>。如果存活探测失败，则 kubelet 会杀死容器，并且容器将受到其重启策略 的影响。如果容器不提供存活探针，则默认状态为 Success。<ul>
+<li>ExecAction: 在容器内执行指定命令。如果命令退出时返回码为 0 则认为诊断成功</li>
+<li>TCPSocketAction: 对指定端口上的容器的 IP 地址进行 TCP 检查。如果端口打开，则诊断被认为是成功的</li>
+<li>HTTPGetAction: 对指定的端口和路径上的容器的 IP 地址执行 HTTP Get 请求。如果响应的状态码大于等于 200 且小于 400 ，则诊断被认为是成功的</li>
+</ul>
+</li>
+<li>readinessProbe ：指示<strong>容器是否准备好服务请求</strong>。表示container是否以及处于可接受service请求的状态了。如果就绪探测失败，Endpoints controller将从与 Pod 匹配的所有 Service 的端点中删除该 Pod 的 IP 地址。默认Readiness的初始值是Failure，如果一个container没有提供 Readiness则被认为是Success。</li>
+</ul>
+<p><strong>liveness探针影响的是单个容器，但readiness探针影响的是整个pod，即如果pod中有多个容器，只要有一个容器的readiness探针诊断失败，那么整个pod都会处于unready状态。</strong></p>
+<p><strong>容器探针参数</strong></p>
+<blockquote>
+<p>对于Liveness Probe和Readiness Probe用法都一样，拥有相同的参数和相同的监测方式。</p>
+</blockquote>
+<ul>
+<li>initialDelaySeconds：用来表示初始化延迟的时间，也就是告诉监测从多久之后开始运行，单位是秒</li>
+<li>timeoutSeconds: 用来表示监测的超时时间，如果超过这个时长后，则认为监测失败<br>当前对每一个Container都可以设置不同的restartpolicy，有三种值可以设置：<ul>
+<li>Always: 只要container退出就重新启动</li>
+<li>OnFailure: 当container非正常退出后重新启动</li>
+<li>Never: 从不进行重新启动</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">goproxy</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">goproxy</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">goproxy</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">k8s.gcr.io/goproxy:0.1</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">8080</span></span><br><span class="line">    <span class="attr">readinessProbe:</span></span><br><span class="line">      <span class="attr">tcpSocket:</span></span><br><span class="line">        <span class="attr">port:</span> <span class="number">8080</span></span><br><span class="line">      <span class="attr">initialDelaySeconds:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">periodSeconds:</span> <span class="number">10</span></span><br><span class="line">    <span class="attr">livenessProbe:</span></span><br><span class="line">      <span class="attr">tcpSocket:</span></span><br><span class="line">        <span class="attr">port:</span> <span class="number">8080</span></span><br><span class="line">      <span class="attr">initialDelaySeconds:</span> <span class="number">15</span></span><br><span class="line">      <span class="attr">periodSeconds:</span> <span class="number">20</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="11、失效-Pod-的垃圾收集"><a href="#11、失效-Pod-的垃圾收集" class="headerlink" title="11、失效 Pod 的垃圾收集"></a>11、失效 Pod 的垃圾收集</h4><p>对于已失败的 Pod 而言，对应的 API 对象仍然会保留在集群的 API 服务器上，直到用户或者控制器进程显式地将其删除。</p>
+<p>控制面组件会在 Pod 个数超出所配置的阈值 （根据 kube-controller-manager 的 terminated-pod-gc-threshold 设置）时删除已终止的 Pod（阶段值为 Succeeded 或 Failed）。 这一行为会避免随着时间演进不断创建和终止 Pod 而引起的资源泄露问题</p>
+<h4 id="12、三种IP"><a href="#12、三种IP" class="headerlink" title="12、三种IP"></a>12、三种IP</h4><ul>
+<li>Node IP：Node节点的IP地址，即物理网卡的IP地址</li>
+<li>Pod IP：Pod的IP地址，即docker容器的IP地址，Docker Engine根据docker网桥的IP地址段进行分配的，此为虚拟IP地址，虚拟的二层网络<ul>
+<li>同Service下的pod可以直接根据PodIP相互通信</li>
+<li>不同Service下的pod在集群间pod通信要借助于 cluster ip</li>
+<li>pod和集群外通信，要借助于node ip</li>
+</ul>
+</li>
+<li>Cluster IP：Service的IP地址，此为虚拟IP地址<ul>
+<li>Cluster IP仅仅作用于Kubernetes Service这个对象，并由Kubernetes管理和分配IP地址</li>
+<li>Cluster IP无法被ping，没有一个“实体网络对象”来响应</li>
+<li>Cluster IP只能结合Service Port组成一个具体的通信端口，单独的Cluster IP不具备通信的基础，并且他们属于Kubernetes集群这样一个封闭的空间。</li>
+<li>在不同Service下的pod节点在集群间相互访问可以通过Cluster IP</li>
+</ul>
+</li>
+</ul>
+<h4 id="13、Kube-Proxy代理模式"><a href="#13、Kube-Proxy代理模式" class="headerlink" title="13、Kube-Proxy代理模式"></a>13、Kube-Proxy代理模式</h4><h5 id="用户空间代理模式-User-space-proxy-mode"><a href="#用户空间代理模式-User-space-proxy-mode" class="headerlink" title="用户空间代理模式(User space proxy mode):"></a>用户空间代理模式(User space proxy mode):</h5><p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/11.png" alt="title"></p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/12.png" alt="title"></p>
+<ul>
+<li>为每个service在node上打开一个随机端口（代理端口）</li>
+<li>建立iptables规则，将clusterip的请求重定向到代理端口</li>
+<li>到达代理端口（用户空间）的请求再由kubeproxy转发到后端pod</li>
+<li>若与第一个Pod连接失败，Kube-Proxy将检测到与第一个Pod的连接已失败，并会自动尝试使用其他Pod进行重试</li>
+</ul>
+<blockquote>
+<p>这里为什么需要建iptables规则，因为kube-proxy 监听的端口在用户空间，所以需要一层 iptables 把访问服务的连接重定向给 kube-proxy 服务，这里就存在内核态到用户态的切换，代价很大，因此就有了iptables</p>
+<p>iptables处理流量具有较低的系统开销，因为流量由<strong>Linux netfilter</strong>处理，而无需在用户空间和内核空间之间切换。这种方法也可能更可靠</p>
+</blockquote>
+<h5 id="iptables-代理模式"><a href="#iptables-代理模式" class="headerlink" title="iptables 代理模式"></a><code>iptables</code> 代理模式</h5><p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/13.png" alt="title"></p>
+<ul>
+<li><p>每个Service，都安装iptables规则，该规则捕获到服务<code>clusterIP</code>和的<code>port</code>流量，并将该流量重定向到Service</p>
+</li>
+<li><p>每个Endpoint对象，它将安装iptables规则，该规则选择一个Pod</p>
+</li>
+<li><p>若所选的第一个Pod没有响应，则连接失败，使用Pod探针来验证后端Pod正常运行</p>
+</li>
+<li><p><strong>讨论:</strong> kube-proxy不再负责转发，数据包的走向完全由iptables规则决定，效率明显会高很多。但是随着service的增加，iptables规则会不断增加，导致内核十分繁忙（等于在读一张很大的没建索引的表）</p>
+</li>
+</ul>
+<h5 id="IPVS代理模式"><a href="#IPVS代理模式" class="headerlink" title="IPVS代理模式"></a><code>IPVS</code>代理模式</h5><blockquote>
+<p> Kubernetes v1.11 [stable]</p>
+</blockquote>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/14.png" alt="title"></p>
+<ul>
+<li><p>kube-proxy监视Kubernetes的Service和Endpoint，调用<code>netlink</code>接口以相应地创建IPVS规则，</p>
+</li>
+<li><p>定期将IPVS规则与Kubernetes服务和端点同步，该控制循环可确保IPVS状态与所需状态匹配。访问服务时，IPVS将流量定向到Pod之一。</p>
+</li>
+<li><p>IPVS代理模式基于类似于iptables模式的netfilter挂钩函数，但是使用<strong>哈希表</strong>作为基础数据结构，并且在内核空间中工作。与iptables模式下的kube-proxy相比，IPVS模式下的kube-proxy可以<strong>以更低的延迟来重定向流量</strong>，从而在同步代理规则时具有更好的性能。与其他代理模式相比，IPVS模式还<strong>支持更高的网络流量吞吐量</strong></p>
+</li>
+<li><p>IPVS提供了更多选项来平衡后端Pod的流量</p>
+<ul>
+<li><code>rr</code>：轮循</li>
+<li><code>lc</code>：连接最少（打开的连接最少）</li>
+<li><code>dh</code>：目标哈希</li>
+<li><code>sh</code>：源哈希</li>
+<li><code>sed</code>：最短的预期延迟</li>
+<li><code>nq</code>：永不排队</li>
+</ul>
+</li>
+</ul>
+<h4 id="14、Kubernetes调度机制"><a href="#14、Kubernetes调度机制" class="headerlink" title="14、Kubernetes调度机制"></a>14、Kubernetes调度机制</h4><p>亲和性和反亲和性是运行时调度策略，主要包括<code>nodeAffinity（主机亲和性）</code>、<code>podAffinity（pod亲和性）</code>、<code>podAntiAffinity（pod反亲和性）</code>三类。</p>
+<ul>
+<li>nodeAffinity：用于规定pod可以部署在哪个node或者不能部署在哪个节点上。解决pod和主机的问题。</li>
+<li>podAffinity：用于规定pod可以和哪些pod部署在同一拓扑结构下。</li>
+<li>podAntiAffinity：<ul>
+<li>用于规定pod不可以和哪些pod部署在同一拓扑结构下，与podAffinity一起解决pod和pod之间的关系。</li>
+<li>当应用的采用多副本部署时，有必要采用反亲和性让各个应用实例打散分布在各个node上，以提高HA(高可用)</li>
+</ul>
+</li>
+</ul>
+<p>三种Affinity使用时都有三种规则可以设定：</p>
+<ul>
+<li><p><code>requiredDuringSchedulingIgnoredDuringExecution</code>:</p>
+<ul>
+<li><p>hard，严格执行，满足规则调度，否则不调度，在预选阶段执行，所以违反hard约定一定不会调度到</p>
+</li>
+<li><p>在首次调度时一定要满足相应的Affinity规则，如果没有满足条件的node将不会进行调度。在pod运行过程中如果不再满足相应的Affinity规则，会进行重新调度。</p>
+</li>
+</ul>
+</li>
+<li><p><code>preferredDuringSchedulingIgnoredDuringExecution</code>: </p>
+<ul>
+<li>soft，尽力执行，优先满足规则调度，在优选阶段执行，</li>
+<li>在首次调度时需要满足相应的Affinity规则，如果没有满足条件的node将不会进行调度。在后续pod的运行过程中不在检查这些规则是否满足。</li>
+</ul>
+</li>
+<li><p><code>requiredDuringSchedulingRequiredDuringExecution</code>: </p>
+<ul>
+<li>未实现，与之前类似，只是后缀不同，代表如果labels发生改变，kubelet将驱逐不满足规则的pod</li>
+<li>在首次调度时尽量满足相应的Affinity规则，如果没有满足要求的node也会进行调度。后续pod的运行过程中不再检查是否满足</li>
+</ul>
+</li>
+</ul>
+<p><strong>对称性</strong></p>
+<blockquote>
+<p>对称性，pod1设定了的同时pod2也设定</p>
+</blockquote>
+<p>考虑一个场景，两个应用S1和S2。现在<strong>严格</strong>要求S1 pod不能与S2 pod运行在一个node，如果仅设置S1的hard反亲和性是不够的，必须同时给S2设置对应的hard反亲和性。即调度S1 pod时，考虑node没有S2 pod，同时需要在调度S2 pod时，考虑node上没有S1 pod。</p>
+<p>考虑下面两种情况：</p>
+<ol>
+<li>先调度S2，后调度S1，可以满足反亲和性，</li>
+<li>先调度S1，后调度S2，违反S1的反亲和性规则，因为S2没有反亲和性规则，所以在<strong>schedule-time</strong>可以与S1调度在一个拓扑下。</li>
+</ol>
+<p>这就是对称性，即S1设置了与S2相关的hard反亲和性规则，就必须<strong>对称地</strong>给S2设置与S1相关的hard反亲和性规则，以达到调度预期。</p>
+<p><strong>Note：</strong></p>
+<ul>
+<li>反亲和性（soft/hard）具备对称性，上面已经举过例子了</li>
+<li>hard亲和性不具备对称性，例如期望S1、S2亲和，那么调度S2的时候没有必要node上一定要有S1，但是有一个隐含规则，node上有S1更好</li>
+<li>soft亲和性具备对称性，不是很理解，遗留</li>
+</ul>
+<h4 id="15、Kubernetes-主节点高可用"><a href="#15、Kubernetes-主节点高可用" class="headerlink" title="15、Kubernetes 主节点高可用"></a>15、Kubernetes 主节点高可用</h4><p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/8.png" alt="title"></p>
+<ul>
+<li><p>所有管理节点都部署kube-apiserver，kube-controller-manager，kube-scheduler，以及etcd等组件</p>
+</li>
+<li><p>kube-apiserver均与本地的etcd进行通信，etcd在三个节点间同步数据；</p>
+</li>
+<li><p>kube-controller-manager和kube-scheduler也只与本地的kube-apiserver进行通信(或者通过LB访问)，基于<a target="_blank" rel="noopener" href="https://github.com/kubernetes/client-go/tree/master/examples/leader-election">Leader Election Mechanism</a>实现了高可用</p>
+</li>
+<li><p>kube-apiserver前面顶一个LoadBalancer(LB)；work节点kubelet以及kube-proxy组件对接LB访问apiserver</p>
+</li>
+<li><p>work node工作节点上部署应用，应用按照**<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#more-practical-use-cases">反亲和</a>**部署多个副本，使副本调度在不同的work node上，这样如果其中一个副本所在的母机宕机了，理论上通过Kubernetes service可以把请求切换到另外副本上，使服务依旧可用</p>
+</li>
+</ul>
+<p><strong>节点宕机对网络层面的影响</strong></p>
+<blockquote>
+<p>集群中还部署了依赖nginx服务的应用A，如果某个时刻work node1宕机了，此时应用A访问nginx service会有问题吗？</p>
+</blockquote>
+<p>有问题</p>
+<p>因为service不会马上剔除掉宕机上对应的nginx pod，同时由于service常用的<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/services-networking/service/#proxy-mode-iptables">iptables代理模式</a>没有实现<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/services-networking/service/#proxy-mode-iptables">retry with another backend</a>特性，所以在一段时间内访问会出现间歇性问题(如果请求轮询到挂掉的nginx pod上)，也就是说会<strong>存在一个访问失败间隔期</strong></p>
+<p>这个间隔期取决于service对应的endpoint什么时候踢掉宕机的pod。之后，kube-proxy会watch到endpoint变化，然后更新对应的iptables规则，使service访问后端列表恢复正常(也就是踢掉该pod)</p>
+<p>每个node在kube-node-lease namespace下会对应一个Lease object，kubelet每隔node-status-update-frequency时间(默认10s)会更新对应node的Lease object</p>
+<p>node-controller会每隔node-monitor-period时间(默认5s)检查Lease object是否更新，如果超过node-monitor-grace-period时间(默认40s)没有发生过更新，则认为这个node不健康，会更新NodeStatus(ConditionUnknown)。如果这样的状态在这之后持续了一段时间(默认5mins)，则会驱逐(evict)该node上的pod</p>
+<p>对于母机宕机的场景，node controller在node-monitor-grace-period时间段没有观察到心跳的情况下，会更新NodeStatus(ConditionUnknown)，之后endpoint controller会从endpoint backend中踢掉该母机上的所有pod，最终服务访问正常，请求不会落在挂掉的pod上</p>
+<p>也就是说在母机宕机后，在node-monitor-grace-period间隔内访问service会有间歇性问题，我们可以通过调整相关参数来缩小这个窗口期</p>
+<h4 id="16、Pod创建过程"><a href="#16、Pod创建过程" class="headerlink" title="16、Pod创建过程"></a>16、Pod创建过程</h4><h5 id="静态Pod"><a href="#静态Pod" class="headerlink" title="静态Pod"></a>静态Pod</h5><ul>
+<li><p>静态pod 是<strong>由 kubelet 管理的只在特定node上存在的pod</strong></p>
+</li>
+<li><p>静态pod 不能通过 api-server来管理，无法和 RC，RS，Deployment或者 DaemonSet进行关联</p>
+</li>
+<li><p> kubelet无法对静态pod 进行健康检查。</p>
+</li>
+</ul>
+<p><strong>静态创建过程</strong><br>静态pod是在特定文件目录定义好yaml，通过kubelet在启动进程时候增加启动参数，之后kubelet会隔一段时间去扫描特定目录下时候有pod配置文件生成，其中–config自定特定目录 ，–file-check-frequency指定扫描间隔，默认为20S</p>
+<h5 id="动态pod创建过程"><a href="#动态pod创建过程" class="headerlink" title="动态pod创建过程"></a>动态pod创建过程</h5><p>kubelet通过apiserver，利用etcd的watch加list机制，通过消息订阅的方式，etcd提供的接口可以参考专栏etcd的描述，etcd有pod的操作，将会被监听到，之后完成pod的创建</p>
+<p><strong>pod的调度过程</strong></p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/15.png" alt="title"></p>
+<ul>
+<li><p>执行kubectl命令创建pod，根据kubeconfig的配置向kube-apiserver发送创建请求</p>
+</li>
+<li><p>kube-apiserver存储pod数据到etcd</p>
+<ul>
+<li>API Server 在接收到创建pod的请求之后，会根据用户提交的参数值来创建一个运行时的pod对象</li>
+<li>根据 API Server 请求的上下文的元数据来验证两者的 namespace 是否匹配，如果不匹配则创建失败</li>
+<li>Namespace 匹配成功之后，会向 pod 对象注入一些系统数据，如果 pod 未提供 pod 的名字，则 API Server 会将 pod 的 uid 作为 pod 的名字</li>
+<li>API Server 接下来会<strong>检查 pod 对象的必需字段是否为空，如果为空，创建失败</strong></li>
+<li><strong>在 etcd 中持久化这个对象</strong>，将异步调用返回结果封装成 restful.response</li>
+<li>pod 处于 pending 状态</li>
+</ul>
+</li>
+<li><p>kube-scheduler通过kube-apiserver查看未绑定的pod，尝试为pod分配主机。<strong>API Server 完成任务之后，将信息写入到 etcd 中，此时 scheduler 通过 watch 机制监听到写入到 etcd 的信息然后再进行工作</strong>，kube-scheduler的调度分为两步</p>
+<ul>
+<li><strong>节点预选</strong>：基于一系列预选规则（如 PodFitsResource 和 MatchNode-Selector 等）对每个节点进行检查，将不符合的节点过滤掉从而完成节点预选</li>
+<li><strong>节点优选</strong>：为符合要求的主机计算权重。权重的计算设计到一些整体优化策略，比如replicas分配到不同主机，使用负载较低的主机等。对预选出的节点进行优先级排序，以便选出最适合运行 pod 对象的节点</li>
+<li>从优先级结果中挑选出优先级最高的节点来运行 pod 对象，当此类节点多个时则随机选择一个。</li>
+<li>进行binding操作，结果存储到etcd中。kube-scheduler会调用kube-apiserver在etcd创建boundpod对象，描述在一个工作节点上绑定运行的所有pod信息</li>
+<li>pod的调度过程除了自身的调度算法外，还支持其他的调度策略，包括<strong>node seletctor，nodeaffnity(亲和)，podaffnity，pod驱逐</strong></li>
+</ul>
+</li>
+<li><p>Kubelet组件启动pod，<strong>Kubelet 通过 watch 机制监听到写入到 etcd 的信息然后再进行工作</strong></p>
+<ul>
+<li><p>kubelet监听etcd，kubelet服务定时和etcd同步boundpod信息，获取到pod被分配到哪个特定的node</p>
+</li>
+<li><p>为该 pod 创建一个数据目录，从 API Server 读取该 pod 清单，为该 pod 挂载外部卷，下载 pod 所需的 Secret</p>
+</li>
+<li><p>检查已经运行在节点中 pod，如果该 pod 没有容器或者 Pause 容器没有启动，则先停止pod里所有的容器进程</p>
+</li>
+<li><p>使用 pause 镜像为每个pod创建一个容器，该容器用于接管 Pod 中所有其他容器的网络</p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="详述pod声明周期中的重要行为"><a href="#详述pod声明周期中的重要行为" class="headerlink" title="详述pod声明周期中的重要行为"></a><strong>详述pod声明周期中的重要行为</strong></h5><p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/17.png" alt="title"></p>
+<ul>
+<li><p><strong>初始化容器</strong>：即 pod 内主容器启动之前要运行的容器，主要是做一些前置工作，初始化容器具有以下特征：</p>
+<ul>
+<li>初始化容器必须首先执行，若初始化容器运行失败，集群会一直重启初始化容器直至完成，注意，如果 pod 的重启策略为 Never，那初始化容器启动失败后就不会重启</li>
+<li>初始化容器必须按照定义的顺序执行，初始化容器可以通过 pod 的 spec.initContainers 进行定义</li>
+</ul>
+</li>
+<li><p><strong>声明周期钩子函数</strong>，Kubernetes 为容器提供了两种生命周期钩子：</p>
+<ul>
+<li><p>Poststart:容器创建完成之后立即运行的钩子程序。</p>
+</li>
+<li><p>preStop:容器终止之前立即运行的程序，是以同步方式的进行，因此其完成之前会阻塞 删除容器的调用</p>
+</li>
+<li><p>备注：钩子程序的执行方式有“Exec”和“HTTP”两种。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>容器探测</strong>，容器探测分为存活性探测和就绪性探测容器探测是kubelet对容器健康状态进行诊断，容器探测的方式主要以下三种：</p>
+<ul>
+<li>ExecAction：在容器中执行命令，根据返回的状态码判断容器健康状态，返回0即表示成功，否则为失败</li>
+<li>TCPSocketAction: 通过与容器的某TCP端口尝试建立连接进行诊断，端口能打开即为表示成功，否则失败</li>
+<li>HTTPGetAction：向容器指定 URL 发起 HTTP GET 请求，响应码为2xx或者是3xx为成功，否则失败</li>
+</ul>
+</li>
+</ul>
+<h5 id="Pod终止过程"><a href="#Pod终止过程" class="headerlink" title="Pod终止过程"></a><strong>Pod终止过程</strong></h5><ul>
+<li>用户发出删除 pod 命令</li>
+<li>Pod 对象随着时间的推移更新，在宽限期（默认情况下30秒），pod 被视为“dead”状态</li>
+<li>将 pod 标记为“Terminating”状态</li>
+<li>第三步同时运行，监控到 pod 对象为“Terminating”状态的同时启动 pod 关闭过程</li>
+<li>第三步同时进行，endpoints 控制器监控到 pod 对象关闭，将pod与service匹配的 endpoints 列表中删除</li>
+<li>如果 pod 中定义了 preStop 钩子处理程序，则 pod 被标记为“Terminating”状态时以同步的方式启动执行；若宽限期结束后，preStop 仍未执行结束，第二步会重新执行并额外获得一个2秒的小宽限期</li>
+<li>Pod 内对象的容器收到 TERM 信号</li>
+<li>宽限期结束之后，若存在任何一个运行的进程，pod 会收到 SIGKILL 信号</li>
+<li>Kubelet 请求 API Server 将此 Pod 资源宽限期设置为0从而完成删除操作</li>
+</ul>
+<h5 id="创建service"><a href="#创建service" class="headerlink" title="创建service"></a>创建service</h5><ul>
+<li>通过Kubectl提交一个新的映射到该Pod的Service的创建请求</li>
+<li>ControllerManager会通过Label标签查询到相关联的Pod实例，然后生成Service的Endpoints信息，并通过APIServer写入到etcd中</li>
+<li>所有Node上运行的Proxy进程通过APIServer查询并监听Service对象与其对应的Endpoints信息，建立一个软件方式的负载均衡器来实现Service访问到后端Pod的流量转发功能</li>
+</ul>
+<h4 id="17、Pod状态"><a href="#17、Pod状态" class="headerlink" title="17、Pod状态"></a>17、Pod状态</h4><p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/16.png" alt="title"></p>
+<h4 id="18、声明式API"><a href="#18、声明式API" class="headerlink" title="18、声明式API"></a>18、声明式API</h4><h5 id="k8s-API"><a href="#k8s-API" class="headerlink" title="k8s API"></a>k8s API</h5><p>Kubernetes 项目中，一个 API 对象在 Etcd 里的完整资源路径，是由：Group（API 组）、Version（API 版本）和 Resource（API 资源类型）三个部分组成的。</p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/18.png" alt="title"></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">如果现在要声明一个CronJob对象，那么YAML的开始部分会这么写</span></span><br><span class="line"></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">batch/v2alpha1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">CronJob</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="string">CronJob就是这个API对象的资源类型，Batch就是它们的组，v2alpha1就是它的版本</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="命令式"><a href="#命令式" class="headerlink" title="命令式"></a>命令式</h5><p><strong>命令行式</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker service create --name nginx --replicas 2  nginx</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker service update --image nginx:1.7.9 nginx</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="命令式配置文件"><a href="#命令式配置文件" class="headerlink" title="命令式配置文件"></a>命令式配置文件</h5><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx-deployment</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">2</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl create -f nginx.yaml</span></span><br></pre></td></tr></table></figure>
+
+<p>创建出来一个Pod之后，更新容器镜像版本：修改yaml文件的Pod template部分</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">...</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">nginx:1.7.9</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl replace -f nginx.yaml</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="声明式API"><a href="#声明式API" class="headerlink" title="声明式API"></a>声明式API</h5><p>对于上述yaml文件，进行kubectl apply操作</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl apply -f nginx.yaml</span></span><br></pre></td></tr></table></figure>
+
+<p>同样的，修改过镜像版本后，执行kubectl apply，更新pod，触发滚动更新。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl apply -f nginx.yaml</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>kubelet apply和kubelet replace区别</p>
+<ul>
+<li>replace 是使用新的yaml文件中的API对象，替换原有API对象</li>
+<li>apply 是对原有API对象PATCH操作<br> 此外，kubetcl set image, kubectl edit也是对原有API对象的修改<br> 这就意味着，kube-apiserver在响应式命令请求的时候，一次只能处理一个，否则多个替换操作的结果就可能导致冲突，而<strong>对于对于声明式请求来说，一次可以进行多个写操作，具备前面提到过的Merge能力</strong></li>
+</ul>
+</blockquote>
+<blockquote>
+<p>所以什么是“声明式API”？<br> 其实就是，通过给一个配置文件（期望的最终状态），然后<strong>通过使用支持patch的命令模式，去叠加的演进对象的最终状态的这样一种做事情的方式</strong></p>
+</blockquote>
+<ul>
+<li><p>声明式API，就是说我们来提供一个好的API对象进行声明，我们期望的状态是啥样子的</p>
+</li>
+<li><p>声明式API允许多个API对象写端，并在Kubernetes中支持以Patch的方式，对API对象进行修改以达到最终期望的实际状态，而无需关心最初的YAML文件的内容</p>
+</li>
+<li><p>基于以上两个能力特性（提供API明确的API对象来声明最终的期望状态+支持多个API对象声明并以PATCH的能力使控制器模型拿到的是最终的期望状态），Kubernetes能在无需外部干预的情况下，只要你给我明确的若干个API对象，我就能够给你无感调谐到你最终期望的状态</p>
+</li>
+</ul>
+<h5 id="应用：Istio"><a href="#应用：Istio" class="headerlink" title="应用：Istio"></a>应用：Istio</h5><p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/19.png" alt="title"></p>
+<p>Istio项目的最根本组件，是运行在每个应用Pod中的<strong>Envoy容器</strong>。它以sidecar容器的方式，运行在每一个治理的应用Pod中。他的作用是通过配置Pod中的iptables规则，把整个Pod的进出流量接管下来。这样，Istio控制层的Pilot组件，就能够通过调用每个Envoy容器的API，对这个Envoy进行配置，实现微服务治理</p>
+<p><strong>在整个微服务治理的过程中，无论是对Envoy的部署，还是对Envoy代理的配置，这些对于用户和应用都是完全“无感”的。</strong></p>
+<p> 实现这种Envoy容器无感修改的技术，是Kubernetes中一个叫做Dynamic Admission Control的功能，这个功能也叫做Initializer。</p>
+<blockquote>
+<p>后面就可以看到，Dynamic Admission Control，也就是Initilizer，其实也是一个容器起来的Pod。他的功能就是<strong>将存在Etcd中的ConfigMap类型的关于Envoy容器的配置，和用户的Pod API对象通过Kubernetes的PATCH API做merge</strong></p>
+</blockquote>
+<blockquote>
+<p>实际上，在Kubernetes项目中，每当一个Pod或者任何一个API对象通过命令等方式提交给APIServer之后，总要有一些“初始化”性质的工作需要他们被Kubernetes项目正式处理之前进行。这个操作，是一个叫做Admission的功能。这是Kubernetes中一段Admission Controller的代码，可以被选择性地变异进入API Server，在API对象创建后会被立刻调用。但是，如果Envoy的配置修改想用这个功能的话，那么每次都要动态的修改代码重新build并重启APIServer，显然这是不可接受的。所以就有了“热更新”方式的Admission机制，就是上面提到的动态Admission Control技术</p>
+</blockquote>
+<p>具体到例子来分析，看看Istio的效果<br> 受限，用户有一个应用Pod的配置如下</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">myapp-pod</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">myapp-container</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">busybox</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&#x27;sh&#x27;</span>, <span class="string">&#x27;-c&#x27;</span>, <span class="string">&#x27;echo Hello Kubernetes! &amp;&amp; sleep 3600&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>Istio要做的事情，就是上面这个Pod被提交给Kubernetes之后，在对应的API对象中加上Envoy容器的配置（<strong>这里就是无感了</strong>），使API对象对应的yaml文件如下变成下面这样</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">myapp-pod</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">myapp-container</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">busybox</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&#x27;sh&#x27;</span>, <span class="string">&#x27;-c&#x27;</span>, <span class="string">&#x27;echo Hello Kubernetes! &amp;&amp; sleep 3600&#x27;</span>]</span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">envoy</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">lyft/envoy:845747b88f102c0fd262ab234308e9e22f693a1</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;/usr/local/bin/envoy&quot;</span>]</span><br><span class="line">    <span class="string">...</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>那么，对这个API对象无感的修改，是怎么通过Initializer来实现的呢？</strong></p>
+<ul>
+<li>Istio将这个Envoy容器本身的定义，以ConfigMap的方式，存在Etcd当中，这个ConfigMap（叫做envoy-initializer）的定义举例如下：</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">envoy-initializer</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">config:</span> <span class="string">|</span></span><br><span class="line"><span class="string">    containers:</span></span><br><span class="line"><span class="string">      - name: envoy</span></span><br><span class="line"><span class="string">        image: lyft/envoy:845747db88f102c0fd262ab234308e9e22f693a1</span></span><br><span class="line"><span class="string">        command: [&quot;/usr/local/bin/envoy&quot;]</span></span><br><span class="line"><span class="string">        args:</span></span><br><span class="line"><span class="string">          - &quot;--concurrency 4&quot;</span></span><br><span class="line"><span class="string">          - &quot;--config-path /etc/envoy/envoy.json&quot;</span></span><br><span class="line"><span class="string">          - &quot;--mode serve&quot;</span></span><br><span class="line"><span class="string">        ports:</span></span><br><span class="line"><span class="string">          - containerPort: 80</span></span><br><span class="line"><span class="string">            protocol: TCP</span></span><br><span class="line"><span class="string">        resources:</span></span><br><span class="line"><span class="string">          limits:</span></span><br><span class="line"><span class="string">            cpu: &quot;1000m&quot;</span></span><br><span class="line"><span class="string">            memory: &quot;512Mi&quot;</span></span><br><span class="line"><span class="string">          requests:</span></span><br><span class="line"><span class="string">            cpu: &quot;100m&quot;</span></span><br><span class="line"><span class="string">            memory: &quot;64Mi&quot;</span></span><br><span class="line"><span class="string">        volumeMounts:</span></span><br><span class="line"><span class="string">          - name: envoy-conf</span></span><br><span class="line"><span class="string">            mountPath: /etc/envoy</span></span><br><span class="line"><span class="string">    volumes:</span></span><br><span class="line"><span class="string">      - name: envoy-conf</span></span><br><span class="line"><span class="string">        configMap:</span></span><br><span class="line"><span class="string">          name: envoy</span></span><br></pre></td></tr></table></figure>
+
+<p>data的部分就是envoy容器的对应配置字段和volumes的配置。而Initializer的工作，就是把这个部分配置，<strong>自动添加到用户的POD API对象中</strong>。这就用到了Kubernetes的PATCH API，而这种patch操作，正是<strong>声明式API</strong>的主要能力。</p>
+<ul>
+<li>Istio把一个编写好的Initializer作为一个Pod部署在Kubernetes集群中。如下：</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">envoy-initializer</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">envoy-initializer</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">envoy-initializer</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">envoy-initializer:0.0.1</span></span><br><span class="line">      <span class="attr">imagePullPolicy:</span> <span class="string">Always</span></span><br></pre></td></tr></table></figure>
+
+<p>这里envoy-initializer的使用的镜像envoy-initializer:0.0.1就是一个自定义控制器（Custom Controller），是可以自己事先编写好的。<br> 而这个控制器同样也是遵循控制器模型的，他的实际状态是获取到的用户新建的Pod的配置情况，期望状态就是这个Pod里被加入了Envoy容器的定义。伪代码如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">  <span class="comment">// 获取新创建的 Pod</span></span><br><span class="line">  pod := client.GetLatestPod()</span><br><span class="line">  <span class="comment">// Diff 一下，检查是否已经初始化过</span></span><br><span class="line">  <span class="keyword">if</span> !isInitialized(pod) &#123;</span><br><span class="line">    <span class="comment">// 没有？那就来初始化一下</span></span><br><span class="line">    doSomething(pod)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果获取到的Pod的API对象中，没有Envoy的容器的定义，那么就开始进行doSomething的初始化，具体做的事情就是前面提到过的，把Etcd中存储的那个关于Envoy容器配置的ConfigMap对象加到一个空的Pod里面去，然后调用Kubernetes的API库中TwoWayMerge<br> Patch方法，把用户Pod对象和新Pod对象 merge。</p>
+<ul>
+<li>至此，Istio对通过声明式API的Patch特性实现Dynamic Adminssion Control功能，进而支持Envoy容器在用户和应用侧无感的能力就实现了。</li>
+</ul>
+<p><strong>Dynamic Admission Control的配置</strong></p>
+<p>Dynamic Admission Control，即Initializer的相关配置（注意，这里不是指的Initializer本身，而是Initializer的配置文件）。<br> 我们可以通过配置这个配置对象，来指明对什么类型的资源进行Initialize的操作。比如下面这段代码，就是对全部的pods都做初始化操作。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">admissionregistration.k8s.io/v1alpha1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">InitializerConfiguration</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">envoy-config</span></span><br><span class="line"><span class="attr">initializers:</span></span><br><span class="line">  <span class="string">//</span> <span class="string">这个名字必须至少包括两个</span> <span class="string">&quot;.&quot;</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">envoy.initializer.kubernetes.io</span></span><br><span class="line">    <span class="attr">rules:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">apiGroups:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">&quot;&quot;</span> <span class="string">//</span> <span class="string">前面说过，</span> <span class="string">&quot;&quot;</span> <span class="string">就是</span> <span class="string">core</span> <span class="string">API</span> <span class="string">Group</span> <span class="string">的意思</span></span><br><span class="line">        <span class="attr">apiVersions:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">v1</span></span><br><span class="line">        <span class="attr">resources:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">pods</span></span><br></pre></td></tr></table></figure>
+
+<p>同时，只要这个对象一杯kubectl apply/create出来之后，Kubernetes就会把这个Initializer的名字（envoy.initializer）打在所有新创建Pod的metada上，如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">initializers:</span></span><br><span class="line">    <span class="attr">pending:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">envoy.initializer.kubernetes.io</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">myapp-pod</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">myapp</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>这个字段，就是在Initializer的控制器模型中，根据什么区判断有没有被初始化过的依据，换言之，每当我们自定义的Initialzer在做完Initialize的操作之后，要把metadata.initializers.pending标识删除掉！！！</strong></p>
+<p>除了Kubernetes在我们创建出来kind是InitializerConfiguration的对象后，会自动给所有新建的Pod都打这个标签之外，如果我们没有新建这个InitializerConfiguration对象，但是又想让我的某个Pod去使用某个Initializer的话，这么干：<strong>给对应Pod打metadata.annotations字段</strong>实例如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="string">metadata</span></span><br><span class="line">  <span class="attr">annotations:</span></span><br><span class="line">    <span class="attr">&quot;initializer.kubernetes.io/envoy&quot;:</span> <span class="string">&quot;true&quot;</span></span><br><span class="line">    <span class="string">...</span></span><br></pre></td></tr></table></figure>
+
+<p>而Istio项目的核心，就是用无数个运行在应用Pod中的Envoy容器组成的服务代理网格。这也是Service Mesh的含义。</p>
+<blockquote>
+<p>总地来说，从上到下，灰度升级的切流场景-&gt;(Service Mesh)-&gt;Envoy们组成的服务代理网格-&gt;Envoy的实现-&gt;Kubernetes通过声明式API支持的Patch修改Pod的能力-&gt;声明式API</p>
+</blockquote>
+<h4 id="19、CRD"><a href="#19、CRD" class="headerlink" title="19、CRD"></a>19、CRD</h4><blockquote>
+<p>CRD允许用户在Kubernetes中添加一个跟Pod、Node类似的、新的API资源类型，即：自定义API资源</p>
+</blockquote>
+<p>在 Kubernetes 中一切都可视为资源，Kubernetes 1.7 之后增加了对 CRD 自定义资源二次开发能力来扩展 Kubernetes API，通过 CRD 我们可以向 Kubernetes API 中增加新资源类型，而不需要修改 Kubernetes 源码来创建自定义的 API server，该功能大大提高了 Kubernetes 的扩展能力。</p>
+<p>当你创建一个新的CustomResourceDefinition (CRD)时，Kubernetes API服务器将为你指定的每个版本创建一个新的RESTful资源路径，我们可以根据该api路径来创建一些我们自己定义的类型资源。CRD可以是命名空间的，也可以是集群范围的，由CRD的作用域(scpoe)字段中所指定的，与现有的内置对象一样，删除名称空间将删除该名称空间中的所有自定义对象。customresourcedefinition本身没有名称空间，所有名称空间都可以使用</p>
+<p>在 Kubernetes 中我们使用的 Deployment， DamenSet，StatefulSet, Service，Ingress, ConfigMap, Secret 这些都是资源，而对这些资源的创建、更新、删除的动作都会被称为为事件(Event)，Kubernetes 的 Controller Manager 负责事件监听，并触发相应的动作来满足期望（Spec），这种方式也就是声明式，即用户只需要关心应用程序的最终状态。当我们在使用中发现现有的这些资源不能满足我们的需求的时候，Kubernetes 提供了自定义资源（Custom Resource）和 opertor 为应用程序提供基于 kuberntes 扩展。</p>
+<p><strong>operator</strong> 是一种 kubernetes 的扩展形式，利用自定义资源对象（Custom Resource）来管理应用和组件，允许用户以 Kubernetes 的声明式 API 风格来管理应用及服务。operator 定义了一组在 Kubernetes 集群中打包和部署复杂业务应用的方法，operator主要是为解决特定应用或服务关于如何运行、部署及出现问题时如何处理提供的一种特定的自定义方式</p>
+<p><strong>operator-CRD</strong></p>
+<h4 id="20、ConfigMap"><a href="#20、ConfigMap" class="headerlink" title="20、ConfigMap"></a>20、ConfigMap</h4><p>在生产环境中经常会遇到需要修改配置文件的情况，传统的修改方式不仅会影响到服务的正常运行，而且操作步骤也很繁琐。为了解决这个问题，kubernetes项目从1.2版本引入了ConfigMap功能，<strong>用于将应用的配置信息与程序的分离</strong>。这种方式不仅可以实现应用程序被的复用，而且还可以通过不同的配置实现更灵活的功能。在创建容器时，<strong>用户可以将应用程序打包为容器镜像后，通过环境变量或者外接挂载文件的方式进行配置注入</strong>。<br>ConfigMap是以<code>key:value</code>的形式保存配置项，既可以用于表示一个变量的值（例如config=info），也可以用于表示一个完整配置文件的内容（例如server.xml=&lt;?xml…&gt;…）</p>
+<h5 id="configMap配置Deployment自动更新"><a href="#configMap配置Deployment自动更新" class="headerlink" title="configMap配置Deployment自动更新"></a>configMap配置Deployment自动更新</h5><ul>
+<li><p><strong>ENV 是在容器启动的时候注入的，启动之后 kubernetes 就不会再改变环境变量的值</strong>，且同一个 namespace 中的 pod 的环境变量是不断累加的。</p>
+</li>
+<li><p>Volume不同，<strong>kubelet的源码里KubeletManager中是有Volume Manager</strong>的，这就说明Kubelet会监控管理每个Pod中的Volume资源，当发现配置的Volume更新后，就会重建Pod，以更新所用的Volume，但是会有一定延迟，大概10秒以内。</p>
+</li>
+<li><p>Config Map一定触发Deployment滚动更新呢？可以通过修改 pod annotations 的方式强制触发滚动更新。这样一定会触发更新，亲测有效。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl patch deployment test-deploy --patch <span class="string">&#x27;&#123;&quot;spec&quot;: &#123;&quot;template&quot;: &#123;&quot;metadata&quot;: &#123;&quot;annotations&quot;: &#123;&quot;update&quot;: &quot;2&quot; &#125;&#125;&#125;&#125;&#125;&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li><p><a target="_blank" rel="noopener" href="https://link.segmentfault.com/?url=https://github.com/iyacontrol/configmap-reload">configmap-reload</a> 采用rust语言实现，作为主业务容器的sidercar，主要用于k8s当中监听configmap的变化，待变化后通过http接口的方式通知主业务。在资源消耗上，更小</p>
+</li>
+</ul>
+<h4 id="21、部署Kubernetes-k8s-时，为什么要关闭swap、selinux、防火墙"><a href="#21、部署Kubernetes-k8s-时，为什么要关闭swap、selinux、防火墙" class="headerlink" title="21、部署Kubernetes(k8s)时，为什么要关闭swap、selinux、防火墙"></a>21、部署Kubernetes(k8s)时，为什么要关闭swap、selinux、防火墙</h4><p>关于防火墙的原因（nftables后端兼容性问题，产生重复的防火墙规则）</p>
+<blockquote>
+<p>The<code>iptables</code>tooling can act as a compatibility layer, behaving like iptables but actually configuring nftables. This nftables backend is not compatible with the current kubeadm packages: it causes duplicated firewall rules and breaks<code>kube-proxy</code>.</p>
+</blockquote>
+<p>关于selinux的原因（关闭selinux以允许容器访问宿主机的文件系统）</p>
+<blockquote>
+<p>Setting SELinux in permissive mode by running<code>setenforce 0</code>and<code>sed ...</code>effectively disables it. This is required to allow containers to access the host filesystem, which is needed by pod networks for example. You have to do this until SELinux support is improved in the kubelet.</p>
+</blockquote>
+<p>关闭swap(一个node性能不足时应该立即迁移到性能足够的node上，不能让swap拖慢进度)</p>
+<p>所以关闭swap主要是为了性能考虑。</p>
+<p>当然为了一些节省资源的场景，比如运行容器数量较多，可添加kubelet参数 <code>--fail-swap-on=false</code>来解决。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://zhangfuli.github.io/2021/02/09/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Kubernetes%E7%AF%87/" title="Kubernetes篇-2021春招准备" target="_blank" rel="external">https://zhangfuli.github.io/2021/02/09/2021春招准备-Kubernetes篇/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangfuli" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangfuli" target="_blank"><span class="text-dark">张富利</span><small class="ml-1x">学生</small></a></h3>
+        <div>Do myself,Believe myself,Try my best</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/02/09/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E7%BD%91%E7%BB%9C%E7%AF%87/" title="网络篇-2021春招准备"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/02/03/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Raft%E5%8E%9F%E7%90%86/" title="Raft原理-2021年春招准备"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498969-6d12a800-deef-11e9-927a-89d5d0ce9e42.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498913-4fddd980-deef-11e9-9da1-56f86199713b.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'e0m4Aw9mFAjO1UuHuINbSEOm-gzGzoHsz',
+    appKey: 'VwY3lLrV5rMPSG6AFGO87omg',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

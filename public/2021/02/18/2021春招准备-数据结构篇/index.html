@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>数据结构篇-2021春招准备 | Hexo</title>
+  <meta name="description" content="1、Hash原理 Hash算法较多的应用在数据存储和查找领域，最经典的就是Hash表，它的查询效率非常高，如果哈希算法设计的好，那么Hash表的数据查询时间复杂度可以接近于O(1)  Hash算法使用示例  提供一组数据1，5，7，6，3，4，8，对这组数据进行存储，然后随便给定一个数n，请你判断n是否存在于刚才的数据集中？   顺序查找法：这种方式就是通过循环来完成，比较原始，效率也不高 二分查">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构篇-2021春招准备">
+<meta property="og:url" content="https://zhangfuli.github.io/2021/02/18/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AF%87/index.html">
+<meta property="og:site_name" content="Hello, Zhangfuli">
+<meta property="og:description" content="1、Hash原理 Hash算法较多的应用在数据存储和查找领域，最经典的就是Hash表，它的查询效率非常高，如果哈希算法设计的好，那么Hash表的数据查询时间复杂度可以接近于O(1)  Hash算法使用示例  提供一组数据1，5，7，6，3，4，8，对这组数据进行存储，然后随便给定一个数n，请你判断n是否存在于刚才的数据集中？   顺序查找法：这种方式就是通过循环来完成，比较原始，效率也不高 二分查">
+<meta property="og:locale">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/1.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/2.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/3.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/4.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/10.jpg">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/11.jpg">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/12.jpg">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/13.jpg">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/5.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/6.jpg">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/7.jpg">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/8.jpg">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/9.jpg">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/14.jpg">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/15.jpg">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/16.gif">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/17.gif">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/18.jpg">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/19.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/20.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/23.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/21.png">
+<meta property="article:published_time" content="2021-02-18T12:43:22.000Z">
+<meta property="article:modified_time" content="2021-08-02T11:18:32.077Z">
+<meta property="article:author" content="张富利">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/1.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://zhangfuli.github.io/2021/02/18/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AF%87/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hello, Zhangfuli" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/zhangfuli" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">张富利</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">学生</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> NanJing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTML-CSS/">HTML CSS</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/angularjs/">angularjs</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8E%A2%E7%A9%B6/">探究</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83/">环境</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A1%AC%E4%BB%B6/">硬件</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML-CSS/" rel="tag">HTML CSS</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angularjs/" rel="tag">angularjs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A2%E7%A9%B6/" rel="tag">探究</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83/" rel="tag">环境</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/HTML-CSS/" style="font-size: 13.63px;">HTML CSS</a> <a href="/tags/Linux/" style="font-size: 13.5px;">Linux</a> <a href="/tags/angularjs/" style="font-size: 13.5px;">angularjs</a> <a href="/tags/hexo/" style="font-size: 13.5px;">hexo</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/mongodb/" style="font-size: 13.38px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.38px;">nodejs</a> <a href="/tags/python/" style="font-size: 13.13px;">python</a> <a href="/tags/react/" style="font-size: 13px;">react</a> <a href="/tags/vue/" style="font-size: 13.25px;">vue</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.25px;">区块链</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 13px;">小程序</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 13px;">工具</a> <a href="/tags/%E6%8E%A2%E7%A9%B6/" style="font-size: 13.63px;">探究</a> <a href="/tags/%E7%8E%AF%E5%A2%83/" style="font-size: 13.75px;">环境</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 13.88px;">生活</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.13px;">硬件</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AF%87/" class="title">操作系统篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T11:07:17.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-golang%E7%AF%87/" class="title">golang篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T10:57:08.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/23/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Jenkins/" class="title">Jenkins-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-23T03:33:03.000Z" itemprop="datePublished">2021-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E5%89%8D%E7%AB%AF-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AF%87/" class="title">前端/数据库/Spring/Java-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:15:30.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Redis-Prometheus-RocketMQ%E7%AF%87/" class="title">Redis/Prometheus/RocketMQ篇-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:14:17.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-2021春招准备-数据结构篇" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构篇-2021春招准备
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/02/18/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AF%87/" class="article-date">
+	  <time datetime="2021-02-18T12:43:22.000Z" itemprop="datePublished">2021-02-18</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/02/18/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AF%87/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h4 id="1、Hash原理"><a href="#1、Hash原理" class="headerlink" title="1、Hash原理"></a>1、Hash原理</h4><blockquote>
+<p>Hash算法<code>较多的应用在数据存储和查找领域</code>，最经典的就是<code>Hash表</code>，它的查询效率非常高，如果哈希算法设计的好，那么Hash表的数据查询时间复杂度可以接近于O(1)</p>
+</blockquote>
+<p><strong>Hash算法使用示例</strong></p>
+<blockquote>
+<p>提供一组数据1，5，7，6，3，4，8，对这组数据进行存储，然后随便给定一个数n，请你判断n是否存在于刚才的数据集中？</p>
+</blockquote>
+<ul>
+<li><code>顺序查找法</code>：这种方式就是通过循环来完成，比较原始，效率也不高</li>
+<li><code>二分查找法</code>：排序之后折半查找，相对于顺序查找法会提高一些效率，但是效率也并不是特别好</li>
+<li><code>直接寻址法</code>：直接把数据和数组的下标绑定到一起，查找的时候，直接array[n]就取出了数据<ul>
+<li><strong>优点：</strong> 速度快，一次查找得到结果</li>
+<li><strong>缺点：</strong> <ul>
+<li><code>浪费空间</code>（数据：1，3，7，12306）</li>
+<li><code>单个索引上存储内容有限</code>（数据：1，1，2，12，12，1，1）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/1.png" alt="title"></p>
+<ul>
+<li><code>除留取余法</code>: 根据求模余数确定存储位置的下标</li>
+</ul>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/2.png" alt="title"></p>
+<ul>
+<li><code>开放寻址法</code>: 如果数据是 1，6，7，8 采用<code>除留取余法</code>则会造成hash冲突，此时可以采用<code>开放寻址法</code>，比如：1放进去了，6再来的时候，向前或者向后找空闲位置存放<ul>
+<li><strong>缺点：</strong> 如果数组长度定义好了，比如10，由于数组长度不能扩展，来了11个数据，不管Hash冲突不冲突，肯定存不下这么多数据</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/3.png" alt="title"></p>
+<ul>
+<li><code>拉链法</code>: 数据长度定义好了，怎么存储更多内容呢，算好Hash值，在数组元素存储位置放了一个链表</li>
+</ul>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/4.png" alt="title"></p>
+<p><strong>Hash算法应用</strong></p>
+<ul>
+<li>分布式集群架构Redis<ul>
+<li>以分布式内存数据库Redis为例，集群中有redis1，redis2，redis3三台Redis服务器，那么，在进行数据存储时，&lt;key1,value1&gt; 数据存储，针对key进行hash处理 hash(key)%3=index，使用余数index锁定存储的具体服务器节点</li>
+</ul>
+</li>
+<li>Hadoop</li>
+<li>ElasticSearch</li>
+<li>Mysql分库分表</li>
+<li>Nginx负载均衡</li>
+</ul>
+<h4 id="2、一致性Hash"><a href="#2、一致性Hash" class="headerlink" title="2、一致性Hash"></a>2、一致性Hash</h4><p><strong>原因</strong>: hash一般是将一个大数字分散到不同的桶里面，如果两个桶则%2。若扩容新桶所有的数字都需要%3，所有的数字分布都变了，即hash表每次扩容或收缩都会导致所有条目重新计算。</p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/10.jpg" alt="title"></p>
+<p><strong>方案:</strong> 一致性hash中假想有很多桶，比如 7 个，但一开始真实还是只有两个桶，编号是 3 和 6。哈希算法还是同样的取模，只不过现在分桶分到的很可能是不存在的桶，那么就往下找找到第一个真实存在的桶放进去。这样 2 和 3 都被分到了编号为 3 的桶， 4 和 5 被分到了编号为 6 的桶。</p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/11.jpg" alt="title"></p>
+<p>这时候再添加一个新的桶，编号是 4，取模方法不变还是模 7。因为 3 号桶里都是取模小于等于 3 的，4 号桶只需要从 6 号桶里拿走属于它的数字就可以了，这种情况下只需要调整一个桶的数字就可分成了重新分布。</p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/12.jpg" alt="title"></p>
+<p><strong>升级:</strong> 这里还有个小问题要是编号为 6 的机桶下线了，它没有后一个桶了，数据该咋办？为了解决这个问题，实现上通常把哈希空间做成环状，</p>
+<p>**时间复杂度: **</p>
+<ul>
+<li>普通的哈希查询一次哈希计算就可以找到对应的桶了，算法时间复杂度是 O(1)，</li>
+<li>一致性哈希需要将排好序的桶组成一个链表，然后一路找下去，k 个桶查询时间复杂度是 O(k)。可以用跳转表进行一个快速的跳转实现 O(logk) 的时间复杂度。</li>
+</ul>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/13.jpg" alt="title"></p>
+<p>在这个跳转表中，每个桶记录距离自己 1，2，4 距离的数字所存的桶，这样不管查询落在哪个节点上，对整个哈希环上任意的查询一次都可以至少跳过一半的查询空间，这样递归下去很快就可以定位到数据是存在哪个桶上。</p>
+<h4 id="3、bit单位换算"><a href="#3、bit单位换算" class="headerlink" title="3、bit单位换算"></a>3、bit单位换算</h4><ul>
+<li>1B=1字节=8bit（比特）。</li>
+<li>1KB=1024B（KB：千节字，也写作“K”，可读作“K”）。</li>
+<li>1MB（1M）=1024KB（MB：兆字节，也可写作“M”，读作“兆”）。</li>
+<li>1GB（1G）=1024MB=1024兆(GB：吉字节，也可写作“G”，读作“G”或“吉”)。</li>
+<li>1TB=1024GB（TB：万亿字节，读作“TB”或“千吉”）。</li>
+</ul>
+<h4 id="4、常见排序算法的空间时间复杂度"><a href="#4、常见排序算法的空间时间复杂度" class="headerlink" title="4、常见排序算法的空间时间复杂度"></a>4、常见排序算法的空间时间复杂度</h4><p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/5.png" alt="title"></p>
+<ul>
+<li>希尔排序又叫“缩小增量排序”，先取一个小于n的整数d1作为第一个增量，把文件的全部记录分成d1个组。所有距离为d1的倍数的记录放在同一个组中。先在各组内进行直接插入排序，然后取第二个增量d2。其是插入排序改良的算法，希尔排序步长从大到小调整，第一次循环后面元素逐个和前面元素按间隔步长进行比较并交换，直至步长为1，步长选择是关键。</li>
+</ul>
+<h4 id="5、哈夫曼编码"><a href="#5、哈夫曼编码" class="headerlink" title="5、哈夫曼编码"></a>5、哈夫曼编码</h4><blockquote>
+<p>数据压缩技术，编码思想：根据字符出现的概率大小进行编码，出现概率高的字符使用较短的编码，出现概率低的字符使用较长的编码。</p>
+</blockquote>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/6.jpg" alt="title"></p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/7.jpg" alt="title"></p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/8.jpg" alt="title"></p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/9.jpg" alt="title"></p>
+<h4 id="6、树"><a href="#6、树" class="headerlink" title="6、树"></a>6、树</h4><h5 id="平衡二叉树-AVL"><a href="#平衡二叉树-AVL" class="headerlink" title="平衡二叉树(AVL):"></a><strong>平衡二叉树</strong>(AVL):</h5><blockquote>
+<p>任何一个节点的左右子树的高度相差不超过1，又被称为AVL树</p>
+<p>查找效率/高度为O（logn）。插入和删除节点可能需要做一次旋转动作</p>
+</blockquote>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/14.jpg" alt="title"></p>
+<p><strong>旋转</strong>: 增加、删除破坏其平衡性要进行旋转</p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/15.jpg" alt="title"></p>
+<p><strong>左旋</strong>:节点 66 的左子树高度为 1，右子树高度为 3，此时平衡因子为 -2。为保证树的平衡，此时需要对节点 66 做出旋转，因为<strong>右子树高度高于左子树</strong>，对节点进行<strong>左旋</strong>操作，流程如下：</p>
+<ul>
+<li>节点的右孩子替代此节点位置 </li>
+<li>右孩子的左子树变为该节点的右子树</li>
+<li>节点本身变为右孩子的左子树</li>
+</ul>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/16.gif" alt="title"></p>
+<p><strong>右旋</strong>: </p>
+<ul>
+<li>节点的左孩子代表此节点</li>
+<li>节点的左孩子的右子树变为节点的左子树</li>
+<li>将此节点作为左孩子节点的右子树</li>
+</ul>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/17.gif" alt="title"></p>
+<h5 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树:"></a>红黑树:</h5><blockquote>
+<p>它的最坏情况运行时间也是非常良好的，并且在实践中是高效的： 它可以在O(log n)时间内做查找，插入和删除，这里的n 是树中元素的数目</p>
+<p>查找的时间复杂度为2log(n+1)</p>
+<p>插入和删除的时间为O(logn)</p>
+</blockquote>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/18.jpg" alt="title"></p>
+<ul>
+<li>每个节点或者是黑色，或者是红色。</li>
+<li>根节点是黑色。</li>
+<li>每个叶子节点（NIL）是黑色。 [注意：这里叶子节点，是指为空(NIL或NULL)的叶子节点！]</li>
+<li>如果一个节点是红色的，则它的子节点必须是黑色的。</li>
+<li>从一个节点到该节点的子孙节点的所有路径上包含相同数目的黑节点。<ul>
+<li>确保没有一条路径会比其他路径长出俩倍。因而，红黑树是相对是接近平衡的二叉树</li>
+</ul>
+</li>
+</ul>
+<p><strong>定理:</strong></p>
+<ul>
+<li>一棵含有n个节点的红黑树的高度至多为2log(n+1).</li>
+</ul>
+<p><strong>左旋:</strong></p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/19.png" alt="title"></p>
+<p><strong>右旋:</strong></p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/20.png" alt="title"></p>
+<p><strong>应用</strong></p>
+<ul>
+<li>set/map：红黑树</li>
+<li>linux调度: 红黑树往往出现由于树的深度过大而造成磁盘IO读写过于频繁，进而导致效率低下的情况在数据较小，可以完全放到内存中时，红黑树的时间复杂度比B树低</li>
+<li><strong>Trie树(字典树):</strong> 用在统计和排序大量字符串，如自动机。</li>
+</ul>
+<p><strong>AVL树和RB树之间的区别:</strong></p>
+<ul>
+<li>AVL树的结构相较于RB树来说更加平衡，所以在<strong>插入或者删除</strong>一个node的时候更容易引起树的不平衡，导致更高频率的rebalance操作,RB树只需做有限的旋转操作和变色操作即可，所以在插入和删除节点的时候使用RB树效率更高</li>
+<li><strong>查找效率</strong>方面，RB树是黑色节点平衡的，所以平衡度没有AVL高，查找的次数上可能会比AVL更多一些</li>
+<li>红黑树的查询性能略逊色于平衡二叉树，但是在相同的条件下也最多多一次比较，但是红黑树在插入和删除上是完胜平衡二叉树的，平衡二叉树每加入或删除一个节点都需要耗费大量的平衡计算开销；而红黑树在节点旋转和颜色变换上付出的开销是要远小于AVL的。</li>
+</ul>
+<p><strong>为什么说红黑树是“近似平衡”的</strong></p>
+<ul>
+<li>对于AVL树，任何一个节点的两个子树高度差不会超过1；</li>
+<li>对于红黑树，则是不会相差两倍以上，从而在这样的树中进行搜索的话即便在最坏情况下也会很高效，这就足够了。</li>
+</ul>
+<h5 id="B树："><a href="#B树：" class="headerlink" title="B树："></a><strong>B树：</strong></h5><ul>
+<li>B树是所有节点的平衡因子均等于0的多路查找树</li>
+<li>AVL树是平衡因子不大于 1 的二路查找树</li>
+<li>从磁盘查找的效率来讲，查找、插入和删除操作的时间复杂度都要小于二叉树</li>
+<li>B+树是B树的变种树，有n棵子树的节点中含有n个关键字，每个关键字不保存数据，只用来索引，数据都保存在叶子节点。是为文件系统而生的。且叶子结点用链表串连</li>
+<li>B树应用文件系统中，B+树用于索引</li>
+</ul>
+<p><strong>B+树</strong></p>
+<ul>
+<li>节点存的不一样； b+tree 只有叶子节点存数据，中间节点存key值</li>
+<li>叶子节点顺序查询</li>
+</ul>
+<p><strong>B+树的插入过程</strong></p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/23.png" alt="title"></p>
+<p><strong>二叉堆</strong></p>
+<ul>
+<li><p>二叉堆本质上是一种完全二叉树</p>
+</li>
+<li><p>最大堆：任何一个父节点的值，都<strong>大于等于</strong>它左右孩子节点的值</p>
+</li>
+<li><p>最小堆：任何一个父节点的值，都<strong>小于等于</strong>它左右孩子节点的值</p>
+</li>
+<li><p>堆（heap），堆通常可以看作为一棵树，但这棵树得满足以下条件：</p>
+<ul>
+<li>堆中任意节点的值总是不大于（不小于）其子节点的值；</li>
+<li>堆总是一颗完全树</li>
+<li>更简便的存储方式（数组）：<ul>
+<li>索引为 i 的左孩子的索引为（2<em>i + 1）</em></li>
+<li><em>索引为 i 的右孩子的索引为 （2</em>i + 2）</li>
+<li>索引为 i 的父节点的索引为 （i - 1）/ 2（计算机里取整）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="7、KMP算法"><a href="#7、KMP算法" class="headerlink" title="7、KMP算法"></a>7、KMP算法</h4><p>KMP算法是用来进行字符串匹配查找的，比如在字符串1中查找是否包含字符串2。核心是先求出Next数组。什么是next数组？我的理解是：</p>
+<blockquote>
+<p>next数组表示的是待查找的字符串的<strong>最大公共前后缀</strong>中的公共前缀的最后一个字符的下标，知道这个下标，就可以知道当匹配目标字符串出错时，目标字符串的指针怎么回退，而查找段落的指针不用回退，这样遍历一遍查找段落，就可以知道是否存在目标字符串，时间复杂度为O（n）</p>
+</blockquote>
+<p>例如，求目标字符串ababc的next数组，下标从0开始。</p>
+<ul>
+<li><p>比如next[2]，2位置为a，则next[2]表示0位置的a（因为aba的最长公共前缀为a），next[2] =0。</p>
+</li>
+<li><p>比如next[3]，3位置为b，则next[3]表示1位置的b（因为abab的最长公共前缀为ab), next[3] = 1。</p>
+</li>
+<li><p>比如next[4]，由于4位置为c，而ababc没有公共前后缀，则next[4]=-1。</p>
+</li>
+</ul>
+<h4 id="8、进制转换"><a href="#8、进制转换" class="headerlink" title="8、进制转换"></a>8、进制转换</h4><p><strong>除留余数法</strong></p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AF%BE%E7%A8%8B%E7%9F%A5%E8%AF%86%E7%AF%87/21.png" alt="title"></p>
+<h4 id="9、char、int、long、float、double所占字节数"><a href="#9、char、int、long、float、double所占字节数" class="headerlink" title="9、char、int、long、float、double所占字节数"></a>9、char、int、long、float、double所占字节数</h4><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">32位</th>
+<th align="center">64位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">char</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">int</td>
+<td align="center">4</td>
+<td align="center">大多数为4、少数为8</td>
+</tr>
+<tr>
+<td align="center">long</td>
+<td align="center">4</td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td align="center">4</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="center">Double</td>
+<td align="center">8</td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td align="center">指针</td>
+<td align="center">4</td>
+<td align="center">8</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://zhangfuli.github.io/2021/02/18/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AF%87/" title="数据结构篇-2021春招准备" target="_blank" rel="external">https://zhangfuli.github.io/2021/02/18/2021春招准备-数据结构篇/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangfuli" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangfuli" target="_blank"><span class="text-dark">张富利</span><small class="ml-1x">学生</small></a></h3>
+        <div>Do myself,Believe myself,Try my best</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/02/26/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Nginx%E7%AF%87/" title="Nginx篇-2021春招准备"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/02/16/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E9%A1%B9%E7%9B%AE%E7%AF%87/" title="项目篇-2021春招准备"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498969-6d12a800-deef-11e9-927a-89d5d0ce9e42.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498913-4fddd980-deef-11e9-9da1-56f86199713b.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'e0m4Aw9mFAjO1UuHuINbSEOm-gzGzoHsz',
+    appKey: 'VwY3lLrV5rMPSG6AFGO87omg',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

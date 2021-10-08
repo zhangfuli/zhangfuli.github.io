@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Nginx篇-2021春招准备 | Hexo</title>
+  <meta name="description" content="1、Nginx1、Nginx模块化设计  核心模块  提供错误日志记录、配置文件解析、事件驱动机制、进程管理等核心功能。  标准 HTTP 模块   HTTP 协议解析相关的功能，如：端口配置、网页编码设置、HTTP 响应头设置等。  可选 HTTP 模块  主要用于扩展标准的 HTTP 功能，让 Nginx 能处理一些特殊的服务，如：Flash 多媒体传输、解析 GeoIP 请求、SSL 支持等">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx篇-2021春招准备">
+<meta property="og:url" content="https://zhangfuli.github.io/2021/02/26/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Nginx%E7%AF%87/index.html">
+<meta property="og:site_name" content="Hello, Zhangfuli">
+<meta property="og:description" content="1、Nginx1、Nginx模块化设计  核心模块  提供错误日志记录、配置文件解析、事件驱动机制、进程管理等核心功能。  标准 HTTP 模块   HTTP 协议解析相关的功能，如：端口配置、网页编码设置、HTTP 响应头设置等。  可选 HTTP 模块  主要用于扩展标准的 HTTP 功能，让 Nginx 能处理一些特殊的服务，如：Flash 多媒体传输、解析 GeoIP 请求、SSL 支持等">
+<meta property="og:locale">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Nginx%E7%AF%87/1.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Nginx%E7%AF%87/2.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Nginx%E7%AF%87/5.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4%E6%8A%80%E5%B7%A7%E7%AF%87/3.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Nginx%E7%AF%87/3.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Nginx%E7%AF%87/4.png">
+<meta property="article:published_time" content="2021-02-26T03:59:19.000Z">
+<meta property="article:modified_time" content="2021-08-05T12:19:55.321Z">
+<meta property="article:author" content="张富利">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Nginx%E7%AF%87/1.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://zhangfuli.github.io/2021/02/26/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Nginx%E7%AF%87/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hello, Zhangfuli" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/zhangfuli" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">张富利</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">学生</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> NanJing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTML-CSS/">HTML CSS</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/angularjs/">angularjs</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8E%A2%E7%A9%B6/">探究</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83/">环境</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A1%AC%E4%BB%B6/">硬件</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML-CSS/" rel="tag">HTML CSS</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angularjs/" rel="tag">angularjs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A2%E7%A9%B6/" rel="tag">探究</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83/" rel="tag">环境</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/HTML-CSS/" style="font-size: 13.63px;">HTML CSS</a> <a href="/tags/Linux/" style="font-size: 13.5px;">Linux</a> <a href="/tags/angularjs/" style="font-size: 13.5px;">angularjs</a> <a href="/tags/hexo/" style="font-size: 13.5px;">hexo</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/mongodb/" style="font-size: 13.38px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.38px;">nodejs</a> <a href="/tags/python/" style="font-size: 13.13px;">python</a> <a href="/tags/react/" style="font-size: 13px;">react</a> <a href="/tags/vue/" style="font-size: 13.25px;">vue</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.25px;">区块链</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 13px;">小程序</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 13px;">工具</a> <a href="/tags/%E6%8E%A2%E7%A9%B6/" style="font-size: 13.63px;">探究</a> <a href="/tags/%E7%8E%AF%E5%A2%83/" style="font-size: 13.75px;">环境</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 13.88px;">生活</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.13px;">硬件</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AF%87/" class="title">操作系统篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T11:07:17.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-golang%E7%AF%87/" class="title">golang篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T10:57:08.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/23/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Jenkins/" class="title">Jenkins-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-23T03:33:03.000Z" itemprop="datePublished">2021-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E5%89%8D%E7%AB%AF-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AF%87/" class="title">前端/数据库/Spring/Java-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:15:30.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Redis-Prometheus-RocketMQ%E7%AF%87/" class="title">Redis/Prometheus/RocketMQ篇-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:14:17.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-2021春招准备-Nginx篇" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Nginx篇-2021春招准备
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/02/26/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Nginx%E7%AF%87/" class="article-date">
+	  <time datetime="2021-02-26T03:59:19.000Z" itemprop="datePublished">2021-02-26</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/02/26/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Nginx%E7%AF%87/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h4 id="1、Nginx"><a href="#1、Nginx" class="headerlink" title="1、Nginx"></a>1、Nginx</h4><h5 id="1、Nginx模块化设计"><a href="#1、Nginx模块化设计" class="headerlink" title="1、Nginx模块化设计"></a>1、Nginx模块化设计</h5><p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Nginx%E7%AF%87/1.png" alt="title"></p>
+<ul>
+<li><strong>核心模块</strong></li>
+</ul>
+<p>提供错误日志记录、配置文件解析、事件驱动机制、进程管理等核心功能。</p>
+<ul>
+<li><strong>标准 HTTP 模块</strong></li>
+</ul>
+<p> HTTP 协议解析相关的功能，如：端口配置、网页编码设置、HTTP 响应头设置等。</p>
+<ul>
+<li><strong>可选 HTTP 模块</strong></li>
+</ul>
+<p>主要用于扩展标准的 HTTP 功能，让 Nginx 能处理一些特殊的服务，如：Flash 多媒体传输、解析 GeoIP 请求、SSL 支持等。</p>
+<ul>
+<li><strong>邮件服务模块</strong></li>
+</ul>
+<p>用于支持 Nginx 的邮件服务，包括对 POP3 协议、IMAP 协议和 SMTP 协议的支持。</p>
+<ul>
+<li><strong>第三方模块</strong></li>
+</ul>
+<p>扩展 Nginx 服务器应用，完成开发者自定义功能，如：Json 支持、Lua 支持等。</p>
+<h5 id="2、Nginx架构"><a href="#2、Nginx架构" class="headerlink" title="2、Nginx架构"></a>2、Nginx架构</h5><p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Nginx%E7%AF%87/2.png" alt="title"></p>
+<ul>
+<li>Nginx默认采用多进程工作方式，Nginx启动后，会运行一个master进程和多个worker进程</li>
+<li>一般来说，当一个连接进来后，所有worker都会收到通知，但是只有一个进程可以接受这个连接请求，其它的都失败，这是所谓的惊群现象。</li>
+<li>nginx提供了一个accept_mutex（互斥锁），有了这把锁之后，同一时刻，就只会有一个进程在accpet连接，这样就不会有惊群问题了。</li>
+<li>每个worker进程都有一个独立的连接池</li>
+</ul>
+<h5 id="3、Listen"><a href="#3、Listen" class="headerlink" title="3、Listen"></a>3、Listen</h5><ul>
+<li><p>当nginx接到请求后，会匹配其配置中的service模块，</p>
+</li>
+<li><p>匹配方法就是靠请求携带的host和port正好对应其配置中的server_name 和listen。</p>
+</li>
+<li><p>如果做过ip和域名绑定，ip和域名二者是对等的</p>
+</li>
+<li><p>fastcgi介绍：CGI全称是“公共网关接口”(Common Gateway Interface)，HTTP服务器与你的或其它机器上的程序进行“交谈”的一种工具，其程序一般运行在网络服务器上。 CGI可以用任何一种语言编写，只要这种语言具有标准输入、输出和环境变量。如php,perl,tcl等。</p>
+</li>
+</ul>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span> <span class="number">8080</span>;</span><br><span class="line">        <span class="attribute">server_name</span> www.abc.com;</span><br><span class="line">        <span class="attribute">access_log</span>  /opt/htdocs/logs/abc.log combined;</span><br><span class="line">        <span class="attribute">index</span> index.html index.htm index.php;</span><br><span class="line">        <span class="attribute">root</span> /opt/htdocs/abc;</span><br><span class="line">        <span class="attribute">if</span> ( $query_string <span class="regexp">~* &quot;.*[\;&#x27;\&lt;\&gt;].*&quot;</span> )&#123;</span><br><span class="line">                <span class="attribute">return</span> <span class="number">404</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="attribute">location</span> / &#123;</span><br><span class="line">                <span class="attribute">try_files</span> $uri $uri/ /index.php;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="attribute">location</span> <span class="regexp">~ .*\.(php|php5)?$</span>  &#123;</span><br><span class="line">                <span class="comment">#fastcgi_pass unix:/dev/shm/php-cgi.sock;</span></span><br><span class="line">                <span class="attribute">fastcgi_pass</span> <span class="number">127.0.0.1:9000</span>;     <span class="comment"># 网管代理</span></span><br><span class="line">                <span class="attribute">fastcgi_index</span> index.php;</span><br><span class="line">                <span class="attribute">include</span> fastcgi.conf;</span><br><span class="line">                &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="attribute">location</span> <span class="regexp">~ .*\.(gif|jpg|jpeg|png|bmp|swf|flv|ico)$</span> &#123;</span><br><span class="line">                <span class="attribute">expires</span> <span class="number">30d</span>;</span><br><span class="line">                &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="attribute">location</span> <span class="regexp">~ .*\.(js|css)?$</span> &#123;</span><br><span class="line">                <span class="attribute">expires</span> <span class="number">7d</span>;</span><br><span class="line">                &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="4、反向代理"><a href="#4、反向代理" class="headerlink" title="4、反向代理"></a>4、反向代理</h5><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="attribute">upstream</span> cluster &#123;</span><br><span class="line">        <span class="attribute">server</span> srv1;</span><br><span class="line">        <span class="attribute">server</span> srv2;</span><br><span class="line">        <span class="attribute">server</span> srv3;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line"> 				<span class="attribute">server_name</span> localhost www.xxx.com; <span class="comment">#域名</span></span><br><span class="line">        <span class="attribute">location</span> / &#123;    <span class="comment"># 匹配 / 转发到反向代理</span></span><br><span class="line">            <span class="attribute">proxy_pass</span> http://cluster;  <span class="comment"># 反向代理</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>默认的HTTP负载均衡算法 - 加权轮询</p>
+<h5 id="5、Nginx调度算法"><a href="#5、Nginx调度算法" class="headerlink" title="5、Nginx调度算法"></a>5、Nginx调度算法</h5><ul>
+<li><strong>轮询:</strong> 按时间顺序逐一分配到不同的后端服务器</li>
+</ul>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">upstream</span> lb_demo &#123;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">172.16.255.194:9001</span>;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">172.16.255.195:9001</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>加权轮询:</strong> 可在配置的server后面加个weight=number，number值越高，分配的概率越大</li>
+</ul>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">upstream</span> lb_demo &#123;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">172.16.255.194:9001</span> weight=<span class="number">10</span>;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">172.16.255.195:9001</span> weight=<span class="number">20</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>ip_hash:</strong> 每个请求按访问IP的hash分配，这样来自同一IP固定访问一个后台服务器，实现会话粘滞，避免处理session共享问题</p>
+<ul>
+<li><p>如果没有<code>ip_hash</code>策略，那么如何实现回话沾滞？<br><code>答：</code>可以维护一张映射表，存储客户端IP或者sessionid与具体目标服务器的映射关系，但是存在缺点</p>
+</li>
+<li><p><strong>缺点：</strong></p>
+<ul>
+<li>在客户端很多的情况下，映射表非常大，浪费内存空间</li>
+<li>客户端上下线，目标服务器上下线，都会导致重新维护映射表，映射表维护成本很大</li>
+</ul>
+</li>
+<li><p><strong>解决方案：</strong> 如果使用哈希算法，事情就简单很多，我们可以对ip地址或者sessionId进行计算哈希值，哈希值与服务器数量进行取模运算，</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">upstream</span> lb_demo &#123;</span><br><span class="line">        ip_hash;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">172.16.255.194:9001</span>;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">172.16.255.195:9001</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>least_hash:</strong> 最少链接数，哪个机器连接数少就发分发给哪个机器</li>
+</ul>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">upstream</span> lb_demo &#123;</span><br><span class="line">        least_conn;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">172.16.255.194:9001</span>;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">172.16.255.195:9001</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>url_hash</strong>: 按访问的url的hash结果分配请求，是每个url定向到同一后端服务器上</li>
+</ul>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">upstream</span> lb_demo &#123;</span><br><span class="line">        url_hash;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">172.16.255.194:9001</span>;</span><br><span class="line">        <span class="attribute">server</span> <span class="number">172.16.255.195:9001</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="6、nginx配置证书"><a href="#6、nginx配置证书" class="headerlink" title="6、nginx配置证书"></a>6、nginx配置证书</h5><blockquote>
+<p>使用openssl生成证书</p>
+</blockquote>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">	<span class="attribute">listen</span> <span class="number">443</span> ssl;</span><br><span class="line">	<span class="attribute">server_name</span> www.yourdomain.com;</span><br><span class="line">	<span class="attribute">ssl_certificate</span> /usr/local/ssl/nginx.crt;</span><br><span class="line">	<span class="attribute">ssl_certificate_key</span> /usr/local/ssl/nginx.key;</span><br><span class="line">	<span class="attribute">ssl_session_cache</span>    shared:SSL:<span class="number">1m</span>;</span><br><span class="line">	<span class="attribute">ssl_session_timeout</span>  <span class="number">5m</span>;</span><br><span class="line">	<span class="comment">#禁止在header中出现服务器版本，防止黑客利用版本漏洞攻击</span></span><br><span class="line">	<span class="attribute">server_tokens</span> <span class="literal">off</span>;</span><br><span class="line">	<span class="comment">#如果是全站 HTTPS 并且不考虑 HTTP 的话，可以加入 HSTS 告诉你的浏览器本网站全站加密，并且强制用 HTTPS 访问</span></span><br><span class="line">	<span class="attribute">fastcgi_param</span>   HTTPS               <span class="literal">on</span>;</span><br><span class="line">	<span class="attribute">fastcgi_param</span>   HTTP_SCHEME         https;</span><br><span class="line">	<span class="attribute">access_log</span> /usr/local/nginx/logs/httpsaccess.log;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="7、nginx到upstream这个网络出现问题出现502-Bad-Gateway-比较多，如何解决？"><a href="#7、nginx到upstream这个网络出现问题出现502-Bad-Gateway-比较多，如何解决？" class="headerlink" title="7、nginx到upstream这个网络出现问题出现502(Bad Gateway)比较多，如何解决？"></a>7、nginx到upstream这个网络出现问题出现502(Bad Gateway)比较多，如何解决？</h5><ul>
+<li><p>php-fpm的进程是否启动 ,没启动肯定报这个错误</p>
+</li>
+<li><p> tcp连接数超过了fpm的进程数<code>netstat -altupn|grep EST|grep php|wc -l</code></p>
+</li>
+<li><p>FastCGI执行时间过长,根据实际情况调高以下参数值</p>
+<ul>
+<li>fastcgi_connect_timeout 300;</li>
+<li>fastcgi_send_timeout 300;</li>
+<li>fastcgi_read_timeout 300;</li>
+</ul>
+</li>
+<li><p>FastCGI Buffer不够，nginx和apache一样，有前端缓冲限制，可以调整缓冲参数</p>
+<ul>
+<li>fastcgi_buffer_size 32k;</li>
+<li>fastcgi_buffers 8 32k;</li>
+</ul>
+</li>
+<li><p>Proxy Buffer不够，如果你用了Proxying，调整</p>
+<ul>
+<li><p>proxy_buffer_size 16k;</p>
+</li>
+<li><p>proxy_buffers 4 16k;</p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="8、nginx-504错误排查"><a href="#8、nginx-504错误排查" class="headerlink" title="8、nginx 504错误排查"></a>8、nginx 504错误排查</h5><p>504 Gateway Time-out的含义是所请求的网关没有请求到，简单来说就是没有请求到可以执行的PHP-CGI。</p>
+<p>一般来说Nginx 502 Bad Gateway和php-fpm.conf的设置有关，而Nginx 504 Gateway Time-out则是与nginx.conf的设置有关</p>
+<h5 id="9、nginx-400-错误排查"><a href="#9、nginx-400-错误排查" class="headerlink" title="9、nginx 400 错误排查"></a>9、nginx 400 错误排查</h5><blockquote>
+<p>由于request header过大</p>
+</blockquote>
+<ul>
+<li>不要在cookie里记录过多数据</li>
+<li>调整在nginx.conf中的client_header_buffer_size(默认1k)</li>
+<li>若cookie太大，可能还需要调整large_client_header_buffers(默认4k)，该参数说明如下：<ul>
+<li>请求行如果超过buffer，就会报HTTP 414错误(URI Too Long)</li>
+<li>nginx接受最长的HTTP头部大小必须比其中一个buffer大，否则就会报400的HTTP错误(Bad Request)</li>
+</ul>
+</li>
+</ul>
+<h5 id="10、事件驱动模型"><a href="#10、事件驱动模型" class="headerlink" title="10、事件驱动模型"></a>10、<strong>事件驱动模型</strong></h5><ul>
+<li>select模型</li>
+<li>poll模型</li>
+<li>epoll模型。</li>
+</ul>
+<h5 id="11、nginx与apache的区别"><a href="#11、nginx与apache的区别" class="headerlink" title="11、nginx与apache的区别"></a>11、nginx与apache的区别</h5><ul>
+<li>nginx<ul>
+<li>轻量级，采用C进行编写，同样的web服务，会占用更少的内存及资源</li>
+<li>抗并发</li>
+<li>设计高度模块化，编写模块相对简单</li>
+<li>配置简洁</li>
+<li>一般用于处理静态文件，静态处理性能比apache高三倍以上</li>
+<li>作为负载均衡服务器，支持7层负载均衡</li>
+<li>反向代理服务器，而且可以作为非常优秀的邮件代理服务器</li>
+<li>nginx启动特别容易, 并且几乎可以做到 7*24 不间断运行</li>
+</ul>
+</li>
+<li>apache<ul>
+<li>apache更为成熟，少bug ，nginx的bug相对较多</li>
+<li>模块超多，基本想到的都可以找到</li>
+<li>超稳定，一个进程死掉时，会影响到多个用户的使用，稳定性差</li>
+<li>在处理动态请求有优势，nginx在这方面是鸡肋，一般动态请求要apache去做，nginx适合静态和反向</li>
+</ul>
+</li>
+</ul>
+<h5 id="12、nginx惊群问题"><a href="#12、nginx惊群问题" class="headerlink" title="12、nginx惊群问题"></a>12、nginx惊群问题</h5><p><strong>问题描述：</strong>在建立连接的时候，Nginx处于充分发挥多核CPU架构性能的考虑，使用了多个worker子进程监听相同端口的设计，这样多个子进程在accept建立新连接时会有争抢，这会带来著名的“惊群”问题，子进程数量越多越明显，这会造成系统性能的下降</p>
+<p>一般情况下，有多少CPU核心就有配置多少个worker子进程。假设现在没有用户连入服务器，某一时刻恰好所有的子进程都休眠且等待新连接的系统调用（如epoll_wait），这时有一个用户向服务器发起了连接，内核在收到TCP的SYN包时，会激活所有的休眠worker子进程。最终只有最先开始执行accept的子进程可以成功建立新连接，而其他worker子进程都将accept失败。这些accept失败的子进程被内核唤醒是不必要的，他们被唤醒会的执行很可能是多余的，那么这一时刻他们占用了本不需要占用的资源，引发了不必要的进程切换，增加了系统开销。</p>
+<p><strong>解决：</strong>Nginx规定了同一时刻只有唯一一个worker子进程监听web端口，这一就不会发生惊群了，此时新连接事件只能唤醒唯一的正在监听端口的worker子进程。基于这个原理，nginx就使用了一个<strong>共享锁</strong>来控制当前进程是否有权限将需要监听的端口添加到当前进程的epoll句柄中，也就是说，只有获取锁的进程才会监听目标端口。通过这种方式，就保证了每次事件发生时，只有一个worker进程会被触发</p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Nginx%E7%AF%87/5.png" alt="title"></p>
+<h5 id="13、nginx增加最大链接数量"><a href="#13、nginx增加最大链接数量" class="headerlink" title="13、nginx增加最大链接数量"></a>13、nginx增加最大链接数量</h5><p>一般来说nginx 配置文件中对优化比较有作用的为以下几项：</p>
+<ul>
+<li>worker_processes 8: nginx 进程数，建议按照cpu 数目来指定，一般为它的倍数 (如,2个四核的cpu计为8)</li>
+<li>use epoll：使用epoll 的I/O 模型</li>
+<li>worker_connections 65535：每个进程允许的最多连接数， 理论上每台nginx 服务器的最大连接数为worker_processes*worker_connections</li>
+</ul>
+<h5 id="14、nginx热更新"><a href="#14、nginx热更新" class="headerlink" title="14、nginx热更新"></a>14、nginx热更新</h5><blockquote>
+<p>nginx -s reload</p>
+</blockquote>
+<p>-s 代表的是向主进程发送信号。其中信号有 4 个，stop, quit, reopen, reload</p>
+<h4 id="2、服务注册与服务发现机制"><a href="#2、服务注册与服务发现机制" class="headerlink" title="2、服务注册与服务发现机制"></a>2、服务注册与服务发现机制</h4><h5 id="为什么需要服务注册与发现机制"><a href="#为什么需要服务注册与发现机制" class="headerlink" title="为什么需要服务注册与发现机制"></a>为什么需要服务注册与发现机制</h5><p>将一个大的单应用拆解成多个独立自治的小服务，如果在没有服务发现的机制下</p>
+<h5 id="服务发现"><a href="#服务发现" class="headerlink" title="服务发现"></a>服务发现</h5><p>服务的消费者就需要有一个强大的服务发现机制，服务消费者使用这个机制获取服务提供者的网络信息。即使服务提供者的信息发生变化，服务消费者也无须修改配置文件。</p>
+<p>在各个服务在启动时，<strong>将自己的网络地址等信息注册到服务发现组件</strong>中，服务发现组件会存储这些信息。<br>服务消费者可从服务发现组件中查询提供者到网络地址，并使用该地址调用服务提供者的接口。</p>
+<p>各个服务与服务发现组件使用一定机制（例如<strong>心跳机制</strong>）通信。服务发现组件如果长时间无法与某微服务实例通信，就会注销该实例。<br>微服务网络地址发生变更时，会重新注册到微服务发现组件。</p>
+<h4 id="3、Eureka"><a href="#3、Eureka" class="headerlink" title="3、Eureka"></a>3、Eureka</h4><blockquote>
+<p>保证AP，Zookeeper是CP</p>
+</blockquote>
+<p><strong>组成</strong></p>
+<ul>
+<li><p>Eureka Server提供服务注册服务，各个节点启动后，会在Eureka Server中进行注册，这样EurekaServer中的服务<strong>注册表</strong>中将会存储所有可用服务节点的信息，服务节点的信息可以在界面中直观的看到。</p>
+</li>
+<li><p>Eureka Client是一个java客户端，用于简化与Eureka Server的交互，客户端同时也就是一个内置的、使用轮询(round-robin)负载算法的负载均衡器。</p>
+</li>
+</ul>
+<p><strong>原理</strong></p>
+<ul>
+<li>Eureka Server 提供服务发现的能力，各个微服务启动时，会向 Eureka Server 注册自己的信息，Eureka Server 会存储这些信息</li>
+<li>Eureka Client 是一个 Java 客户端，用于简化与 Eureka Server 的交互</li>
+<li>微服务启动后会周期性（默认30秒）的向 Eureka Server 发送心跳以续约自己的“租期“</li>
+<li>如果 Eureka Server 在一定时间内没有接收到某个服务实例到心跳，那么会注销该实例</li>
+<li>默认情况下，Eureka Server 同时也是 Eureka Client，多个 Eureka Server 实例之间是通过复制的方式来实现服务注册表中数据的同步</li>
+<li>Eureka Client 会缓存注册表中的信息。无须微服务每次请求都查询 Eureka Server</li>
+</ul>
+<p><img src="/images/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4%E6%8A%80%E5%B7%A7%E7%AF%87/3.png" alt="title"></p>
+<h4 id="4、ServiceMesh"><a href="#4、ServiceMesh" class="headerlink" title="4、ServiceMesh"></a>4、ServiceMesh</h4><ul>
+<li>Connect</li>
+<li>secure</li>
+<li>control</li>
+<li>observe services</li>
+</ul>
+<blockquote>
+<p>微服务化、多语言和容器化发展的趋势，企业迫切需要一种轻量级的服务发现机制</p>
+<p>Nginx(重)、Eureka(只适合单语言)</p>
+</blockquote>
+<ul>
+<li>业务代码进程(相当于主驾驶)共享一个代理(相当于边车, configMap挂载)</li>
+<li>代理负责服务发现和负载均衡，还负责动态路由、容错限流、监控度量和安全日志等功能，这些功能是具体业务无关的，属于跨横切面关注点(Cross-Cutting Concerns)范畴</li>
+<li>ServiceMesh比较正式的术语也叫数据面板(DataPlane)，</li>
+<li>数据面板对应的还有一个独立部署的控制面板(ControlPlane)，用来集中配置和管理数据面板，也可以对接各种服务发现机制(如K8S服务发现)</li>
+</ul>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Nginx%E7%AF%87/3.png" alt="title"></p>
+<p><strong>Istio</strong></p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Nginx%E7%AF%87/4.png" alt="title"></p>
+<ul>
+<li><p>Istio-Manager：负责服务发现，路由分流，熔断限流等配置数据的管理和下发</p>
+</li>
+<li><p>Mixer：负责收集代理上采集的度量数据，进行集中监控</p>
+</li>
+<li><p>Istio-Auth：负责安全控制数据的管理和下发</p>
+</li>
+<li><p>Envoy是目前Istio主力支持的数据面板代理，其它主流代理如nginx/kong等也正在陆续加入这个阵营</p>
+</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://zhangfuli.github.io/2021/02/26/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Nginx%E7%AF%87/" title="Nginx篇-2021春招准备" target="_blank" rel="external">https://zhangfuli.github.io/2021/02/26/2021春招准备-Nginx篇/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangfuli" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangfuli" target="_blank"><span class="text-dark">张富利</span><small class="ml-1x">学生</small></a></h3>
+        <div>Do myself,Believe myself,Try my best</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/02/26/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AF%87/" title="设计模式篇-2021春招准备"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/02/18/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AF%87/" title="数据结构篇-2021春招准备"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498969-6d12a800-deef-11e9-927a-89d5d0ce9e42.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498913-4fddd980-deef-11e9-9da1-56f86199713b.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'e0m4Aw9mFAjO1UuHuINbSEOm-gzGzoHsz',
+    appKey: 'VwY3lLrV5rMPSG6AFGO87omg',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

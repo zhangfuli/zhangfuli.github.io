@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Docker篇-2021年春招准备 | Hexo</title>
+  <meta name="description" content="1. 什么是Docker？虚拟化的工具，Docker、虚拟机 2. Docker与虚拟机的区别: 虚拟机是在硬件的基础上虚拟出多个操作系统。传统虚拟机技术是虚拟出一套硬件后，在其上运行一个完整操作系统 Docker容器没有自己的内核，在操作系统之上虚拟了一份文件系统，更加轻便。   3. Docker容器有几种状态运行、已暂停、重新启动、已退出 1docker ps -a   4．Dockerfi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker篇-2021年春招准备">
+<meta property="og:url" content="https://zhangfuli.github.io/2021/02/03/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Docker%E7%AF%87/index.html">
+<meta property="og:site_name" content="Hello, Zhangfuli">
+<meta property="og:description" content="1. 什么是Docker？虚拟化的工具，Docker、虚拟机 2. Docker与虚拟机的区别: 虚拟机是在硬件的基础上虚拟出多个操作系统。传统虚拟机技术是虚拟出一套硬件后，在其上运行一个完整操作系统 Docker容器没有自己的内核，在操作系统之上虚拟了一份文件系统，更加轻便。   3. Docker容器有几种状态运行、已暂停、重新启动、已退出 1docker ps -a   4．Dockerfi">
+<meta property="og:locale">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Docker%E7%AF%87/2.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Docker%E7%AF%87/3.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Docker%E7%AF%87/9.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Docker%E7%AF%87/11.jpg">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Docker%E7%AF%87/12.gif">
+<meta property="article:published_time" content="2021-02-03T04:11:32.000Z">
+<meta property="article:modified_time" content="2021-09-09T03:28:41.605Z">
+<meta property="article:author" content="张富利">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Docker%E7%AF%87/2.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://zhangfuli.github.io/2021/02/03/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Docker%E7%AF%87/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hello, Zhangfuli" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/zhangfuli" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">张富利</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">学生</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> NanJing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTML-CSS/">HTML CSS</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/angularjs/">angularjs</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8E%A2%E7%A9%B6/">探究</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83/">环境</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A1%AC%E4%BB%B6/">硬件</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML-CSS/" rel="tag">HTML CSS</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angularjs/" rel="tag">angularjs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A2%E7%A9%B6/" rel="tag">探究</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83/" rel="tag">环境</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/HTML-CSS/" style="font-size: 13.63px;">HTML CSS</a> <a href="/tags/Linux/" style="font-size: 13.5px;">Linux</a> <a href="/tags/angularjs/" style="font-size: 13.5px;">angularjs</a> <a href="/tags/hexo/" style="font-size: 13.5px;">hexo</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/mongodb/" style="font-size: 13.38px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.38px;">nodejs</a> <a href="/tags/python/" style="font-size: 13.13px;">python</a> <a href="/tags/react/" style="font-size: 13px;">react</a> <a href="/tags/vue/" style="font-size: 13.25px;">vue</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.25px;">区块链</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 13px;">小程序</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 13px;">工具</a> <a href="/tags/%E6%8E%A2%E7%A9%B6/" style="font-size: 13.63px;">探究</a> <a href="/tags/%E7%8E%AF%E5%A2%83/" style="font-size: 13.75px;">环境</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 13.88px;">生活</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.13px;">硬件</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AF%87/" class="title">操作系统篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T11:07:17.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-golang%E7%AF%87/" class="title">golang篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T10:57:08.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/23/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Jenkins/" class="title">Jenkins-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-23T03:33:03.000Z" itemprop="datePublished">2021-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E5%89%8D%E7%AB%AF-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AF%87/" class="title">前端/数据库/Spring/Java-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:15:30.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Redis-Prometheus-RocketMQ%E7%AF%87/" class="title">Redis/Prometheus/RocketMQ篇-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:14:17.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-2021年春招准备-Docker篇" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Docker篇-2021年春招准备
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/02/03/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Docker%E7%AF%87/" class="article-date">
+	  <time datetime="2021-02-03T04:11:32.000Z" itemprop="datePublished">2021-02-03</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/02/03/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Docker%E7%AF%87/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h4 id="1-什么是Docker？"><a href="#1-什么是Docker？" class="headerlink" title="1. 什么是Docker？"></a>1. 什么是Docker？</h4><p>虚拟化的工具，Docker、虚拟机</p>
+<h4 id="2-Docker与虚拟机的区别"><a href="#2-Docker与虚拟机的区别" class="headerlink" title="2. Docker与虚拟机的区别:"></a>2. Docker与虚拟机的区别:</h4><ul>
+<li>虚拟机是在硬件的基础上虚拟出多个操作系统。传统虚拟机技术是虚拟出一套硬件后，在其上运行一个完整操作系统</li>
+<li>Docker容器没有自己的内核，在操作系统之上虚拟了一份文件系统，更加轻便。</li>
+</ul>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Docker%E7%AF%87/2.png" alt="title"></p>
+<h4 id="3-Docker容器有几种状态"><a href="#3-Docker容器有几种状态" class="headerlink" title="3. Docker容器有几种状态"></a>3. Docker容器有几种状态</h4><p>运行、已暂停、重新启动、已退出</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Docker%E7%AF%87/3.png" alt="title"></p>
+<h4 id="4．Dockerfile中最常见的指令是什么"><a href="#4．Dockerfile中最常见的指令是什么" class="headerlink" title="4．Dockerfile中最常见的指令是什么"></a>4．Dockerfile中最常见的指令是什么</h4><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> node:<span class="number">8</span>-slim  <span class="comment"># 指定基础镜像</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update &amp;&amp; apt-get install -y nginx <span class="comment"># 运行指定的命令</span></span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /var/www/html</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> ./build/ ./</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> ls</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">80</span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">&quot;nginx&quot;</span>,<span class="string">&quot;-g&quot;</span>,<span class="string">&quot;daemon off;&quot;</span>] <span class="comment"># 容器启动时要运行的命令</span></span></span><br></pre></td></tr></table></figure>
+
+<h4 id="5-docker常用命令："><a href="#5-docker常用命令：" class="headerlink" title="5. docker常用命令："></a>5. docker常用命令：</h4><ul>
+<li><p>docker pull 拉取或者更新指定镜像</p>
+</li>
+<li><p>docker push 将镜像推送至远程仓库</p>
+</li>
+<li><p>docker rm 删除容器</p>
+</li>
+<li><p>docker rmi 删除镜像</p>
+</li>
+<li><p>docker images 列出所有镜像</p>
+</li>
+<li><p>docker ps 列出所有容器</p>
+</li>
+<li><p>docker logs</p>
+</li>
+<li><p>容器与主机之间的数据拷贝命令</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker cp /www 96f7f14e99ab:/www/ #主机到容器</span><br><span class="line">docker cp 96f7f14e99ab:/www /tmp/ #容器到主机</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动nginx容器</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run </span><br><span class="line">-d # 后台运行返回容器ID</span><br><span class="line">-P # 随机端口</span><br><span class="line">-p # 宿主机:容器</span><br><span class="line">--name nginx2 </span><br><span class="line">-v /home/nginx:/usr/share/nginx/html #宿主机:容器   -v后边加“：ro” 限制容器的写入权限；</span><br><span class="line">--rm # 退出时自动清理</span><br><span class="line">nginx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>docker commit</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker commit </span><br><span class="line">--author &quot;Tao Wang &lt;twang2218@gmail.com&gt;&quot; # --author 是指定修改的作者</span><br><span class="line">--message &quot;修改了默认网页&quot; # --message 则是记录本次修改的内容</span><br><span class="line">webserver # &lt;容器ID或容器名&gt;</span><br><span class="line">nginx:v2  # [&lt;仓库名&gt;[:&lt;标签&gt;]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>docker history 71fa7369f437   / dockviz 看树形结构</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">IMAGE          CREATED       CREATED BY                                      SIZE      COMMENT</span><br><span class="line">71fa7369f437   6 years ago   /bin/sh -c #(nop) CMD [/bin/sh]                 0B        </span><br><span class="line">&lt;missing&gt;      6 years ago   /bin/sh -c #(nop) ENV ENV=/root/.bashrc         0B        </span><br><span class="line">&lt;missing&gt;      6 years ago   /bin/sh -c #(nop) ENV HOME=/root                0B        </span><br><span class="line">&lt;missing&gt;      6 years ago   /bin/sh -c #(nop) ADD file:9775c32290ddfc3ef…   679B      </span><br><span class="line">&lt;missing&gt;      6 years ago   /bin/sh -c #(nop) ADD file:8af1e65661badcfdf…   4.23MB    </span><br><span class="line">&lt;missing&gt;      6 years ago   /bin/sh -c #(nop) MAINTAINER Brian Clements …   0B        </span><br><span class="line">&lt;missing&gt;      7 years ago                                                   0B        Imported from -</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="6-解释一下Dockerfile的ONBUILD指令"><a href="#6-解释一下Dockerfile的ONBUILD指令" class="headerlink" title="6. 解释一下Dockerfile的ONBUILD指令"></a>6. 解释一下Dockerfile的ONBUILD指令</h4><p>以当前镜像为parent 镜像时触发</p>
+<h4 id="7、ADD-COPY区别："><a href="#7、ADD-COPY区别：" class="headerlink" title="7、ADD/COPY区别："></a>7、<strong>ADD/COPY区别</strong>：</h4><blockquote>
+<p>相同将本机文件拷贝到容器</p>
+</blockquote>
+<ul>
+<li><p>COPY: 仅仅是把本地的文件拷贝到容器镜像中，COPY 命令是最合适不过; 使用 COPY 命令把前一阶段构建的产物拷贝到另一个镜像中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">FROM golang:1.7.3</span><br><span class="line">WORKDIR /go/src/github.com/sparkdevo/href-counter/</span><br><span class="line">RUN go get -d -v golang.org/x/net/html</span><br><span class="line">COPY app.go    .</span><br><span class="line">RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .</span><br><span class="line"></span><br><span class="line">FROM alpine:latest</span><br><span class="line">RUN apk --no-cache add ca-certificates</span><br><span class="line">WORKDIR /root/</span><br><span class="line">COPY --from=0 /go/src/github.com/sparkdevo/href-counter/app .</span><br><span class="line">CMD [&quot;./app&quot;]</span><br></pre></td></tr></table></figure></li>
+<li><p>ADD: </p>
+<ul>
+<li>解压压缩文件并把它们添加到镜像中</li>
+<li>从 url 拷贝文件到镜像中</li>
+</ul>
+</li>
+</ul>
+<h4 id="8、Docker镜像大小分析"><a href="#8、Docker镜像大小分析" class="headerlink" title="8、Docker镜像大小分析"></a>8、Docker镜像大小分析</h4><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu:<span class="number">14.04</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> compressed.tar /</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> rm /compressed.tar</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> compressed.tar /</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>**<code>FROM ubuntu:14.04</code>**：镜像 <code>ubuntu:14.04</code> 的大小为 200 MB；</li>
+<li>**<code>ADD compressed.tar /</code>**： <code>compressed.tar</code> 文件为 100 MB，因此当前镜像层的大小为 100 MB，镜像总大小为 300 MB；</li>
+<li><strong><code>RUN rm /compressed.tar</code><strong>：删除文件 <code>compressed.tar</code>，此时的删除并不会删除下一层的 <code>compressed.tar</code> 文件，只会在当前层产生一个 <code>compressed.tar</code> 的删除标记，确保通过该层将看不到 <code>compressed.tar</code>，因此当前镜像层的大小也为 0，</strong>镜像总大小为 300 MB</strong>；但是加了一层镜像会变大？</li>
+<li>**<code>ADD compressed.tar /</code>**：<code>compressed.tar</code> 文件为 100 MB，因此当前镜像层的大小为 300 MB + 100 MB，镜像总大小为 400 MB；</li>
+</ol>
+<p>我们发现<strong>镜像的总大小为 400 MB</strong>，但是如果运行该镜像的话，我们很快可以发现在<strong>容器</strong>根目录下执行 <code>du -sh</code> 之后，显示的数值并非 400 MB，而<strong>是 300 MB 左右</strong>。主要的原因还是，<strong>联合文件系统的性质保证了两个拥有 <code>compressed.tar</code> 文件的镜像层，容器仅能看到一个</strong></p>
+<p>假设本地镜像存储中只有一个 <code>ubuntu:14.04</code> 的镜像，我们以两个 Dockerfile 来说明镜像复用：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu:<span class="number">14.04</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu:<span class="number">14.04</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> compressed.tar /</span></span><br></pre></td></tr></table></figure>
+
+<p>假设最终 <code>docker build</code> 构建出来的镜像名分别为 <code>image 1</code> 和 <code>image 2</code>，由于两个 <code>Dockerfile</code> 均基于 <code>ubuntu:14.04</code>，因此，<code>image 1</code> 和 <code>image 2</code> 这两个镜像均复用了镜像 <code>ubuntu:14.04</code>。 假设 <code>RUN apt-get update</code> 修改的文件系统内容为 20 MB，最终本地三个镜像的大小关系应该如下：</p>
+<p>**<code>ubuntu:14.04</code>**： 200 MB</p>
+<p>**<code>image 1</code>**：200 MB（<code>ubuntu:14.04</code> 的大小）+ 20 MB = 220 MB</p>
+<p>**<code>image 2</code>**：200 MB（<code>ubuntu:14.04</code> 的大小）+ 100 MB = 300 MB</p>
+<p>如果仅仅是单纯的累加三个镜像的大小，那结果应该是：200 + 220 + 300 = 720 MB，但是由于镜像复用的存在，实际占用的磁盘空间大小是：<strong>200 + 20 + 100 = 320 MB</strong>，足足节省了 400 MB 的磁盘空间。在此，足以证明<strong>镜像复用</strong>的巨大好处。</p>
+<h4 id="9-Docker-Swarm"><a href="#9-Docker-Swarm" class="headerlink" title="9. Docker Swarm"></a>9. Docker Swarm</h4><p>将一群Docker宿主机变成一个单一的虚拟主机，通过raft协议选举manager。</p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Docker%E7%AF%87/9.png" alt="img"></p>
+<h4 id="10-监控Docker"><a href="#10-监控Docker" class="headerlink" title="10. 监控Docker"></a>10. 监控Docker</h4><ul>
+<li>Docker统计数据：当我们使用容器ID调用docker stats时，我们获得容器的CPU，内存使用情况等。它类似于Linux中的top命令</li>
+<li>Docker events：Docker events是一个命令，用于查看Docker守护程序中正在进行的任务。</li>
+</ul>
+<h4 id="11-Docker镜像和层有什么区别"><a href="#11-Docker镜像和层有什么区别" class="headerlink" title="11. Docker镜像和层有什么区别"></a>11. Docker镜像和层有什么区别</h4><ul>
+<li><p>镜像：Docker镜像是由一些列只读层构建的；</p>
+</li>
+<li><p>层：每个层代表镜像Dockerfile中的一条指令；</p>
+</li>
+</ul>
+<p>Docker的镜像由一层一层的文件系统组成，这种层级的文件系统就是UnionFS(OverlayFS)统一文件系统（union file system，升级版为AUFS). UnionFS是一种分层、轻量级并且高性能的文件系统。能够将不同的层整合成一个文件系统，为这些层提供了一个统一的视角，</p>
+<p>联合加载会把各层文件系统叠加起来，这样最终的文件系统会包含所有底层的文件和目录。</p>
+<blockquote>
+<p>docker info</p>
+</blockquote>
+<p><strong>运行态容器</strong>为由一个可读写的文件系统「静态容器」+ 隔离的进程空间和其中的进程构成。</p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Docker%E7%AF%87/11.jpg" alt="img"></p>
+<h4 id="12-Docker默认的网络类型"><a href="#12-Docker默认的网络类型" class="headerlink" title="12. Docker默认的网络类型"></a>12. Docker默认的网络类型</h4><ul>
+<li><p><strong>host模式：</strong>直接使用docker宿主机的网络。如IP地址、网卡类型等；</p>
+</li>
+<li><p><strong>none模式：</strong>不会给容器进行任何网络配置。也就是说，使用这种模式的容器没有IP地址（只有一个回环地址）；</p>
+</li>
+<li><p><strong>bridge模式：</strong>docker默认的网络配置，此模式会为每一个容器分配名称空间，可以设置IP，但是要与docker host主机的虚拟网络在同一网段；通过虚拟网卡与外界通信；</p>
+</li>
+<li><p><strong>container模式：</strong>这种模式与已经存在的容器共有同一个IP地址；</p>
+</li>
+<li><p><strong>Network：</strong>自定义网络。可以自行创建并且可以注定多种网络驱动，如bridge、overlay等；</p>
+</li>
+</ul>
+<h4 id="13-如何控制容器占用系统资源（CPU，内存）的份额？"><a href="#13-如何控制容器占用系统资源（CPU，内存）的份额？" class="headerlink" title="13. 如何控制容器占用系统资源（CPU，内存）的份额？"></a>13. 如何控制容器占用系统资源（CPU，内存）的份额？</h4><p>在使用docker create命令创建容器或使用docker run 创建并运行容器的时候，可以使用-c|–cpu-shares[=0]参数来调整同期使用CPU的权重，使用-m|–memory参数来调整容器使用内存的大小。</p>
+<h4 id="14-仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？"><a href="#14-仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？" class="headerlink" title="14. 仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？"></a>14. 仓库（Repository）、注册服务器（Registry）、注册索引（Index）有何关系？</h4><p>首先，仓库是存放一组关联镜像的集合，比如同一个应用的不同版本的镜像，注册服务器是存放实际的镜像的地方，注册索引则负责维护用户的账号，权限，搜索，标签等管理。注册服务器利用注册索引来实现认证等管理。</p>
+<h4 id="15-Docker如何做资源隔离"><a href="#15-Docker如何做资源隔离" class="headerlink" title="15. Docker如何做资源隔离"></a>15. Docker如何做资源隔离</h4><ul>
+<li>Namespace 技术，Linux中的PID是唯一且独立的，在正常情况下，用户不会看见重复的PID。然而在Docker采用了Namespace，从而令相同的PID可于不同的Namespace中独立存在<ul>
+<li>缺点：隔离不彻底</li>
+</ul>
+</li>
+<li>Cgroups可以限制、记录任务组所使用的物理资源（包括CPU，Memory，IO等）</li>
+<li>Rootfs做文件系统</li>
+</ul>
+<h4 id="16-Docker、Runc、Shim、Containerd、Daemon之间的关系"><a href="#16-Docker、Runc、Shim、Containerd、Daemon之间的关系" class="headerlink" title="16. Docker、Runc、Shim、Containerd、Daemon之间的关系"></a>16. Docker、Runc、Shim、Containerd、Daemon之间的关系</h4><p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Docker%E7%AF%87/12.gif" alt="img"></p>
+<ul>
+<li>runc ：生来只有一个作用——创建容器，这一点它非常拿手，速度很快！runc 是 开放容器计划（OCI）容器运行时标准的参考实现</li>
+<li>shim：允许runC在启动容器之后退出</li>
+<li>containerd：所有的容器执行逻辑，它的主要任务是容器的生命周期管理——start | stop | pause | rm</li>
+<li>daemon 的主要功能包括镜像管理、镜像构建、REST API、身份验证、安全、核心网络以及编排</li>
+</ul>
+<h4 id="17-Dockerfile减少构建镜像大小的方法"><a href="#17-Dockerfile减少构建镜像大小的方法" class="headerlink" title="17. Dockerfile减少构建镜像大小的方法"></a>17. Dockerfile减少构建镜像大小的方法</h4><blockquote>
+<p>通过Dockerfile构建镜像时，很容易把镜像构建得很大。从通俗得原来上来说，一次RUN形成新的一层，如果没有在同一层删除，无论文件是否最后删除，都会带到下一层。</p>
+</blockquote>
+<ul>
+<li>尽量在同一层运行更多的命令，比如:</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RUN cp /usr/local/aa.tar.gz /opt</span><br><span class="line">RUN tar xvf /opt/aa.tar.gz</span><br><span class="line">RUN rm -rf /opt/aa.tar.gz</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RUN cp /usr/local/aa.tar.gz /opt &amp;&amp; \</span><br><span class="line">       tar xvf /opt/aa.tar.gz &amp;&amp; \</span><br><span class="line">       rm -rf /opt/aa.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>如果在镜像中通过yum安装软件包，尽量在一行装完，不要多行，同样安装完后运行, yum clean all</p>
+</li>
+<li><p>不下载非必要依赖</p>
+</li>
+<li><p>将非运行环境删除，删除非运行环境时，需要与构建该环境在同一个RUN中，否则非运行环境仍然会被带入镜像中（以其中某一层的方式存在）</p>
+</li>
+<li><p>在 Docker 17.05 以上版本中，你可以使用 多阶段构建来减少所构建镜像的大小</p>
+</li>
+</ul>
+<h4 id="18-docker-save和docker-export区别"><a href="#18-docker-save和docker-export区别" class="headerlink" title="18. docker save和docker export区别"></a>18. docker save和docker export区别</h4><ul>
+<li>docker save保存的是镜像（image，如果指定container背后的还是image），docker export保存的是容器（container）</li>
+<li>docker load用来载入镜像包，docker import用来载入容器包，但两者都会恢复为镜像</li>
+<li>docker load不能对载入的镜像重命名，而docker import可以为镜像指定新名称</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://zhangfuli.github.io/2021/02/03/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Docker%E7%AF%87/" title="Docker篇-2021年春招准备" target="_blank" rel="external">https://zhangfuli.github.io/2021/02/03/2021年春招准备-Docker篇/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangfuli" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangfuli" target="_blank"><span class="text-dark">张富利</span><small class="ml-1x">学生</small></a></h3>
+        <div>Do myself,Believe myself,Try my best</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/02/03/Paxos%E7%AE%97%E6%B3%95/" title="Paxos算法"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/02/02/%E5%8D%97%E5%A4%A7%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1/" title="南大自动打卡"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498969-6d12a800-deef-11e9-927a-89d5d0ce9e42.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498913-4fddd980-deef-11e9-9da1-56f86199713b.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'e0m4Aw9mFAjO1UuHuINbSEOm-gzGzoHsz',
+    appKey: 'VwY3lLrV5rMPSG6AFGO87omg',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

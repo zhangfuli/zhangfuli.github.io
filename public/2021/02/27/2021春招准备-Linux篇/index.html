@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Linux篇-2021春招准备 | Hexo</title>
+  <meta name="description" content="1、理解linux下的load有多少进程在等待被CPU调度 Linux下，系统平均负载指的是运行队列平均长度，也就是等待cpu的平均进程数。 123uptimeload &#x3D; process&#x2F;total_cpu_cores load average: 0.09, 0.05, 0.01   当车不多的时候，load &lt;1； 当车占满整个马路的时候 load&#x3D;1； 当马路都站满了，而且马路外还堆满">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux篇-2021春招准备">
+<meta property="og:url" content="https://zhangfuli.github.io/2021/02/27/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Linux%E7%AF%87/index.html">
+<meta property="og:site_name" content="Hello, Zhangfuli">
+<meta property="og:description" content="1、理解linux下的load有多少进程在等待被CPU调度 Linux下，系统平均负载指的是运行队列平均长度，也就是等待cpu的平均进程数。 123uptimeload &#x3D; process&#x2F;total_cpu_cores load average: 0.09, 0.05, 0.01   当车不多的时候，load &lt;1； 当车占满整个马路的时候 load&#x3D;1； 当马路都站满了，而且马路外还堆满">
+<meta property="og:locale">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Linux%E7%AF%87/2.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Linux%E7%AF%87/3.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Linux%E7%AF%87/4.jpeg">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Linux%E7%AF%87/5.jpeg">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Linux%E7%AF%87/6.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Linux%E7%AF%87/7.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Linux%E7%AF%87/8.png">
+<meta property="article:published_time" content="2021-02-27T07:45:40.000Z">
+<meta property="article:modified_time" content="2021-09-03T07:22:20.577Z">
+<meta property="article:author" content="张富利">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Linux%E7%AF%87/2.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://zhangfuli.github.io/2021/02/27/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Linux%E7%AF%87/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hello, Zhangfuli" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/zhangfuli" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">张富利</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">学生</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> NanJing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTML-CSS/">HTML CSS</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/angularjs/">angularjs</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8E%A2%E7%A9%B6/">探究</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83/">环境</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A1%AC%E4%BB%B6/">硬件</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML-CSS/" rel="tag">HTML CSS</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angularjs/" rel="tag">angularjs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A2%E7%A9%B6/" rel="tag">探究</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83/" rel="tag">环境</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/HTML-CSS/" style="font-size: 13.63px;">HTML CSS</a> <a href="/tags/Linux/" style="font-size: 13.5px;">Linux</a> <a href="/tags/angularjs/" style="font-size: 13.5px;">angularjs</a> <a href="/tags/hexo/" style="font-size: 13.5px;">hexo</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/mongodb/" style="font-size: 13.38px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.38px;">nodejs</a> <a href="/tags/python/" style="font-size: 13.13px;">python</a> <a href="/tags/react/" style="font-size: 13px;">react</a> <a href="/tags/vue/" style="font-size: 13.25px;">vue</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.25px;">区块链</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 13px;">小程序</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 13px;">工具</a> <a href="/tags/%E6%8E%A2%E7%A9%B6/" style="font-size: 13.63px;">探究</a> <a href="/tags/%E7%8E%AF%E5%A2%83/" style="font-size: 13.75px;">环境</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 13.88px;">生活</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.13px;">硬件</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AF%87/" class="title">操作系统篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T11:07:17.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-golang%E7%AF%87/" class="title">golang篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T10:57:08.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/23/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Jenkins/" class="title">Jenkins-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-23T03:33:03.000Z" itemprop="datePublished">2021-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E5%89%8D%E7%AB%AF-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AF%87/" class="title">前端/数据库/Spring/Java-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:15:30.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Redis-Prometheus-RocketMQ%E7%AF%87/" class="title">Redis/Prometheus/RocketMQ篇-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:14:17.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-2021春招准备-Linux篇" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linux篇-2021春招准备
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/02/27/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Linux%E7%AF%87/" class="article-date">
+	  <time datetime="2021-02-27T07:45:40.000Z" itemprop="datePublished">2021-02-27</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/02/27/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Linux%E7%AF%87/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h4 id="1、理解linux下的load"><a href="#1、理解linux下的load" class="headerlink" title="1、理解linux下的load"></a>1、理解linux下的load</h4><p>有多少进程在等待被CPU调度</p>
+<p>Linux下，系统平均负载指的是运行队列平均长度，也就是等待cpu的平均进程数。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">uptime</span><br><span class="line">load = process/total_cpu_cores </span><br><span class="line">load average: 0.09, 0.05, 0.01</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当车不多的时候，load &lt;1；</li>
+<li>当车占满整个马路的时候 load=1；</li>
+<li>当马路都站满了，而且马路外还堆满了汽车的时候，load&gt;1</li>
+<li>两个cpu，load_average最大能到2</li>
+</ul>
+<p><strong>负载的好和坏：</strong></p>
+<p>需要根据机器当前的进程数与CPU总核数的比值（process_cores_values）和CPU总核数（total_cores）来比较</p>
+<ul>
+<li><p>当 process_cores_values &lt;= total_cores 时，机器负载在CPU合理承受范围内</p>
+</li>
+<li><p>当 process_cores_values &gt; total_cores 时，机器负载超过CPU承受范围，机器超负荷运行。</p>
+</li>
+</ul>
+<p>在我们执行<strong>top</strong>或者<strong>uptime</strong>的时候会有3个load的值，那我们根据哪个值做为我们判断依据呢？</p>
+<p>着眼5分钟和15分钟的load值比较合适，因为1分钟的值有可能是个瞬间值，而5分钟或者15分钟的值是平均值，长时间负载高，机器肯定是需要排查问题的。</p>
+<h5 id="top-字段：按f-可以选择相关参数-按d标示是否显示-按q标示退出-t切换CPU"><a href="#top-字段：按f-可以选择相关参数-按d标示是否显示-按q标示退出-t切换CPU" class="headerlink" title="top 字段：按f, 可以选择相关参数; 按d标示是否显示; 按q标示退出; t切换CPU"></a>top 字段：按f, 可以选择相关参数; 按d标示是否显示; 按q标示退出; t切换CPU</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">top - 15:47:18 up 86 days,  1:07,  2 users,  load average: 0.43, 0.38, 0.39</span><br><span class="line"></span><br><span class="line">Tasks: 157 total,   1 running, 156 sleeping,   0 stopped,   0 zombie</span><br><span class="line">(进程数: 运行中、睡眠、停止、僵尸进程)</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">%</span><span class="bash">Cpu(s):  4.5 us,  6.3 sy,  0.0 ni, 88.4 id,  0.6 wa,  0.0 hi,  0.2 si,  0.0 st</span></span><br><span class="line"><span class="meta">%</span><span class="bash">CPU：自从上一次更新时到现在任务所使用的CPU时间百分比。</span></span><br><span class="line"></span><br><span class="line">KiB Mem :  8009184 total,   439224 free,  2005724 used,  5564236 buff/cache</span><br><span class="line">KiB Swap:        0 total,        0 free,        0 used.  5448920 avail Mem</span><br><span class="line"><span class="meta">%</span><span class="bash">MEM：进程使用的可用物理内存百分比。</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>PID：Process ID    PPID(Parent Process ID)</li>
+<li>USER</li>
+<li>PR: 优先级</li>
+<li>NI: Nice Value</li>
+<li>S: Process Status<ul>
+<li>D - 不可中断的睡眠态。</li>
+<li>R – 运行态</li>
+<li>S – 睡眠态</li>
+<li>T – 被跟踪或已停止</li>
+<li>Z – 僵尸态</li>
+</ul>
+</li>
+</ul>
+<h5 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h5><ul>
+<li>线程: <code>top -p PID -H</code></li>
+<li>监控Java线程数: <code>ps -eLf | grep java | wc -l</code></li>
+<li>监控网络客户连接数: <code>netstat -n | grep tcp | grep 侦听端口 | wc -l</code></li>
+</ul>
+<h4 id="2、常见命令"><a href="#2、常见命令" class="headerlink" title="2、常见命令"></a>2、常见命令</h4><ul>
+<li><p>创建多级目录:  <code>makedir -p</code></p>
+</li>
+<li><p>查看线程: <code>top -H</code></p>
+</li>
+<li><p>命令用于计算字数: <code>wc</code></p>
+</li>
+<li><p>查看文件夹大小: <code>ls -lh</code></p>
+</li>
+<li><p>查看堆栈: <code>pstack PID</code> + <code>gdb</code>调试死锁</p>
+</li>
+<li><p>查看端口: <code>netstat -anop</code></p>
+</li>
+<li><p>删除重复行: </p>
+<ul>
+<li><code>sort -u XXX.txt</code></li>
+<li><code>sort -k2n file | uniq &gt; a.out</code></li>
+</ul>
+</li>
+<li><p>文本流编辑: <code>sed</code></p>
+</li>
+<li><p><code>vim</code>: 命令模式、插入模式、尾行命令模式</p>
+<ul>
+<li>命令模式下:<ul>
+<li>yy-复制</li>
+<li>p-粘贴</li>
+<li>0-行首</li>
+<li>1G-文章首行 2G 3G</li>
+<li>GG-文章末行</li>
+<li>/查找的字符   n下一个;N上一个</li>
+</ul>
+</li>
+<li>尾行命令模式<ul>
+<li>:%s/str1/str2/g 替换全局所有str1为str2</li>
+<li>:s/str1/str2 </li>
+<li>:n,s/str1/str2某行的str1替换为str2</li>
+<li>:wq</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>tcpdump: linux抓包工具</p>
+<ul>
+<li>```shell<br>tcpdump -i eth1 src host 192.168.1.1  # 源地址<br>tcpdump -i eth1 dst host 192.168.1.1  # 目标<br>tcpdump -i eth1 src/dst port 25  # 端口<br>tcpdump -i eth1 arp # 协议过滤<br>tcpdump -i eth1 net 192.168 # 网络过滤<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### 3、服务器响应变慢排查</span><br><span class="line"></span><br><span class="line">- 第一步: 查看系统资源是否达到上限</span><br><span class="line">  - 查看一下CPU占比比较高的进程</span><br><span class="line">  - 使用jstack命令生成进程的堆栈信息</span><br><span class="line">  - 若频繁发生FULL GC，需要看一下内存快照，分析一下内存情况（可以使用java自带的或第三方工具）</span><br><span class="line">    - jmap -dump:live,format=b,file=m.hprof PID</span><br><span class="line">    - MAT分析工具</span><br><span class="line">  - 如果是磁盘空间满了，及时清理磁盘</span><br><span class="line">  - 如果是带宽满了，联系网络工程师解决</span><br><span class="line">- 第二步: </span><br><span class="line">  - 检查应用服务器（Jboss/Tomcat）的线程池配置是否合理</span><br><span class="line">  - 看一下请求的排队现象是否严重</span><br><span class="line">  - 如果严重则需要重新设置合理的线程池</span><br><span class="line">  - 检查一下数据库的连接池设置是否合理，增大连接池设置</span><br><span class="line">  - 检查一下是否有慢sql，如果有慢sql，则进行优化（优化方案是查看执行计划，设置合理的索引等）</span><br><span class="line"></span><br><span class="line">- 第三步：查看访问慢的服务的调用链</span><br><span class="line">  - 查看一下调用链中的每一步响应时间是否合理</span><br><span class="line">  - 如果不合理，则联系相关系统的负责人进行排查和解决</span><br><span class="line">- 第四步：检查web服务器的请求日志</span><br><span class="line">  - 看一下是否存在Doss攻击</span><br><span class="line">    - 分布式拒绝服务, 用肉鸡对目标网站在短时间内发送大量请求</span><br><span class="line">    - 如果有Doss攻击，则将攻击者的IP添加到防火墙的黑名单里。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### 4、机器的磁盘满了，删日志没有反应，可能是什么问题？</span><br><span class="line"></span><br><span class="line">在Linux或者Unix系统中，通过rm或者文件管理器删除文件将会从文件系统的目录结构上解除链接(unlink)</span><br><span class="line"></span><br><span class="line">然而如果文件是被打开的（有一个进程正在使用），那么进程将仍然可以读取该文件，磁盘空间也一直被占用。</span><br><span class="line"></span><br><span class="line">使用命令：**/usr/sbin/lsof|grep deleted** </span><br><span class="line"></span><br><span class="line">确认删除文件是否被占用</span><br><span class="line"></span><br><span class="line">kill -9 pid值 杀掉进程</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### 5、Linux文件系统</span><br><span class="line"></span><br><span class="line">![title](/images/2021年春招准备-Linux篇/1.png)</span><br><span class="line"></span><br><span class="line">- `bin/sbin`：`bin` 是 `Binary` 的缩写，存放着可执行文件或可执行文件的链接（类似快捷方式），命令的存放地址</span><br><span class="line"></span><br><span class="line">- `boot`: 这里是系统启动需要的文件，你可以看到 `grub` 文件夹，它是常见的开机引导程序。我们不应该乱动这里的文件</span><br><span class="line"></span><br><span class="line">- `/dev`：`dev` 是 `device` 的缩写，这里存放这所有的设备文件。在 Linux 中，所有东西都是以文件的形式存在的，包括硬件设备。鼠标、键盘等等设备也都可以在这里找到。</span><br><span class="line"></span><br><span class="line">- `/etc`: 存放很多程序的配置信息，比如包管理工具 apt</span><br><span class="line"></span><br><span class="line">- `lib`:`lib` 是 Library 的缩写，类似于 Windows 系统中存放 `dll` 文件的库，包含 bin 和 sbin 中可执行文件的依赖。也可能出现 `lib32` 或 `lib64` 这样的目录，和 `lib` 差不多，只是操作系统位数不同而已</span><br><span class="line"></span><br><span class="line">- `/media`: 这里会有一个以你用户名命名的文件夹，里面是自动挂载的设备，比如 U 盘，移动硬盘，网络设备等</span><br><span class="line"></span><br><span class="line">- `/mnt`: 这也是和设备挂载相关的一个文件夹，一般是空文件夹。`media` 文件夹是系统自动挂载设备的地方，这里是你手动挂载设备的地方</span><br><span class="line"></span><br><span class="line">- `/opt`: `opt` 是 Option 的缩写，这个文件夹的使用比较随意，一般来说我们自己在浏览器上下载的软件，安装在这里比较好</span><br><span class="line"></span><br><span class="line">- `proc` :`proc` 是 `process` 的缩写，这里存放的是全部正在运行程序的状态信息</span><br><span class="line"></span><br><span class="line">- `/root`: 这是 root 用户的家目录，普通用户需要授权才能访问</span><br><span class="line"></span><br><span class="line">- `/run 和 /sys`用来存储某些程序的运行时信息和系统需要的一些信息。比如说这个文件：里面存储着一个数字，是你的显卡亮度，你修改这个数字就可以修改屏幕亮度</span><br><span class="line"></span><br><span class="line">  - 这两个位置的数据都存储在内存中，所以一旦重启，`/run` 和 `/sys` 目录的信息就会丢失</span><br><span class="line"></span><br><span class="line">  ```shell</span><br><span class="line">  sudo vim /sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-eDP-1/intel_backlight/brightness</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><code>/srv</code>：srv 是 service 的缩写，主要用来存放服务数据</p>
+</li>
+<li><p><code>/tmp</code>: tmp 是 temporary 的缩写，存储一些程序的临时文件</p>
+</li>
+<li><p><code>/usr</code>： usr 是 Universal System Resource 的缩写，这里存放的是一些非系统必须的资源，比如用户安装的应用程序</p>
+</li>
+<li><p><code>/var</code>: var 是 variable 的缩写，这个名字是历史遗留的，现在该目录最主要的作用是存储日志（log）信息，比如说程序崩溃，防火墙检测到异常等等信息都会记录在这里</p>
+</li>
+<li><p><code>/home</code>: 这是普通用户的家目录</p>
+</li>
+</ul>
+<h4 id="6、CGroups"><a href="#6、CGroups" class="headerlink" title="6、CGroups"></a>6、CGroups</h4><blockquote>
+<p>CGroup 是 Control Groups 的缩写，将任意进程进行分组化管理的 Linux 内核功能</p>
+</blockquote>
+<h5 id="概念解释"><a href="#概念解释" class="headerlink" title="概念解释"></a>概念解释</h5><ul>
+<li><p>任务（task）。在 cgroups 中，任务就是系统的一个进程；</p>
+</li>
+<li><p>控制族群（control group）。控制族群就是一组按照某种标准划分的进程</p>
+<ul>
+<li>Cgroups 中的资源控制都是以控制族群为单位实现</li>
+<li>一个进程可以加入到某个控制族群，也从一个进程组迁移到另一个控制族群</li>
+<li>一个进程组的进程可以使用 cgroups 以控制族群为单位分配的资源，同时受到 cgroups 以控制族群为单位设定的限制；</li>
+</ul>
+</li>
+<li><p>层级（hierarchy）。控制族群可以组织成 hierarchical 的形式，既一颗控制族群树。控制族群树上的子节点控制族群是父节点控制族群的孩子，继承父控制族群的特定的属性；</p>
+</li>
+<li><p>子系统（subsystem）。<strong>一个子系统就是一个资源控制器</strong>，比如 cpu 子系统就是控制 cpu 时间分配的一个控制器。子系统必须附加（attach）到一个层级上才能起作用，一个子系统附加到某个层级以后，这个层级上的所有控制族群都受到这个子系统的控制。</p>
+</li>
+</ul>
+<h5 id="Cgroups提供了以下功能："><a href="#Cgroups提供了以下功能：" class="headerlink" title="Cgroups提供了以下功能："></a>Cgroups提供了以下功能：</h5><ul>
+<li>限制进程组可以使用的资源数量（Resource limiting ）。比如：memory子系统可以为进程组设定一个memory使用上限，一旦进程组使用的内存达到限额再申请内存，就会出发OOM（out of memory）</li>
+<li>进程组的优先级控制（Prioritization ）。比如：可以使用cpu子系统为某个进程组分配特定cpu share。</li>
+<li>记录进程组使用的资源数量（Accounting ）。比如：可以使用cpuacct子系统记录某个进程组使用的cpu时间</li>
+<li>进程组隔离（Isolation）。比如：使用namespace子系统可以使不同的进程组使用不同的namespace，以达到隔离的目的，不同的进程组有各自的进程、网络、文件系统挂载空间。</li>
+<li>进程组控制（Control）。比如：使用freezer子系统可以将进程组挂起和恢复。</li>
+</ul>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Linux%E7%AF%87/2.png" alt="title"></p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Linux%E7%AF%87/3.png" alt="title"></p>
+<p>CGroup 层级关系显示，CPU 和 Memory 两个子系统有自己独立的层级系统。CGroup 技术可以被用来在操作系统底层限制物理资源，起到 Container 的作用</p>
+<h4 id="7、进程、线程、文件描述符"><a href="#7、进程、线程、文件描述符" class="headerlink" title="7、进程、线程、文件描述符"></a>7、进程、线程、文件描述符</h4><h5 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h5><p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Linux%E7%AF%87/4.jpeg" alt="title"></p>
+<p>对于系统而言，进程就是一个数据结构</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> &#123;</span></span><br><span class="line">    <span class="comment">// 进程状态</span></span><br><span class="line">    <span class="keyword">long</span>              state;</span><br><span class="line">    <span class="comment">// 虚拟内存结构体</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">mm_struct</span>  *<span class="title">mm</span>;</span></span><br><span class="line">    <span class="comment">// 进程号</span></span><br><span class="line">    <span class="keyword">pid_t</span>              pid;</span><br><span class="line">    <span class="comment">// 指向父进程的指针</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> __<span class="title">rcu</span>  *<span class="title">parent</span>;</span></span><br><span class="line">    <span class="comment">// 子进程列表</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">list_head</span>        <span class="title">children</span>;</span></span><br><span class="line">    <span class="comment">// 存放文件系统信息的指针</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">fs_struct</span>        *<span class="title">fs</span>;</span></span><br><span class="line">    <span class="comment">// 一个数组，包含该进程打开的文件指针</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">files_struct</span>        *<span class="title">files</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h5><p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Linux%E7%AF%87/5.jpeg" alt="title"></p>
+<p><code>files</code>，它是一个文件指针数组。一般来说，一个进程会从<code>files[0]</code>读取输入，将输出写入<code>files[1]</code>，将错误信息写入<code>files[2]</code></p>
+<p><strong>每个进程被创建时，<code>files</code>的前三位被填入默认值，分别指向标准输入流、标准输出流、标准错误流。我们常说的「文件描述符」就是指这个文件指针数组的索引</strong>，所以程序的文件描述符默认情况下 0 是输入，1 是输出，2 是错误</p>
+<p>Linux 中一切都被抽象成文件，设备也是文件，可以进行读和写。如果我们写的程序需要其他资源，比如打开一个文件进行读写，这也很简单，进行系统调用，让内核把文件打开，这个文件就会被放到<code>files</code>的第 4 个位置</p>
+<p><strong>应用</strong></p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Linux%E7%AF%87/6.png" alt="title"></p>
+<h5 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h5><p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Linux%E7%AF%87/7.png" alt="title"></p>
+<p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Linux%E7%AF%87/8.png" alt="title"></p>
+<h4 id="8、Linux增加开机启动项"><a href="#8、Linux增加开机启动项" class="headerlink" title="8、Linux增加开机启动项"></a>8、Linux增加开机启动项</h4><ul>
+<li><p>编辑文件 <code>/etc/rc.local</code>，在文件末尾（exit 0之前）加上你开机需要启动的程序或执行的命令即可（执行的程序需要写绝对路径，添加到系统环境变量的除外）</p>
+</li>
+<li><p>自己写shell脚本，将写好的脚本（.sh文件）放到目录 <code>/etc/profile.d/</code>下，系统启动后就会自动执行该目录下的所有shell脚本</p>
+</li>
+<li><p>通过chkconfig命令设置</p>
+<ul>
+<li>将启动文件cp到 /etc/init.d/或者/etc/rc.d/init.d/（前者是后者的软连接）下</li>
+<li>vim 启动文件，文件前面务必添加如下三行代码，否侧会提示chkconfig不支持</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh 告诉系统使用的shell,所以的shell脚本都是这样</span></span><br><span class="line"><span class="meta">#</span><span class="bash">chkconfig: 35 20 80 分别代表运行级别，启动优先权，关闭优先权，此行代码必须</span></span><br><span class="line"><span class="meta">#</span><span class="bash">description: http server（自己随便发挥）//两行都注释掉！！！，此行代码必须</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>chkconfig –add 脚本文件名 操作后就已经添加了</li>
+<li><code>systemctl enable</code></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://zhangfuli.github.io/2021/02/27/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Linux%E7%AF%87/" title="Linux篇-2021春招准备" target="_blank" rel="external">https://zhangfuli.github.io/2021/02/27/2021春招准备-Linux篇/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangfuli" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangfuli" target="_blank"><span class="text-dark">张富利</span><small class="ml-1x">学生</small></a></h3>
+        <div>Do myself,Believe myself,Try my best</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/02/27/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E9%9D%9E%E6%8A%80%E8%83%BD%E7%AF%87/" title="非技能篇-2021春招准备"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/02/27/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Python%E7%AF%87/" title="Python篇-2021春招准备"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498969-6d12a800-deef-11e9-927a-89d5d0ce9e42.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498913-4fddd980-deef-11e9-9da1-56f86199713b.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'e0m4Aw9mFAjO1UuHuINbSEOm-gzGzoHsz',
+    appKey: 'VwY3lLrV5rMPSG6AFGO87omg',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

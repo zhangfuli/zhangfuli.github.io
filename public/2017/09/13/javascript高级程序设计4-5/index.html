@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>javascript高级程序设计4-5 | Hexo</title>
+  <meta name="description" content="传递参数基本数据类型，直接在内存中存放，引用数据类型，变量名是指针function setName(obj)&amp;#123;     obj.name &#x3D; &quot;zfl&quot;     obj &#x3D; new Object()    &#x2F;&#x2F;obj指针又指向了另外一块内存     obj.name &#x3D; &quot;123&quot; &amp;#125; let person &#x3D; new Object()">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript高级程序设计4-5">
+<meta property="og:url" content="https://zhangfuli.github.io/2017/09/13/javascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A14-5/index.html">
+<meta property="og:site_name" content="Hello, Zhangfuli">
+<meta property="og:description" content="传递参数基本数据类型，直接在内存中存放，引用数据类型，变量名是指针function setName(obj)&amp;#123;     obj.name &#x3D; &quot;zfl&quot;     obj &#x3D; new Object()    &#x2F;&#x2F;obj指针又指向了另外一块内存     obj.name &#x3D; &quot;123&quot; &amp;#125; let person &#x3D; new Object()">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-09-13T02:42:30.000Z">
+<meta property="article:modified_time" content="2018-06-06T03:43:13.826Z">
+<meta property="article:author" content="张富利">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://zhangfuli.github.io/2017/09/13/javascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A14-5/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hello, Zhangfuli" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/zhangfuli" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">张富利</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">学生</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> NanJing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTML-CSS/">HTML CSS</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/angularjs/">angularjs</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8E%A2%E7%A9%B6/">探究</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83/">环境</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A1%AC%E4%BB%B6/">硬件</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML-CSS/" rel="tag">HTML CSS</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angularjs/" rel="tag">angularjs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A2%E7%A9%B6/" rel="tag">探究</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83/" rel="tag">环境</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/HTML-CSS/" style="font-size: 13.63px;">HTML CSS</a> <a href="/tags/Linux/" style="font-size: 13.5px;">Linux</a> <a href="/tags/angularjs/" style="font-size: 13.5px;">angularjs</a> <a href="/tags/hexo/" style="font-size: 13.5px;">hexo</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/mongodb/" style="font-size: 13.38px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.38px;">nodejs</a> <a href="/tags/python/" style="font-size: 13.13px;">python</a> <a href="/tags/react/" style="font-size: 13px;">react</a> <a href="/tags/vue/" style="font-size: 13.25px;">vue</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.25px;">区块链</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 13px;">小程序</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 13px;">工具</a> <a href="/tags/%E6%8E%A2%E7%A9%B6/" style="font-size: 13.63px;">探究</a> <a href="/tags/%E7%8E%AF%E5%A2%83/" style="font-size: 13.75px;">环境</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 13.88px;">生活</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.13px;">硬件</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AF%87/" class="title">操作系统篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T11:07:17.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-golang%E7%AF%87/" class="title">golang篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T10:57:08.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/23/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Jenkins/" class="title">Jenkins-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-23T03:33:03.000Z" itemprop="datePublished">2021-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E5%89%8D%E7%AB%AF-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AF%87/" class="title">前端/数据库/Spring/Java-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:15:30.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Redis-Prometheus-RocketMQ%E7%AF%87/" class="title">Redis/Prometheus/RocketMQ篇-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:14:17.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-javascript高级程序设计4-5" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      javascript高级程序设计4-5
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2017/09/13/javascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A14-5/" class="article-date">
+	  <time datetime="2017-09-13T02:42:30.000Z" itemprop="datePublished">2017-09-13</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/javascript/">javascript</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/javascript/" rel="tag">javascript</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2017/09/13/javascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A14-5/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h3 id="传递参数"><a href="#传递参数" class="headerlink" title="传递参数"></a>传递参数</h3><h6 id="基本数据类型，直接在内存中存放，引用数据类型，变量名是指针"><a href="#基本数据类型，直接在内存中存放，引用数据类型，变量名是指针" class="headerlink" title="基本数据类型，直接在内存中存放，引用数据类型，变量名是指针"></a>基本数据类型，直接在内存中存放，引用数据类型，变量名是指针</h6><pre><code>function setName(obj)&#123;
+    obj.name = &quot;zfl&quot;
+    obj = new Object()    //obj指针又指向了另外一块内存
+    obj.name = &quot;123&quot;
+&#125;
+let person = new Object()
+setName(person)
+console.log(person.name)
+</code></pre>
+<h3 id="检测类型"><a href="#检测类型" class="headerlink" title="检测类型"></a>检测类型</h3><pre><code>null是object类型 typeof null –&gt;object
+</code></pre>
+<h6 id="检测类跟对象时用-instanceof"><a href="#检测类跟对象时用-instanceof" class="headerlink" title="检测类跟对象时用 instanceof"></a>检测类跟对象时用 instanceof</h6><pre><code>person instanceof Object –&gt;person是object吗？
+</code></pre>
+<h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><pre><code>let color = &quot;blue&quot;
+function change()&#123;
+    if(color == &quot;blue&quot;)&#123;
+        color = &quot;red&quot;
+    &#125;
+&#125;
+change()
+console.log(color)
+</code></pre>
+<h6 id="函数内可以访问函数外的作用域，函数外的不能访问函数内的，var跟let一样"><a href="#函数内可以访问函数外的作用域，函数外的不能访问函数内的，var跟let一样" class="headerlink" title="函数内可以访问函数外的作用域，函数外的不能访问函数内的，var跟let一样"></a>函数内可以访问函数外的作用域，函数外的不能访问函数内的，var跟let一样</h6><h6 id="with作用域块跟with平级"><a href="#with作用域块跟with平级" class="headerlink" title="with作用域块跟with平级"></a>with作用域块跟with平级</h6><h6 id="var没有块级作用域"><a href="#var没有块级作用域" class="headerlink" title="var没有块级作用域"></a>var没有块级作用域</h6><pre><code>if(true)&#123;
+    var color=&quot;blue&quot;
+&#125;
+console.log(color)    //---&gt;blue
+</code></pre>
+<h6 id="let存在块级作用域"><a href="#let存在块级作用域" class="headerlink" title="let存在块级作用域"></a>let存在块级作用域</h6><pre><code>if(true)&#123;
+    let color=&quot;blue&quot;
+&#125;
+console.log(color)    //---&gt;undefined
+</code></pre>
+<h3 id="垃圾收集"><a href="#垃圾收集" class="headerlink" title="垃圾收集"></a>垃圾收集</h3><h4 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h4><h6 id="当变量进入环境时，就将这个变量标记为进入环境。从逻辑上讲，永远不能释放进入幻境的变量所占的内存，因为只要执行流进入相应的环境，就可能会用到它们。而当变量离开环境时，则将其标记为离开环境"><a href="#当变量进入环境时，就将这个变量标记为进入环境。从逻辑上讲，永远不能释放进入幻境的变量所占的内存，因为只要执行流进入相应的环境，就可能会用到它们。而当变量离开环境时，则将其标记为离开环境" class="headerlink" title="当变量进入环境时，就将这个变量标记为进入环境。从逻辑上讲，永远不能释放进入幻境的变量所占的内存，因为只要执行流进入相应的环境，就可能会用到它们。而当变量离开环境时，则将其标记为离开环境"></a>当变量进入环境时，就将这个变量标记为进入环境。从逻辑上讲，永远不能释放进入幻境的变量所占的内存，因为只要执行流进入相应的环境，就可能会用到它们。而当变量离开环境时，则将其标记为离开环境</h6><h4 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h4><h6 id="跟踪记录每个值被引用的次数。当引用次数为0时，可将内存收回。"><a href="#跟踪记录每个值被引用的次数。当引用次数为0时，可将内存收回。" class="headerlink" title="跟踪记录每个值被引用的次数。当引用次数为0时，可将内存收回。"></a>跟踪记录每个值被引用的次数。当引用次数为0时，可将内存收回。</h6><h6 id="循环引用时，引用计数会崩溃，一般不用"><a href="#循环引用时，引用计数会崩溃，一般不用" class="headerlink" title="循环引用时，引用计数会崩溃，一般不用"></a>循环引用时，引用计数会崩溃，一般不用</h6><h3 id="基本变量类型在内存中占据固定大小的空间，被保存在栈内存中"><a href="#基本变量类型在内存中占据固定大小的空间，被保存在栈内存中" class="headerlink" title="基本变量类型在内存中占据固定大小的空间，被保存在栈内存中"></a>基本变量类型在内存中占据固定大小的空间，被保存在栈内存中</h3><h3 id="引用类型的值是对象，保存在堆内存中"><a href="#引用类型的值是对象，保存在堆内存中" class="headerlink" title="引用类型的值是对象，保存在堆内存中"></a>引用类型的值是对象，保存在堆内存中</h3><h3 id="函数的局部变量可以访问其父作用域的变量"><a href="#函数的局部变量可以访问其父作用域的变量" class="headerlink" title="函数的局部变量可以访问其父作用域的变量"></a>函数的局部变量可以访问其父作用域的变量</h3><h3 id="访问对象属性的方法"><a href="#访问对象属性的方法" class="headerlink" title="访问对象属性的方法"></a>访问对象属性的方法</h3><h6 id="1-点表示法-person-name"><a href="#1-点表示法-person-name" class="headerlink" title="1.点表示法 person.name"></a>1.点表示法 person.name</h6><h6 id="2-方括号表示法-person-“name”-属性名有空格时可以这样访问-person-“first-name”"><a href="#2-方括号表示法-person-“name”-属性名有空格时可以这样访问-person-“first-name”" class="headerlink" title="2.方括号表示法 person[“name”],属性名有空格时可以这样访问 person[“first name”]"></a>2.方括号表示法 person[“name”],属性名有空格时可以这样访问 person[“first name”]</h6><h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><pre><code>let colors = new Array(3) //创建length为3的数组
+let values = [1,2,,] //会创建一个包含3或4项的数组
+let values = [,,,] //会创建一个包含3或4项的数组
+</code></pre>
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><h6 id="Array-isArray-判断是不是数组"><a href="#Array-isArray-判断是不是数组" class="headerlink" title="Array.isArray()判断是不是数组"></a>Array.isArray()判断是不是数组</h6><h6 id="valueOf-、toString"><a href="#valueOf-、toString" class="headerlink" title="valueOf()、toString()"></a>valueOf()、toString()</h6><h6 id="valueOf-返回的还是数组、toString-返回的是字符串"><a href="#valueOf-返回的还是数组、toString-返回的是字符串" class="headerlink" title="valueOf()返回的还是数组、toString()返回的是字符串"></a>valueOf()返回的还是数组、toString()返回的是字符串</h6><h6 id="join"><a href="#join" class="headerlink" title="join()"></a>join()</h6><h6 id="使用不同的分隔符来构建字符串"><a href="#使用不同的分隔符来构建字符串" class="headerlink" title="使用不同的分隔符来构建字符串"></a>使用不同的分隔符来构建字符串</h6><pre><code>var value = [&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]
+value.join(&quot;|&quot;)
+console.log(value.join(&quot;|&quot;))  //  1|2|3
+</code></pre>
+<h6 id="栈方法"><a href="#栈方法" class="headerlink" title="栈方法"></a>栈方法</h6><h6 id="push-、pop-数组尾"><a href="#push-、pop-数组尾" class="headerlink" title="push()、pop() 数组尾"></a>push()、pop() 数组尾</h6><h6 id="shift-、unshift-数组头"><a href="#shift-、unshift-数组头" class="headerlink" title="shift()、unshift() 数组头"></a>shift()、unshift() 数组头</h6><h6 id="reverse-反转排序"><a href="#reverse-反转排序" class="headerlink" title="reverse()反转排序"></a>reverse()反转排序</h6><h6 id="sort"><a href="#sort" class="headerlink" title="sort()"></a>sort()</h6><h6 id="按照升序排序，但是排的是字符串"><a href="#按照升序排序，但是排的是字符串" class="headerlink" title="按照升序排序，但是排的是字符串"></a>按照升序排序，但是排的是字符串</h6><pre><code>var values = [0,1,5,10,15]
+var aftersort = values.sort()
+console.log(aftersort)               //0 1 10 15 5     
+var aftercomp = values.sort(function (value1, value2)&#123;
+    if(value1 &gt; value2)&#123;
+        return 1
+    &#125;else if(value1 &lt; value2)&#123;
+        return -1
+    &#125;else&#123;
+        return 0
+    &#125;
+&#125;)
+or
+var aftercomp = values.sort(function (value1, value2)&#123;
+    return value2- value1
+&#125;)
+console.log(aftercomp)  // 0 1 5 10 15
+</code></pre>
+<h6 id="本来想去找找js原生库函数的源代码，只在ecmascript-js里找到了定义-实际上在v8编辑器里，在"><a href="#本来想去找找js原生库函数的源代码，只在ecmascript-js里找到了定义-实际上在v8编辑器里，在" class="headerlink" title="本来想去找找js原生库函数的源代码，只在ecmascript.js里找到了定义,实际上在v8编辑器里，在"></a>本来想去找找js原生库函数的源代码，只在ecmascript.js里找到了定义,实际上在v8编辑器里，在</h6><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/search?q=sort">https://developer.mozilla.org/en-US/search?q=sort</a>里，给出了详细的用法，这里就不说了。有时间看看v8源码</p>
+<h6 id="concat-连接，返回连接后的数组，不影响原数组"><a href="#concat-连接，返回连接后的数组，不影响原数组" class="headerlink" title="concat()连接，返回连接后的数组，不影响原数组"></a>concat()连接，返回连接后的数组，不影响原数组</h6><h6 id="slice-接受一个或者两个参数，即要返回项的起始位置和结束位置-不包括结束位"><a href="#slice-接受一个或者两个参数，即要返回项的起始位置和结束位置-不包括结束位" class="headerlink" title="slice()接受一个或者两个参数，即要返回项的起始位置和结束位置(不包括结束位)"></a>slice()接受一个或者两个参数，即要返回项的起始位置和结束位置(不包括结束位)</h6><pre><code>var values = [0,1,2,3]
+var value1 = values.slice(1)
+var value2 = values.slice(1,3)
+console.log(value1)  // 1 2 3
+console.log(value2)  // 1 2
+</code></pre>
+<h6 id="splice"><a href="#splice" class="headerlink" title="splice()"></a>splice()</h6><h6 id="两个参数-要删除的第一项和要删除的项数"><a href="#两个参数-要删除的第一项和要删除的项数" class="headerlink" title="两个参数:要删除的第一项和要删除的项数"></a>两个参数:要删除的第一项和要删除的项数</h6><h6 id="三个参数-起始位置、要删除的项数、要插入的项数"><a href="#三个参数-起始位置、要删除的项数、要插入的项数" class="headerlink" title="三个参数:起始位置、要删除的项数、要插入的项数"></a>三个参数:起始位置、要删除的项数、要插入的项数</h6><pre><code>var values = [0,1,2,3]
+values.splice(0,1)
+console.log(values)     // [1, 2, 3]
+values.splice(0,0,&quot;c1&quot;,&quot;c2&quot;)
+console.log(values)     // [&quot;c1&quot;, &quot;c2&quot;, 1, 2, 3]
+values.splice(0,1,&quot;s1&quot;,&quot;s2&quot;)
+console.log(values)     // [&quot;c1&quot;, &quot;c2&quot;, 1, 2, 3]
+</code></pre>
+<h6 id="位置方法indexOf-lastIndexOf"><a href="#位置方法indexOf-lastIndexOf" class="headerlink" title="位置方法indexOf() lastIndexOf()"></a>位置方法indexOf() lastIndexOf()</h6><pre><code>var person = &#123;name:&quot;zfl&quot;&#125;
+var people = [&#123;name:&quot;zfl&quot;&#125;]
+var morepeople = [people]
+console.log(morepeople)
+console.log(people.indexOf(person))   //-1 //查找项必须严格相等  ===  没有返回-1
+console.log(morepeople.indexOf(people)) // 0
+</code></pre>
+<h6 id="迭代方法"><a href="#迭代方法" class="headerlink" title="迭代方法"></a>迭代方法</h6><h6 id="every-对于每一项运行给定函数，若每一项都返回true，则返回true"><a href="#every-对于每一项运行给定函数，若每一项都返回true，则返回true" class="headerlink" title="every():对于每一项运行给定函数，若每一项都返回true，则返回true"></a>every():对于每一项运行给定函数，若每一项都返回true，则返回true</h6><h6 id="filter-返回true项给组成的数组"><a href="#filter-返回true项给组成的数组" class="headerlink" title="filter():返回true项给组成的数组"></a>filter():返回true项给组成的数组</h6><h6 id="forEach-每项运行给定函数-无返回值"><a href="#forEach-每项运行给定函数-无返回值" class="headerlink" title="forEach(): 每项运行给定函数,无返回值"></a>forEach(): 每项运行给定函数,无返回值</h6><h6 id="map-返回每次调用函数返回的结果组成的数组"><a href="#map-返回每次调用函数返回的结果组成的数组" class="headerlink" title="map(): 返回每次调用函数返回的结果组成的数组"></a>map(): 返回每次调用函数返回的结果组成的数组</h6><h6 id="some-若某项返回true，则返回true"><a href="#some-若某项返回true，则返回true" class="headerlink" title="some(): 若某项返回true，则返回true"></a>some(): 若某项返回true，则返回true</h6><pre><code>var value = [1,2,3,4,5,6]
+var everyResult = value.every(function (item, index, array)&#123;  //值 项数 数组
+    return item&gt;2
+&#125;) 
+console.log(everyResult)   //false
+var filterResult = value.filter(function (item, index, array)&#123;  //值 项数 数组
+    return item&gt;2
+&#125;)
+console.log(filterResult)  //[3, 4, 5, 6]
+var mapResult = value.map(function (item, index, array)&#123;  //值 项数 数组
+    return item = item +2
+&#125;)
+console.log(mapResult)   //[3, 4, 5, 6]
+var forEachResult = value.forEach(function (item, index, array)&#123;  //值 项数 数组
+    return item = item + 2
+&#125;)
+console.log(forEachResult)  //undefined
+</code></pre>
+<h3 id="Date"><a href="#Date" class="headerlink" title="Date()"></a>Date()</h3><h6 id="Date-parse"><a href="#Date-parse" class="headerlink" title="Date.parse()"></a>Date.parse()</h6><h6 id="接受一个表示日期的字符串参数，然后尝试根据这个字符串返回相应的日期毫秒数"><a href="#接受一个表示日期的字符串参数，然后尝试根据这个字符串返回相应的日期毫秒数" class="headerlink" title="接受一个表示日期的字符串参数，然后尝试根据这个字符串返回相应的日期毫秒数"></a>接受一个表示日期的字符串参数，然后尝试根据这个字符串返回相应的日期毫秒数</h6><h6 id="时间戳转日期"><a href="#时间戳转日期" class="headerlink" title="时间戳转日期"></a>时间戳转日期</h6><h6 id="详情可见如下链接，将此方法携程管道函数来执行"><a href="#详情可见如下链接，将此方法携程管道函数来执行" class="headerlink" title="详情可见如下链接，将此方法携程管道函数来执行"></a>详情可见如下链接，将此方法携程管道函数来执行</h6><p><a target="_blank" rel="noopener" href="https://gitee.com/UPCmvc/front_student/blob/master/src/config/date.js">链接</a></p>
+<h3 id="关于Function的几个要点"><a href="#关于Function的几个要点" class="headerlink" title="关于Function的几个要点"></a>关于Function的几个要点</h3><h6 id="函数实际上是个对象"><a href="#函数实际上是个对象" class="headerlink" title="函数实际上是个对象"></a>函数实际上是个对象</h6><h6 id="函数名仅仅是指向对象的指针"><a href="#函数名仅仅是指向对象的指针" class="headerlink" title="函数名仅仅是指向对象的指针"></a>函数名仅仅是指向对象的指针</h6><h6 id="用function-name-定义的会存在变量提升，而let-name-function-则不会"><a href="#用function-name-定义的会存在变量提升，而let-name-function-则不会" class="headerlink" title="用function name(){}定义的会存在变量提升，而let name = function(){}则不会"></a>用function name(){}定义的会存在变量提升，而let name = function(){}则不会</h6><h6 id="没有重载、没有重载、没有重载"><a href="#没有重载、没有重载、没有重载" class="headerlink" title="没有重载、没有重载、没有重载"></a>没有重载、没有重载、没有重载</h6><h6 id="函数名本身就是变量可以作为参数传递"><a href="#函数名本身就是变量可以作为参数传递" class="headerlink" title="函数名本身就是变量可以作为参数传递"></a>函数名本身就是变量可以作为参数传递</h6><h6 id="函数内部的固有属性arguments和this，arguments除了保存函数的参数，有一个callee的属性，这个属性是个指针指向拥有这个arguments对象的函数-还有一个caller保存调用这个函数的引用"><a href="#函数内部的固有属性arguments和this，arguments除了保存函数的参数，有一个callee的属性，这个属性是个指针指向拥有这个arguments对象的函数-还有一个caller保存调用这个函数的引用" class="headerlink" title="函数内部的固有属性arguments和this，arguments除了保存函数的参数，有一个callee的属性，这个属性是个指针指向拥有这个arguments对象的函数,还有一个caller保存调用这个函数的引用"></a>函数内部的固有属性arguments和this，arguments除了保存函数的参数，有一个callee的属性，这个属性是个指针指向拥有这个arguments对象的函数,还有一个caller保存调用这个函数的引用</h6><h6 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h6><pre><code>function f()&#123;
+    if(num&lt;=1)&#123;
+        return 1
+    &#125;else&#123;
+        return num*arguments.callee(num-1)   //为了降低耦合性
+    &#125;
+&#125;
+</code></pre>
+<h6 id="caller"><a href="#caller" class="headerlink" title="caller"></a>caller</h6><pre><code>function outer()&#123;
+    inner()
+&#125;
+function inner()&#123;
+    console.log(arguments.callee.caller)
+&#125;
+outer()   //ƒ outer()&#123;inner()&#125;
+</code></pre>
+<h6 id="bind-用于绑定作用域，this值会被绑定到bind-函数的值"><a href="#bind-用于绑定作用域，this值会被绑定到bind-函数的值" class="headerlink" title="bind()用于绑定作用域，this值会被绑定到bind()函数的值"></a>bind()用于绑定作用域，this值会被绑定到bind()函数的值</h6><h3 id="基本包装类型"><a href="#基本包装类型" class="headerlink" title="基本包装类型"></a>基本包装类型</h3><h6 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h6><pre><code>toFixed(2) 保留两位小数
+toExponential(1) 10–&gt;1.0e1返回指数形式并保留1位小数
+toPrecision() 返回某个数值最合适的格式
+</code></pre>
+<h6 id="string"><a href="#string" class="headerlink" title="string"></a>string</h6><pre><code>trim() 去掉前后空格
+toUpperCase() toLocaleLowerCase() 返回大小写
+replace() 代替，可以匹配正则
+</code></pre>
+<h6 id="例一"><a href="#例一" class="headerlink" title="例一"></a>例一</h6><pre><code>var date = &quot;2017/09/27&quot;
+date = date.replace(/\//g,&quot;-&quot;)  
+console.log(date)   //2017-09-27
+</code></pre>
+<h6 id="例二"><a href="#例二" class="headerlink" title="例二"></a>例二</h6><pre><code>function rep(text)&#123;
+return text.replace(/[&lt;&gt;&quot;]/g, function (match, pos, originalText)&#123;
+    switch(match)&#123;
+        case &quot;&lt;&quot;:
+            return &quot;小于&quot;
+        case &quot;&gt;&quot;:
+            return &quot;大于&quot;
+        case &quot;\&quot;&quot;:
+            return &quot;引号&quot;
+    &#125;
+&#125;)
+&#125;
+var text = &quot;&lt;&gt;\&quot;&quot;
+text = rep(text)
+console.log(text)   //小于大于引号
+</code></pre>
+<h6 id="match-返回数组"><a href="#match-返回数组" class="headerlink" title="match() 返回数组"></a>match() 返回数组</h6><pre><code>var date = &quot;2017/09/27&quot;
+var matches = date.match(/..\//g)  
+console.log(matches) //(2) [&quot;17/&quot;, &quot;09/&quot;]
+</code></pre>
+<h6 id="如果要用RegExp对象的exec-要将字符串作为参数"><a href="#如果要用RegExp对象的exec-要将字符串作为参数" class="headerlink" title="如果要用RegExp对象的exec()要将字符串作为参数"></a>如果要用RegExp对象的exec()要将字符串作为参数</h6><h6 id="search-找到某元素的位置可以为正则"><a href="#search-找到某元素的位置可以为正则" class="headerlink" title="search()找到某元素的位置可以为正则"></a>search()找到某元素的位置可以为正则</h6><h6 id="split-分割字符串，一个参数就按参数分割，两个参数，第二个参数是个数字，返回第二个参数长度的数组"><a href="#split-分割字符串，一个参数就按参数分割，两个参数，第二个参数是个数字，返回第二个参数长度的数组" class="headerlink" title="split()分割字符串，一个参数就按参数分割，两个参数，第二个参数是个数字，返回第二个参数长度的数组"></a>split()分割字符串，一个参数就按参数分割，两个参数，第二个参数是个数字，返回第二个参数长度的数组</h6><h3 id="单体内置对象"><a href="#单体内置对象" class="headerlink" title="单体内置对象"></a>单体内置对象</h3><h6 id="encodeURI-用于整个URI，encodeURIComponent对部分URI"><a href="#encodeURI-用于整个URI，encodeURIComponent对部分URI" class="headerlink" title="encodeURI()用于整个URI，encodeURIComponent对部分URI"></a>encodeURI()用于整个URI，encodeURIComponent对部分URI</h6><h6 id="decodeURI-decodeURIComponent分别对上述两个进行解码"><a href="#decodeURI-decodeURIComponent分别对上述两个进行解码" class="headerlink" title="decodeURI(),decodeURIComponent分别对上述两个进行解码"></a>decodeURI(),decodeURIComponent分别对上述两个进行解码</h6><h6 id="eval-只知道会改变作用域链就ok"><a href="#eval-只知道会改变作用域链就ok" class="headerlink" title="eval() 只知道会改变作用域链就ok"></a>eval() 只知道会改变作用域链就ok</h6><h3 id="Math"><a href="#Math" class="headerlink" title="Math"></a>Math</h3><h6 id="Math-ceil-向上四舍五入"><a href="#Math-ceil-向上四舍五入" class="headerlink" title="Math.ceil() 向上四舍五入"></a>Math.ceil() 向上四舍五入</h6><h6 id="Math-floor-向下四舍五入"><a href="#Math-floor-向下四舍五入" class="headerlink" title="Math.floor() 向下四舍五入"></a>Math.floor() 向下四舍五入</h6><h6 id="Math-round-标准四舍五入"><a href="#Math-round-标准四舍五入" class="headerlink" title="Math.round() 标准四舍五入"></a>Math.round() 标准四舍五入</h6><h6 id="Math-random-产生一个0——1的随机数"><a href="#Math-random-产生一个0——1的随机数" class="headerlink" title="Math.random() 产生一个0——1的随机数"></a>Math.random() 产生一个0——1的随机数</h6>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://zhangfuli.github.io/2017/09/13/javascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A14-5/" title="javascript高级程序设计4-5" target="_blank" rel="external">https://zhangfuli.github.io/2017/09/13/javascript高级程序设计4-5/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangfuli" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangfuli" target="_blank"><span class="text-dark">张富利</span><small class="ml-1x">学生</small></a></h3>
+        <div>Do myself,Believe myself,Try my best</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2017/09/18/17%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%9B%BD%E8%B5%9B%E5%BF%83%E5%BE%97/" title="17数学建模国赛心得"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2017/09/10/javascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A11-3/" title="javascript高级程序设计1-3"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498969-6d12a800-deef-11e9-927a-89d5d0ce9e42.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498913-4fddd980-deef-11e9-9da1-56f86199713b.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'e0m4Aw9mFAjO1UuHuINbSEOm-gzGzoHsz',
+    appKey: 'VwY3lLrV5rMPSG6AFGO87omg',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

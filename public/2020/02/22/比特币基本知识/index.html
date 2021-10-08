@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>比特币基本知识 | Hexo</title>
+  <meta name="description" content="北大肖臻老师区块链技术与应用上课笔记  比特币1、发明人：中本聪 2、著名交易所：门头沟（Mt. go） 3、私钥256位 比特币：共识协议Merkle tree Double Spending Attack1、数字货币与纸质货币的区别：double spending attack，花两次攻击（数组货币可复制粘贴，纸质只有一个花了就没了 ） 方案1: 维护数据库，017号货币在某某手里，花出去修">
+<meta property="og:type" content="article">
+<meta property="og:title" content="比特币基本知识">
+<meta property="og:url" content="https://zhangfuli.github.io/2020/02/22/%E6%AF%94%E7%89%B9%E5%B8%81%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="Hello, Zhangfuli">
+<meta property="og:description" content="北大肖臻老师区块链技术与应用上课笔记  比特币1、发明人：中本聪 2、著名交易所：门头沟（Mt. go） 3、私钥256位 比特币：共识协议Merkle tree Double Spending Attack1、数字货币与纸质货币的区别：double spending attack，花两次攻击（数组货币可复制粘贴，纸质只有一个花了就没了 ） 方案1: 维护数据库，017号货币在某某手里，花出去修">
+<meta property="og:locale">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/74804197-7b3be780-531a-11ea-9211-0dcc684f6e65.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/74600423-7c77d500-50cc-11ea-8f0e-e0acf0b3803c.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/74797984-76ba0380-5307-11ea-9ab3-5a229239fec0.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/74799322-2cd31c80-530b-11ea-978d-2669211124f4.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/74799441-83405b00-530b-11ea-9c93-f34182a8ebbd.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17808702/74924075-cc2c0880-540c-11ea-908a-ddf0fa38059b.png">
+<meta property="article:published_time" content="2020-02-22T08:02:43.000Z">
+<meta property="article:modified_time" content="2020-02-22T08:04:41.516Z">
+<meta property="article:author" content="张富利">
+<meta property="article:tag" content="区块链">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/17808702/74804197-7b3be780-531a-11ea-9211-0dcc684f6e65.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://zhangfuli.github.io/2020/02/22/%E6%AF%94%E7%89%B9%E5%B8%81%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hello, Zhangfuli" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/zhangfuli" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">张富利</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">学生</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> NanJing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTML-CSS/">HTML CSS</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/angularjs/">angularjs</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8E%A2%E7%A9%B6/">探究</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83/">环境</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A1%AC%E4%BB%B6/">硬件</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML-CSS/" rel="tag">HTML CSS</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angularjs/" rel="tag">angularjs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A2%E7%A9%B6/" rel="tag">探究</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83/" rel="tag">环境</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/HTML-CSS/" style="font-size: 13.63px;">HTML CSS</a> <a href="/tags/Linux/" style="font-size: 13.5px;">Linux</a> <a href="/tags/angularjs/" style="font-size: 13.5px;">angularjs</a> <a href="/tags/hexo/" style="font-size: 13.5px;">hexo</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/mongodb/" style="font-size: 13.38px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.38px;">nodejs</a> <a href="/tags/python/" style="font-size: 13.13px;">python</a> <a href="/tags/react/" style="font-size: 13px;">react</a> <a href="/tags/vue/" style="font-size: 13.25px;">vue</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.25px;">区块链</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 13px;">小程序</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 13px;">工具</a> <a href="/tags/%E6%8E%A2%E7%A9%B6/" style="font-size: 13.63px;">探究</a> <a href="/tags/%E7%8E%AF%E5%A2%83/" style="font-size: 13.75px;">环境</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 13.88px;">生活</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.13px;">硬件</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AF%87/" class="title">操作系统篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T11:07:17.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-golang%E7%AF%87/" class="title">golang篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T10:57:08.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/23/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Jenkins/" class="title">Jenkins-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-23T03:33:03.000Z" itemprop="datePublished">2021-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E5%89%8D%E7%AB%AF-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AF%87/" class="title">前端/数据库/Spring/Java-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:15:30.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Redis-Prometheus-RocketMQ%E7%AF%87/" class="title">Redis/Prometheus/RocketMQ篇-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:14:17.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-比特币基本知识" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      比特币基本知识
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/02/22/%E6%AF%94%E7%89%B9%E5%B8%81%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/" class="article-date">
+	  <time datetime="2020-02-22T08:02:43.000Z" itemprop="datePublished">2020-02-22</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/22/%E6%AF%94%E7%89%B9%E5%B8%81%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <blockquote>
+<p>北大肖臻老师区块链技术与应用上课笔记</p>
+</blockquote>
+<h2 id="比特币"><a href="#比特币" class="headerlink" title="比特币"></a>比特币</h2><p>1、发明人：中本聪</p>
+<p>2、著名交易所：门头沟（Mt. go）</p>
+<p>3、私钥256位</p>
+<h2 id="比特币：共识协议"><a href="#比特币：共识协议" class="headerlink" title="比特币：共识协议"></a>比特币：共识协议</h2><h3 id="Merkle-tree"><a href="#Merkle-tree" class="headerlink" title="Merkle tree"></a>Merkle tree</h3><p><img src="https://user-images.githubusercontent.com/17808702/74804197-7b3be780-531a-11ea-9211-0dcc684f6e65.png" alt="image"></p>
+<h3 id="Double-Spending-Attack"><a href="#Double-Spending-Attack" class="headerlink" title="Double Spending Attack"></a>Double Spending Attack</h3><p>1、数字货币与纸质货币的区别：double spending attack，花两次攻击（数组货币可复制粘贴，纸质只有一个花了就没了 ）</p>
+<p>方案1: 维护数据库，017号货币在某某手里，花出去修改数据库，中心化方案</p>
+<p>2、去中心化的数字货币解决两个问题：</p>
+<ul>
+<li>数字货币的发行，谁有权利发行数字货币，什么时候发行</li>
+<li>验证交易的有效性</li>
+</ul>
+<p>3、验证交易的有效性</p>
+<p><img src="https://user-images.githubusercontent.com/17808702/74600423-7c77d500-50cc-11ea-8f0e-e0acf0b3803c.png" alt="image"></p>
+<ul>
+<li>signed by A，用A的私钥签名</li>
+<li>A-&gt;B A要知道B的地址，B的公钥取hash，B公开公钥</li>
+<li>B要知道A的公钥，所有节点都要A的公钥</li>
+<li>输入要说明A的公钥，B的来源 </li>
+<li>输出收款人公钥的hash</li>
+<li>下个区块的输入脚本与上个脚本的输出脚本拼接完好成功执行才是无误</li>
+<li>每个区块中可以形成merkle tree</li>
+</ul>
+<p>4、区块的组成：</p>
+<p><img src="https://user-images.githubusercontent.com/17808702/74797984-76ba0380-5307-11ea-9ab3-5a229239fec0.png" alt="image"></p>
+<ul>
+<li>block header<ul>
+<li>version</li>
+<li>hash of previous block header</li>
+<li>merkle root hash</li>
+<li>target（H（block header）&lt;= target）</li>
+<li>nonce(挖矿用的随机数) 4 bytes</li>
+</ul>
+</li>
+<li>block body<ul>
+<li>transaction list–最多不超过1M</li>
+</ul>
+</li>
+</ul>
+<p>5、系统中的节点:  full node、light node</p>
+<ul>
+<li>full node<ul>
+<li>保存全部信息</li>
+<li>内存维护UTXO集合–谁有多少钱</li>
+</ul>
+</li>
+<li>light node<ul>
+<li>只保存block header</li>
+</ul>
+</li>
+</ul>
+<p>6、账本的内容要取得分布式的共识</p>
+<ul>
+<li>分布式的hash table</li>
+<li>FLP impossibility result：异步系统中（网络时延没有上线），有一个节点挂掉，这个异步系统也无法达到共识</li>
+<li>CAP Theorem: 任何一个分布式系统，只能办满足以下两个<ul>
+<li>consistency</li>
+<li>availability</li>
+<li>Partiontion tolerance</li>
+</ul>
+</li>
+</ul>
+<p>7、比特币中的共识协议：</p>
+<ul>
+<li><p>基于投票：</p>
+<ul>
+<li>hyperledger fabric 联盟链协议</li>
+<li>比特币系统中无法控制投票权，一个密钥对就是一个账户，存在sybil attack，恶意照很多账户投票</li>
+</ul>
+</li>
+<li><p>H(block header) &lt;= target</p>
+<blockquote>
+<p> 使用计算力来投票，每个节点都可以在本地组装一个候选区块将认为合法的交易放入，加入到区块链中，然后尝试不同的nonce值满足上述，则获得记账权；其他节点验证block header与block body是否合法</p>
+</blockquote>
+<ul>
+<li><p>接受的区块应该是最长合法链，下图为分叉攻击，看是否存在两次转账，则只看前面的链，不看分叉链，解决方案：多等几个区块–6个；诚实的算力多，保证最长合法链，等待时间越长，被篡改几率越小</p>
+<p><img src="https://user-images.githubusercontent.com/17808702/74799322-2cd31c80-530b-11ea-978d-2669211124f4.png" alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/17808702/74799441-83405b00-530b-11ea-9c93-f34182a8ebbd.png" alt="image"></p>
+</li>
+<li><p>同时获得记账权，存在相同的最长合法链，然后竞争最长，最长合法链才是合法的</p>
+</li>
+<li><p>获得记账权的节点可以获得铸币权（coinbase transaction） 50BTC—21万个之后—25BTC—21万个之后—12.5BTC，每隔10分钟产生一个区块</p>
+</li>
+</ul>
+</li>
+<li><p>取得的共识是：去中心化账本中的内容是共识的</p>
+</li>
+<li><p>根据算力来，hash rate</p>
+</li>
+<li><p>争夺记账权的过程叫挖矿</p>
+</li>
+</ul>
+<h2 id="比特币：实现"><a href="#比特币：实现" class="headerlink" title="比特币：实现"></a>比特币：实现</h2><p>1、transaction-based ledger</p>
+<p>拥有记账权的节点，可以记录交易，并收取小费 </p>
+<p>2、每一次挖矿的概率与挖矿时间无关，每次出块的平均时间为10分钟</p>
+<p>3、系统中比特币的总量21w*50+21w*25+21w*12.5…..=2100w </p>
+<h2 id="比特币：-挖矿"><a href="#比特币：-挖矿" class="headerlink" title="比特币： 挖矿"></a>比特币： 挖矿</h2><p>1、挖矿芯片</p>
+<ul>
+<li>CPU</li>
+<li>GPU</li>
+<li>ASIC：专用挖矿芯片，一种币种有专用的，除非mining puzzel相同</li>
+</ul>
+<p>2、矿池：充当全节点，给每个矿工分配任务，矿工只负责计算hash值，矿池负责组装</p>
+<p>3、矿工如何证明工作量：每个矿工提交share（近似的hash）来证明工作量</p>
+<p>4、coinbase–&gt;A: 在区块merkle tree里面</p>
+<h2 id="比特币：-脚本"><a href="#比特币：-脚本" class="headerlink" title="比特币： 脚本"></a>比特币： 脚本</h2><p><img src="https://user-images.githubusercontent.com/17808702/74924075-cc2c0880-540c-11ea-908a-ddf0fa38059b.png" alt="image"></p>
+<ul>
+<li>只进行堆栈操作</li>
+<li>输入脚本有签名</li>
+<li>OP_RETURN: 当前区块的输出脚本，判断当前区块是否合法根本不执行这个脚本</li>
+</ul>
+<h2 id="比特币：分叉"><a href="#比特币：分叉" class="headerlink" title="比特币：分叉"></a>比特币：分叉</h2><ul>
+<li><p>state fork</p>
+<ul>
+<li>分叉攻击</li>
+</ul>
+</li>
+<li><p>protocol fork：由于是去中心化的，新协议无法全部普及到全部节点</p>
+<ul>
+<li><p>hard fork:</p>
+<ul>
+<li><p>新协议，旧节点不认新协议，新节点不认旧协议</p>
+</li>
+<li><p>block size limit: 1M—&gt;3M</p>
+<ul>
+<li><p>规定每个区块1M，增加交易的延迟，增加吞吐量，一个交易差不多250字节</p>
+</li>
+<li><p>可以允许有两条链，各带一个chainid</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>soft fork: </p>
+<ul>
+<li>新协议，旧节点也认新协议，但是新节点不认旧协议</li>
+<li>block size limit: 1M—&gt;0.5M</li>
+<li>Coinbase: 铸币交易<ul>
+<li>前8 bytes: 可以调节里面的extra nonce:</li>
+<li>里面的某些域：可以作为UTXO的hash值存进去</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="比特币：匿名性"><a href="#比特币：匿名性" class="headerlink" title="比特币：匿名性"></a>比特币：匿名性</h2><blockquote>
+<p>匿名性是笔名，网名，不是跟现金一样完全无关</p>
+</blockquote>
+<p>1、如果银行用匿名，隐私性是否比比特币要好？</p>
+<p>是的，比特币的账本是公开的,  且不可篡改</p>
+<p>2、比特币什么时候可以破坏匿名性</p>
+<ul>
+<li>一个人多个账户，什么操作将不同的账户关联？（这些账户是一个人的）<ul>
+<li>网上买东西：<ul>
+<li>inputs：addr1，addr2；</li>
+<li>output：addr3，addr4</li>
+<li>addr1与addr2就有联系</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>跟真实世界联系<ul>
+<li>买入比特币，卖出比特币</li>
+</ul>
+</li>
+</ul>
+<p>3、实现匿名性：</p>
+<ul>
+<li>application layer：<ul>
+<li>把很多人的比特币混在一起（coin mixing）</li>
+</ul>
+</li>
+<li>network layer：<ul>
+<li>洋葱路由（Tor）</li>
+</ul>
+</li>
+</ul>
+<p>4、零知识证明：一方向另一方证明一个陈述是正确的，而无需透露该陈述是正确的以外的任何信息</p>
+<ul>
+<li>证明这个私钥是我的，我签名你用公钥验证（有争议）</li>
+</ul>
+<p>5、同态隐藏：</p>
+<ul>
+<li>x 不等于 y，则E(x) 不等于E(y)—hash碰撞</li>
+<li>E(x) 很难推出 x — hiding property</li>
+<li>同态运算：<ul>
+<li>同态加法：E(x) 和 E(y) –&gt;可以算出 E(x+y)</li>
+<li>同态乘法：E(x) 和 E(y) –&gt;可以算出 E(xy)</li>
+<li>扩展到多项式</li>
+</ul>
+</li>
+</ul>
+<p>5、零币和零钞：完全匿名</p>
+<h2 id="比特币：思考"><a href="#比特币：思考" class="headerlink" title="比特币：思考"></a>比特币：思考</h2><p>1、区块链中hash指针的传播：所谓的hash指针只是形象的说法，只有hash，没有指针。全节点存储（key，value）数据库，在levelDB查找value就可以查找出来，hash指针的性质保证了整个区块链不可被篡改</p>
+<p>2、区块恋：单个账户的私钥被切分成两份, 不提倡。提倡使用多重签名，每个私钥都是独立产生，可以要求N个人中任意M个</p>
+<p>3、分布式共识：分布式系统理论上不可能取得共识，很多理论上的不可能结论只是在特定上的条件下，在实际的时候改模型可行</p>
+<p>4、稀缺的东西不适合用来做货币：比特币不适合，总量一定</p>
+<p>5、量子计算：可以破解各种各样的密码</p>
+<p>6、收钱：只需要提供公钥的hash，取钱：提供公钥与私钥的签名</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://zhangfuli.github.io/2020/02/22/%E6%AF%94%E7%89%B9%E5%B8%81%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/" title="比特币基本知识" target="_blank" rel="external">https://zhangfuli.github.io/2020/02/22/比特币基本知识/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangfuli" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangfuli" target="_blank"><span class="text-dark">张富利</span><small class="ml-1x">学生</small></a></h3>
+        <div>Do myself,Believe myself,Try my best</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/02/23/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%80%BB%E7%BB%93/" title="区块链总结"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2020/02/22/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/" title="以太坊基本知识"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498969-6d12a800-deef-11e9-927a-89d5d0ce9e42.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498913-4fddd980-deef-11e9-9da1-56f86199713b.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'e0m4Aw9mFAjO1UuHuINbSEOm-gzGzoHsz',
+    appKey: 'VwY3lLrV5rMPSG6AFGO87omg',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

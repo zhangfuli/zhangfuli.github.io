@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>设计模式总结 | Hexo</title>
+  <meta name="description" content="设计模式总结代码质量活字印刷 可扩展要改，只需更改要改之字 可复用这些字并非用完这次就无用，完全可以在后来的印刷中重复使用 可维护此诗若要加字，只需另刻字加入即可 灵活性好字的排列其实可能是竖排可能是横排，此时只需将活字移动就可做到满足排列需求 面对客户的需求变化感到痛苦，原因就是因为我们原先所写的程序，不容易维护，灵活性差，不容易扩展，更谈不上复用，因此面对需求变化，加班加点。 面向对象封装、继">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式总结">
+<meta property="og:url" content="https://zhangfuli.github.io/2019/12/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Hello, Zhangfuli">
+<meta property="og:description" content="设计模式总结代码质量活字印刷 可扩展要改，只需更改要改之字 可复用这些字并非用完这次就无用，完全可以在后来的印刷中重复使用 可维护此诗若要加字，只需另刻字加入即可 灵活性好字的排列其实可能是竖排可能是横排，此时只需将活字移动就可做到满足排列需求 面对客户的需求变化感到痛苦，原因就是因为我们原先所写的程序，不容易维护，灵活性差，不容易扩展，更谈不上复用，因此面对需求变化，加班加点。 面向对象封装、继">
+<meta property="og:locale">
+<meta property="og:image" content="https://zhangfuli.github.io/2019/12/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/[data:image/svg+xml,%3c%3fxml%20version=">
+<meta property="og:image" content="https://www.yuque.com/docs/share/adc69e1f-554f-4539-a21c-291aae6707c7?inner=EgamV">
+<meta property="og:image" content="https://www.yuque.com/docs/share/adc69e1f-554f-4539-a21c-291aae6707c7?inner=Xzw4X">
+<meta property="og:image" content="https://www.yuque.com/docs/share/adc69e1f-554f-4539-a21c-291aae6707c7?inner=kYHCG">
+<meta property="og:image" content="https://www.yuque.com/docs/share/adc69e1f-554f-4539-a21c-291aae6707c7?inner=UCAjg">
+<meta property="og:image" content="https://www.yuque.com/docs/share/adc69e1f-554f-4539-a21c-291aae6707c7?inner=4ANuA">
+<meta property="article:published_time" content="2019-12-05T11:58:02.000Z">
+<meta property="article:modified_time" content="2019-12-05T12:25:52.375Z">
+<meta property="article:author" content="张富利">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zhangfuli.github.io/2019/12/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/[data:image/svg+xml,%3c%3fxml%20version=">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://zhangfuli.github.io/2019/12/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hello, Zhangfuli" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/zhangfuli" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">张富利</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">学生</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> NanJing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTML-CSS/">HTML CSS</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/angularjs/">angularjs</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8E%A2%E7%A9%B6/">探究</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83/">环境</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A1%AC%E4%BB%B6/">硬件</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML-CSS/" rel="tag">HTML CSS</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angularjs/" rel="tag">angularjs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A2%E7%A9%B6/" rel="tag">探究</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83/" rel="tag">环境</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/HTML-CSS/" style="font-size: 13.63px;">HTML CSS</a> <a href="/tags/Linux/" style="font-size: 13.5px;">Linux</a> <a href="/tags/angularjs/" style="font-size: 13.5px;">angularjs</a> <a href="/tags/hexo/" style="font-size: 13.5px;">hexo</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/mongodb/" style="font-size: 13.38px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.38px;">nodejs</a> <a href="/tags/python/" style="font-size: 13.13px;">python</a> <a href="/tags/react/" style="font-size: 13px;">react</a> <a href="/tags/vue/" style="font-size: 13.25px;">vue</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.25px;">区块链</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 13px;">小程序</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 13px;">工具</a> <a href="/tags/%E6%8E%A2%E7%A9%B6/" style="font-size: 13.63px;">探究</a> <a href="/tags/%E7%8E%AF%E5%A2%83/" style="font-size: 13.75px;">环境</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 13.88px;">生活</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.13px;">硬件</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AF%87/" class="title">操作系统篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T11:07:17.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-golang%E7%AF%87/" class="title">golang篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T10:57:08.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/23/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Jenkins/" class="title">Jenkins-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-23T03:33:03.000Z" itemprop="datePublished">2021-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E5%89%8D%E7%AB%AF-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AF%87/" class="title">前端/数据库/Spring/Java-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:15:30.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Redis-Prometheus-RocketMQ%E7%AF%87/" class="title">Redis/Prometheus/RocketMQ篇-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:14:17.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-设计模式总结" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      设计模式总结
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/12/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/" class="article-date">
+	  <time datetime="2019-12-05T11:58:02.000Z" itemprop="datePublished">2019-12-05</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/12/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="设计模式总结"><a href="#设计模式总结" class="headerlink" title="设计模式总结"></a>设计模式总结</h1><h2 id="代码质量"><a href="#代码质量" class="headerlink" title="代码质量"></a>代码质量</h2><p>活字印刷</p>
+<h3 id="可扩展"><a href="#可扩展" class="headerlink" title="可扩展"></a>可扩展</h3><p>要改，只需更改要改之字</p>
+<h3 id="可复用"><a href="#可复用" class="headerlink" title="可复用"></a>可复用</h3><p>这些字并非用完这次就无用，完全可以在后来的印刷中重复使用</p>
+<h3 id="可维护"><a href="#可维护" class="headerlink" title="可维护"></a>可维护</h3><p>此诗若要加字，只需另刻字加入即可</p>
+<h3 id="灵活性好"><a href="#灵活性好" class="headerlink" title="灵活性好"></a>灵活性好</h3><p>字的排列其实可能是竖排可能是横排，此时只需将活字移动就可做到满足排列需求</p>
+<p>面对客户的需求变化感到痛苦，原因就是因为我们原先所写的程序，不容易维护，灵活性差，不容易扩展，更谈不上复用，因此面对需求变化，加班加点。</p>
+<h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><p>封装、继承、多态</p>
+<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><h3 id="关联-vs-依赖"><a href="#关联-vs-依赖" class="headerlink" title="关联 vs 依赖"></a>关联 vs 依赖</h3><p>关联association：</p>
+<p>企鹅需要“知道”气候的变化，需要“了解”气候规律，当一个类“知道”另一个类时，可以用关联</p>
+<img src="[data:image/svg+xml,%3c%3fxml version='1.0' encoding='UTF-8' standalone='no'%3f%3e%3csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' contentScriptType='application/ecmascript' contentStyleType='text/css' height='150px' preserveAspectRatio='none' style='width:71px%3bheight:150px%3b' version='1.1' viewBox='0 0 71 150' width='71px' zoomAndPan='magnify'%3e%3cdefs%3e%3cfilter height='300%25' id='f1ebdafaysque' width='300%25' x='-1' y='-1'%3e%3cfeGaussianBlur result='blurOut' stdDeviation='2.0'/%3e%3cfeColorMatrix in='blurOut' result='blurOut2' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0'/%3e%3cfeOffset dx='4.0' dy='4.0' in='blurOut2' result='blurOut3'/%3e%3cfeBlend in='SourceGraphic' in2='blurOut3' mode='normal'/%3e%3c/filter%3e%3c/defs%3e%3cg%3e%3crect fill='%23FEFECE' filter='url(%23f1ebdafaysque)' height='37.6094' style='stroke: %23A80036%3b stroke-width: 1.5%3b' width='54' x='6' y='8'/%3e%3ctext fill='black' font-family='sans-serif' font-size='12' lengthAdjust='spacingAndGlyphs' textLength='24' x='21' y='21.1387'%3e%e4%bc%81%e9%b9%85%3c/text%3e%3cline style='stroke: %23A80036%3b stroke-width: 1.5%3b' x1='7' x2='59' y1='25.9688' y2='25.9688'/%3e%3cellipse cx='17' cy='36.9688' fill='none' rx='3' ry='3' style='stroke: %23038048%3b stroke-width: 1.0%3b'/%3e%3ctext fill='black' font-family='sans-serif' font-size='10' lengthAdjust='spacingAndGlyphs' textLength='28' x='26' y='39.251'%3e%e4%b8%8b%e8%9b%8b()%3c/text%3e%3crect fill='%23FEFECE' filter='url(%23f1ebdafaysque)' height='33.9688' style='stroke: %23A80036%3b stroke-width: 1.5%3b' width='38' x='14' y='106'/%3e%3ctext fill='black' font-family='sans-serif' font-size='12' lengthAdjust='spacingAndGlyphs' textLength='24' x='21' y='119.1387'%3e%e6%b0%94%e5%80%99%3c/text%3e%3cline style='stroke: %23A80036%3b stroke-width: 1.5%3b' x1='15' x2='51' y1='123.9688' y2='123.9688'/%3e%3cpath d='M33%2c46.427 C33%2c62.0802 33%2c84.1072 33%2c100.5207 ' fill='none' id='%e4%bc%81%e9%b9%85-%26gt%3b%e6%b0%94%e5%80%99' style='stroke: %23A80036%3b stroke-width: 1.0%3b'/%3e%3cpolygon fill='%23A80036' points='33%2c105.8544%2c37%2c96.8544%2c33%2c100.8544%2c29%2c96.8544%2c33%2c105.8544' style='stroke: %23A80036%3b stroke-width: 1.0%3b'/%3e%3c/g%3e%3c/svg%3e](data:image/svg+xml,<%3fxml version='1.0' encoding='UTF-8' standalone='no'%3f>企鹅下蛋()气候)">
+
+
+
+<p>依赖dependency：</p>
+<p>动物依赖于氧气和水，他们之间是依赖关系</p>
+<p><img src="https://www.yuque.com/docs/share/adc69e1f-554f-4539-a21c-291aae6707c7?inner=EgamV" alt="http://www.yuque.com/docs/share/adc69e1f-554f-4539-a21c-291aae6707c7?inner=kYHCG"></p>
+<h3 id="组合-vs聚合"><a href="#组合-vs聚合" class="headerlink" title="组合 vs聚合"></a>组合 vs聚合</h3><p>组合composition：</p>
+<p>是一种强的“拥有”关系，体现了严格的部分和整体的关系，部分和整体的生命周期一样。</p>
+<p><img src="https://www.yuque.com/docs/share/adc69e1f-554f-4539-a21c-291aae6707c7?inner=Xzw4X"></p>
+<p>聚合aggregation：</p>
+<p>聚合表示一种弱的“拥有”关系，体现的是A对象可以包含B对象，但B对象不是A对象的一部分。</p>
+<p><img src="https://www.yuque.com/docs/share/adc69e1f-554f-4539-a21c-291aae6707c7?inner=kYHCG"></p>
+<h3 id="继承-vs-接口实现"><a href="#继承-vs-接口实现" class="headerlink" title="继承 vs 接口实现"></a>继承 vs 接口实现</h3><p>继承：空心三角形 + 实线</p>
+<p>实现接口：空心三角 + 虚线</p>
+<h2 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h2><blockquote>
+<p>设计模式并不重要，重要的是设计原则</p>
+</blockquote>
+<ul>
+<li>单一职责</li>
+<li>里氏替换</li>
+<li>依赖倒置</li>
+<li>接口隔离</li>
+<li>迪米特法则</li>
+<li>开闭原则</li>
+</ul>
+<h2 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h2><ol>
+<li>定义</li>
+</ol>
+<blockquote>
+<p>策略模式定义了算法族，分别封装起来，让它们之间可以互相替换，此模式让算法的变化独立于使用算法的客户。</p>
+</blockquote>
+<h3 id="设计原则-1"><a href="#设计原则-1" class="headerlink" title="设计原则"></a>设计原则</h3><ul>
+<li><p>找出应用中可能需要变化之处，把它们独立出来，不要和那些不需要变化的代码混在一起。</p>
+</li>
+<li><ul>
+<li>鸭子的行为在子类里不断改变，并且让所有的子类都有这些行为是不恰当的。</li>
+<li>把鸭子的行为从Duck类中取出</li>
+</ul>
+</li>
+<li><p>针对接口编程，而不是针对实现编程</p>
+</li>
+<li><ul>
+<li>在运行时动态地改变鸭子的飞行行为</li>
+</ul>
+</li>
+<li><p>多用组合，少用继承</p>
+</li>
+<li><ul>
+<li>鸭子的行为通过和适当的行为对象组合而来</li>
+<li>使用组合具有很大的弹性，不仅可将算法封装成类，更可以在运行时动态地改变行为。</li>
+</ul>
+</li>
+</ul>
+<h3 id="设计模式和类库的区别："><a href="#设计模式和类库的区别：" class="headerlink" title="设计模式和类库的区别："></a>设计模式和类库的区别：</h3><ol>
+<li>库与框架无法帮助我们将应用组织成容易了解、容易维护、具有弹性的架构，所以需要设计模式</li>
+<li>设计模式比库的等级更高，设计模式告诉我们如何组织类和对象以解决某种问题，是针对设计问题的通用解决方案</li>
+<li>库和框架提供了特定的实现，但这并不算是设计模式。有时候，库和框架本身会用到设计模式</li>
+</ol>
+<h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><p>1、定义</p>
+<blockquote>
+<p>观察者模式定义了对象之间的一对多依赖，这样一来，当一个对象改变状态时，它的所有依赖者都会受到通知并自动更新。</p>
+</blockquote>
+<p>2、类图</p>
+<p><img src="https://www.yuque.com/docs/share/adc69e1f-554f-4539-a21c-291aae6707c7?inner=UCAjg"></p>
+<h3 id="设计原则-2"><a href="#设计原则-2" class="headerlink" title="设计原则"></a>设计原则</h3><blockquote>
+<p>为了交互对象之间的松耦合设计而努力。</p>
+</blockquote>
+<ol>
+<li>观察者对设计原则的应用</li>
+</ol>
+<ul>
+<li><p>找出程序中会变化的方面，然后将其固定不变的方面相分离</p>
+</li>
+<li><ul>
+<li>在观察者模式中，会改变的是主题的状态，以及观察者的数目和类型。用这个模式，你可以改变依赖于主题状态的对象，却不必改变主题。</li>
+</ul>
+</li>
+<li><p>针对接口编程，不针对实现编程</p>
+</li>
+<li><ul>
+<li>主题与观察者都使用接口：观察者利用主题的接口向主题注册，而主题利用观察者接口通知观察者。这样可以让两者之间运作正常，又同时具有松耦合的优点。</li>
+</ul>
+</li>
+<li><p>多用组合，少用继承</p>
+</li>
+<li><ul>
+<li>观察者模式利用“组合”将许多观察者组合进主题中，对象之间的这种关系不是通过继承产生的，而是在运行时利用组合的方式而产生。</li>
+</ul>
+</li>
+</ul>
+<h2 id="装饰者模式"><a href="#装饰者模式" class="headerlink" title="装饰者模式"></a>装饰者模式</h2><ol>
+<li>定义</li>
+</ol>
+<blockquote>
+<p>装饰者模式动态地将责任附加到对象上。若要扩展功能，装饰者提供了比继承更有弹性的替代方案。          </p>
+</blockquote>
+<ol>
+<li>装饰者和被装饰对象有相同的超类型。</li>
+<li>你可以用一个或多个装饰者包装一个对象。</li>
+<li>装饰者可以在所委托被装饰者的行为之前与/或之后，加上自己的行为，以达到特定的目的。</li>
+<li>利用继承达到类型匹配。继承，是为了有正确的类型，而不是继承它的行为。行为来自装饰者和基础组件，或与其他装饰者之间的组合关系。     </li>
+<li>装饰者会导致程序设计中出现许多小对象，如果过度使用，会让程序变得很复杂。                                                               </li>
+</ol>
+<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><ol>
+<li><p>利用单件模式，我们可以在需要时才创建对象。延迟实例化的方式，这种做法对资源敏感的对象特别重要。</p>
+</li>
+<li><p>定义</p>
+<blockquote>
+<p>单件模式确保一个类只有一个实例，并提供一个全局访问点</p>
+</blockquote>
+</li>
+<li><p>抽象单例</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">https://blog.csdn.net/zhmt/article/details/50804215</span><br><span class="line"> * 线程安全的抽象单例</span><br><span class="line"> * </span><br><span class="line"> * @author zhmt</span><br><span class="line"> * @createdate 2016年3月4日 下午4:39:50</span><br><span class="line"> * @param &lt;T&gt;</span><br><span class="line"> */</span><br><span class="line">public abstract class AbstractSingleton&lt;T&gt; &#123;</span><br><span class="line">    private final AtomicReference&lt;T&gt; ref = new AtomicReference&lt;T&gt;();</span><br><span class="line"></span><br><span class="line">    public T get() &#123;</span><br><span class="line">        T ret = ref.get();</span><br><span class="line">        if (ret == null) &#123;</span><br><span class="line">            synchronized (this) &#123;</span><br><span class="line">                if (ref.get() == null) &#123;</span><br><span class="line">                    ret = newObj();</span><br><span class="line">                    ref.set(ret);</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    ret = ref.get();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected abstract T newObj();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class A &#123;</span><br><span class="line">    public static final AbstractSingleton&lt;A&gt; objHolder = new AbstractSingleton&lt;A&gt;() &#123;</span><br><span class="line">        protected A newObj() &#123;</span><br><span class="line">            return new A();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    private A() &#123;</span><br><span class="line">        A.objHolder.get();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><h3 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h3><p><img src="https://www.yuque.com/docs/share/adc69e1f-554f-4539-a21c-291aae6707c7?inner=4ANuA"></p>
+<h3 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h3><p>1、定义</p>
+<blockquote>
+<p>工厂方法模式定义了一个创建对象的接口，但由子类决定要实例化的类是哪一个。工厂方法让类把实例化推迟到子类。</p>
+</blockquote>
+<p>2、简单工厂和工厂方法之间的区别</p>
+<p>工厂方法的子类看起来很像简单工厂。简单工厂把全部的事情，在一个地方都处理完了，然而工厂方法却是创建一个框架，让子类决定要如何实现。简单工厂的做法，可以将对象的创建封装起来，但是简单工厂不具备工厂方法的弹性，因为简单工厂不能变更正在创建的产品。</p>
+<p>3、依赖倒置原则</p>
+<blockquote>
+<p>要依赖抽象，不要依赖具体类。</p>
+</blockquote>
+<p>低层组件依赖高层的抽象，高层组件也依赖相同的抽象。</p>
+<h3 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h3><p>1、定义</p>
+<blockquote>
+<p>抽象工厂模式提供一个接口，用于创建相关或依赖对象的家族，而不需要明确指定具体类。</p>
+</blockquote>
+<p>2、抽象工厂和工厂方法的联系</p>
+<p>抽象工厂的每个方法实际上看起来都像是工厂方法。每个方法都被声明成抽象，而子类的方法覆盖这些方法来创建某些对象。</p>
+<p>抽象工厂的任务是定义一个负责创建一组产品的接口。这个接口内的每个方法都负责创建一个具体产品，同时我们利用实现抽象工厂的子类来提供这些具体的做法，</p>
+<p>抽象工厂和工厂方法都是负责创建对象。抽象工厂使用的是对象，通过对象的组合；工厂方法使用的类，通过继承。</p>
+<p>需要创建产品家族和想让制造的相关产品集合起来时，可以使用抽象工厂。工厂方法可以把客户代码从需要实例化的具体类中解耦，或者如果目前还不知道将来需要实例化哪些具体类时，也可以用工厂方法。</p>
+<h2 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h2><p>1、命令模式可将“动作的请求者”从“动作的执行者”对象中解耦。在被解耦的两者之间是通过命令对象进行沟通的。命令对象封装了接收者的一个或一组动作。</p>
+<p>2、定义</p>
+<blockquote>
+<p>命令模式将“请求”封装成对象，以便使用不同的请求、队列或者日志来参数化其他对象。命令模式也支持可撤销操作。</p>
+</blockquote>
+<p>3、实现撤销</p>
+<ul>
+<li>在Invoker中存一个uncommand</li>
+<li>在Command中存储prevState</li>
+</ul>
+<p>4、实现多层次撤销</p>
+<ul>
+<li>不要只是记录最后一个被执行的命令，使用一个堆栈记录过程中的每一个命令</li>
+</ul>
+<p>5、MacroCommand：一次执行一组命令</p>
+<h2 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h2><p>1、适配器实现了目标接口，并持有被适配者的实例</p>
+<p>2、定义</p>
+<blockquote>
+<p>适配器模式将一个类的接口，转换成客户期望的另一个接口。适配器让原本接口不兼容的类可以合作无间。</p>
+</blockquote>
+<p>3、客户和接口绑定，不是和实现绑定。我们可以使用多个适配器。</p>
+<p>4、对象适配器和类适配器</p>
+<ul>
+<li><p>对象适配器：适配器使用组合来适配被适配者</p>
+</li>
+<li><ul>
+<li>优点：不仅可以适配某个类，也可以适配该类的任何子类</li>
+</ul>
+</li>
+<li><p>类适配器：适配器继承被适配者和目标类</p>
+</li>
+<li><ul>
+<li>优点：采用某个特定的被适配类，不需要重新实现我的整个被适配者，必要的时候可以覆盖被适配者的行为；</li>
+</ul>
+</li>
+</ul>
+<p>5、装饰者模式和适配器模式的对比</p>
+<ul>
+<li>装饰者模式不改变接口，扩展包装的对象的行为或责任，</li>
+<li>适配器模式转换接口，允许客户使用新的库和子集合</li>
+</ul>
+<p>6、外观模式和适配器模式的对比</p>
+<ul>
+<li>外观模式的意图：简化接口</li>
+<li>适配器模式的意图：将接口转换成不同接口</li>
+</ul>
+<p>7、双向适配器</p>
+<p>Iterator: hasNext() next() remove()</p>
+<p>Enumeration: hasMoreElements() nextElement()</p>
+<ul>
+<li>将Enumeration适配成Iterator</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class EnumerationIterator implements Iterator &#123;</span><br><span class="line">    Enumeration enumeration;</span><br><span class="line">  </span><br><span class="line">  public EnumerationIterator(Enumeration enumeration) &#123;</span><br><span class="line">    this.enumeration = enumeration;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public boolean hasNext() &#123;</span><br><span class="line">    return enumeration.hasNextElement();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public Object nextElement() &#123;</span><br><span class="line">    return enumeration.nextElement();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public void remove() &#123;</span><br><span class="line">    throws new UnsupportedOperationException();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>将Iterator适配成Enumeration</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class IteratorEnumeration implements Enumeration &#123;</span><br><span class="line">    Iterator iterator;</span><br><span class="line">  </span><br><span class="line">  public IteratorEnumeration(Iterator iterator) &#123;</span><br><span class="line">    this.iterator = iterator;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public boolean hasMoreElements()&#123;</span><br><span class="line">    return iterator.hasNext();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public Object nextElement() &#123;</span><br><span class="line">    return iteraror.next();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="外观模式"><a href="#外观模式" class="headerlink" title="外观模式"></a>外观模式</h3><p>定义：</p>
+<blockquote>
+<p>外观模式提供了一个统一的接口，用来访问子系统中的一群接口。外观定义了一个高层接口，让子系统更容易使用。</p>
+</blockquote>
+<h4 id="设计原则-3"><a href="#设计原则-3" class="headerlink" title="设计原则"></a>设计原则</h4><p>最少知识原则：只和你的密友谈话</p>
+<h2 id="模板方法模式"><a href="#模板方法模式" class="headerlink" title="模板方法模式"></a>模板方法模式</h2><p>1、模板方法定义了一个算法的步骤，并允许子类为一个或多个步骤提供实现。 需要由子类提供的方法，必须在超类中声明为抽象</p>
+<p>2、定义</p>
+<blockquote>
+<p>模板方法模式在一个方法中定义了一个算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法中的某些步骤。</p>
+</blockquote>
+<p>3、模板就是一个方法，更具体地说，这个方法将算法定义成一组步骤，其中的任何步骤都可以是抽象的，由子类负责实现。</p>
+<p>4、我们也可以有“默认不做事的方法”，我们称这种方法为‘hook’。子类可以视情况决定要不要覆盖它们。钩子是一种被声明在抽象类中的方法，但只有空的或者默认的实现。</p>
+<p>5、当你的子类必须提供算法中的某个方法或步骤的实现时，就使用抽象方法。如果算法的这个部分是可选的，就用钩子。</p>
+<p>6、钩子的几种用法：</p>
+<ul>
+<li>钩子可以让子类实现算法中可选的部分或者在钩子对子类的实现并不重要的时候，子类可以对钩子置之不理。</li>
+<li>让子类能够有机会对模板方法中某些即将发生（或刚刚发生）的步骤作出反应</li>
+<li>钩子也可以让子类有能力为其抽象类作一些决定</li>
+</ul>
+<p>7、模板方法应用：排序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public static void sort(Object[] a) &#123;</span><br><span class="line">    Object aux[] = (Object[]) a.clone();</span><br><span class="line">  mergeSort(aux, a, 0, a.length, 0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private static void mergeSort(Object[] src, Object[] dest, int low, int high, int off)&#123;</span><br><span class="line">    for(int i = low; i &lt; high, i++) &#123;</span><br><span class="line">    for (int j = i; j &gt; low &amp;&amp;</span><br><span class="line">         ((Comparable) dest[j-1]).compareTo((Comparable) dest[j] &gt; 0); j--) &#123;</span><br><span class="line">        swap(dest, j, j-1);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>排序鸭子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public class Duck implements Comparable &#123;</span><br><span class="line">    String name;</span><br><span class="line">  int weight;</span><br><span class="line">  </span><br><span class="line">  public Duck(String name, int weight) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.weight = weight;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public String toString() &#123;</span><br><span class="line">    return name + &#x27; weights &#x27; + weight; </span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public int compareTo(Object object) &#123;</span><br><span class="line">    Duck otherDuck = (Duck) object;</span><br><span class="line">    if(this.weight &lt; otherDuck.weight) &#123;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125; else if(this.weight == otherDuck.weight) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="设计原则-4"><a href="#设计原则-4" class="headerlink" title="设计原则"></a>设计原则</h3><blockquote>
+<p>别调用我们，我们会调用你。</p>
+</blockquote>
+<p>允许底层组件将自己挂钩到系统上，但是高层组件会决定什么时候和怎样使用这些低层组件。</p>
+<ol>
+<li>模板方法和策略的比较</li>
+</ol>
+<p>模板方法模式必须依赖超类中的方法的实现，因为这是算法的一部分。而策略模式不依赖任何人。</p>
+<p>模板方法中会被重复使用的代码都被放进了超类中，好让所有子类共享。策略模式使用组合，运行时改变算法。</p>
+<h2 id="迭代器模式"><a href="#迭代器模式" class="headerlink" title="迭代器模式"></a>迭代器模式</h2><ol>
+<li>定义</li>
+</ol>
+<blockquote>
+<p>迭代器模式提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示。</p>
+</blockquote>
+<ol>
+<li>迭代器模式把在元素之间游走的责任交给迭代器，而不是聚合对象。这不仅让聚合的接口和实现变得简洁，也可以让聚合更专注在它所应该专注的事情上面。</li>
+</ol>
+<h3 id="设计原则-5"><a href="#设计原则-5" class="headerlink" title="设计原则"></a>设计原则</h3><blockquote>
+<p>一个类应该只有一个引起变化的原因。</p>
+</blockquote>
+<p>当我们允许一个类不但要完成自己的事情（管理某种聚合），还同时要担负更多的责任（例如遍历）时，我们就给了这个类两个变化的原因。</p>
+<h2 id="组合模式"><a href="#组合模式" class="headerlink" title="组合模式"></a>组合模式</h2><ol>
+<li>定义</li>
+</ol>
+<blockquote>
+<p>允许你将对象组合成树形结构来表现“整体/部分”层次结构。组合能让客户以一致的方式处理个别对象以及对象组合。                     </p>
+</blockquote>
+<ol>
+<li>composite包含component。component有两种元素：leaf和composite。</li>
+<li>组合模式以单一责任设计原则换取透明性。透明性是指通过让组件的接口同时包含一些管理子节点和叶节点的操作，客户就可以将组合和叶节点一视同仁。也就是说，一个元素究竟是组合还是叶节点，对客户是透明的。</li>
+<li>当你有数个对象的集合，它们彼此之间有“整体/部分”关系，并且你想用一直的方式对待这些对象时，你就需要我。</li>
+<li>为了保持透明性，组合内的所有对象都必须实现相同的接口，否则客户就必须操心哪个对象是用哪个接口。</li>
+<li>客户不再需要操心面对的是组合对象还是叶节点对象了，所以就不需要写一大堆的if语句来保证它们对正确的对象调用了正确的接口。</li>
+<li>组合模式和迭代器模式</li>
+</ol>
+<h2 id="状态模式"><a href="#状态模式" class="headerlink" title="状态模式"></a>状态模式</h2><ol>
+<li>策略模式和状态模式是双胞胎。策略模式是围绕可以互换的算法来创建成功业务的。状态则是通过改变对象的内部状态来帮助对象控制自己的行为，是条件判断的替代方案。</li>
+<li>定义</li>
+</ol>
+<blockquote>
+<p>状态模式允许对象在内部状态改变时改变它的行为，对象看起来好像修改了它的类。</p>
+</blockquote>
+<p>这个模式将状态封装成独立的类，并将动作委托到代表当前状态的对象，我们知道行为会随着内部状态而改变。</p>
+<h2 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h2><ol>
+<li>代理，就是代表某个真实的对象。代理就像是糖果机对象，但其实幕后是它利用网络和一个远程的真正糖果机沟通。</li>
+<li>远程代理就好比“远程对象的本地代表”</li>
+<li>你的客户对象所做的就像是在做远程方法调用，但其实只是调用本地堆中的“代理”对象上的方法，再由代理处理所有网络通信的底层细节</li>
+<li>客户对象–&gt;客户辅助对象–&gt;服务辅助对象–&gt;服务对象</li>
+<li></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">public interface MyRemote extends Remote &#123;</span><br><span class="line">    public String sayHello() throws RemoteException;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public MyRemoteImpl extends UnicastRemoteObject implements MyRemote &#123;</span><br><span class="line">    public String sayHello() &#123;</span><br><span class="line">    return &quot;Server says, Hey&quot;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public MyRemoteImpl throws RemoteException &#123;&#125;</span><br><span class="line">  </span><br><span class="line">  public static void main(String[] args) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        MyRemote service = new MyRemoteImpl();</span><br><span class="line">      Naming.rebind(&quot;RemoteHello&quot;, service);</span><br><span class="line">    &#125; catch(Exception ex) &#123;</span><br><span class="line">        ex.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//客户端</span><br><span class="line">public class MyRemoteClient &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">    new MyRemoteClient().go();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public void go() &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        MyRemote service = (MyRemote) Naming.lookup(&quot;rmi://127.0.0.1/RemoteHello&quot;);</span><br><span class="line">      </span><br><span class="line">      String s = service.sayHello();</span><br><span class="line">    &#125; catch(Exception ex) &#123;</span><br><span class="line">        ex.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>定义</p>
+<blockquote>
+<p>代理模式为另一个对象提供一个替身或占位符以控制对这个对象的访问</p>
+</blockquote>
+<p>分类</p>
+<ul>
+<li>远程代理：控制访问远程对象</li>
+</ul>
+<p>调用代理的方法，会被代理利用网络转发到远程执行，并且结果会通过网络返回给代理，再由代理将结果转给客户。</p>
+<ul>
+<li>虚拟代理：控制访问创建开销大的资源</li>
+</ul>
+<p>虚拟代理经常直到我们真正需要一个对象的时候才创建它。当对象在创建前和创建中时，由虚拟代理来扮演对象的替身。对象创建后，代理就会将请求直接委托给对象。</p>
+<ul>
+<li>保护代理：基于权限控制对资源的访问</li>
+</ul>
+<h2 id="建造者模式"><a href="#建造者模式" class="headerlink" title="建造者模式"></a>建造者模式</h2><p>定义</p>
+<blockquote>
+<p>将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示</p>
+</blockquote>
+<p>主要作用：</p>
+<p>隔离了客户与生产过程、负责控制产品的生产过程</p>
+<ol>
+<li>建造者模式和抽象工厂模式的区别</li>
+</ol>
+<h2 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h2><h2 id="桥接模式"><a href="#桥接模式" class="headerlink" title="桥接模式"></a>桥接模式</h2><h2 id="享元模式"><a href="#享元模式" class="headerlink" title="享元模式"></a>享元模式</h2><h2 id="复习课"><a href="#复习课" class="headerlink" title="复习课"></a>复习课</h2><ol>
+<li>简答（对pattern的理解为主）和综合应用 每个pattern都会考到 应用题：单个或多个模式联合应用 所有考试内容都是PPT讲过的</li>
+<li>英文试卷，答题可以中文</li>
+<li>重点的先讲了</li>
+<li>第一阵列：工厂方法模式  Java反射机制 （桥接模式引入抽象后难以理解，因为它将一个概念拆分成了两个部分）</li>
+</ol>
+<ul>
+<li>✅抽象工厂和工厂动机有什么不同，这导致了实现有什么不同？ 产品（继承）和产品族（组合方式） 一个抽象工厂关联所有类型的产品</li>
+<li>✅单例模式 可以进行扩展 增加抽象层 重点</li>
+</ul>
+<p>结构型模式：</p>
+<ul>
+<li>✅适配器模式 Adapter 透明性【要考】（策略模式和状态模式） 对象适配器更灵活 将多个对象的接口构成一个大的对象  默认适配器不考  双向适配器在考试范围内  掌握对象适配器和类适配器以及一个模式扩展双向适配器</li>
+<li>✅组合模式 模式结构图比较像的，装饰者模式 两个模式的component的差别？ 类图的区别，装饰者还有一层抽象，组合对象只有一层  观察者模式和组合模式（都是容器）可以很容易到一起 组合模式最容易和其他模式结合 组合模式是一个重要考点（考察模式联用） 组合模式也很容易和命令模式结合 </li>
+<li>✅装饰者模式 看到红字比较重要 responsibility dynamically 扩展功能可以联想装饰者 extending functionality（dynamically通常都是组合） 符合开闭原则的一般缺乏约束 挺重要的模式，但正常掌握就可以了</li>
+</ul>
+<p>建造者模式 普通掌握型（意图、定义、类图等）</p>
+<ul>
+<li><p>✅原型模式 在Java中的实现，最重要的：深克隆、浅克隆 区别？邮件复制深克隆复制哪些 浅克隆复制哪些</p>
+</li>
+<li><p>✅桥接模式 重点是变化的维度如何确定 识别抽象部分和实现部分 抽象化是实体的本身 实现化是针对抽象化的具体实现 对于单一职责原则支持非常好 策略模式、状态模式对单一职责体现明显，体现在哪里？ 适配器和桥接联用 （要考 抽象、实现、模式联用）</p>
+</li>
+<li><p>✅外观模式 概念（还有很多其他和接口相关的模式 和其他模式的区分）有几条原则在外观模式中体现的特别明显 为什么要设计外观模式？ 单一职责、迪米特、对开闭原则哪里支持不好（在不引人抽象外观类的情况下，增加新的子系统可能需要修改外观类）</p>
+</li>
+<li><p>✅享元Flyweight模式 定义 元：状态（分为内部状态、外部状态）外部状态和内部状态不一定要通过组合构成对象，可以通过任意方式进行联合使用 构造注入，参数注入都可以 享元和工厂联用 共享网络设备类图，就是通过参数注入的外部状态 关键就是区别出内部状态和外部状态</p>
+</li>
+<li><p>✅代理模式 掌握的点很多 代理和真实对象一起工作，继承相同的抽象类 三种代理：远程代理（讲的重点 RMI 牵涉到复杂的流程，RMI中谁是代理，有相同的接口 接口从哪里来 根据真实对象来，如何获取远程代理，如何注册服务…等）、虚拟代理、保护代理 重点是三种代理，代理的应用细节，具体应用中谁是代理，代理的接口是哪一个</p>
+</li>
+<li><p>✅命令模式：命令的发送者和命令的实现者解耦 各角色职责，命令模式和其他模式的联用  任务中还有子任务，这个时候如何和其他模式组合 几种角色：invoker，receiver等 undo和redo怎么做 宏命令，是命令模式和组合模式联用的产物 命令模式不使用宏的方式和直接调用有什么差别？（书上有）</p>
+</li>
+<li><p>✅ 观察者模式 MVC中观察者是如何体现的 MVC之间到底是如何交互的，交互的细节是如何通过模式实现的 Java中的Observable的notify是如何实现的？pull push  外部观察者和内部观察者的差别？ 内部观察隐含了this，外部观察没有信息，需要多一个参数  广播通信 通知哪些对象并不总是同一组对象 可以有多个观察队列 观察、通知是一个迭代的过程，通知部分的时候可以使用组合、迭代联合的方式  深入考察 Java观察者选择的是推还是拉，内部还是外部观察，优缺点？还受限于语言本身 保留对主题的引用，为什么？有一个拉数据的作用 外部观察是一种很好的实现方式，但是有一个致命的缺点</p>
+</li>
+<li><p>✅状态模式 和策略模式类图相同 透明性的问题 由于意图不同，所以对客户的要求不同 策略不能对客户透明，状态对客户透明 转换、状态类是否复用 由动作引发的，在状态类中实现是最直观的 但如果通过判定状态属性来决定是否状态迁移，主要看数据在哪边  复用动作vs数据，生成新的状态  考点：场景、状态模式在具体实现的时候需要注意的点</p>
+</li>
+<li><p>✅策略模式 策略模式体现了哪几个设计原则 和状态模式的差异</p>
+</li>
+<li><p>✅模板方法模式 工厂是模板方法的一个刻画 方便地和其他模式联用 联用过程中另外那个方法的代码要根据模板方法实现 final方法 abstract方法</p>
+</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://zhangfuli.github.io/2019/12/05/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93/" title="设计模式总结" target="_blank" rel="external">https://zhangfuli.github.io/2019/12/05/设计模式总结/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangfuli" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangfuli" target="_blank"><span class="text-dark">张富利</span><small class="ml-1x">学生</small></a></h3>
+        <div>Do myself,Believe myself,Try my best</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2019/12/18/Technology-Mediated-Social-Participation-The-Next-25-Years-of-HCI-Challenges/" title="Technology-Mediated Social Participation: The Next 25 Years of HCI Challenges"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2019/11/25/linux%E8%80%83%E8%AF%95%E9%87%8D%E7%82%B9/" title="linux考试重点"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498969-6d12a800-deef-11e9-927a-89d5d0ce9e42.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498913-4fddd980-deef-11e9-9da1-56f86199713b.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'e0m4Aw9mFAjO1UuHuINbSEOm-gzGzoHsz',
+    appKey: 'VwY3lLrV5rMPSG6AFGO87omg',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>css常用的定位方式 | Hexo</title>
+  <meta name="description" content="浮动定位浮动元素会从普通文档流中脱离，但浮动元素影响的不仅是自己，它会影响周围的元素对齐进行环绕。浮动可以让页面元素并排显示，浮动可以让元素一个挨着一个。浮动可以创建一个自然流布局，同时充许元素设置自身尺寸和其父元素容器的尺寸大小。for exampleHTML&lt;div class&#x3D;&quot;father&quot;&gt;   &lt;div class&#x3D;&quot;box&quot;&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css常用的定位方式">
+<meta property="og:url" content="https://zhangfuli.github.io/2016/10/27/css%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%9A%E4%BD%8D%E6%96%B9%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Hello, Zhangfuli">
+<meta property="og:description" content="浮动定位浮动元素会从普通文档流中脱离，但浮动元素影响的不仅是自己，它会影响周围的元素对齐进行环绕。浮动可以让页面元素并排显示，浮动可以让元素一个挨着一个。浮动可以创建一个自然流布局，同时充许元素设置自身尺寸和其父元素容器的尺寸大小。for exampleHTML&lt;div class&#x3D;&quot;father&quot;&gt;   &lt;div class&#x3D;&quot;box&quot;&amp;">
+<meta property="og:locale">
+<meta property="og:image" content="https://zhangfuli.github.io/2016/10/27/css%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%9A%E4%BD%8D%E6%96%B9%E5%BC%8F/images/float_demo.png">
+<meta property="og:image" content="https://zhangfuli.github.io/2016/10/27/css%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%9A%E4%BD%8D%E6%96%B9%E5%BC%8F/images/clear_demo.png">
+<meta property="og:image" content="https://zhangfuli.github.io/2016/10/27/css%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%9A%E4%BD%8D%E6%96%B9%E5%BC%8F/images/overflow_demo.png">
+<meta property="og:image" content="https://zhangfuli.github.io/2016/10/27/css%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%9A%E4%BD%8D%E6%96%B9%E5%BC%8F/images/position_demo.png">
+<meta property="og:image" content="https://zhangfuli.github.io/2016/10/27/css%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%9A%E4%BD%8D%E6%96%B9%E5%BC%8F/images/relative_demo.png">
+<meta property="article:published_time" content="2016-10-27T08:07:37.000Z">
+<meta property="article:modified_time" content="2018-06-01T11:33:03.474Z">
+<meta property="article:author" content="张富利">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zhangfuli.github.io/2016/10/27/css%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%9A%E4%BD%8D%E6%96%B9%E5%BC%8F/images/float_demo.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://zhangfuli.github.io/2016/10/27/css%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%9A%E4%BD%8D%E6%96%B9%E5%BC%8F/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hello, Zhangfuli" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/zhangfuli" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">张富利</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">学生</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> NanJing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTML-CSS/">HTML CSS</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/angularjs/">angularjs</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8E%A2%E7%A9%B6/">探究</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83/">环境</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A1%AC%E4%BB%B6/">硬件</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML-CSS/" rel="tag">HTML CSS</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angularjs/" rel="tag">angularjs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A2%E7%A9%B6/" rel="tag">探究</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83/" rel="tag">环境</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/HTML-CSS/" style="font-size: 13.63px;">HTML CSS</a> <a href="/tags/Linux/" style="font-size: 13.5px;">Linux</a> <a href="/tags/angularjs/" style="font-size: 13.5px;">angularjs</a> <a href="/tags/hexo/" style="font-size: 13.5px;">hexo</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/mongodb/" style="font-size: 13.38px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.38px;">nodejs</a> <a href="/tags/python/" style="font-size: 13.13px;">python</a> <a href="/tags/react/" style="font-size: 13px;">react</a> <a href="/tags/vue/" style="font-size: 13.25px;">vue</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.25px;">区块链</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 13px;">小程序</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 13px;">工具</a> <a href="/tags/%E6%8E%A2%E7%A9%B6/" style="font-size: 13.63px;">探究</a> <a href="/tags/%E7%8E%AF%E5%A2%83/" style="font-size: 13.75px;">环境</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 13.88px;">生活</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.13px;">硬件</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AF%87/" class="title">操作系统篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T11:07:17.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-golang%E7%AF%87/" class="title">golang篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T10:57:08.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/23/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Jenkins/" class="title">Jenkins-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-23T03:33:03.000Z" itemprop="datePublished">2021-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E5%89%8D%E7%AB%AF-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AF%87/" class="title">前端/数据库/Spring/Java-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:15:30.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Redis-Prometheus-RocketMQ%E7%AF%87/" class="title">Redis/Prometheus/RocketMQ篇-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:14:17.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-css常用的定位方式" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      css常用的定位方式
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2016/10/27/css%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%9A%E4%BD%8D%E6%96%B9%E5%BC%8F/" class="article-date">
+	  <time datetime="2016-10-27T08:07:37.000Z" itemprop="datePublished">2016-10-27</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/javascript/">javascript</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/javascript/" rel="tag">javascript</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2016/10/27/css%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%9A%E4%BD%8D%E6%96%B9%E5%BC%8F/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h3 id="浮动定位"><a href="#浮动定位" class="headerlink" title="浮动定位"></a>浮动定位</h3><h6 id="浮动元素会从普通文档流中脱离，但浮动元素影响的不仅是自己，它会影响周围的元素对齐进行环绕。"><a href="#浮动元素会从普通文档流中脱离，但浮动元素影响的不仅是自己，它会影响周围的元素对齐进行环绕。" class="headerlink" title="浮动元素会从普通文档流中脱离，但浮动元素影响的不仅是自己，它会影响周围的元素对齐进行环绕。"></a>浮动元素会从普通文档流中脱离，但浮动元素影响的不仅是自己，它会影响周围的元素对齐进行环绕。</h6><h6 id="浮动可以让页面元素并排显示，浮动可以让元素一个挨着一个。浮动可以创建一个自然流布局，同时充许元素设置自身尺寸和其父元素容器的尺寸大小。"><a href="#浮动可以让页面元素并排显示，浮动可以让元素一个挨着一个。浮动可以创建一个自然流布局，同时充许元素设置自身尺寸和其父元素容器的尺寸大小。" class="headerlink" title="浮动可以让页面元素并排显示，浮动可以让元素一个挨着一个。浮动可以创建一个自然流布局，同时充许元素设置自身尺寸和其父元素容器的尺寸大小。"></a>浮动可以让页面元素并排显示，浮动可以让元素一个挨着一个。浮动可以创建一个自然流布局，同时充许元素设置自身尺寸和其父元素容器的尺寸大小。</h6><h6 id="for-example"><a href="#for-example" class="headerlink" title="for example"></a>for example</h6><h6 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h6><pre><code>&lt;div class=&quot;father&quot;&gt;
+  &lt;div class=&quot;box&quot;&gt;Box&lt;/div&gt;
+  &lt;div class=&quot;box&quot;&gt;Box&lt;/div&gt;
+  &lt;div class=&quot;box&quot;&gt;Box&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<h6 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h6><pre><code>.father&#123;
+    width:150px;
+    background:#e8eae9;
+&#125;
+.box&#123;
+    width:30px;
+    height:30px;
+    margin:10px;
+    background:#8ec63f;
+    float: left;
+&#125;
+</code></pre>
+<h6 id="DEMO演示效果-这里就不插入html了，markdown编译时自动换行影响效果"><a href="#DEMO演示效果-这里就不插入html了，markdown编译时自动换行影响效果" class="headerlink" title="DEMO演示效果(这里就不插入html了，markdown编译时自动换行影响效果)"></a>DEMO演示效果(这里就不插入html了，markdown编译时自动换行影响效果)</h6><img src="images/float_demo.png" alt="演示1">
+
+<h3 id="clear属性"><a href="#clear属性" class="headerlink" title="clear属性"></a>clear属性</h3><h6 id="有的时候，我们不希望一些元素会被旁边的浮动元素影响到，这个时候就需要用到clear属性了。"><a href="#有的时候，我们不希望一些元素会被旁边的浮动元素影响到，这个时候就需要用到clear属性了。" class="headerlink" title="有的时候，我们不希望一些元素会被旁边的浮动元素影响到，这个时候就需要用到clear属性了。"></a>有的时候，我们不希望一些元素会被旁边的浮动元素影响到，这个时候就需要用到clear属性了。</h6><h6 id="clear属性：确保当前元素的左右两侧不会有浮动元素。"><a href="#clear属性：确保当前元素的左右两侧不会有浮动元素。" class="headerlink" title="clear属性：确保当前元素的左右两侧不会有浮动元素。"></a>clear属性：确保当前元素的左右两侧不会有浮动元素。</h6><h6 id="使用clear属性的时候要记住：clear只对元素本身的布局起作用-clear属性只适用于块级元素"><a href="#使用clear属性的时候要记住：clear只对元素本身的布局起作用-clear属性只适用于块级元素" class="headerlink" title="使用clear属性的时候要记住：clear只对元素本身的布局起作用,clear属性只适用于块级元素"></a>使用clear属性的时候要记住：clear只对元素本身的布局起作用,clear属性只适用于块级元素</h6><h6 id="HTML-1"><a href="#HTML-1" class="headerlink" title="HTML"></a>HTML</h6><pre><code>&lt;div class=&quot;father&quot;&gt;
+  &lt;div class=&quot;box&quot;&gt;Box&lt;/div&gt;
+  &lt;div class=&quot;box cl&quot;&gt;Box&lt;/div&gt;
+  &lt;div class=&quot;box&quot;&gt;Box&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<h6 id="CSS-1"><a href="#CSS-1" class="headerlink" title="CSS"></a>CSS</h6><pre><code>.father&#123;
+    width:150px;
+    background:#e8eae9;
+&#125;
+.box&#123;
+    width:30px;
+    height:30px;
+    margin:10px;
+    background:#8ec63f;
+    float: left;
+&#125;
+.cl&#123;
+    clear:left;
+&#125;
+</code></pre>
+<h6 id="DEMO"><a href="#DEMO" class="headerlink" title="DEMO"></a>DEMO</h6><img src="images/clear_demo.png" alt="演示2">
+
+<h6 id="当然，你的第二个box也可以另写一个class没有浮动"><a href="#当然，你的第二个box也可以另写一个class没有浮动" class="headerlink" title="当然，你的第二个box也可以另写一个class没有浮动"></a>当然，你的第二个box也可以另写一个class没有浮动</h6><h3 id="overflow-hidden"><a href="#overflow-hidden" class="headerlink" title="overflow:hidden"></a>overflow:hidden</h3><h6 id="这个方法的关键在于触发了BFC"><a href="#这个方法的关键在于触发了BFC" class="headerlink" title="这个方法的关键在于触发了BFC"></a>这个方法的关键在于触发了BFC</h6><h6 id="BFC-BFC是一个名词，是一个独立的布局环境，我们可以理解为一个箱子（实际上是看不见摸不着的），箱子里面物品的摆放是不受外界的影响的。转换为BFC的理解则是：BFC中的元素的布局是不受外界的影响（我们往往利用这个特性来消除浮动元素对其非浮动的兄弟元素和其子元素带来的影响。）并且在一个BFC中，块盒与行盒（行盒由一行中所有的内联元素所组成）都会垂直的沿着其父元素的边框排列。"><a href="#BFC-BFC是一个名词，是一个独立的布局环境，我们可以理解为一个箱子（实际上是看不见摸不着的），箱子里面物品的摆放是不受外界的影响的。转换为BFC的理解则是：BFC中的元素的布局是不受外界的影响（我们往往利用这个特性来消除浮动元素对其非浮动的兄弟元素和其子元素带来的影响。）并且在一个BFC中，块盒与行盒（行盒由一行中所有的内联元素所组成）都会垂直的沿着其父元素的边框排列。" class="headerlink" title="BFC:BFC是一个名词，是一个独立的布局环境，我们可以理解为一个箱子（实际上是看不见摸不着的），箱子里面物品的摆放是不受外界的影响的。转换为BFC的理解则是：BFC中的元素的布局是不受外界的影响（我们往往利用这个特性来消除浮动元素对其非浮动的兄弟元素和其子元素带来的影响。）并且在一个BFC中，块盒与行盒（行盒由一行中所有的内联元素所组成）都会垂直的沿着其父元素的边框排列。"></a>BFC:BFC是一个名词，是一个独立的布局环境，我们可以理解为一个箱子（实际上是看不见摸不着的），箱子里面物品的摆放是不受外界的影响的。转换为BFC的理解则是：BFC中的元素的布局是不受外界的影响（我们往往利用这个特性来消除浮动元素对其非浮动的兄弟元素和其子元素带来的影响。）并且在一个BFC中，块盒与行盒（行盒由一行中所有的内联元素所组成）都会垂直的沿着其父元素的边框排列。</h6><h6 id="HTML-2"><a href="#HTML-2" class="headerlink" title="HTML"></a>HTML</h6><pre><code>&lt;div class=&quot;top_bottom&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;father&quot;&gt;
+  &lt;div class=&quot;box&quot;&gt;Box&lt;/div&gt;
+  &lt;div class=&quot;box&quot;&gt;Box&lt;/div&gt;
+  &lt;div class=&quot;box&quot;&gt;Box&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;top_bottom&quot;&gt;&lt;/div&gt;
+</code></pre>
+<h6 id="CSS-2"><a href="#CSS-2" class="headerlink" title="CSS"></a>CSS</h6><pre><code>.top_bottom&#123;
+    width:50px;
+    height:50px;
+    background:#000;
+&#125;
+.father&#123;
+    width:150px;
+    background:#e8eae9;
+    overflow:hidden;
+&#125;
+.box&#123;
+    width:30px;
+    height:30px;
+    margin:10px;
+    background:#8ec63f;
+    float: left;
+&#125;
+</code></pre>
+<h6 id="DEMO-1"><a href="#DEMO-1" class="headerlink" title="DEMO"></a>DEMO</h6><img src="images/overflow_demo.png" alt="演示3">
+
+<h6 id="这里也许看来了，overflow-hidden使父元素不被折叠。-颜色为灰色，仔细看还是能看出来的"><a href="#这里也许看来了，overflow-hidden使父元素不被折叠。-颜色为灰色，仔细看还是能看出来的" class="headerlink" title="这里也许看来了，overflow:hidden使父元素不被折叠。(颜色为灰色，仔细看还是能看出来的)"></a>这里也许看来了，overflow:hidden使父元素不被折叠。(颜色为灰色，仔细看还是能看出来的)</h6><h3 id="overflow扩展"><a href="#overflow扩展" class="headerlink" title="overflow扩展"></a>overflow扩展</h3><h6 id="overflow有四种属性分别是visible-hidden-scroll-auto"><a href="#overflow有四种属性分别是visible-hidden-scroll-auto" class="headerlink" title="overflow有四种属性分别是visible,hidden,scroll,auto"></a>overflow有四种属性分别是visible,hidden,scroll,auto</h6><h6 id="overflow的默认属性是visible-可见的"><a href="#overflow的默认属性是visible-可见的" class="headerlink" title="overflow的默认属性是visible,可见的"></a>overflow的默认属性是visible,可见的</h6><h6 id="hidden是当你盒模型超出的时候会被隐藏，当然常常被用于消除浮动"><a href="#hidden是当你盒模型超出的时候会被隐藏，当然常常被用于消除浮动" class="headerlink" title="hidden是当你盒模型超出的时候会被隐藏，当然常常被用于消除浮动"></a>hidden是当你盒模型超出的时候会被隐藏，当然常常被用于消除浮动</h6><h6 id="scroll和auto有类似的用法，就是出现滚动条"><a href="#scroll和auto有类似的用法，就是出现滚动条" class="headerlink" title="scroll和auto有类似的用法，就是出现滚动条"></a>scroll和auto有类似的用法，就是出现滚动条</h6><h3 id="after伪元素"><a href="#after伪元素" class="headerlink" title="after伪元素"></a>after伪元素</h3><h6 id="这种方法是生成一个元素来消除浮动，只是这个元素不可见，是假的"><a href="#这种方法是生成一个元素来消除浮动，只是这个元素不可见，是假的" class="headerlink" title="这种方法是生成一个元素来消除浮动，只是这个元素不可见，是假的"></a>这种方法是生成一个元素来消除浮动，只是这个元素不可见，是假的</h6><h6 id="HTML-3"><a href="#HTML-3" class="headerlink" title="HTML"></a>HTML</h6><pre><code>&lt;div class=&quot;top_bottom&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;father&quot;&gt;
+  &lt;div class=&quot;box&quot;&gt;Box&lt;/div&gt;
+  &lt;div class=&quot;box&quot;&gt;Box&lt;/div&gt;
+  &lt;div class=&quot;box&quot;&gt;Box&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;top_bottom&quot;&gt;&lt;/div&gt;
+</code></pre>
+<h6 id="CSS-3"><a href="#CSS-3" class="headerlink" title="CSS"></a>CSS</h6><pre><code>.top_bottom&#123;
+    width:50px;
+    height:50px;
+    background:#000;
+&#125;
+.father&#123;
+    width:150px;
+    background:#e8eae9;
+&#125;
+.box&#123;
+    width:30px;
+    height:30px;
+    margin:10px;
+    background:#8ec63f;
+    float: left;
+&#125;
+.father:after&#123;
+    content: &quot;&quot;; 
+    visibility: hidden; 
+    display: block; 
+    height: 0px; 
+    clear: both;
+&#125;
+</code></pre>
+<h6 id="当然这里实现的demo和上面的是一样的"><a href="#当然这里实现的demo和上面的是一样的" class="headerlink" title="当然这里实现的demo和上面的是一样的"></a>当然这里实现的demo和上面的是一样的</h6><h3 id="position定位"><a href="#position定位" class="headerlink" title="position定位"></a>position定位</h3><h6 id="position五大属性static、absolute、fixed、relative、inherit"><a href="#position五大属性static、absolute、fixed、relative、inherit" class="headerlink" title="position五大属性static、absolute、fixed、relative、inherit"></a>position五大属性static、absolute、fixed、relative、inherit</h6><h3 id="static-默认"><a href="#static-默认" class="headerlink" title="static(默认)"></a>static(默认)</h3><h6 id="当你没有为一个元素-例如div-指定定位方式时，默认为static，也就是按照文档的流式-flow-定位。除非你想覆盖从父元素继承来的定位系统。"><a href="#当你没有为一个元素-例如div-指定定位方式时，默认为static，也就是按照文档的流式-flow-定位。除非你想覆盖从父元素继承来的定位系统。" class="headerlink" title="当你没有为一个元素(例如div)指定定位方式时，默认为static，也就是按照文档的流式(flow)定位。除非你想覆盖从父元素继承来的定位系统。"></a>当你没有为一个元素(例如div)指定定位方式时，默认为static，也就是按照文档的流式(flow)定位。除非你想覆盖从父元素继承来的定位系统。</h6><h3 id="absolute-绝对定位"><a href="#absolute-绝对定位" class="headerlink" title="absolute(绝对定位)"></a>absolute(绝对定位)</h3><h6 id="绝对定位会使元素从文档流中被删除，结果就是该元素原本占据的空间被其它元素所填充。"><a href="#绝对定位会使元素从文档流中被删除，结果就是该元素原本占据的空间被其它元素所填充。" class="headerlink" title="绝对定位会使元素从文档流中被删除，结果就是该元素原本占据的空间被其它元素所填充。"></a>绝对定位会使元素从文档流中被删除，结果就是该元素原本占据的空间被其它元素所填充。</h6><h6 id="需要设置position-absolute-表示绝对定位-，然后使用left、right、top、bottom属性相对于其最接近的一个具有定位属性的父包含块进行绝对定位。如果不存在这样的包含块，则相对于body元素，即相对于浏览器窗口。"><a href="#需要设置position-absolute-表示绝对定位-，然后使用left、right、top、bottom属性相对于其最接近的一个具有定位属性的父包含块进行绝对定位。如果不存在这样的包含块，则相对于body元素，即相对于浏览器窗口。" class="headerlink" title="需要设置position:absolute(表示绝对定位)，然后使用left、right、top、bottom属性相对于其最接近的一个具有定位属性的父包含块进行绝对定位。如果不存在这样的包含块，则相对于body元素，即相对于浏览器窗口。"></a>需要设置position:absolute(表示绝对定位)，然后使用left、right、top、bottom属性相对于其最接近的一个具有定位属性的父包含块进行绝对定位。如果不存在这样的包含块，则相对于body元素，即相对于浏览器窗口。</h6><h6 id="HTML-4"><a href="#HTML-4" class="headerlink" title="HTML"></a>HTML</h6><pre><code>&lt;div class=&quot;father&quot;&gt;
+    &lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<h6 id="CSS-4"><a href="#CSS-4" class="headerlink" title="CSS"></a>CSS</h6><pre><code>.father&#123;
+    width: 50px;
+    height: 50px;
+    background: green;
+    margin-top:10px; 
+    position: relative;
+&#125;
+.box&#123;
+    width: 50px;
+    height: 50px;
+    border: red 10px solid;
+    position: absolute;
+    top: 70px;
+&#125;
+</code></pre>
+<h6 id="DEMO-2"><a href="#DEMO-2" class="headerlink" title="DEMO"></a>DEMO</h6><img src="images/position_demo.png" alt="演示4">
+
+<h6 id="注意-相对于最近的一个父本"><a href="#注意-相对于最近的一个父本" class="headerlink" title="注意:相对于最近的一个父本"></a>注意:相对于最近的一个父本</h6><h3 id="relative-相对定位"><a href="#relative-相对定位" class="headerlink" title="relative(相对定位)"></a>relative(相对定位)</h3><h6 id="，需要设置position-relative（表示相对定位），它通过left、right、top、bottom属性确定元素在正常文档流中的偏移位置。"><a href="#，需要设置position-relative（表示相对定位），它通过left、right、top、bottom属性确定元素在正常文档流中的偏移位置。" class="headerlink" title="，需要设置position:relative（表示相对定位），它通过left、right、top、bottom属性确定元素在正常文档流中的偏移位置。"></a>，需要设置position:relative（表示相对定位），它通过left、right、top、bottom属性确定元素在正常文档流中的偏移位置。</h6><h6 id="相对于以前的位置移动，移动的方向和幅度由left、right、top、bottom属性确定，偏移前的位置保留不动。还在文件流中"><a href="#相对于以前的位置移动，移动的方向和幅度由left、right、top、bottom属性确定，偏移前的位置保留不动。还在文件流中" class="headerlink" title="相对于以前的位置移动，移动的方向和幅度由left、right、top、bottom属性确定，偏移前的位置保留不动。还在文件流中"></a>相对于以前的位置移动，移动的方向和幅度由left、right、top、bottom属性确定，偏移前的位置保留不动。还在文件流中</h6><h6 id="HTML-5"><a href="#HTML-5" class="headerlink" title="HTML"></a>HTML</h6><pre><code>&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
+</code></pre>
+<h6 id="CSS-5"><a href="#CSS-5" class="headerlink" title="CSS"></a>CSS</h6><pre><code>.box&#123;
+    width: 50px;
+    height: 50px;
+    border: red 10px solid;
+    position: relative;
+    top: 70px;
+&#125;
+</code></pre>
+<h6 id="DEMO-3"><a href="#DEMO-3" class="headerlink" title="DEMO"></a>DEMO</h6><img src="images/relative_demo.png" alt="演示5">
+
+<h6 id="注意-这里是相对自己原来的位置-若不加relative则顶着浏览器上面"><a href="#注意-这里是相对自己原来的位置-若不加relative则顶着浏览器上面" class="headerlink" title="注意:这里是相对自己原来的位置,若不加relative则顶着浏览器上面"></a>注意:这里是相对自己原来的位置,若不加relative则顶着浏览器上面</h6><h3 id="fixed-固定定位"><a href="#fixed-固定定位" class="headerlink" title="fixed(固定定位)"></a>fixed(固定定位)</h3><h6 id="相对于浏览器屏幕的定位-不会随滚动条的滚动而变化"><a href="#相对于浏览器屏幕的定位-不会随滚动条的滚动而变化" class="headerlink" title="相对于浏览器屏幕的定位,不会随滚动条的滚动而变化"></a>相对于浏览器屏幕的定位,不会随滚动条的滚动而变化</h6><h6 id="这里就不给DEMO了-相信你一定有体会-百度搜索出来的东西-无论怎么滚滚动条-广告怎么拉都不走"><a href="#这里就不给DEMO了-相信你一定有体会-百度搜索出来的东西-无论怎么滚滚动条-广告怎么拉都不走" class="headerlink" title="这里就不给DEMO了,相信你一定有体会,百度搜索出来的东西,无论怎么滚滚动条,广告怎么拉都不走"></a>这里就不给DEMO了,相信你一定有体会,百度搜索出来的东西,无论怎么滚滚动条,广告怎么拉都不走</h6>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://zhangfuli.github.io/2016/10/27/css%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%9A%E4%BD%8D%E6%96%B9%E5%BC%8F/" title="css常用的定位方式" target="_blank" rel="external">https://zhangfuli.github.io/2016/10/27/css常用的定位方式/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangfuli" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangfuli" target="_blank"><span class="text-dark">张富利</span><small class="ml-1x">学生</small></a></h3>
+        <div>Do myself,Believe myself,Try my best</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2016/11/04/nodejs%E7%88%AC%E8%99%AB/" title="nodejs爬虫"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2016/10/17/yoursite/" title="yoursite"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498969-6d12a800-deef-11e9-927a-89d5d0ce9e42.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498913-4fddd980-deef-11e9-9da1-56f86199713b.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'e0m4Aw9mFAjO1UuHuINbSEOm-gzGzoHsz',
+    appKey: 'VwY3lLrV5rMPSG6AFGO87omg',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

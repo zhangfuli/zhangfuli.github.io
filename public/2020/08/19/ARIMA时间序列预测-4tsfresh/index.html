@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>ARIMA时间序列预测-4tsfresh | Hexo</title>
+  <meta name="description" content="123456789import matplotlib.pylab as pltimport seaborn as snsfrom sklearn.metrics import classification_reportfrom sklearn.model_selection import train_test_splitfrom sklearn.tree import DecisionTreeCl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ARIMA时间序列预测-4tsfresh">
+<meta property="og:url" content="https://zhangfuli.github.io/2020/08/19/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-4tsfresh/index.html">
+<meta property="og:site_name" content="Hello, Zhangfuli">
+<meta property="og:description" content="123456789import matplotlib.pylab as pltimport seaborn as snsfrom sklearn.metrics import classification_reportfrom sklearn.model_selection import train_test_splitfrom sklearn.tree import DecisionTreeCl">
+<meta property="og:locale">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-4tsfresh/output_2_0.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-4tsfresh/output_2_1.png">
+<meta property="article:published_time" content="2020-08-19T10:44:31.000Z">
+<meta property="article:modified_time" content="2020-08-19T10:45:27.997Z">
+<meta property="article:author" content="张富利">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-4tsfresh/output_2_0.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://zhangfuli.github.io/2020/08/19/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-4tsfresh/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hello, Zhangfuli" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/zhangfuli" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">张富利</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">学生</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> NanJing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTML-CSS/">HTML CSS</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/angularjs/">angularjs</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8E%A2%E7%A9%B6/">探究</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83/">环境</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A1%AC%E4%BB%B6/">硬件</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML-CSS/" rel="tag">HTML CSS</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angularjs/" rel="tag">angularjs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A2%E7%A9%B6/" rel="tag">探究</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83/" rel="tag">环境</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/HTML-CSS/" style="font-size: 13.63px;">HTML CSS</a> <a href="/tags/Linux/" style="font-size: 13.5px;">Linux</a> <a href="/tags/angularjs/" style="font-size: 13.5px;">angularjs</a> <a href="/tags/hexo/" style="font-size: 13.5px;">hexo</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/mongodb/" style="font-size: 13.38px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.38px;">nodejs</a> <a href="/tags/python/" style="font-size: 13.13px;">python</a> <a href="/tags/react/" style="font-size: 13px;">react</a> <a href="/tags/vue/" style="font-size: 13.25px;">vue</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.25px;">区块链</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 13px;">小程序</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 13px;">工具</a> <a href="/tags/%E6%8E%A2%E7%A9%B6/" style="font-size: 13.63px;">探究</a> <a href="/tags/%E7%8E%AF%E5%A2%83/" style="font-size: 13.75px;">环境</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 13.88px;">生活</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.13px;">硬件</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AF%87/" class="title">操作系统篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T11:07:17.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-golang%E7%AF%87/" class="title">golang篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T10:57:08.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/23/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Jenkins/" class="title">Jenkins-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-23T03:33:03.000Z" itemprop="datePublished">2021-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E5%89%8D%E7%AB%AF-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AF%87/" class="title">前端/数据库/Spring/Java-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:15:30.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Redis-Prometheus-RocketMQ%E7%AF%87/" class="title">Redis/Prometheus/RocketMQ篇-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:14:17.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-ARIMA时间序列预测-4tsfresh" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ARIMA时间序列预测-4tsfresh
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/08/19/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-4tsfresh/" class="article-date">
+	  <time datetime="2020-08-19T10:44:31.000Z" itemprop="datePublished">2020-08-19</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/08/19/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-4tsfresh/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pylab <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> classification_report</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier</span><br><span class="line"><span class="keyword">from</span> tsfresh <span class="keyword">import</span> extract_features, select_features, extract_relevant_features</span><br><span class="line"><span class="keyword">from</span> tsfresh.examples <span class="keyword">import</span> download_robot_execution_failures, load_robot_execution_failures</span><br><span class="line"><span class="keyword">from</span> tsfresh.feature_extraction <span class="keyword">import</span> ComprehensiveFCParameters</span><br><span class="line"><span class="keyword">from</span> tsfresh.utilities.dataframe_functions <span class="keyword">import</span> impute</span><br></pre></td></tr></table></figure>
+
+<pre><code>//anaconda3/lib/python3.7/site-packages/statsmodels/tools/_testing.py:19: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
+  import pandas.util.testing as tm
+//anaconda3/lib/python3.7/site-packages/statsmodels/compat/pandas.py:23: FutureWarning: The Panel class is removed from pandas. Accessing it from the top-level namespace will also be removed in the next version
+  data_klasses = (pandas.Series, pandas.DataFrame, pandas.Panel)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">download_robot_execution_failures()</span><br><span class="line">df, y = load_robot_execution_failures()</span><br><span class="line"><span class="built_in">print</span>(df.head())</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>   id  time  F_x  F_y  F_z  T_x  T_y  T_z
+0   1     0   -1   -1   63   -3   -1    0
+1   1     1    0    0   62   -3   -1    0
+2   1     2   -1   -1   61   -3    0    0
+3   1     3   -1   -1   63   -2   -1    0
+4   1     4   -1   -1   63   -3   -1    0
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df[df.<span class="built_in">id</span> == <span class="number">3</span>][[<span class="string">&#x27;time&#x27;</span>, <span class="string">&#x27;F_x&#x27;</span>, <span class="string">&#x27;F_y&#x27;</span>, <span class="string">&#x27;F_z&#x27;</span>, <span class="string">&#x27;T_x&#x27;</span>, <span class="string">&#x27;T_y&#x27;</span>, <span class="string">&#x27;T_z&#x27;</span>]].plot(x=<span class="string">&#x27;time&#x27;</span>, title=<span class="string">&quot;Success example (id 3)&quot;</span>,                                                                       figsize=(<span class="number">12</span>, <span class="number">6</span>))</span><br><span class="line">df[df.<span class="built_in">id</span> == <span class="number">20</span>][[<span class="string">&#x27;time&#x27;</span>, <span class="string">&#x27;F_x&#x27;</span>, <span class="string">&#x27;F_y&#x27;</span>, <span class="string">&#x27;F_z&#x27;</span>, <span class="string">&#x27;T_x&#x27;</span>, <span class="string">&#x27;T_y&#x27;</span>, <span class="string">&#x27;T_z&#x27;</span>]].plot(x=<span class="string">&#x27;time&#x27;</span>, title=<span class="string">&quot;Success example (id 20)&quot;</span>,                                                                    figsize=(<span class="number">12</span>, <span class="number">6</span>))</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-4tsfresh/output_2_0.png" alt="png"></p>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-4tsfresh/output_2_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">extracted_features = extract_features(df, column_id=<span class="string">&quot;id&quot;</span>, column_sort=<span class="string">&quot;time&quot;</span>)</span><br><span class="line">X = impute(extracted_features)</span><br><span class="line"><span class="built_in">print</span>(X)</span><br></pre></td></tr></table></figure>
+
+<pre><code>Feature Extraction: 100%|██████████| 10/10 [00:10&lt;00:00,  1.08s/it]
+//anaconda3/lib/python3.7/site-packages/tsfresh/utilities/dataframe_functions.py:173: RuntimeWarning: The columns [&#39;F_x__agg_linear_trend__attr_&quot;intercept&quot;__chunk_len_50__f_agg_&quot;max&quot;&#39;
+ &#39;F_x__agg_linear_trend__attr_&quot;intercept&quot;__chunk_len_50__f_agg_&quot;mean&quot;&#39;
+ &#39;F_x__agg_linear_trend__attr_&quot;intercept&quot;__chunk_len_50__f_agg_&quot;min&quot;&#39; ...
+ &#39;T_z__fft_coefficient__attr_&quot;real&quot;__coeff_98&#39;
+ &#39;T_z__fft_coefficient__attr_&quot;real&quot;__coeff_99&#39;
+ &#39;T_z__spkt_welch_density__coeff_8&#39;] did not have any finite values. Filling with zeros.
+  df.iloc[:, np.where(is_col_non_finite)[0]].columns.values), RuntimeWarning)
+
+
+variable  F_x__abs_energy  F_x__absolute_sum_of_changes  \
+id                                                        
+1                    14.0                           2.0   
+2                    25.0                          14.0   
+3                    12.0                          10.0   
+4                    16.0                          17.0   
+5                    17.0                          13.0   
+..                    ...                           ...   
+84                96833.0                         100.0   
+85                 1683.0                          19.0   
+86                83497.0                         127.0   
+87              1405437.0                         181.0   
+88                 1427.0                          11.0   
+
+variable  F_x__agg_autocorrelation__f_agg_&quot;mean&quot;__maxlag_40  \
+id                                                            
+1                                                 -0.106351   
+2                                                 -0.039098   
+3                                                 -0.029815   
+4                                                 -0.049773   
+5                                                 -0.061467   
+..                                                      ...   
+84                                                -0.435813   
+85                                                -0.599870   
+86                                                -0.603352   
+87                                                -0.455727   
+88                                                -0.614351   
+
+variable  F_x__agg_autocorrelation__f_agg_&quot;median&quot;__maxlag_40  \
+id                                                              
+1                                             -7.206633e-02     
+2                                             -4.935275e-02     
+3                                              1.301043e-17     
+4                                             -6.417112e-02     
+5                                             -5.172414e-02     
+..                                                      ...     
+84                                            -8.343714e-01     
+85                                            -4.380362e-01     
+86                                            -4.802260e-01     
+87                                            -4.355676e-01     
+88                                            -5.887814e-01     
+
+variable  F_x__agg_autocorrelation__f_agg_&quot;var&quot;__maxlag_40  \
+id                                                           
+1                                                 0.016879   
+2                                                 0.088790   
+3                                                 0.105435   
+4                                                 0.143580   
+5                                                 0.052642   
+..                                                     ...   
+84                                                0.538354   
+85                                                0.991429   
+86                                                0.994691   
+87                                                0.516457   
+88                                                1.121329   
+
+variable  F_x__agg_linear_trend__attr_&quot;intercept&quot;__chunk_len_10__f_agg_&quot;max&quot;  \
+id                                                                             
+1                                                       0.0                    
+2                                                       0.0                    
+3                                                       1.0                    
+4                                                       1.0                    
+5                                                       2.0                    
+..                                                      ...                    
+84                                                    -25.0                    
+85                                                     12.0                    
+86                                                     70.0                    
+87                                                    340.0                    
+88                                                     -6.0                    
+
+variable  F_x__agg_linear_trend__attr_&quot;intercept&quot;__chunk_len_10__f_agg_&quot;mean&quot;  \
+id                                                                              
+1                                                      -0.9                     
+2                                                      -0.7                     
+3                                                      -0.5                     
+4                                                      -0.4                     
+5                                                      -0.5                     
+..                                                      ...                     
+84                                                    -55.3                     
+85                                                      6.7                     
+86                                                     40.4                     
+87                                                    281.0                     
+88                                                     -8.4                     
+
+variable  F_x__agg_linear_trend__attr_&quot;intercept&quot;__chunk_len_10__f_agg_&quot;min&quot;  \
+id                                                                             
+1                                                      -1.0                    
+2                                                      -3.0                    
+3                                                      -1.0                    
+4                                                      -2.0                    
+5                                                      -2.0                    
+..                                                      ...                    
+84                                                   -110.0                    
+85                                                      4.0                    
+86                                                     21.0                    
+87                                                    171.0                    
+88                                                    -11.0                    
+
+variable  F_x__agg_linear_trend__attr_&quot;intercept&quot;__chunk_len_10__f_agg_&quot;var&quot;  \
+id                                                                             
+1                                                      0.09                    
+2                                                      0.81                    
+3                                                      0.45                    
+4                                                      1.24                    
+5                                                      1.05                    
+..                                                      ...                    
+84                                                  1216.61                    
+85                                                     5.01                    
+86                                                   236.84                    
+87                                                  3848.20                    
+88                                                     1.84                    
+
+variable  F_x__agg_linear_trend__attr_&quot;intercept&quot;__chunk_len_50__f_agg_&quot;max&quot;  \
+id                                                                             
+1                                                       0.0                    
+2                                                       0.0                    
+3                                                       0.0                    
+4                                                       0.0                    
+5                                                       0.0                    
+..                                                      ...                    
+84                                                      0.0                    
+85                                                      0.0                    
+86                                                      0.0                    
+87                                                      0.0                    
+88                                                      0.0                    
+
+variable  ...  T_z__symmetry_looking__r_0.9500000000000001  \
+id        ...                                                
+1         ...                                          0.0   
+2         ...                                          1.0   
+3         ...                                          1.0   
+4         ...                                          1.0   
+5         ...                                          1.0   
+..        ...                                          ...   
+84        ...                                          1.0   
+85        ...                                          1.0   
+86        ...                                          1.0   
+87        ...                                          1.0   
+88        ...                                          1.0   
+
+variable  T_z__time_reversal_asymmetry_statistic__lag_1  \
+id                                                        
+1                                              0.000000   
+2                                              0.000000   
+3                                              0.000000   
+4                                              0.000000   
+5                                             -0.076923   
+..                                                  ...   
+84                                         -1254.846154   
+85                                           -34.846154   
+86                                            81.538462   
+87                                          8445.769231   
+88                                            14.230769   
+
+variable  T_z__time_reversal_asymmetry_statistic__lag_2  \
+id                                                        
+1                                              0.000000   
+2                                              0.000000   
+3                                             -0.090909   
+4                                             -0.181818   
+5                                             -0.090909   
+..                                                  ...   
+84                                         -3182.363636   
+85                                           -57.545455   
+86                                           141.000000   
+87                                         16935.636364   
+88                                            27.181818   
+
+variable  T_z__time_reversal_asymmetry_statistic__lag_3  \
+id                                                        
+1                                              0.000000   
+2                                              0.000000   
+3                                              0.000000   
+4                                              0.000000   
+5                                             -0.222222   
+..                                                  ...   
+84                                         -6043.333333   
+85                                           -84.000000   
+86                                           280.888889   
+87                                         25770.555556   
+88                                            36.222222   
+
+variable  T_z__value_count__value_-1  T_z__value_count__value_0  \
+id                                                                
+1                                0.0                       15.0   
+2                                4.0                       11.0   
+3                                4.0                       11.0   
+4                                6.0                        8.0   
+5                                4.0                        9.0   
+..                               ...                        ...   
+84                               1.0                        1.0   
+85                               1.0                        1.0   
+86                               0.0                        0.0   
+87                               0.0                        0.0   
+88                               0.0                        0.0   
+
+variable  T_z__value_count__value_1  T_z__variance  \
+id                                                   
+1                               0.0       0.000000   
+2                               0.0       0.195556   
+3                               0.0       0.195556   
+4                               1.0       0.355556   
+5                               2.0       0.382222   
+..                              ...            ...   
+84                              0.0      93.315556   
+85                              0.0       4.648889   
+86                              1.0      29.840000   
+87                              0.0      98.088889   
+88                              0.0       0.782222   
+
+variable  T_z__variance_larger_than_standard_deviation  \
+id                                                       
+1                                                  0.0   
+2                                                  0.0   
+3                                                  0.0   
+4                                                  0.0   
+5                                                  0.0   
+..                                                 ...   
+84                                                 1.0   
+85                                                 1.0   
+86                                                 1.0   
+87                                                 1.0   
+88                                                 0.0   
+
+variable  T_z__variation_coefficient  
+id                                    
+1                          -0.238179  
+2                          -1.658312  
+3                          -1.658312  
+4                          -1.788854  
+5                          -4.636809  
+..                               ...  
+84                         -0.624569  
+85                         -0.621960  
+86                         -1.011593  
+87                          0.312757  
+88                          0.181733  
+
+[88 rows x 4578 columns]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">X_filtered = extract_relevant_features(df, y,</span><br><span class="line">                                       column_id=<span class="string">&#x27;id&#x27;</span>, column_sort=<span class="string">&#x27;time&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(X_filtered)</span><br></pre></td></tr></table></figure>
+
+<pre><code>Feature Extraction: 100%|██████████| 10/10 [00:10&lt;00:00,  1.06s/it]
+
+
+variable  F_x__value_count__value_-1  F_x__abs_energy  \
+id                                                      
+1                               14.0             14.0   
+2                                7.0             25.0   
+3                               11.0             12.0   
+4                                5.0             16.0   
+5                                9.0             17.0   
+..                               ...              ...   
+84                               0.0          96833.0   
+85                               0.0           1683.0   
+86                               0.0          83497.0   
+87                               0.0        1405437.0   
+88                               0.0           1427.0   
+
+variable  F_x__range_count__max_1__min_-1  F_y__abs_energy  \
+id                                                           
+1                                    15.0             13.0   
+2                                    13.0             76.0   
+3                                    14.0             40.0   
+4                                    10.0             60.0   
+5                                    13.0             46.0   
+..                                    ...              ...   
+84                                    0.0          42780.0   
+85                                    0.0           1523.0   
+86                                    0.0          21064.0   
+87                                    0.0         308658.0   
+88                                    0.0            113.0   
+
+variable  T_y__standard_deviation  T_y__variance  \
+id                                                 
+1                        0.471405       0.222222   
+2                        2.054805       4.222222   
+3                        1.768867       3.128889   
+4                        2.669998       7.128889   
+5                        2.039608       4.160000   
+..                            ...            ...   
+84                      39.541483    1563.528889   
+85                       3.841296      14.755556   
+86                      52.807154    2788.595556   
+87                      80.098162    6415.715556   
+88                       2.628054       6.906667   
+
+variable  F_x__fft_coefficient__attr_&quot;abs&quot;__coeff_1  \
+id                                                    
+1                                          1.000000   
+2                                          0.624118   
+3                                          2.203858   
+4                                          0.844394   
+5                                          2.730599   
+..                                              ...   
+84                                       359.248162   
+85                                        36.770027   
+86                                       312.044052   
+87                                       481.046930   
+88                                        15.524355   
+
+variable  T_y__fft_coefficient__attr_&quot;abs&quot;__coeff_1  T_y__abs_energy  \
+id                                                                     
+1                                          1.165352             10.0   
+2                                          6.020261             90.0   
+3                                          8.235442            103.0   
+4                                         12.067855            124.0   
+5                                          6.445330            180.0   
+..                                              ...              ...   
+84                                       309.190088         171261.0   
+85                                        26.631007            503.0   
+86                                       429.697740         118013.0   
+87                                       683.196535        2430295.0   
+88                                        16.768541           7630.0   
+
+variable  F_z__standard_deviation  ...  \
+id                                 ...   
+1                        1.203698  ...   
+2                        4.333846  ...   
+3                        4.616877  ...   
+4                        3.833188  ...   
+5                        4.841487  ...   
+..                            ...  ...   
+84                     291.988082  ...   
+85                      14.501494  ...   
+86                     121.420189  ...   
+87                     204.966621  ...   
+88                      10.627010  ...   
+
+variable  T_x__agg_linear_trend__attr_&quot;intercept&quot;__chunk_len_5__f_agg_&quot;min&quot;  \
+id                                                                            
+1                                                 -3.000000                   
+2                                                 -4.166667                   
+3                                                 -5.833333                   
+4                                                 -9.333333                   
+5                                                -11.833333                   
+..                                                      ...                   
+84                                               203.333333                   
+85                                               -29.166667                   
+86                                               -53.000000                   
+87                                              -139.333333                   
+88                                               -20.000000                   
+
+variable  T_x__number_peaks__n_1  T_y__number_cwt_peaks__n_1  \
+id                                                             
+1                            1.0                         4.0   
+2                            4.0                         4.0   
+3                            6.0                         3.0   
+4                            5.0                         5.0   
+5                            5.0                         5.0   
+..                           ...                         ...   
+84                           3.0                         2.0   
+85                           3.0                         3.0   
+86                           2.0                         3.0   
+87                           2.0                         3.0   
+88                           3.0                         3.0   
+
+variable  T_y__count_below__t_0  \
+id                                
+1                      1.000000   
+2                      0.933333   
+3                      0.866667   
+4                      0.733333   
+5                      0.933333   
+..                          ...   
+84                     0.000000   
+85                     0.066667   
+86                     0.000000   
+87                     0.000000   
+88                     1.000000   
+
+variable  T_x__change_quantiles__f_agg_&quot;var&quot;__isabs_True__qh_0.2__ql_0.0  \
+id                                                                         
+1                                                  0.000000                
+2                                                  0.000000                
+3                                                  0.000000                
+4                                                  0.000000                
+5                                                  0.000000                
+..                                                      ...                
+84                                                64.000000                
+85                                                 4.666667                
+86                                                 0.250000                
+87                                                 0.000000                
+88                                                 4.666667                
+
+variable  F_z__change_quantiles__f_agg_&quot;mean&quot;__isabs_True__qh_1.0__ql_0.8  \
+id                                                                          
+1                                                       0.0                 
+2                                                       1.0                 
+3                                                       3.0                 
+4                                                       0.0                 
+5                                                       0.0                 
+..                                                      ...                 
+84                                                     46.0                 
+85                                                      4.5                 
+86                                                      7.0                 
+87                                                     90.5                 
+88                                                      0.0                 
+
+variable  T_x__quantile__q_0.1  F_y__has_duplicate_max  \
+id                                                       
+1                         -3.0                     1.0   
+2                         -9.2                     1.0   
+3                         -6.6                     0.0   
+4                         -9.0                     0.0   
+5                         -9.6                     0.0   
+..                         ...                     ...   
+84                       203.2                     0.0   
+85                       -41.6                     0.0   
+86                       -84.8                     0.0   
+87                      -139.2                     0.0   
+88                       -24.6                     0.0   
+
+variable  F_y__cwt_coefficients__coeff_13__w_2__widths_(2, 5, 10, 20)  \
+id                                                                      
+1                                                 -0.310265             
+2                                                 -0.202951             
+3                                                  0.539121             
+4                                                 -2.641390             
+5                                                  0.591927             
+..                                                      ...             
+84                                                38.559593             
+85                                                14.429645             
+86                                                60.760842             
+87                                               109.029954             
+88                                                 2.455593             
+
+variable  F_y__cwt_coefficients__coeff_14__w_5__widths_(2, 5, 10, 20)  
+id                                                                     
+1                                                 -0.751682            
+2                                                  0.057818            
+3                                                  0.912474            
+4                                                 -0.609735            
+5                                                  0.072771            
+..                                                      ...            
+84                                                71.641254            
+85                                                16.349699            
+86                                                71.095480            
+87                                               173.699573            
+88                                                 3.226801            
+
+[88 rows x 626 columns]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">X_train, X_test, X_filtered_train, X_filtered_test, y_train, y_test = train_test_split(X, X_filtered, y, test_size=<span class="number">0.25</span>)</span><br><span class="line">c1 = DecisionTreeClassifier()</span><br><span class="line">c1.fit(X_train, y_train)</span><br><span class="line"><span class="built_in">print</span>(classification_report(y_test,c1.predict(X_test)))</span><br></pre></td></tr></table></figure>
+
+<pre><code>              precision    recall  f1-score   support
+
+       False       1.00      0.93      0.96        14
+        True       0.89      1.00      0.94         8
+
+    accuracy                           0.95        22
+   macro avg       0.94      0.96      0.95        22
+weighted avg       0.96      0.95      0.96        22
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(c1.n_features_)</span><br></pre></td></tr></table></figure>
+
+<pre><code>4578
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">c2 = DecisionTreeClassifier()</span><br><span class="line">c2.fit(X_filtered_train, y_train)</span><br><span class="line"><span class="built_in">print</span>(classification_report(y_test,c2.predict(X_filtered_test)))</span><br></pre></td></tr></table></figure>
+
+<pre><code>              precision    recall  f1-score   support
+
+       False       0.93      0.93      0.93        14
+        True       0.88      0.88      0.88         8
+
+    accuracy                           0.91        22
+   macro avg       0.90      0.90      0.90        22
+weighted avg       0.91      0.91      0.91        22
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(c2.n_features_)</span><br></pre></td></tr></table></figure>
+
+<pre><code>626
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://zhangfuli.github.io/2020/08/19/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-4tsfresh/" title="ARIMA时间序列预测-4tsfresh" target="_blank" rel="external">https://zhangfuli.github.io/2020/08/19/ARIMA时间序列预测-4tsfresh/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangfuli" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangfuli" target="_blank"><span class="text-dark">张富利</span><small class="ml-1x">学生</small></a></h3>
+        <div>Do myself,Believe myself,Try my best</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/08/20/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E7%99%BE%E7%A7%91EDA/" title="ARIMA时间序列预测-5维基百科EDA"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2020/08/19/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-3-%E8%82%A1%E7%A5%A8%E9%A2%84%E6%B5%8B/" title="ARIMA时间序列预测-3-股票预测"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498969-6d12a800-deef-11e9-927a-89d5d0ce9e42.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498913-4fddd980-deef-11e9-9da1-56f86199713b.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'e0m4Aw9mFAjO1UuHuINbSEOm-gzGzoHsz',
+    appKey: 'VwY3lLrV5rMPSG6AFGO87omg',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>ARIMA时间序列预测-5维基百科EDA | Hexo</title>
+  <meta name="description" content="12345import pandas as pdimport numpy as npimport matplotlib.pyplot as pltimport re%matplotlib inline   12train &#x3D; pd.read_csv(&amp;#x27;.&#x2F;data&#x2F;train_1.csv&amp;#x27;).fillna(0)train.head()   1train.info()  &lt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ARIMA时间序列预测-5维基百科EDA">
+<meta property="og:url" content="https://zhangfuli.github.io/2020/08/20/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E7%99%BE%E7%A7%91EDA/index.html">
+<meta property="og:site_name" content="Hello, Zhangfuli">
+<meta property="og:description" content="12345import pandas as pdimport numpy as npimport matplotlib.pyplot as pltimport re%matplotlib inline   12train &#x3D; pd.read_csv(&amp;#x27;.&#x2F;data&#x2F;train_1.csv&amp;#x27;).fillna(0)train.head()   1train.info()  &lt;">
+<meta property="og:locale">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_7_1.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_0.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_1.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_2.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_3.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_4.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_5.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_6.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_7.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_8.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_9.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_10.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_11.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_12.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_13.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_11_1.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_11_2.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_11_3.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_11_4.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_11_5.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_11_6.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_11_7.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_11_8.png">
+<meta property="article:published_time" content="2020-08-20T02:59:18.000Z">
+<meta property="article:modified_time" content="2020-08-20T03:14:32.246Z">
+<meta property="article:author" content="张富利">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zhangfuli.github.io/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_7_1.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://zhangfuli.github.io/2020/08/20/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E7%99%BE%E7%A7%91EDA/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hello, Zhangfuli" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/zhangfuli" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">张富利</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">学生</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> NanJing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTML-CSS/">HTML CSS</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/angularjs/">angularjs</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8E%A2%E7%A9%B6/">探究</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83/">环境</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A1%AC%E4%BB%B6/">硬件</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML-CSS/" rel="tag">HTML CSS</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angularjs/" rel="tag">angularjs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A2%E7%A9%B6/" rel="tag">探究</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83/" rel="tag">环境</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/HTML-CSS/" style="font-size: 13.63px;">HTML CSS</a> <a href="/tags/Linux/" style="font-size: 13.5px;">Linux</a> <a href="/tags/angularjs/" style="font-size: 13.5px;">angularjs</a> <a href="/tags/hexo/" style="font-size: 13.5px;">hexo</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/mongodb/" style="font-size: 13.38px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.38px;">nodejs</a> <a href="/tags/python/" style="font-size: 13.13px;">python</a> <a href="/tags/react/" style="font-size: 13px;">react</a> <a href="/tags/vue/" style="font-size: 13.25px;">vue</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.25px;">区块链</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 13px;">小程序</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 13px;">工具</a> <a href="/tags/%E6%8E%A2%E7%A9%B6/" style="font-size: 13.63px;">探究</a> <a href="/tags/%E7%8E%AF%E5%A2%83/" style="font-size: 13.75px;">环境</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 13.88px;">生活</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.13px;">硬件</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AF%87/" class="title">操作系统篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T11:07:17.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-golang%E7%AF%87/" class="title">golang篇-2021秋招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-02T10:57:08.000Z" itemprop="datePublished">2021-08-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/23/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Jenkins/" class="title">Jenkins-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-23T03:33:03.000Z" itemprop="datePublished">2021-03-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-%E5%89%8D%E7%AB%AF-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AF%87/" class="title">前端/数据库/Spring/Java-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:15:30.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Redis-Prometheus-RocketMQ%E7%AF%87/" class="title">Redis/Prometheus/RocketMQ篇-2021春招准备</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-01T09:14:17.000Z" itemprop="datePublished">2021-03-01</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-ARIMA时间序列预测-5维基百科EDA" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ARIMA时间序列预测-5维基百科EDA
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/08/20/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E7%99%BE%E7%A7%91EDA/" class="article-date">
+	  <time datetime="2020-08-20T02:59:18.000Z" itemprop="datePublished">2020-08-20</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/08/20/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E7%99%BE%E7%A7%91EDA/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">train = pd.read_csv(<span class="string">&#x27;./data/train_1.csv&#x27;</span>).fillna(<span class="number">0</span>)</span><br><span class="line">train.head()</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train.info()</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 145063 entries, 0 to 145062
+Columns: 551 entries, Page to 2016-12-31
+dtypes: float64(550), object(1)
+memory usage: 609.8+ MB
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> col <span class="keyword">in</span> train.columns[<span class="number">1</span>:]:</span><br><span class="line">    train[col] = pd.to_numeric(train[col],downcast=<span class="string">&#x27;integer&#x27;</span>)</span><br><span class="line">train.head()</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train.info()</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 145063 entries, 0 to 145062
+Columns: 551 entries, Page to 2016-12-31
+dtypes: int32(550), object(1)
+memory usage: 305.5+ MB
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_language</span>(<span class="params">page</span>):</span></span><br><span class="line">    res = re.search(<span class="string">&#x27;[a-z][a-z].wikipedia.org&#x27;</span>,page)</span><br><span class="line">    <span class="comment">#print (res.group()[0:2])</span></span><br><span class="line">    <span class="keyword">if</span> res:</span><br><span class="line">        <span class="keyword">return</span> res.group()[<span class="number">0</span>:<span class="number">2</span>]</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;na&#x27;</span></span><br><span class="line"></span><br><span class="line">train[<span class="string">&#x27;lang&#x27;</span>] = train.Page.<span class="built_in">map</span>(get_language)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(Counter(train.lang))</span><br></pre></td></tr></table></figure>
+
+<pre><code>Counter(&#123;&#39;en&#39;: 24108, &#39;ja&#39;: 20431, &#39;de&#39;: 18547, &#39;na&#39;: 17855, &#39;fr&#39;: 17802, &#39;zh&#39;: 17229, &#39;ru&#39;: 15022, &#39;es&#39;: 14069&#125;)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">lang_sets = &#123;&#125;</span><br><span class="line">lang_sets[<span class="string">&#x27;en&#x27;</span>] = train[train.lang==<span class="string">&#x27;en&#x27;</span>].iloc[:,<span class="number">0</span>:-<span class="number">1</span>]</span><br><span class="line">lang_sets[<span class="string">&#x27;ja&#x27;</span>] = train[train.lang==<span class="string">&#x27;ja&#x27;</span>].iloc[:,<span class="number">0</span>:-<span class="number">1</span>]</span><br><span class="line">lang_sets[<span class="string">&#x27;de&#x27;</span>] = train[train.lang==<span class="string">&#x27;de&#x27;</span>].iloc[:,<span class="number">0</span>:-<span class="number">1</span>]</span><br><span class="line">lang_sets[<span class="string">&#x27;na&#x27;</span>] = train[train.lang==<span class="string">&#x27;na&#x27;</span>].iloc[:,<span class="number">0</span>:-<span class="number">1</span>]</span><br><span class="line">lang_sets[<span class="string">&#x27;fr&#x27;</span>] = train[train.lang==<span class="string">&#x27;fr&#x27;</span>].iloc[:,<span class="number">0</span>:-<span class="number">1</span>]</span><br><span class="line">lang_sets[<span class="string">&#x27;zh&#x27;</span>] = train[train.lang==<span class="string">&#x27;zh&#x27;</span>].iloc[:,<span class="number">0</span>:-<span class="number">1</span>]</span><br><span class="line">lang_sets[<span class="string">&#x27;ru&#x27;</span>] = train[train.lang==<span class="string">&#x27;ru&#x27;</span>].iloc[:,<span class="number">0</span>:-<span class="number">1</span>]</span><br><span class="line">lang_sets[<span class="string">&#x27;es&#x27;</span>] = train[train.lang==<span class="string">&#x27;es&#x27;</span>].iloc[:,<span class="number">0</span>:-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">sums = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> key <span class="keyword">in</span> lang_sets:</span><br><span class="line">    sums[key] = lang_sets[key].iloc[:,<span class="number">1</span>:].<span class="built_in">sum</span>(axis=<span class="number">0</span>) / lang_sets[key].shape[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">days = [r <span class="keyword">for</span> r <span class="keyword">in</span> <span class="built_in">range</span>(sums[<span class="string">&#x27;en&#x27;</span>].shape[<span class="number">0</span>])]</span><br><span class="line"></span><br><span class="line">fig = plt.figure(<span class="number">1</span>,figsize=[<span class="number">10</span>,<span class="number">10</span>])</span><br><span class="line">plt.ylabel(<span class="string">&#x27;Views per Page&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;Day&#x27;</span>)</span><br><span class="line">plt.title(<span class="string">&#x27;Pages in Different Languages&#x27;</span>)</span><br><span class="line">labels=&#123;<span class="string">&#x27;en&#x27;</span>:<span class="string">&#x27;English&#x27;</span>,<span class="string">&#x27;ja&#x27;</span>:<span class="string">&#x27;Japanese&#x27;</span>,<span class="string">&#x27;de&#x27;</span>:<span class="string">&#x27;German&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;na&#x27;</span>:<span class="string">&#x27;Media&#x27;</span>,<span class="string">&#x27;fr&#x27;</span>:<span class="string">&#x27;French&#x27;</span>,<span class="string">&#x27;zh&#x27;</span>:<span class="string">&#x27;Chinese&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;ru&#x27;</span>:<span class="string">&#x27;Russian&#x27;</span>,<span class="string">&#x27;es&#x27;</span>:<span class="string">&#x27;Spanish&#x27;</span></span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> key <span class="keyword">in</span> sums:</span><br><span class="line">    plt.plot(days,sums[key],label = labels[key] )</span><br><span class="line">    </span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<pre><code>//anaconda3/lib/python3.7/site-packages/matplotlib/cbook/__init__.py:2062: FutureWarning: Support for multi-dimensional indexing (e.g. `obj[:, None]`) is deprecated and will be removed in a future version.  Convert to a numpy array before indexing instead.
+  x[:, None]
+//anaconda3/lib/python3.7/site-packages/matplotlib/axes/_base.py:250: FutureWarning: Support for multi-dimensional indexing (e.g. `obj[:, None]`) is deprecated and will be removed in a future version.  Convert to a numpy array before indexing instead.
+  y = y[:, np.newaxis]
+</code></pre>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_7_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_entry</span>(<span class="params">key,idx</span>):</span></span><br><span class="line">    data = lang_sets[key].iloc[idx,<span class="number">1</span>:]</span><br><span class="line">    fig = plt.figure(<span class="number">1</span>,figsize=(<span class="number">10</span>,<span class="number">5</span>))</span><br><span class="line">    plt.plot(days,data)</span><br><span class="line">    plt.xlabel(<span class="string">&#x27;day&#x27;</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&#x27;views&#x27;</span>)</span><br><span class="line">    plt.title(train.iloc[lang_sets[key].index[idx],<span class="number">0</span>])</span><br><span class="line">    </span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">idx = [<span class="number">1</span>, <span class="number">5</span>, <span class="number">10</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">250</span>,<span class="number">500</span>, <span class="number">750</span>,<span class="number">1000</span>,<span class="number">1500</span>,<span class="number">2000</span>,<span class="number">3000</span>,<span class="number">4000</span>,<span class="number">5000</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> idx:</span><br><span class="line">    plot_entry(<span class="string">&#x27;en&#x27;</span>,i)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_0.png" alt="png"></p>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_1.png" alt="png"></p>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_2.png" alt="png"></p>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_3.png" alt="png"></p>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_4.png" alt="png"></p>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_5.png" alt="png"></p>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_6.png" alt="png"></p>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_7.png" alt="png"></p>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_8.png" alt="png"></p>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_9.png" alt="png"></p>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_10.png" alt="png"></p>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_11.png" alt="png"></p>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_12.png" alt="png"></p>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_9_13.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">npages = <span class="number">5</span></span><br><span class="line">top_pages = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> key <span class="keyword">in</span> lang_sets:</span><br><span class="line">    <span class="built_in">print</span>(key)</span><br><span class="line">    sum_set = pd.DataFrame(lang_sets[key][[<span class="string">&#x27;Page&#x27;</span>]])</span><br><span class="line">    sum_set[<span class="string">&#x27;total&#x27;</span>] = lang_sets[key].<span class="built_in">sum</span>(axis=<span class="number">1</span>)</span><br><span class="line">    sum_set = sum_set.sort_values(<span class="string">&#x27;total&#x27;</span>,ascending=<span class="literal">False</span>)</span><br><span class="line">    <span class="built_in">print</span>(sum_set.head(<span class="number">10</span>))</span><br><span class="line">    top_pages[key] = sum_set.index[<span class="number">0</span>]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;\n\n&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>en
+                                                    Page        total
+38573   Main_Page_en.wikipedia.org_all-access_all-agents  12066181102
+9774       Main_Page_en.wikipedia.org_desktop_all-agents   8774497458
+74114   Main_Page_en.wikipedia.org_mobile-web_all-agents   3153984882
+39180  Special:Search_en.wikipedia.org_all-access_all...   1304079353
+10403  Special:Search_en.wikipedia.org_desktop_all-ag...   1011847748
+74690  Special:Search_en.wikipedia.org_mobile-web_all...    292162839
+39172  Special:Book_en.wikipedia.org_all-access_all-a...    133993144
+10399   Special:Book_en.wikipedia.org_desktop_all-agents    133285908
+33644       Main_Page_en.wikipedia.org_all-access_spider    129020407
+34257  Special:Search_en.wikipedia.org_all-access_spider    124310206
+</code></pre>
+<p>​<br>​    </p>
+<pre><code>ja
+                                                     Page      total
+120336      メインページ_ja.wikipedia.org_all-access_all-agents  210753795
+86431          メインページ_ja.wikipedia.org_desktop_all-agents  134147415
+123025       特別:検索_ja.wikipedia.org_all-access_all-agents   70316929
+89202           特別:検索_ja.wikipedia.org_desktop_all-agents   69215206
+57309       メインページ_ja.wikipedia.org_mobile-web_all-agents   66459122
+119609    特別:最近の更新_ja.wikipedia.org_all-access_all-agents   17662791
+88897        特別:最近の更新_ja.wikipedia.org_desktop_all-agents   17627621
+119625        真田信繁_ja.wikipedia.org_all-access_all-agents   10793039
+123292  特別:外部リンク検索_ja.wikipedia.org_all-access_all-agents   10331191
+89463      特別:外部リンク検索_ja.wikipedia.org_desktop_all-agents   10327917
+</code></pre>
+<p>​<br>​    </p>
+<pre><code>de
+                                                     Page       total
+139119  Wikipedia:Hauptseite_de.wikipedia.org_all-acce...  1603934248
+116196  Wikipedia:Hauptseite_de.wikipedia.org_mobile-w...  1112689084
+67049   Wikipedia:Hauptseite_de.wikipedia.org_desktop_...   426992426
+140151  Spezial:Suche_de.wikipedia.org_all-access_all-...   223425944
+66736   Spezial:Suche_de.wikipedia.org_desktop_all-agents   219636761
+140147  Spezial:Anmelden_de.wikipedia.org_all-access_a...    40291806
+138800  Special:Search_de.wikipedia.org_all-access_all...    39881543
+68104   Spezial:Anmelden_de.wikipedia.org_desktop_all-...    35355226
+68511   Special:MyPage/toolserverhelferleinconfig.js_d...    32584955
+137765  Hauptseite_de.wikipedia.org_all-access_all-agents    31732458
+</code></pre>
+<p>​<br>​    </p>
+<pre><code>na
+                                                    Page     total
+45071  Special:Search_commons.wikimedia.org_all-acces...  67150638
+81665  Special:Search_commons.wikimedia.org_desktop_a...  63349756
+45056  Special:CreateAccount_commons.wikimedia.org_al...  53795386
+45028  Main_Page_commons.wikimedia.org_all-access_all...  52732292
+81644  Special:CreateAccount_commons.wikimedia.org_de...  48061029
+81610  Main_Page_commons.wikimedia.org_desktop_all-ag...  39160923
+46078  Special:RecentChangesLinked_commons.wikimedia....  28306336
+45078  Special:UploadWizard_commons.wikimedia.org_all...  23733805
+81671  Special:UploadWizard_commons.wikimedia.org_des...  22008544
+82680  Special:RecentChangesLinked_commons.wikimedia....  21915202
+</code></pre>
+<p>​<br>​    </p>
+<pre><code>fr
+                                                     Page      total
+27330   Wikipédia:Accueil_principal_fr.wikipedia.org_a...  868480667
+55104   Wikipédia:Accueil_principal_fr.wikipedia.org_m...  611302821
+7344    Wikipédia:Accueil_principal_fr.wikipedia.org_d...  239589012
+27825   Spécial:Recherche_fr.wikipedia.org_all-access_...   95666374
+8221    Spécial:Recherche_fr.wikipedia.org_desktop_all...   88448938
+26500   Sp?cial:Search_fr.wikipedia.org_all-access_all...   76194568
+6978    Sp?cial:Search_fr.wikipedia.org_desktop_all-ag...   76185450
+131296  Wikipédia:Accueil_principal_fr.wikipedia.org_a...   63860799
+26993   Organisme_de_placement_collectif_en_valeurs_mo...   36647929
+7213    Organisme_de_placement_collectif_en_valeurs_mo...   36624145
+</code></pre>
+<p>​<br>​    </p>
+<pre><code>zh
+                                                     Page      total
+28727   Wikipedia:首页_zh.wikipedia.org_all-access_all-a...  123694312
+61350    Wikipedia:首页_zh.wikipedia.org_desktop_all-agents   66435641
+105844  Wikipedia:首页_zh.wikipedia.org_mobile-web_all-a...   50887429
+28728   Special:搜索_zh.wikipedia.org_all-access_all-agents   48678124
+61351      Special:搜索_zh.wikipedia.org_desktop_all-agents   48203843
+28089   Running_Man_zh.wikipedia.org_all-access_all-ag...   11485845
+30960   Special:链接搜索_zh.wikipedia.org_all-access_all-a...   10320403
+63510    Special:链接搜索_zh.wikipedia.org_desktop_all-agents   10320336
+60711     Running_Man_zh.wikipedia.org_desktop_all-agents    7968443
+30446    瑯琊榜_(電視劇)_zh.wikipedia.org_all-access_all-agents    5891589
+</code></pre>
+<p>​<br>​    </p>
+<pre><code>ru
+                                                     Page       total
+99322   Заглавная_страница_ru.wikipedia.org_all-access...  1086019452
+103123  Заглавная_страница_ru.wikipedia.org_desktop_al...   742880016
+17670   Заглавная_страница_ru.wikipedia.org_mobile-web...   327930433
+99537   Служебная:Поиск_ru.wikipedia.org_all-access_al...   103764279
+103349  Служебная:Поиск_ru.wikipedia.org_desktop_all-a...    98664171
+100414  Служебная:Ссылки_сюда_ru.wikipedia.org_all-acc...    25102004
+104195  Служебная:Ссылки_сюда_ru.wikipedia.org_desktop...    25058155
+97670   Special:Search_ru.wikipedia.org_all-access_all...    24374572
+101457  Special:Search_ru.wikipedia.org_desktop_all-ag...    21958472
+98301   Служебная:Вход_ru.wikipedia.org_all-access_all...    12162587
+</code></pre>
+<p>​<br>​    </p>
+<pre><code>es
+                                                     Page      total
+92205   Wikipedia:Portada_es.wikipedia.org_all-access_...  751492304
+95855   Wikipedia:Portada_es.wikipedia.org_mobile-web_...  565077372
+90810   Especial:Buscar_es.wikipedia.org_all-access_al...  194491245
+71199   Wikipedia:Portada_es.wikipedia.org_desktop_all...  165439354
+69939   Especial:Buscar_es.wikipedia.org_desktop_all-a...  160431271
+94389   Especial:Buscar_es.wikipedia.org_mobile-web_al...   34059966
+90813   Especial:Entrar_es.wikipedia.org_all-access_al...   33983359
+143440  Wikipedia:Portada_es.wikipedia.org_all-access_...   31615409
+93094   Lali_Espósito_es.wikipedia.org_all-access_all-...   26602688
+69942   Especial:Entrar_es.wikipedia.org_desktop_all-a...   25747141
+</code></pre>
+<p>​<br>​    </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> key <span class="keyword">in</span> top_pages:</span><br><span class="line">    fig = plt.figure(<span class="number">1</span>,figsize=(<span class="number">10</span>,<span class="number">5</span>))</span><br><span class="line">    cols = train.columns</span><br><span class="line">    cols = cols[<span class="number">1</span>:-<span class="number">1</span>]</span><br><span class="line">    data = train.loc[top_pages[key],cols]</span><br><span class="line">    plt.plot(days,data)</span><br><span class="line">    plt.xlabel(<span class="string">&#x27;Days&#x27;</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&#x27;Views&#x27;</span>)</span><br><span class="line">    plt.title(train.loc[top_pages[key],<span class="string">&#x27;Page&#x27;</span>])</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+
+<pre><code>//anaconda3/lib/python3.7/site-packages/matplotlib/cbook/__init__.py:2062: FutureWarning: Support for multi-dimensional indexing (e.g. `obj[:, None]`) is deprecated and will be removed in a future version.  Convert to a numpy array before indexing instead.
+  x[:, None]
+//anaconda3/lib/python3.7/site-packages/matplotlib/axes/_base.py:250: FutureWarning: Support for multi-dimensional indexing (e.g. `obj[:, None]`) is deprecated and will be removed in a future version.  Convert to a numpy array before indexing instead.
+  y = y[:, np.newaxis]
+</code></pre>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_11_1.png" alt="png"></p>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_11_2.png" alt="png"></p>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_11_3.png" alt="png"></p>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_11_4.png" alt="png"></p>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_11_5.png" alt="png"></p>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_11_6.png" alt="png"></p>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_11_7.png" alt="png"></p>
+<p><img src="/images/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E6%95%B0%E6%8D%AEEDA/output_11_8.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://zhangfuli.github.io/2020/08/20/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-5%E7%BB%B4%E5%9F%BA%E7%99%BE%E7%A7%91EDA/" title="ARIMA时间序列预测-5维基百科EDA" target="_blank" rel="external">https://zhangfuli.github.io/2020/08/20/ARIMA时间序列预测-5维基百科EDA/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangfuli" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangfuli" target="_blank"><span class="text-dark">张富利</span><small class="ml-1x">学生</small></a></h3>
+        <div>Do myself,Believe myself,Try my best</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/08/20/fbprophet-%E6%AF%94%E7%89%B9%E5%B8%81%E9%A2%84%E6%B5%8B/" title="fbprophet-比特币预测"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2020/08/19/ARIMA%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%A2%84%E6%B5%8B-4tsfresh/" title="ARIMA时间序列预测-4tsfresh"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498969-6d12a800-deef-11e9-927a-89d5d0ce9e42.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498913-4fddd980-deef-11e9-9da1-56f86199713b.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'e0m4Aw9mFAjO1UuHuINbSEOm-gzGzoHsz',
+    appKey: 'VwY3lLrV5rMPSG6AFGO87omg',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
