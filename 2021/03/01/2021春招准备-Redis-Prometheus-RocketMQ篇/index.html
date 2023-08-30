@@ -17,21 +17,20 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>Redis/Prometheus/RocketMQ篇-2021春招准备 | Hexo</title>
+  <title>Redis/RocketMQ篇-2021春招准备 | Hexo</title>
   <meta name="description" content="1、Redis 一个高性能的key-value非关系型数据库  数据类型 String List Set Hash ZSet: 有序集合  过期策略以及内存淘汰机制 定期删除: 定时删除,用一个定时器来负责监视key,过期则自动删除。虽然内存及时释放，但是十分消耗CPU资源。在大并发请求下，CPU要将时间应用在处理请求，而不是删除key,因此没有采用这一策略. 定期删除+惰性删除 定期删除: re">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis&#x2F;Prometheus&#x2F;RocketMQ篇-2021春招准备">
+<meta property="og:title" content="Redis&#x2F;RocketMQ篇-2021春招准备">
 <meta property="og:url" content="https://zhangfuli.github.io/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Redis-Prometheus-RocketMQ%E7%AF%87/index.html">
 <meta property="og:site_name" content="Hello, Zhangfuli">
 <meta property="og:description" content="1、Redis 一个高性能的key-value非关系型数据库  数据类型 String List Set Hash ZSet: 有序集合  过期策略以及内存淘汰机制 定期删除: 定时删除,用一个定时器来负责监视key,过期则自动删除。虽然内存及时释放，但是十分消耗CPU资源。在大并发请求下，CPU要将时间应用在处理请求，而不是删除key,因此没有采用这一策略. 定期删除+惰性删除 定期删除: re">
 <meta property="og:locale">
 <meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-redis-prometheus-rocketmq%E7%AF%87/1.png">
-<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-redis-prometheus-rocketmq%E7%AF%87/2.png">
 <meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-redis-prometheus-rocketmq%E7%AF%87/3.jpg">
 <meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-redis-prometheus-rocketmq%E7%AF%87/4.jpg">
 <meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-redis-prometheus-rocketmq%E7%AF%87/5.png">
 <meta property="article:published_time" content="2021-03-01T09:14:17.000Z">
-<meta property="article:modified_time" content="2023-08-24T08:54:48.794Z">
+<meta property="article:modified_time" content="2023-08-30T08:36:18.997Z">
 <meta property="article:author" content="张富利">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-redis-prometheus-rocketmq%E7%AF%87/1.png">
@@ -188,7 +187,7 @@
   <div class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML-CSS/" rel="tag">HTML CSS</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angularjs/" rel="tag">angularjs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kubernetes/" rel="tag">kubernetes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A2%E7%A9%B6/" rel="tag">探究</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83/" rel="tag">环境</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML-CSS/" rel="tag">HTML CSS</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angularjs/" rel="tag">angularjs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kubernetes/" rel="tag">kubernetes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A2%E7%A9%B6/" rel="tag">探究</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83/" rel="tag">环境</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E7%BB%8F/" rel="tag">面经</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -198,7 +197,7 @@
   <div class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/HTML-CSS/" style="font-size: 13.63px;">HTML CSS</a> <a href="/tags/Linux/" style="font-size: 13.5px;">Linux</a> <a href="/tags/angularjs/" style="font-size: 13.5px;">angularjs</a> <a href="/tags/hexo/" style="font-size: 13.5px;">hexo</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/kubernetes/" style="font-size: 13px;">kubernetes</a> <a href="/tags/mongodb/" style="font-size: 13.38px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.38px;">nodejs</a> <a href="/tags/python/" style="font-size: 13.13px;">python</a> <a href="/tags/react/" style="font-size: 13px;">react</a> <a href="/tags/vue/" style="font-size: 13.25px;">vue</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.25px;">区块链</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 13px;">小程序</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 13px;">工具</a> <a href="/tags/%E6%8E%A2%E7%A9%B6/" style="font-size: 13.63px;">探究</a> <a href="/tags/%E7%8E%AF%E5%A2%83/" style="font-size: 13.75px;">环境</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 13.88px;">生活</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.13px;">硬件</a>
+      <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/HTML-CSS/" style="font-size: 13.63px;">HTML CSS</a> <a href="/tags/Linux/" style="font-size: 13.5px;">Linux</a> <a href="/tags/angularjs/" style="font-size: 13.5px;">angularjs</a> <a href="/tags/hexo/" style="font-size: 13.5px;">hexo</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/kubernetes/" style="font-size: 13px;">kubernetes</a> <a href="/tags/mongodb/" style="font-size: 13.38px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.38px;">nodejs</a> <a href="/tags/python/" style="font-size: 13.13px;">python</a> <a href="/tags/react/" style="font-size: 13px;">react</a> <a href="/tags/vue/" style="font-size: 13.25px;">vue</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.25px;">区块链</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 13px;">小程序</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 13px;">工具</a> <a href="/tags/%E6%8E%A2%E7%A9%B6/" style="font-size: 13.63px;">探究</a> <a href="/tags/%E7%8E%AF%E5%A2%83/" style="font-size: 13.75px;">环境</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 13.88px;">生活</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.13px;">硬件</a> <a href="/tags/%E9%9D%A2%E7%BB%8F/" style="font-size: 13px;">面经</a>
     </div>
   </div>
 
@@ -207,7 +206,7 @@
   <div class="widget">
     <h3 class="widget-title">Archive</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -219,6 +218,21 @@
     <div class="widget-body">
       <ul class="recent-post-list list-unstyled no-thumbnail">
         
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2023/08/30/prometheus/" class="title">prometheus</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-08-30T08:36:30.000Z" itemprop="datePublished">2023-08-30</time>
+              </p>
+            </div>
+          </li>
+          
           <li>
             
             <div class="item-inner">
@@ -279,21 +293,6 @@
             </div>
           </li>
           
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2021/08/02/2021%E7%A7%8B%E6%8B%9B%E5%87%86%E5%A4%87-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AF%87/" class="title">操作系统篇-2021秋招准备</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2021-08-02T11:07:17.000Z" itemprop="datePublished">2021-08-02</time>
-              </p>
-            </div>
-          </li>
-          
       </ul>
     </div>
   </div>
@@ -314,7 +313,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Redis/Prometheus/RocketMQ篇-2021春招准备
+      Redis/RocketMQ篇-2021春招准备
     </h1>
   
 
@@ -459,117 +458,7 @@
 </ul>
 <h5 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h5><p>当有用户为一篇文章点赞时，除了要对该文章的 <strong>votes 字段进行加 1 操作</strong>，还必须<strong>记录该用户已经对该文章进行了点赞</strong>，防止用户点赞次数超过 1。可以建立文章的已投票用户集合来进行记录。</p>
 <p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-redis-prometheus-rocketmq%E7%AF%87/1.png" alt="title"></p>
-<h4 id="2、Prometheus"><a href="#2、Prometheus" class="headerlink" title="2、Prometheus"></a>2、Prometheus</h4><h5 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h5><p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-redis-prometheus-rocketmq%E7%AF%87/2.png" alt="title"></p>
-<ul>
-<li>Prometheus Server：用于抓取和存储时间序列化数据</li>
-<li>Exporters：主动拉取数据的插件</li>
-<li>Pushgateway：被动拉取数据的插件</li>
-<li>Altermanager：告警发送模块</li>
-<li>Prometheus web UI：界面化，也包含结合Grafana进行数据展示或告警发送</li>
-<li>默认端口号为: 9090</li>
-</ul>
-<h5 id="Prometheus如何存储数据"><a href="#Prometheus如何存储数据" class="headerlink" title="Prometheus如何存储数据"></a>Prometheus如何存储数据</h5><ul>
-<li><p>采用time-series(时间序列)方式，存储在本地硬盘</p>
-</li>
-<li><p>time-series数据库以<strong>每2小时间</strong>隔来分block(块)存储，<strong>每个块又分为多个chunk文件</strong>，chunk文件用来存放采集的数据的数据，metadata和索引文件；</p>
-</li>
-<li><p>index文件是对metrics和labels进行索引之后存储在chunk中，<strong>chunk是作为基本存储单位</strong>，index和metadata作为子集；</p>
-</li>
-<li><p>prometheus平时采集到的数据先存放在内存之中，对内存消耗大，以缓存的方式可以加快搜索和访问</p>
-</li>
-<li><p>在prometheus宕机时，prometheus有一种保护机制WAL，<strong>将数据定期存入硬盘中以chunk来表示</strong>，在重新启动时，可以恢复进内存当中。</p>
-</li>
-<li><p>当通过API删除序列时，<strong>删除的记录存储在单独的tombstone文件中</strong>(而不是立即从块文件中删除数据)</p>
-</li>
-</ul>
-<h5 id="数据采集的方式"><a href="#数据采集的方式" class="headerlink" title="数据采集的方式"></a>数据采集的方式</h5><ul>
-<li><p>pull</p>
-<ul>
-<li>被监控主机安装各类已有的exporters</li>
-<li>exporters以守护进程的模式运行，并开始采集数据</li>
-<li>exporters是http_server，可以对http请求作出响应，并返回K/V数据，也就是metrics</li>
-<li>prometheus通过用pull的方式（HTTP_GET）去访问每个节点上的exporter并采集回需要的数据</li>
-</ul>
-</li>
-<li><p>push</p>
-<ul>
-<li>被监控主机安装官方的pushgateway插件</li>
-<li>通过自行编写的各种脚本，将监控数据组织成K/V的形式（metrics形式）发送给pushgateway</li>
-<li>pushgateway再推送给prometheus</li>
-<li>pushgateway只是一个中间转发的媒介，可以被安装在任何地方</li>
-</ul>
-</li>
-</ul>
-<h5 id="什么是metrics"><a href="#什么是metrics" class="headerlink" title="什么是metrics"></a>什么是metrics</h5><ul>
-<li>metrics是对采集过来的数据的一种统称</li>
-<li>类型:<ul>
-<li>Gauges: 最简单的度量指标，只有一个简单的返回值，或者叫做瞬时状态</li>
-<li>Counters: Counters就是计数器</li>
-<li>Histograms：柱状图，用于观察结果采样<ul>
-<li>histograms 公开桶式观察计数，而<strong>histogram</strong> 的桶中的分位数计算在服务器端使用 histogram_quantile() 函数。每个配置的存储桶有一个时间序列。</li>
-</ul>
-</li>
-<li>Summary：类似Histogram，用于表示一段时间内数据采样结果<ul>
-<li><strong>summaries</strong> 在客户端侧计算数据流的分位数并直接公开它们</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h5 id="什么是node-exporter"><a href="#什么是node-exporter" class="headerlink" title="什么是node-exporter"></a>什么是node-exporter</h5><blockquote>
-<p>Prometheus为了支持各种中间件以及第三方的监控提供了exporter，监控适配器，将不同指标类型和格式的数据统一转化为Prometheus能够识别的指标类型。他们将这些异构的数据转化为标准的Prometheus格式，并提供HTTP查询接口。 </p>
-<p><strong>默认监听9100端口</strong> </p>
-</blockquote>
-<ul>
-<li>Node exporter主要通过读取Linux的/proc以及/sys目录下的系统文件获取操作系统运行状态</li>
-<li>redis exporter通过Redis命令行获取指标</li>
-<li>mysql exporter通过读取数据库监控表获取MySQL的性能数据</li>
-</ul>
-<h5 id="PromQL"><a href="#PromQL" class="headerlink" title="PromQL"></a>PromQL</h5><blockquote>
-<p>PromQL是Prometheus内置的数据查询语言，其提供对时间序列数据丰富的查询，聚合以及逻辑运算能力的支持</p>
-</blockquote>
-<p><strong>matric固定格式</strong>: <code>&lt;metric name&gt;&#123;&lt;label name&gt;=&lt;label value&gt;, ...&#125;</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node_memory_MemFree_bytes&#123;instance=&quot;node02&quot;,job=&quot;node02&quot;&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>监控名称查询</strong>: </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 如下查询了cpu的空闲和非空闲时的使用时间</span></span><br><span class="line">node_cpu_seconds_total&#123;mode=&#x27;idle&#x27;&#125; </span><br><span class="line">node_cpu_seconds_total&#123;mode!=&#x27;idle&#x27;&#125; </span><br><span class="line">node_systemd_unit_state&#123;instance=&#x27;47.98.138.176:9100&#x27;, job=&#x27;node&#x27;, name=&#x27;docker.service&#x27;&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>范围查询:</strong> </p>
-<ul>
-<li><code>s</code> - 秒</li>
-<li><code>m</code> - 分钟</li>
-<li><code>h</code> - 小时</li>
-<li><code>d</code> - 天</li>
-<li><code>w</code> - 周</li>
-<li><code>y</code> - 年</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pushgateway_http_requests_total&#123;instance=~&quot;pushgateway&quot;,method=&#x27;get&#x27;&#125;[1m]</span><br></pre></td></tr></table></figure>
-
-<p><strong>时间位移查询</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pushgateway_http_requests_total&#123;instance=~&quot;pushgateway&quot;,method=&#x27;get&#x27;&#125; offset 1d</span><br></pre></td></tr></table></figure>
-
-<p><strong>聚合查询</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查询昨天1天内pushgeteway中get的请求总量之和</span></span><br><span class="line">sum(pushgateway_http_requests_total&#123;instance=~&quot;pushgateway&quot;,method=&#x27;get&#x27;&#125; offset 1d)</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 按照mode计算主机CPU的平均使用时间</span></span><br><span class="line">avg(node_cpu_seconds_total)by(mode)</span><br></pre></td></tr></table></figure>
-
-<h5 id="数据存储格式"><a href="#数据存储格式" class="headerlink" title="数据存储格式"></a>数据存储格式</h5><h5 id="DownSample原理"><a href="#DownSample原理" class="headerlink" title="DownSample原理"></a>DownSample原理</h5><p><strong>前提</strong>是：数据的处理符合结合律，多个采样点的值的合并不会影响最终的计算结果。</p>
-<p><strong>原理</strong>: 降采样说白了就是降低数据的分辨率, 将一定时间间隔内的点，基于一定规则，聚合为一个或者一组值，从而达到降低采样点数，将少数据量，减轻数据查询的压力。比如: 30s采集周期，5min的时间间隔就是将6个点转化为1个点</p>
-<ul>
-<li>时间间隔：经验值5min or 1h<ul>
-<li>5min: 当查询时间跨度在40h-240h之间</li>
-<li>1h: 查询时间大于10天</li>
-</ul>
-</li>
-<li>聚合规则<ul>
-<li>max：典型的max_over_time</li>
-<li>Min: min_over_time</li>
-<li>Sum: sum_over_time</li>
-<li>Count: count_over_time</li>
-<li>avg: 取时间间隔内点的平均值</li>
-<li>counter: 计算变化率，典型的有rate,increase</li>
-</ul>
-</li>
-</ul>
-<h4 id="3、RocketMQ"><a href="#3、RocketMQ" class="headerlink" title="3、RocketMQ"></a>3、RocketMQ</h4><h5 id="MQ选型"><a href="#MQ选型" class="headerlink" title="MQ选型"></a>MQ选型</h5><ul>
+<h4 id="2、RocketMQ"><a href="#2、RocketMQ" class="headerlink" title="2、RocketMQ"></a>2、RocketMQ</h4><h5 id="MQ选型"><a href="#MQ选型" class="headerlink" title="MQ选型"></a>MQ选型</h5><ul>
 <li>初步考虑<ul>
 <li>业内常用的MQ有哪些？</li>
 <li>每一种MQ各自的表现如何？</li>
@@ -611,7 +500,7 @@
 </ul>
 </li>
 </ul>
-<h5 id="架构-1"><a href="#架构-1" class="headerlink" title="架构"></a>架构</h5><p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-redis-prometheus-rocketmq%E7%AF%87/3.jpg" alt="title"></p>
+<h5 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h5><p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-redis-prometheus-rocketmq%E7%AF%87/3.jpg" alt="title"></p>
 <p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-redis-prometheus-rocketmq%E7%AF%87/4.jpg" alt="title"></p>
 <p>消息先发到Topic，然后消费者去Topic拿消息。只是Topic在这里只是个概念，实际上Message是在每个Broker上以Queue的形式记录。</p>
 <ul>
@@ -766,7 +655,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://zhangfuli.github.io/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Redis-Prometheus-RocketMQ%E7%AF%87/" title="Redis/Prometheus/RocketMQ篇-2021春招准备" target="_blank" rel="external">https://zhangfuli.github.io/2021/03/01/2021春招准备-Redis-Prometheus-RocketMQ篇/</a>
+      <a href="https://zhangfuli.github.io/2021/03/01/2021%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-Redis-Prometheus-RocketMQ%E7%AF%87/" title="Redis/RocketMQ篇-2021春招准备" target="_blank" rel="external">https://zhangfuli.github.io/2021/03/01/2021春招准备-Redis-Prometheus-RocketMQ篇/</a>
     </li>
     
     <li class="post-copyright-license">

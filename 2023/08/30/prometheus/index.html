@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>prometheus | Hexo</title>
+  <meta name="description" content="Prometheus架构  Prometheus Server：用于抓取和存储时间序列化数据 Exporters：主动拉取数据的插件 Pushgateway：被动拉取数据的插件 Altermanager：告警发送模块 Prometheus web UI：界面化，也包含结合Grafana进行数据展示或告警发送 默认端口号为: 9090  Prometheus如何存储数据TSDB存储原理: https">
+<meta property="og:type" content="article">
+<meta property="og:title" content="prometheus">
+<meta property="og:url" content="https://zhangfuli.github.io/2023/08/30/prometheus/index.html">
+<meta property="og:site_name" content="Hello, Zhangfuli">
+<meta property="og:description" content="Prometheus架构  Prometheus Server：用于抓取和存储时间序列化数据 Exporters：主动拉取数据的插件 Pushgateway：被动拉取数据的插件 Altermanager：告警发送模块 Prometheus web UI：界面化，也包含结合Grafana进行数据展示或告警发送 默认端口号为: 9090  Prometheus如何存储数据TSDB存储原理: https">
+<meta property="og:locale">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-redis-prometheus-rocketmq%E7%AF%87/2.png">
+<meta property="og:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-redis-prometheus-rocketmq%E7%AF%87/6.png">
+<meta property="article:published_time" content="2023-08-30T08:36:30.000Z">
+<meta property="article:modified_time" content="2023-08-30T08:45:00.035Z">
+<meta property="article:author" content="张富利">
+<meta property="article:tag" content="面经">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zhangfuli.github.io/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-redis-prometheus-rocketmq%E7%AF%87/2.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://zhangfuli.github.io/2023/08/30/prometheus/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hello, Zhangfuli" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/zhangfuli" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">张富利</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">学生</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> NanJing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTML-CSS/">HTML CSS</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/angularjs/">angularjs</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8E%A2%E7%A9%B6/">探究</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83/">环境</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A1%AC%E4%BB%B6/">硬件</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML-CSS/" rel="tag">HTML CSS</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angularjs/" rel="tag">angularjs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kubernetes/" rel="tag">kubernetes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A2%E7%A9%B6/" rel="tag">探究</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83/" rel="tag">环境</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E7%BB%8F/" rel="tag">面经</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/HTML-CSS/" style="font-size: 13.63px;">HTML CSS</a> <a href="/tags/Linux/" style="font-size: 13.5px;">Linux</a> <a href="/tags/angularjs/" style="font-size: 13.5px;">angularjs</a> <a href="/tags/hexo/" style="font-size: 13.5px;">hexo</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/kubernetes/" style="font-size: 13px;">kubernetes</a> <a href="/tags/mongodb/" style="font-size: 13.38px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.38px;">nodejs</a> <a href="/tags/python/" style="font-size: 13.13px;">python</a> <a href="/tags/react/" style="font-size: 13px;">react</a> <a href="/tags/vue/" style="font-size: 13.25px;">vue</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.25px;">区块链</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 13px;">小程序</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 13px;">工具</a> <a href="/tags/%E6%8E%A2%E7%A9%B6/" style="font-size: 13.63px;">探究</a> <a href="/tags/%E7%8E%AF%E5%A2%83/" style="font-size: 13.75px;">环境</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 13.88px;">生活</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.13px;">硬件</a> <a href="/tags/%E9%9D%A2%E7%BB%8F/" style="font-size: 13px;">面经</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2023/08/30/prometheus/" class="title">prometheus</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-08-30T08:36:30.000Z" itemprop="datePublished">2023-08-30</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2022/04/08/Docker-for-Mac%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4APIServer%E9%85%8D%E7%BD%AE/" class="title">Docker for Mac修改默认APIServer配置</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-04-08T14:21:47.000Z" itemprop="datePublished">2022-04-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/12/21/%E6%A0%A1%E6%8B%9B%E6%80%BB%E7%BB%93/" class="title">校招总结</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-12-21T08:02:44.000Z" itemprop="datePublished">2021-12-21</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/16/mac-docker-connector/" class="title">mac-docker-connector</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-16T13:03:40.000Z" itemprop="datePublished">2021-10-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/10/k8s%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" class="title">k8s常见问题</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-09T16:57:15.000Z" itemprop="datePublished">2021-10-10</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-prometheus" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      prometheus
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2023/08/30/prometheus/" class="article-date">
+	  <time datetime="2023-08-30T08:36:30.000Z" itemprop="datePublished">2023-08-30</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E9%9D%A2%E7%BB%8F/" rel="tag">面经</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/08/30/prometheus/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h4 id="Prometheus"><a href="#Prometheus" class="headerlink" title="Prometheus"></a>Prometheus</h4><h5 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h5><p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-redis-prometheus-rocketmq%E7%AF%87/2.png" alt="title"></p>
+<ul>
+<li>Prometheus Server：用于抓取和存储时间序列化数据</li>
+<li>Exporters：主动拉取数据的插件</li>
+<li>Pushgateway：被动拉取数据的插件</li>
+<li>Altermanager：告警发送模块</li>
+<li>Prometheus web UI：界面化，也包含结合Grafana进行数据展示或告警发送</li>
+<li>默认端口号为: 9090</li>
+</ul>
+<h5 id="Prometheus如何存储数据"><a href="#Prometheus如何存储数据" class="headerlink" title="Prometheus如何存储数据"></a>Prometheus如何存储数据</h5><p>TSDB存储原理: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/498612076">https://zhuanlan.zhihu.com/p/498612076</a></p>
+<ul>
+<li><p>采用time-series(时间序列)方式，存储在本地硬盘</p>
+</li>
+<li><p>time-series数据库以<strong>每2小时间</strong>隔来分block(块)存储，<strong>每个块又分为多个chunk文件</strong>，chunk文件用来存放采集的数据的数据，metadata和索引文件；</p>
+</li>
+<li><p>index文件是对metrics和labels进行索引之后存储在chunk中，<strong>chunk是作为基本存储单位</strong>，index和metadata作为子集；</p>
+</li>
+<li><p>prometheus平时采集到的数据先存放在内存之中，对内存消耗大，以缓存的方式可以加快搜索和访问</p>
+</li>
+<li><p>在prometheus宕机时，prometheus有一种保护机制WAL，<strong>将数据定期存入硬盘中以chunk来表示</strong>，在重新启动时，可以恢复进内存当中。</p>
+</li>
+<li><p>当通过API删除序列时，<strong>删除的记录存储在单独的tombstone文件中</strong>(而不是立即从块文件中删除数据)</p>
+</li>
+</ul>
+<h5 id="数据采集的方式"><a href="#数据采集的方式" class="headerlink" title="数据采集的方式"></a>数据采集的方式</h5><ul>
+<li><p>pull</p>
+<ul>
+<li>被监控主机安装各类已有的exporters</li>
+<li>exporters以守护进程的模式运行，并开始采集数据</li>
+<li>exporters是http_server，可以对http请求作出响应，并返回K/V数据，也就是metrics</li>
+<li>prometheus通过用pull的方式（HTTP_GET）去访问每个节点上的exporter并采集回需要的数据</li>
+</ul>
+</li>
+<li><p>push</p>
+<ul>
+<li>被监控主机安装官方的pushgateway插件</li>
+<li>通过自行编写的各种脚本，将监控数据组织成K/V的形式（metrics形式）发送给pushgateway</li>
+<li>pushgateway再推送给prometheus</li>
+<li>pushgateway只是一个中间转发的媒介，可以被安装在任何地方</li>
+</ul>
+</li>
+</ul>
+<h5 id="什么是metrics"><a href="#什么是metrics" class="headerlink" title="什么是metrics"></a>什么是metrics</h5><ul>
+<li>metrics是对采集过来的数据的一种统称</li>
+<li>类型:<ul>
+<li>Gauges: 最简单的度量指标，只有一个简单的返回值，或者叫做瞬时状态</li>
+<li>Counters: Counters就是计数器</li>
+<li>Histograms：柱状图，用于观察结果采样<ul>
+<li>histograms 公开桶式观察计数，而<strong>histogram</strong> 的桶中的分位数计算在服务器端使用 histogram_quantile() 函数。每个配置的存储桶有一个时间序列。</li>
+</ul>
+</li>
+<li>Summary：类似Histogram，用于表示一段时间内数据采样结果<ul>
+<li><strong>summaries</strong> 在客户端侧计算数据流的分位数并直接公开它们</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="什么是node-exporter"><a href="#什么是node-exporter" class="headerlink" title="什么是node-exporter"></a>什么是node-exporter</h5><blockquote>
+<p>Prometheus为了支持各种中间件以及第三方的监控提供了exporter，监控适配器，将不同指标类型和格式的数据统一转化为Prometheus能够识别的指标类型。他们将这些异构的数据转化为标准的Prometheus格式，并提供HTTP查询接口。 </p>
+<p><strong>默认监听9100端口</strong> </p>
+</blockquote>
+<ul>
+<li>Node exporter主要通过读取Linux的/proc以及/sys目录下的系统文件获取操作系统运行状态</li>
+<li>redis exporter通过Redis命令行获取指标</li>
+<li>mysql exporter通过读取数据库监控表获取MySQL的性能数据</li>
+</ul>
+<h5 id="PromQL"><a href="#PromQL" class="headerlink" title="PromQL"></a>PromQL</h5><blockquote>
+<p>PromQL是Prometheus内置的数据查询语言，其提供对时间序列数据丰富的查询，聚合以及逻辑运算能力的支持</p>
+</blockquote>
+<p><strong>matric固定格式</strong>: <code>&lt;metric name&gt;&#123;&lt;label name&gt;=&lt;label value&gt;, ...&#125;</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node_memory_MemFree_bytes&#123;instance=&quot;node02&quot;,job=&quot;node02&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>监控名称查询</strong>: </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 如下查询了cpu的空闲和非空闲时的使用时间</span></span><br><span class="line">node_cpu_seconds_total&#123;mode=&#x27;idle&#x27;&#125; </span><br><span class="line">node_cpu_seconds_total&#123;mode!=&#x27;idle&#x27;&#125; </span><br><span class="line">node_systemd_unit_state&#123;instance=&#x27;47.98.138.176:9100&#x27;, job=&#x27;node&#x27;, name=&#x27;docker.service&#x27;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>范围查询:</strong> </p>
+<ul>
+<li><code>s</code> - 秒</li>
+<li><code>m</code> - 分钟</li>
+<li><code>h</code> - 小时</li>
+<li><code>d</code> - 天</li>
+<li><code>w</code> - 周</li>
+<li><code>y</code> - 年</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pushgateway_http_requests_total&#123;instance=~&quot;pushgateway&quot;,method=&#x27;get&#x27;&#125;[1m]</span><br></pre></td></tr></table></figure>
+
+<p><strong>时间位移查询</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pushgateway_http_requests_total&#123;instance=~&quot;pushgateway&quot;,method=&#x27;get&#x27;&#125; offset 1d</span><br></pre></td></tr></table></figure>
+
+<p><strong>聚合查询</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查询昨天1天内pushgeteway中get的请求总量之和</span></span><br><span class="line">sum(pushgateway_http_requests_total&#123;instance=~&quot;pushgateway&quot;,method=&#x27;get&#x27;&#125; offset 1d)</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 按照mode计算主机CPU的平均使用时间</span></span><br><span class="line">avg(node_cpu_seconds_total)by(mode)</span><br></pre></td></tr></table></figure>
+
+<h5 id="数据存储格式"><a href="#数据存储格式" class="headerlink" title="数据存储格式"></a>数据存储格式</h5><h5 id="DownSample原理"><a href="#DownSample原理" class="headerlink" title="DownSample原理"></a>DownSample原理</h5><p><strong>前提</strong>是：数据的处理符合结合律，多个采样点的值的合并不会影响最终的计算结果。</p>
+<p><strong>原理</strong>: 降采样说白了就是降低数据的分辨率, 将一定时间间隔内的点，基于一定规则，聚合为一个或者一组值，从而达到降低采样点数，将少数据量，减轻数据查询的压力。比如: 30s采集周期，5min的时间间隔就是将6个点转化为1个点</p>
+<ul>
+<li>时间间隔：经验值5min or 1h<ul>
+<li>5min: 当查询时间跨度在40h-240h之间</li>
+<li>1h: 查询时间大于10天</li>
+</ul>
+</li>
+<li>聚合规则<ul>
+<li>max：典型的max_over_time</li>
+<li>Min: min_over_time</li>
+<li>Sum: sum_over_time</li>
+<li>Count: count_over_time</li>
+<li>avg: 取时间间隔内点的平均值</li>
+<li>counter: 计算变化率，典型的有rate,increase</li>
+</ul>
+</li>
+</ul>
+<h5 id="step-duration区别"><a href="#step-duration区别" class="headerlink" title="step duration区别"></a>step duration区别</h5><p><img src="/images/2021%E5%B9%B4%E6%98%A5%E6%8B%9B%E5%87%86%E5%A4%87-redis-prometheus-rocketmq%E7%AF%87/6.png" alt="title"></p>
+<h5 id="rate与irate区别"><a href="#rate与irate区别" class="headerlink" title="rate与irate区别"></a>rate与irate区别</h5><p><code>rate(v range-vector)</code> 计算范围向量中时间序列的每秒平均增长率。单调性中断（例如由于目标重新启动而导致的计数器重置）会自动调整。此外，计算还会推断到时间范围的末尾，从而允许遗漏刮擦或刮擦周期与范围时间段的不完美对齐。<strong>duration的末尾的点减起始点</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">value = end-start</span><br><span class="line">time = endTime - startTime</span><br><span class="line">rate = value / time</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>irate(v range-vector)</code> 计算范围向量中时间序列的每秒瞬时增长率。这是基于最后两个数据点。单调性中断（例如由于目标重新启动而导致的计数器重置）会自动调整。<strong>duration中最后两个时间点斜率</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">value = end1 - end2</span><br><span class="line">time = end1Time - end2Time</span><br><span class="line">rate = value / time</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://zhangfuli.github.io/2023/08/30/prometheus/" title="prometheus" target="_blank" rel="external">https://zhangfuli.github.io/2023/08/30/prometheus/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangfuli" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangfuli" target="_blank"><span class="text-dark">张富利</span><small class="ml-1x">学生</small></a></h3>
+        <div>Do myself,Believe myself,Try my best</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2022/04/08/Docker-for-Mac%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4APIServer%E9%85%8D%E7%BD%AE/" title="Docker for Mac修改默认APIServer配置"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498969-6d12a800-deef-11e9-927a-89d5d0ce9e42.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="https://user-images.githubusercontent.com/17808702/65498913-4fddd980-deef-11e9-9da1-56f86199713b.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'e0m4Aw9mFAjO1UuHuINbSEOm-gzGzoHsz',
+    appKey: 'VwY3lLrV5rMPSG6AFGO87omg',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
