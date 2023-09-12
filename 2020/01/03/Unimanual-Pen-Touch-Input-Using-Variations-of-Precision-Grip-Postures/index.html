@@ -1,30 +1,28 @@
+
+
 <!DOCTYPE html>
-<html lang=zh>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="Cache-Control" content="no-transform" />
-  <meta http-equiv="Cache-Control" content="no-siteapp" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="format-detection" content="telephone=no,email=no,adress=no">
-  <!-- Color theme for statusbar -->
-  <meta name="theme-color" content="#000000" />
-  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
-  <meta http-equiv="window-target" content="_top" />
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="张富利">
+  <meta name="keywords" content="">
   
-  
-  <title>Unimanual Pen+Touch Input Using Variations of Precision Grip Postures | Hexo</title>
-  <meta name="description" content="Abstract我们引入了一个新的笔输入空间，通过形成姿势的同一手也握笔，而写作，绘画，或选择。姿势与笔周围的多点触控表面接触，无需特殊传感器即可检测。一项形成性研究调查了33种候选姿势在受控任务中的有效性、准确性和舒适度。结果表明姿势是有用的子集。利用采集到的电容传感器原始数据，训练卷积神经网络对10个姿态进行实时识别。此识别器用于创建基于笔的文档注释和矢量绘图的应用程序演示。一个小型的可用性研">
+    <meta name="description" content="Abstract我们引入了一个新的笔输入空间，通过形成姿势的同一手也握笔，而写作，绘画，或选择。姿势与笔周围的多点触控表面接触，无需特殊传感器即可检测。一项形成性研究调查了33种候选姿势在受控任务中的有效性、准确性和舒适度。结果表明姿势是有用的子集。利用采集到的电容传感器原始数据，训练卷积神经网络对10个姿态进行实时识别。此识别器用于创建基于笔的文档注释和矢量绘图的应用程序演示。一个小型的可用性研">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Unimanual Pen+Touch Input Using Variations of Precision Grip Postures">
 <meta property="og:url" content="https://zhangfuli.github.io/2020/01/03/Unimanual-Pen-Touch-Input-Using-Variations-of-Precision-Grip-Postures/index.html">
 <meta property="og:site_name" content="Hello, Zhangfuli">
 <meta property="og:description" content="Abstract我们引入了一个新的笔输入空间，通过形成姿势的同一手也握笔，而写作，绘画，或选择。姿势与笔周围的多点触控表面接触，无需特殊传感器即可检测。一项形成性研究调查了33种候选姿势在受控任务中的有效性、准确性和舒适度。结果表明姿势是有用的子集。利用采集到的电容传感器原始数据，训练卷积神经网络对10个姿态进行实时识别。此识别器用于创建基于笔的文档注释和矢量绘图的应用程序演示。一个小型的可用性研">
-<meta property="og:locale">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://user-images.githubusercontent.com/17808702/71722880-8e2b5300-2e65-11ea-9a1b-84014dc66976.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/17808702/71727228-8cb55700-2e74-11ea-8814-b98740b24a34.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/17808702/71764615-ef662b80-2f24-11ea-8907-8ee88e0f2022.png">
@@ -39,318 +37,261 @@
 <meta property="article:published_time" content="2020-01-03T11:50:58.000Z">
 <meta property="article:modified_time" content="2020-01-05T06:37:27.806Z">
 <meta property="article:author" content="张富利">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://user-images.githubusercontent.com/17808702/71722880-8e2b5300-2e65-11ea-9a1b-84014dc66976.png">
-  <!-- Canonical links -->
-  <link rel="canonical" href="https://zhangfuli.github.io/2020/01/03/Unimanual-Pen-Touch-Input-Using-Variations-of-Precision-Grip-Postures/index.html">
-  
-    <link rel="alternate" href="/atom.xml" title="Hello, Zhangfuli" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
   
-  
-<link rel="stylesheet" href="/css/style.css">
+  <title>Unimanual Pen+Touch Input Using Variations of Precision Grip Postures - Hello, Zhangfuli</title>
 
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
   
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zhangfuli.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
   
+
+
   
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 
-<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
-  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-  <div class="slimContent">
-    <div class="navbar-header">
-      
-      
-      <div class="profile-block text-center">
-        <a id="avatar" href="https://github.com/zhangfuli" target="_blank">
-          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
-        </a>
-        <h2 id="name" class="hidden-xs hidden-sm">张富利</h2>
-        <h3 id="title" class="hidden-xs hidden-sm hidden-md">学生</h3>
-        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> NanJing, China</small>
-      </div>
-      
-      <div class="search" id="search-form-wrap">
+<body>
+  
 
-    <form class="search-form sidebar-form">
-        <div class="input-group">
-            <input type="text" class="search-form-input form-control" placeholder="Search" />
-            <span class="input-group-btn">
-                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
-            </span>
-        </div>
-    </form>
-    <div class="ins-search">
-  <div class="ins-search-mask"></div>
-  <div class="ins-search-container">
-    <div class="ins-input-wrapper">
-      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
-      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-    </div>
-    <div class="ins-section-wrapper">
-      <div class="ins-section-container"></div>
-    </div>
-  </div>
-</div>
+  <header>
+    
 
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Jeffrey&#39;s Blog</strong>
+    </a>
 
-</div>
-      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
-      <ul class="nav navbar-nav main-nav ">
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
         
         
-        <li class="menu-item menu-item-home">
-          <a href="/.">
-            
-            <i class="icon icon-home-fill"></i>
-            
-            <span class="menu-title">Home</span>
-          </a>
-        </li>
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
         
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives">
-            
-            <i class="icon icon-archives-fill"></i>
-            
-            <span class="menu-title">Archives</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags">
-            
-            <i class="icon icon-tags"></i>
-            
-            <span class="menu-title">Tags</span>
-          </a>
-        </li>
-        
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about">
-            
-            <i class="icon icon-cup-fill"></i>
-            
-            <span class="menu-title">About</span>
-          </a>
-        </li>
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
         
       </ul>
-      
-	
-    <ul class="social-links">
-    	
-        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
-        
-        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
-        
-    </ul>
-
-    </nav>
+    </div>
   </div>
-</header>
+</nav>
 
   
-    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Unimanual Pen+Touch Input Using Variations of Precision Grip Postures"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
     
-      <div class="widget">
-    <h3 class="widget-title">Board</h3>
-    <div class="widget-body">
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-01-03 19:50" pubdate>
+          2020年1月3日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          16k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          135 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
-            <div class="content">
-                <p>欢迎交流与分享经验!</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTML-CSS/">HTML CSS</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/angularjs/">angularjs</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mongodb/">mongodb</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8E%A2%E7%A9%B6/">探究</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83/">环境</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A1%AC%E4%BB%B6/">硬件</a><span class="category-list-count">2</span></li></ul>
-    </div>
-  </div>
-
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML-CSS/" rel="tag">HTML CSS</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angularjs/" rel="tag">angularjs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kubernetes/" rel="tag">kubernetes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb/" rel="tag">mongodb</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag">小程序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A2%E7%A9%B6/" rel="tag">探究</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83/" rel="tag">环境</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6/" rel="tag">硬件</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E7%BB%8F/" rel="tag">面经</a><span class="tag-list-count">4</span></li></ul>
-    </div>
-  </div>
-
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget-body tagcloud">
-      <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/HTML-CSS/" style="font-size: 13.63px;">HTML CSS</a> <a href="/tags/Linux/" style="font-size: 13.5px;">Linux</a> <a href="/tags/angularjs/" style="font-size: 13.5px;">angularjs</a> <a href="/tags/hexo/" style="font-size: 13.5px;">hexo</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/kubernetes/" style="font-size: 13px;">kubernetes</a> <a href="/tags/mongodb/" style="font-size: 13.38px;">mongodb</a> <a href="/tags/nodejs/" style="font-size: 13.38px;">nodejs</a> <a href="/tags/python/" style="font-size: 13.13px;">python</a> <a href="/tags/react/" style="font-size: 13px;">react</a> <a href="/tags/vue/" style="font-size: 13.25px;">vue</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.25px;">区块链</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 13px;">大数据</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 13px;">小程序</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 13px;">工具</a> <a href="/tags/%E6%8E%A2%E7%A9%B6/" style="font-size: 13.63px;">探究</a> <a href="/tags/%E7%8E%AF%E5%A2%83/" style="font-size: 13.75px;">环境</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 13.88px;">生活</a> <a href="/tags/%E7%A1%AC%E4%BB%B6/" style="font-size: 13.13px;">硬件</a> <a href="/tags/%E9%9D%A2%E7%BB%8F/" style="font-size: 13.38px;">面经</a>
-    </div>
-  </div>
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">Archive</h3>
-    <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li></ul>
-    </div>
-  </div>
-
-
-    
-      
-  <div class="widget">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget-body">
-      <ul class="recent-post-list list-unstyled no-thumbnail">
-        
-          <li>
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Unimanual Pen+Touch Input Using Variations of Precision Grip Postures</h1>
             
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2023/08/31/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95%E6%89%8B%E5%86%8C/" class="title">服务端开发面试手册(Java)</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2023-08-31T07:46:41.000Z" itemprop="datePublished">2023-08-31</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
             
-            <div class="item-inner">
-              <p class="item-category">
+              <div class="markdown-body">
                 
-              </p>
-              <p class="item-title">
-                <a href="/2023/08/31/git%E6%93%8D%E4%BD%9C/" class="title">git操作</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2023-08-31T07:05:44.000Z" itemprop="datePublished">2023-08-31</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2023/08/30/prometheus/" class="title">Prometheus</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2023-08-30T08:36:30.000Z" itemprop="datePublished">2023-08-30</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2022/04/08/Docker-for-Mac%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4APIServer%E9%85%8D%E7%BD%AE/" class="title">Docker for Mac修改默认APIServer配置</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2022-04-08T14:21:47.000Z" itemprop="datePublished">2022-04-08</time>
-              </p>
-            </div>
-          </li>
-          
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2021/12/21/%E6%A0%A1%E6%8B%9B%E6%80%BB%E7%BB%93/" class="title">校招总结</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2021-12-21T08:02:44.000Z" itemprop="datePublished">2021-12-21</time>
-              </p>
-            </div>
-          </li>
-          
-      </ul>
-    </div>
-  </div>
-  
-
-    
-  </div>
-</aside>
-
-  
-  
-<main class="main" role="main">
-  <div class="content">
-  <article id="post-Unimanual-Pen-Touch-Input-Using-Variations-of-Precision-Grip-Postures" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Unimanual Pen+Touch Input Using Variations of Precision Grip Postures
-    </h1>
-  
-
-      
-      <div class="article-meta">
-        <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2020/01/03/Unimanual-Pen-Touch-Input-Using-Variations-of-Precision-Grip-Postures/" class="article-date">
-	  <time datetime="2020-01-03T11:50:58.000Z" itemprop="datePublished">2020-01-03</time>
-	</a>
-</span>
-        
-        
-
-        
-
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/01/03/Unimanual-Pen-Touch-Input-Using-Variations-of-Precision-Grip-Postures/#comments" class="article-comment-link">Comments</a></span>
-        
-      </div>
-    </div>
-    <div class="article-entry marked-body" itemprop="articleBody">
-      
-        <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>我们引入了一个新的笔输入空间，通过形成姿势的同一手也握笔，而写作，绘画，或选择。姿势与笔周围的多点触控表面接触，无需特殊传感器即可检测。一项形成性研究调查了33种候选姿势在受控任务中的有效性、准确性和舒适度。结果表明姿势是有用的子集。利用采集到的电容传感器原始数据，训练卷积神经网络对10个姿态进行实时识别。此识别器用于创建基于笔的文档注释和矢量绘图的应用程序演示。一个小型的可用性研究表明该方法是可行的。</p>
+                <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>我们引入了一个新的笔输入空间，通过形成姿势的同一手也握笔，而写作，绘画，或选择。姿势与笔周围的多点触控表面接触，无需特殊传感器即可检测。一项形成性研究调查了33种候选姿势在受控任务中的有效性、准确性和舒适度。结果表明姿势是有用的子集。利用采集到的电容传感器原始数据，训练卷积神经网络对10个姿态进行实时识别。此识别器用于创建基于笔的文档注释和矢量绘图的应用程序演示。一个小型的可用性研究表明该方法是可行的。</p>
 <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>笔交互使绘画和写作自然和精确,但当前的应用程序仍然需要频繁使用的图形用户界面(GUI)按钮,菜单,和小部件等操作开关直接操作工具(例如选择、签署、或突出显示),设置属性(例如中风色彩或厚度),并发出指令(例如使用上下文菜单或笔手势)。但是，GUI菜单和工具栏会占用空间，而且很容易出错，因此增加钢笔输入空间以减少GUI的使用是一个重要的目标。</p>
 <p>研究人员提出并评估了许多笔输入技术，包括特殊的笔划形状、笔筒按钮和以可检测的方式操作笔。当一支笔与多点触控(通常称为“笔+触控”)相结合时，非惯用手的触控被用来做手势、姿势，或者表示物体的上下文，改变另一只手握笔的模式。我们的工作将笔输入和多点触摸以不同的方式结合起来:我们使用平板触摸传感器来检测用户可控制的手的姿势，而同样的手握笔来书写、绘制或操作图形对象。</p>
 <p>我们的想法源于对人们如何持有书写工具的深入了解。大多数成年人使用一种动态的三脚架握把，拇指和食指相对，第三个手指(通常是中指)提供额外的稳定。这是一种精密握笔器，它平衡了握笔的要求和独立操作的能力。理想的书写姿势是手或手指的一部分放在书写面上，但人们可以用手控制笔，尤其是在不太精确的笔输入任务中。在使用数码笔时，对手部姿势的详细检查也显示了握法的多样性。这些观察结果表明，人们可以根据手指或手接触表面的方式来调整自己的手部姿势，同时仍然可以用食指和拇指保持精确的握力。然而，在使用钢笔时，是否可以用同一只手进行有意的触摸，以及如何有效地使用这些触摸进行输入，这是一个有待解决的问题。</p>
 <p>我们提出的uimanual pen+touch输入空间是通过检测用户何时有意识地调整他们的手姿势接触表面，同时保持精确的笔触来创建的。手掌可以用侧面、脚后跟接触，或者只是漂浮;食指和拇指可以向下滑动，触摸笔尖旁边的表面，中指、无名指和小指可以接触手掌内外的表面。这些组合建议324个理论姿势，但大多数是不切实际的。我们确定了一组候选的33个姿势来评估。</p>
 <p>我们使用一组有15人参与的有代表性的受控任务，从笔控和主观偏好两方面对这些姿势进行了评估。我们的结果表明，有一个很大的子集的实用姿势。在评估过程中，我们还记录了所有的触摸输入数据，包括捕捉原始电容信号的帧图像。我们用这个训练一个深度神经网络来实时识别10个姿势，平均识别率为91.4%(最佳情况96%)。利用该识别器，我们演示了如何将姿态应用于文档注释和矢量绘图，这是两种常见的具有频繁模式切换的钢笔应用。我们的原型被设计成一个在后台运行的系统服务，通过将姿态的可配置映射到快捷键和其他操作或小部件，将命令注入到实际的应用程序中。这使得该技术能够触发工具、进行属性选择和调用命令。最后的研究使用这些应用程序来评估交互空间的可用性和有用性以及交互识别器的性能。</p>
 <p>我们的贡献是一个新的笔输入空间验证的基本可用性，实用性和可行性。由于我们的单手技术不涉及非惯用手，所以它们与双手笔+触摸技术兼容，并且具有一定的局限性，也适用于仅使用钢笔模式切换方法，如使用橡皮擦按钮或按压。此外，与双手操作相比，单笔+触摸可能需要更少的屏幕空间，因此更适合小型平板电脑，甚至智能手机。其目的不是要取代现有的模式转换技术，而是要提出一个笔输入空间，以补充和扩展以前的方法。我们的设计空间探索和识别方法证明了单笔+触摸的概念是可行的，为未来的比较研究奠定了基础。</p>
-<p><img src="https://user-images.githubusercontent.com/17808702/71722880-8e2b5300-2e65-11ea-9a1b-84014dc66976.png" alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/17808702/71722880-8e2b5300-2e65-11ea-9a1b-84014dc66976.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <h2 id="RELATED-WORK"><a href="#RELATED-WORK" class="headerlink" title="RELATED WORK"></a>RELATED WORK</h2><p>模式切换和命令激活是交互操作的关键，针对这些任务已经提出了许多笔输入技术。然而，使用不同的姿势执行，同时保持和使用标准的三脚架精密握笔姿势还没有被探索过。</p>
 <h3 id="Pen-Input-Techniques"><a href="#Pen-Input-Techniques" class="headerlink" title="Pen Input Techniques"></a>Pen Input Techniques</h3><p>考虑到模式切换的重要性，研究人员对[18]进行了详细的研究，并提出了使模式切换和笔输入更强大的技术和方法，这并不奇怪。有一种技术可以被认为是把工具栏更靠近笔。其中包括跟踪菜单、Springboard和跟踪小部件。这些仍然需要屏幕空间，但减少了移动时间。另一类技术使用手势隐藏或消除工具栏，如标记菜单、悬停小部件或Scriboli分隔符。有些是快的，有些是慢的，由于手势是由动作定义的，所以很难将其与直接操作的动作区分开来。考虑到这些技术家族可能存在的问题，我们的方法与它们是兼容的。例如，一个弹簧板，跟踪菜单，或标记菜单只能在使用特定的手姿势时显示，因为大多数手势是独立于用来握笔的手姿势的</p>
 <p>第三类技术利用其他笔输入渠道，如压力，滚动笔筒，倾斜。第四个系列的技术会根据操作笔的方式改变模式。这很简单，只需将笔倒置，使用“橡皮擦”末端或按下笔筒按钮，弯曲笔杆，创建一个具有26种独特方式接触绘图表面的新笔状设备。我们的技术可能与这些技术不太兼容，因为它们需要非标准的笔操作。</p>
@@ -368,10 +309,10 @@
 <li>无握指接触(中指、无名指、小指)×(进、出、不接触):其余三根手指伸出手外或向内弯曲时可独立接触表面，或完全不接触表面。三根手指和三种状态创造了27种变化。</li>
 </ul>
 <p>理论上，这允许324个可能的姿势(3×4×27)至少有一个基本水平的精度，因为三脚架的抓地力保持最低限度的改变。为了使参考姿势在文本、图形和表格中更简洁，我们引入了标准符号。在书面文本中，姿势被命名为一组复合词:手掌接触类型总是给定的(浮动、侧、跟);如果握住的手指被命名为(食指，拇指)，那么它是接触的;非握力手指的名称在触摸时带有后缀In或Out(如MiddleIn, MiddleOut，…)。例如:side-index-pinky-out表示手掌在侧面接触，指的是指尖旁边的接触，而小指指的是在主手接触之外的接触。除了这个长形式，我们还使用缩写的首字母表示法：S、H或F表示手掌状态；T和I表示握指接触；M、R或P表示非握指接触手掌内部。如果手指没有接触，则使用破折号。例如，边索引PinkyOut的压缩形式是（S-I–P）。图2提供了更多的长符号和短符号示例。</p>
-<p><img src="https://user-images.githubusercontent.com/17808702/71727228-8cb55700-2e74-11ea-8814-b98740b24a34.png" alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/17808702/71727228-8cb55700-2e74-11ea-8814-b98740b24a34.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <h3 id="Reduced-Set-of-Candidate-Postures"><a href="#Reduced-Set-of-Candidate-Postures" class="headerlink" title="Reduced Set of Candidate Postures"></a>Reduced Set of Candidate Postures</h3><p>虽然这一大组姿势可能是物理上可实现的，但由于个人灵活性、灵巧性和手部解剖，许多明显地不舒服或难以执行。一名3人飞行员使用下一节中描述的简化版实验协议测试了所有手掌状态下的所有手指状态。这就产生了一套规则：（1）一般情况下，握指和非握指状态不应合并。如果食指或拇指接触，则中间、戒指和小指不得接触，反之亦然。（2） 无名指应与小指或中指一起移动，因为独立的无名指移动是困难的。（3） 在大多数情况下，应避免将非握紧的手指位置分开。根据这些规则，我们将324种可能的姿势减少到33种，以供进一步研究。</p>
 <p>前30个候选是通过将10个特定的握力和非握力手指状态（表1顶部）与所有三个手掌状态组合而成的。其余3名候选人是特殊姿势，包括特定的手掌状态（表1底部）。中指外展：中指和无名指外展一般不舒服，但不太难与手掌漂浮状态。Float-MiddleOut- RingOut:我们发现在使用浮动手掌时很舒服，但在使用其他手势时就很困难了。侧拇指指数-中位-环出-指出-指出:这是一种将握力手指和非握力手指结合起来的方法。</p>
-<p><img src="https://user-images.githubusercontent.com/17808702/71764615-ef662b80-2f24-11ea-8907-8ee88e0f2022.png" alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/17808702/71764615-ef662b80-2f24-11ea-8907-8ee88e0f2022.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <h2 id="EXPERIMENT-POSTURE-SUITABILITY"><a href="#EXPERIMENT-POSTURE-SUITABILITY" class="headerlink" title="EXPERIMENT: POSTURE SUITABILITY"></a>EXPERIMENT: POSTURE SUITABILITY</h2><p>本实验的主要目的是在主观偏好和笔控两方面来评估姿势的可调整性。我们要求参与者完成一组合成的，但有代表性的笔输入任务，使用每个姿势，在此期间，我们测量相对于目标刺激和运动时间的准确性。然后我们要求一个考虑舒适度和控制力的姿势偏好评分。这些结果被用于为特定交互类型的应用程序中的单手笔+触摸姿势创建设计指南。本实验的另一个目标是收集数据，利用机器学习训练姿态识别器。</p>
 <h3 id="Participants"><a href="#Participants" class="headerlink" title="Participants"></a>Participants</h3><p>我们招募了12名惯用右手的参与者，年龄在20到36岁之间，其中5名是女性。右撇子的要求减少了偏手性造成的差异(我们还运行了3个左撇子参与者，我们稍后会讨论)。参与者通过校园传单和口口相传的方式招募，成功完成研究的人将获得20美元</p>
 <h3 id="Apparatus"><a href="#Apparatus" class="headerlink" title="Apparatus"></a>Apparatus</h3><p>Wacom Cintiq 22HD触控笔板(1920×1080像素，47.5×26.7 cm, 4.04 px-per-mm)连接到Intel NUC (Windows 10, Core i7 3.50 GHz 8GB RAM)以运行c# (. net)应用程序。我们非常小心，所以计算和日志不会带来任何明显的延迟</p>
@@ -379,7 +320,7 @@
 <h3 id="Tasks"><a href="#Tasks" class="headerlink" title="Tasks"></a>Tasks</h3><p>我们设计了一组通用的笔输入任务，这些任务间接地派生自Buxton[4]最初提出的那些任务。根据完成任务时钢笔移动的受限制程度，将任务分为受限制和不受限制两类。附带的视频还提供了任务演示。</p>
 <h4 id="Constrained"><a href="#Constrained" class="headerlink" title="Constrained"></a>Constrained</h4><p>受约束的任务(图3)模拟了钢笔交互的不同原子模式，目的是获得关于准确性的定量数据。每个任务都以灰色“点”(点击任务)或黑色背景上呈现的“路径”(跟踪任务)模式呈现。所有点的直径都是4mm，所有路径都是4mm厚。绿色圆点表示下一个要点击的圆点或下一个笔画的开始。“路径”也有一个红色的“帽子”，表示笔画的结束。</p>
 <p>由于其中一个目标是测量如何准确的敲击或打击是比较视觉目标，4mm大小的功能只是作为一个刺激，而不是一个严格的边界。宽松的接受阈值确保参与者在预期目标上轻敲或轻敲，任何距离当前点边缘不到10mm的轻敲都被接受。对于线条，任何从开始到结束的距离在10mm以内，到结束的距离在15mm以内，长度在线条长度的33%以内的笔画都是可以接受的</p>
-<p><img src="https://user-images.githubusercontent.com/17808702/71764802-816f3380-2f27-11ea-96fc-81aab29ec8de.png" alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/17808702/71764802-816f3380-2f27-11ea-96fc-81aab29ec8de.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <p>七个受约束的任务是：</p>
 <ul>
 <li>线性敲击：在沿19厘米水平线均匀分布的4个点上从左向右攻丝。代表一些简短的任务，例如轻击按钮之间的较大移动。</li>
@@ -394,7 +335,7 @@
 <h3 id="Unconstrained"><a href="#Unconstrained" class="headerlink" title="Unconstrained"></a>Unconstrained</h3><p>不受约束的任务（图4）代表更常见的集成笔运动。当用户按下“完成”按钮时，这些任务被视为完成</p>
 <p>绘图：将显示屏左侧显示的笑脸复制到73×73 mm的正方形中。实验人员监视参与者，以确保他们画出了所有部位（头部，眼睛，嘴巴，鼻子，耳朵）。在所有姿势下都使用相同的图像进行直接比较</p>
 <p>写作：在24厘米基线上写“重要”字。该单词被选为常见的9个字母的单词，具有多种字母和印刷多样性。</p>
-<p><img src="https://user-images.githubusercontent.com/17808702/71764834-035f5c80-2f28-11ea-9711-4b38f2c926af.png" alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/17808702/71764834-035f5c80-2f28-11ea-9711-4b38f2c926af.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <h3 id="Postures"><a href="#Postures" class="headerlink" title="Postures"></a>Postures</h3><p>我们评估35种姿势；表1中的所有33种候选姿势（3种手掌接触状态各10种手指状态）加上3种其他特定姿势。此外，我们使用两种姿势作为上下基线，来规范参与者的主观评分范围。我们选择正常（但参与者自然握笔）作为上限，选择Side-Thumb-Index-MiddleIn-PinkyIn作为下限，因为在所有参与者都能完成的姿势中，它在飞行员测试中得到的评分最低</p>
 <h3 id="Design-and-Protocol"><a href="#Design-and-Protocol" class="headerlink" title="Design and Protocol"></a>Design and Protocol</h3><p>主要的自变量是姿势，33个分类水平代表每个姿势进行测试。为了使实验更容易进行，我们将每个手掌接触的所有姿势分为三组：10个跟、11个侧面和12个漂浮。三组的顺序是用平衡拉丁方来确定的。在每组中，姿势的顺序是随机的。两个部分之间至少需要30秒的休息时间，参与者可以在任何任务之间停下来放松或伸出手。两种底线姿势在实验开始时进行。</p>
 <p>对于每一个姿势，参与者首先被呈现一个通常持续20到140秒的训练部分，这是从实验者描述和演示参与者在一个空的绘画画布上练习的姿势开始的。接下来是受约束任务的子集。</p>
@@ -408,11 +349,11 @@
 <p>双握指接触侧掌和非握指伸出侧掌（STIMRP）的起始误差最大，环指和小指向内的跟掌（H-rp）的起始误差最大。这些错误率超过了基线姿势的错误率</p>
 <h3 id="Duration-and-Speed"><a href="#Duration-and-Speed" class="headerlink" title="Duration and Speed"></a>Duration and Speed</h3><p>完成任务的时间和速度表明了整体的信任和表达能力。我们计算了两个持续时间指标：无约束绘图和书写任务的总行程时间（图5d中的持续时间UC）和完成所有约束攻丝和跟踪任务的总时间（图5e中的持续时间C）。平原侧，脚跟和浮动手掌都显示低持续时间。双握指和所有非握指伸出的侧掌（STIMRP）明显缓慢，与低基线姿势相当。</p>
 <p>我们还检查了追踪任务期间的平均行程速度（图5f）。漂浮的手掌姿态是一种快速姿态，可以解释更高的误差。其他姿势跨越上下基线姿势的速度，少数姿势，如侧掌和跟掌，稍微超过上基线</p>
-<p><img src="https://user-images.githubusercontent.com/17808702/71765250-29d3c680-2f2d-11ea-892c-d5ffbd4d0220.png" alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/17808702/71765250-29d3c680-2f2d-11ea-892c-d5ffbd4d0220.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <h2 id="DISCUSSION-AND-DESIGN-IMPLICATIONS"><a href="#DISCUSSION-AND-DESIGN-IMPLICATIONS" class="headerlink" title="DISCUSSION AND DESIGN IMPLICATIONS"></a>DISCUSSION AND DESIGN IMPLICATIONS</h2><p>偏好模式和其他指标表明，大多数姿势都是合理使用的。对于错误和时间度量，高等级姿势的表现存在一些差异。</p>
 <p>例如，首选的漂浮手掌姿势显示出更高的误差，但较低的持续时间和更快的运动。为了更仔细地考虑这一点，并将我们的发现总结为推荐或避免的姿势组，我们使用度量组合对实验数据进行聚类</p>
 <h3 id="Recommendations-Based-on-Clustering"><a href="#Recommendations-Based-on-Clustering" class="headerlink" title="Recommendations Based on Clustering"></a>Recommendations Based on Clustering</h3><p>K-means用于将姿势分为五组，以表示从首选姿势到可能避免或用于不经常动作的姿势。由于在考虑误差和时间相关度量时存在一些分歧，我们基于两个特征向量创建了两组簇姿态。第一组集中在3个维度上的错误：首选项、开始错误和跟踪错误。第二组关注4个维度的时间相关度量：偏好、持续时间UC、持续时间C和绘制速度。在这两种情况下，考虑到偏好维度的重要性，将其包含在内，并使用平均簇偏好来建立相对的群排序</p>
-<p><img src="https://user-images.githubusercontent.com/17808702/71765289-96e75c00-2f2d-11ea-8297-9595094f31fe.png" alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/17808702/71765289-96e75c00-2f2d-11ea-8297-9595094f31fe.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <p>聚类结果如图6所示。正如所料，上下基线姿势出现在最高和最低组。前两组分别为平侧、后跟和漂浮手掌。对于与时间相关的测量，笔指姿势和脚跟非笔尖姿势之间存在一些聚类分离，这表明前者使用起来更加自信。无名指和小指的侧掌在有序组之间的移动最大，但所有其他姿势的移动不超过一个相邻组</p>
 <h3 id="Left-Handed-Participant-Pilot"><a href="#Left-Handed-Participant-Pilot" class="headerlink" title="Left-Handed Participant Pilot"></a>Left-Handed Participant Pilot</h3><p>我们还对三个左撇子参与者进行了完整的研究，他们在量表和模式上发现了与上述相似的结果。值得注意的例外包括更喜欢平实的跟姿势，更不喜欢平实的漂浮姿势，以及强烈不喜欢跟上有无名指和小指。在错误方面，任何握指接触的脚跟姿势都会显示出更明显的错误增加，而且在高的绘制速度下，漂浮手掌的分离更加清晰。尽管存在一些差异，但总体模式是相似的，我们相信交互技术和姿势建议也适用于左撇子用户。</p>
 <h3 id="Design-Implications"><a href="#Design-Implications" class="headerlink" title="Design Implications"></a>Design Implications</h3><p>总的来说，我们的研究结果表明，设计师应该偏爱侧摆和浮掌姿势，而不是使用脚跟，除了普通脚跟（H–）和脚跟小指（H–P）姿势。最好是手指不握的姿势，在这一组中，只使用小指（P或*–P）或匹配的戒指和小指组合（RP或*–RP）的姿势是不错的选择。用一个浮动的手掌（F–MRP）将所有非握紧的手指放出来也是一个合理的选择。虽然用手指触摸的姿势没有排名高，聚类练习表明，他们可能是不太精确的快速动作的好候选人。</p>
@@ -422,17 +363,17 @@
 <h3 id="Classification"><a href="#Classification" class="headerlink" title="Classification"></a>Classification</h3><p>原始的电容触摸图像可以很好地利用神经网络进行自然图像分类，如CNNs，因此我们采用了类似的方法。因为除了原始的触摸输入之外，我们还有笔的数据，所以我们增加了每个触摸帧的单通道图像，增加了两个额外的通道来捕捉笔的位置和接触状态。具体地说，如果鼠标悬停，我们在第二通道以笔尖坐标为中心画圆点;如果触摸，我们在第三通道以笔尖坐标为中心画圆点。图7显示了该数据合并操作产生的三通道图像的示例。</p>
 <p>姿势分类使用基于VGG16模型的深层神经网络，卷积层在ImageNet上预先训练。这种对自然图像的预训练允许网络在与其他图像一起进行分类时，仅在几个时期后收敛。此外，VGG是众所周知的，因此可重复，并可与其他工作进行比较。</p>
 <p>在最后卷积之后的最大池操作之后提取网络的特征，然后通过1024个单元的完全连接层馈送，最后通过输出大小等于类数的另一个完全连接层馈送。第一个线性层使用ReLU激活和以0.4的比率退出。该网络使用Adam优化器进行训练，学习率为0.001，批量大小为128，权重衰减设置为0.001。我们的神经网络架构是使用Chainer框架在Python中实现的</p>
-<p><img src="https://user-images.githubusercontent.com/17808702/71768464-0f134900-2f51-11ea-81e5-4c02c9c1ed78.png" alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/17808702/71768464-0f134900-2f51-11ea-81e5-4c02c9c1ed78.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <h3 id="Training-and-Validation"><a href="#Training-and-Validation" class="headerlink" title="Training and Validation"></a>Training and Validation</h3><p>为了训练我们的VGG网络，我们使用了以下笔为中心的200ms窗口中包含的笔和触摸组合数据的三个通道图像，因为此时将做出大多数姿势分类决策。只使用了带有实际笔数据的图像，这意味着笔在悬停或接触表面的可检测范围内。我们将参与者数据分成15个训练和3个验证集（12个实验参与者，3个左手参与者，3个其他参与者）。左撇子参与者的数据是镜像的。我们不包括用于分类的纯浮动手掌位置，因为它没有触摸数据，因此易于区分。每个姿势的帧数大约为训练集的9000到12000，测试集的1300到2500。我们通过应用随机平移、光照缩放和旋转变换，通过数据增强人工地将这些样本加倍。这些操作增加了数据的多样性，并填充了实验任务未充分覆盖的屏幕区域。</p>
 <p>我们对我们的两个姿势集进行了30次重复随机子采样，并使用了leave-3-out方案。对于每一次运行，我们记录了5个epoch内的最大总体精度和最小损失(softmax交叉熵)，并计算了在30次运行中获得的平均和最大精度和损失。我们还保存了与每次运行的最大精度和最小损失相关联的神经网络模型，以进行详细分析。</p>
 <h3 id="Results-1"><a href="#Results-1" class="headerlink" title="Results"></a>Results</h3><p>在34个姿势中，我们得到了平均整体交流率为62.2%，相关损失为1.82，其中表现最好的模型准确度为70%，损失为1.63。每次运行中最佳模型的平均精度的混淆矩阵如图8所示。</p>
 <p>从矩阵中可以看出，正常的手掌姿势和侧掌姿势经常混淆，这是人们在正常书写时，手靠在掌心上休息时所能预料到的。侧掌姿势与食指或拇指触摸周围的笔尖也显示出较差的识别精度，可能是因为他们太近，他们的触摸打印不够清晰。一般来说，侧边和脚后跟的姿势之间似乎有些模糊，这也并不奇怪，因为当手指定位和拖动手掌表面时，手掌底部不可避免地会滚动。基于手掌的漂浮姿势不会出现这种混乱，因此通常得分更高。<br>对于10姿态集，总体平均准确率为91.4%，损失0.50，表现最好的模型准确率为96%，损失0.20。这些结果表明，理论上，我们选择的姿势可以在真实的应用程序上下文中可靠地检测到。我们使用最佳模型作为第二项研究中应用程序的识别基础</p>
-<p><img src="https://user-images.githubusercontent.com/17808702/71768522-abd5e680-2f51-11ea-8bb6-9e36f74c7e01.png" alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/17808702/71768522-abd5e680-2f51-11ea-8bb6-9e36f74c7e01.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <h2 id="APPLICATION-DEMONSTRATIONS"><a href="#APPLICATION-DEMONSTRATIONS" class="headerlink" title="APPLICATION DEMONSTRATIONS"></a>APPLICATION DEMONSTRATIONS</h2><p>为了演示如何在实际应用程序上下文中应用unimanual pen+touch input，我们为两种典型的任务类型创建了一个基于姿势的接口:文档注释(使用Foxit Reader)和矢量绘图(使用Inkscape)。前者是一个更简单、更直观的应用程序，因为它与现实世界类似。后者更复杂，需要密集的工具集才能有效地使用。我们使用桌面应用程序进行快速原型设计，但是一般的概念一般适用于专门构建的平板应用程序。</p>
 <p>我们创建了三个专门为普通笔输入设计的小部件:径向菜单、手势输入和用于文本输入的手写识别(图9)。手势输入使用六种标准的微软应用手势:左半圆和右半圆用于撤销和重做;上下翻页进行复制和粘贴;还有一个“划掉”之字形的“删除”。</p>
-<p><img src="https://user-images.githubusercontent.com/17808702/71768576-171fb880-2f52-11ea-83f7-1cf5fa0ea567.png" alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/17808702/71768576-171fb880-2f52-11ea-83f7-1cf5fa0ea567.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <h3 id="Posture-Mapping-and-Interfaces"><a href="#Posture-Mapping-and-Interfaces" class="headerlink" title="Posture Mapping and Interfaces"></a>Posture Mapping and Interfaces</h3><p>我们使用一组10个姿势，设计了映射和接口，以优化语义接近性和姿势动作适宜性(表2)。在选择姿势集和将姿势映射到应用程序命令时，考虑了适宜性实验的结果。视频提供了完整的应用演示。</p>
-<p><img src="https://user-images.githubusercontent.com/17808702/71768587-433b3980-2f52-11ea-927c-cd31c6f3b135.png" alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/17808702/71768587-433b3980-2f52-11ea-927c-cd31c6f3b135.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <p>语义接近:这是通过将相似的动作映射到相关的姿势来实现的。在这两个应用程序中，侧掌姿势与创建相关:绘图、代位、创建形状等，而浮动掌姿势与更多的“宏观”交互相关:在矢量编辑器中选择、转换和样式;在文档注释器中导航和搜索。</p>
 <p>姿势动作的适宜性:这是通过将常见的动作映射到更喜欢、限制更少的姿势来实现的。在这两个应用程序中，最常见、最要求精度的工具被映射到Side，而下一个最常见的工具被映射到Side- pinkyout。这两种姿势都有较高的偏好评分和准确性结果。菜单由允许笔尖运动但限制手的运动的姿势触发，例如使用RingOut-PinkyOut。在文档an- notation中，另一个同样简单的姿势Heel被用于高亮显示的常见动作。需要较少精度的动作，如手势，被分配到精度较低的结果，漂浮指数</p>
 <h3 id="Technical-Implementation"><a href="#Technical-Implementation" class="headerlink" title="Technical Implementation"></a>Technical Implementation</h3><p>我们的实现作为全局服务运行，该服务在后台运行识别器并将命令注入当前应用程序。通过定义一个YAML配置文件，可以根据前景窗口的标题自动激活该应用程序，从而为任何应用程序提供单一的Pen + Touch界面。全局服务（C＃、. NET，WPF）使用套接字将原始的触摸和笔输入数据转发到识别器（Python）。为了提高性能，该服务每150ms触发一次识别请求，该请求由最新的8帧输入组成。一切都是异步完成的，因此不会引入软件滞后，并且不会增加笔或触摸事件的延迟。从发生姿势变化到系统识别到它的最大可能延迟时间是200ms。但是，由于姿势需要一些时间才能形成，因此这种延迟在实践中并不明显。然后，基于识别的姿势，该服务通过发送键盘快捷键，按键或鼠标事件（使用Window的SendKeys和inputsimulator），显示笔本地化的径向菜单（使用自定义WPF窗口）来触发对前台应用程序的操作。通过收集笔势进行手势或文本识别（使用Microsoft的InkCanvas API）。</p>
@@ -457,223 +398,344 @@
 <p>合理的下一步是使用标准模式切换实验协议来正式测试不同姿势之间切换的性能[18，35]。而且，与标记菜单等技术的直接比较将建立相对于流行基准的性能基准。我们假设单笔触摸手势的姿势与命令激活与直接操作之间的联系更加紧密，但是与标记菜单不同，没有明显的方法可以支持新手到专家的学习。</p>
 <p>未来的其他方向包括探索用于移动平板电脑或其他非三脚架握持姿势（例如电动握持器）的一小部分姿势，这些姿势只能使用触摸表面上的电容模式来感知。我们的希望是，我们的工作有助于使笔输入更具表现力，这意味着输入空间会增加并且更加细微。我们仍然对人的手有多么出色以及在获得适当的数字支持后的能力感到敬畏。</p>
 
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Unimanual Pen+Touch Input Using Variations of Precision Grip Postures</div>
+      <div>https://zhangfuli.github.io/2020/01/03/Unimanual-Pen-Touch-Input-Using-Variations-of-Precision-Grip-Postures/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>张富利</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年1月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
       
     </div>
-    <div class="article-footer">
-      <blockquote class="mt-2x">
-  <ul class="post-copyright list-unstyled">
-    
-    <li class="post-copyright-link hidden-xs">
-      <strong>本文链接：</strong>
-      <a href="https://zhangfuli.github.io/2020/01/03/Unimanual-Pen-Touch-Input-Using-Variations-of-Precision-Grip-Postures/" title="Unimanual Pen+Touch Input Using Variations of Precision Grip Postures" target="_blank" rel="external">https://zhangfuli.github.io/2020/01/03/Unimanual-Pen-Touch-Input-Using-Variations-of-Precision-Grip-Postures/</a>
-    </li>
-    
-    <li class="post-copyright-license">
-      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
-    </li>
-  </ul>
-</blockquote>
-
-
-<div class="panel panel-default panel-badger">
-  <div class="panel-body">
-    <figure class="media">
-      <div class="media-left">
-        <a href="https://github.com/zhangfuli" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
-        </a>
-      </div>
-      <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/zhangfuli" target="_blank"><span class="text-dark">张富利</span><small class="ml-1x">学生</small></a></h3>
-        <div>Do myself,Believe myself,Try my best</div>
-      </div>
-    </figure>
+    <div class="license-icon iconfont"></div>
   </div>
-</div>
 
 
-    </div>
-  </article>
-  
-    
-  <section id="comments">
-  	
-      <div id="vcomments"></div>
-    
-  </section>
 
-
-  
-</div>
-
-  <nav class="bar bar-footer clearfix" data-stick-bottom>
-  <div class="bar-inner">
-  
-  <ul class="pager pull-left">
-    
-    <li class="prev">
-      <a href="/2020/01/10/%E9%9D%A2%E5%90%91%E8%80%83%E8%AF%95%E7%9A%84%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E6%95%B4%E7%90%86/" title="面向考试的数据仓库整理"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
-    </li>
-    
-    
-    <li class="next">
-      <a href="/2019/12/18/Technology-Mediated-Social-Participation-The-Next-25-Years-of-HCI-Challenges/" title="Technology-Mediated Social Participation: The Next 25 Years of HCI Challenges"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
-    </li>
-    
-    
-  </ul>
-  
-  
-  <!-- Button trigger modal -->
-  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button>
-  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
-    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
-  </div> -->
-  
-  
-  <div class="bar-right">
-    
-    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
-    
-  </div>
-  </div>
-</nav>
-  
-<!-- Modal -->
-<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content donate">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <div class="modal-body">
-        <div class="donate-box">
-          <div class="donate-head">
-            <p>Maybe you could buy me a cup of coffee.</p>
-          </div>
-          <div class="tab-content">
-            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
-              <div class="donate-payimg">
-                <img src="https://user-images.githubusercontent.com/17808702/65498969-6d12a800-deef-11e9-927a-89d5d0ce9e42.png" alt="Scan Qrcode" title="Scan" />
-              </div>
-              <p class="text-muted mv">Scan this qrcode</p>
-              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/01/10/%E9%9D%A2%E5%90%91%E8%80%83%E8%AF%95%E7%9A%84%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E6%95%B4%E7%90%86/" title="面向考试的数据仓库整理">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">面向考试的数据仓库整理</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/12/18/Technology-Mediated-Social-Participation-The-Next-25-Years-of-HCI-Challenges/" title="Technology-Mediated Social Participation: The Next 25 Years of HCI Challenges">
+                        <span class="hidden-mobile">Technology-Mediated Social Participation: The Next 25 Years of HCI Challenges</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
             </div>
-            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
-              <div class="donate-payimg">
-                <img src="https://user-images.githubusercontent.com/17808702/65498913-4fddd980-deef-11e9-9da1-56f86199713b.png" alt="Scan Qrcode" title="Scan" />
-              </div>
-              <p class="text-muted mv">Scan this qrcode</p>
-              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
-            </div>
-          </div>
-          <div class="donate-footer">
-            <ul class="nav nav-tabs nav-justified" role="tablist">
-              <li role="presentation" class="active">
-                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
-              </li>
-              <li role="presentation" class="">
-                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
-              </li>
-            </ul>
-          </div>
+
+            
+          </article>
         </div>
       </div>
     </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
   </div>
 </div>
 
 
 
-</main>
-
-  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
-	
-	
-    <ul class="social-links">
-    	
-        <li><a href="https://github.com/zhangfuli" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
-        
-        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
-        
-    </ul>
-
-    <div class="copyright">
-    	
-        <div class="publishby">
-        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
-        </div>
-    </div>
-</footer>
-  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-<script>
-window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
-</script>
-
-<script src="/js/plugin.min.js"></script>
 
 
-<script src="/js/application.js"></script>
+  
 
 
-    <script>
-(function (window) {
-    var INSIGHT_CONFIG = {
-        TRANSLATION: {
-            POSTS: 'Posts',
-            PAGES: 'Pages',
-            CATEGORIES: 'Categories',
-            TAGS: 'Tags',
-            UNTITLED: '(Untitled)',
-        },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
-    };
-    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-})(window);
-</script>
 
-<script src="/js/insight.js"></script>
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
 
 
 
 
 
 
-   
 
-
-
-
-   
     
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/valine"></script>
-  <script type="text/javascript">
-  var GUEST = ['nick', 'mail', 'link'];
-  var meta = 'nick,mail,link';
-  meta = meta.split(',').filter(function(item) {
-    return GUEST.indexOf(item) > -1;
-  });
-  new Valine({
-    el: '#vcomments',
-    verify: false,
-    notify: false,
-    appId: 'e0m4Aw9mFAjO1UuHuINbSEOm-gzGzoHsz',
-    appKey: 'VwY3lLrV5rMPSG6AFGO87omg',
-    placeholder: 'Just go go',
-    avatar: 'mm',
-    meta: meta,
-    pageSize: '10' || 10,
-    visitor: false
-  });
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
   </script>
 
-     
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
 
 
 
 
 
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
 
 
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
 </body>
 </html>
